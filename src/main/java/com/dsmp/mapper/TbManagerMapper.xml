@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbManagerMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbManager" >
+    <id column="man_id" property="manId" jdbcType="INTEGER" />
+    <result column="rol_id" property="rolId" jdbcType="INTEGER" />
+    <result column="man_name" property="manName" jdbcType="VARCHAR" />
+    <result column="man_account" property="manAccount" jdbcType="VARCHAR" />
+    <result column="man_password" property="manPassword" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    man_id, rol_id, man_name, man_account, man_password
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dsmp.pojo.TbManagerExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_manager
+    where man_id = #{manId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_manager
+    where man_id = #{manId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dsmp.pojo.TbManagerExample" >
+    delete from tb_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dsmp.pojo.TbManager" >
+    insert into tb_manager (man_id, rol_id, man_name, 
+      man_account, man_password)
+    values (#{manId,jdbcType=INTEGER}, #{rolId,jdbcType=INTEGER}, #{manName,jdbcType=VARCHAR}, 
+      #{manAccount,jdbcType=VARCHAR}, #{manPassword,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dsmp.pojo.TbManager" >
+    insert into tb_manager
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="manId != null" >
+        man_id,
+      </if>
+      <if test="rolId != null" >
+        rol_id,
+      </if>
+      <if test="manName != null" >
+        man_name,
+      </if>
+      <if test="manAccount != null" >
+        man_account,
+      </if>
+      <if test="manPassword != null" >
+        man_password,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="manId != null" >
+        #{manId,jdbcType=INTEGER},
+      </if>
+      <if test="rolId != null" >
+        #{rolId,jdbcType=INTEGER},
+      </if>
+      <if test="manName != null" >
+        #{manName,jdbcType=VARCHAR},
+      </if>
+      <if test="manAccount != null" >
+        #{manAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="manPassword != null" >
+        #{manPassword,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dsmp.pojo.TbManagerExample" resultType="java.lang.Integer" >
+    select count(*) from tb_manager
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_manager
+    <set >
+      <if test="record.manId != null" >
+        man_id = #{record.manId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rolId != null" >
+        rol_id = #{record.rolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.manName != null" >
+        man_name = #{record.manName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manAccount != null" >
+        man_account = #{record.manAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.manPassword != null" >
+        man_password = #{record.manPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_manager
+    set man_id = #{record.manId,jdbcType=INTEGER},
+      rol_id = #{record.rolId,jdbcType=INTEGER},
+      man_name = #{record.manName,jdbcType=VARCHAR},
+      man_account = #{record.manAccount,jdbcType=VARCHAR},
+      man_password = #{record.manPassword,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbManager" >
+    update tb_manager
+    <set >
+      <if test="rolId != null" >
+        rol_id = #{rolId,jdbcType=INTEGER},
+      </if>
+      <if test="manName != null" >
+        man_name = #{manName,jdbcType=VARCHAR},
+      </if>
+      <if test="manAccount != null" >
+        man_account = #{manAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="manPassword != null" >
+        man_password = #{manPassword,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where man_id = #{manId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dsmp.pojo.TbManager" >
+    update tb_manager
+    set rol_id = #{rolId,jdbcType=INTEGER},
+      man_name = #{manName,jdbcType=VARCHAR},
+      man_account = #{manAccount,jdbcType=VARCHAR},
+      man_password = #{manPassword,jdbcType=VARCHAR}
+    where man_id = #{manId,jdbcType=INTEGER}
+  </update>
+</mapper>

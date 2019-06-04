@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbStudentMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbStudent" >
+    <id column="stu_id" property="stuId" jdbcType="INTEGER" />
+    <result column="coa_id" property="coaId" jdbcType="INTEGER" />
+    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+    <result column="stu_account" property="stuAccount" jdbcType="VARCHAR" />
+    <result column="stu_password" property="stuPassword" jdbcType="VARCHAR" />
+    <result column="stu_sex" property="stuSex" jdbcType="VARCHAR" />
+    <result column="stu_birthday" property="stuBirthday" jdbcType="VARCHAR" />
+    <result column="stu_idcard" property="stuIdcard" jdbcType="VARCHAR" />
+    <result column="stu_img" property="stuImg" jdbcType="VARCHAR" />
+    <result column="stu_headimg" property="stuHeadimg" jdbcType="VARCHAR" />
+    <result column="stu_address" property="stuAddress" jdbcType="VARCHAR" />
+    <result column="stu_registertime" property="stuRegistertime" jdbcType="TIMESTAMP" />
+    <result column="stu_errCount" property="stuErrcount" jdbcType="INTEGER" />
+    <result column="stu_errTime" property="stuErrtime" jdbcType="TIMESTAMP" />
+    <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
+    <result column="stu_signUpTime" property="stuSignuptime" jdbcType="TIMESTAMP" />
+    <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    stu_id, coa_id, sch_id, sub_id, stu_name, stu_account, stu_password, stu_sex, stu_birthday, 
+    stu_idcard, stu_img, stu_headimg, stu_address, stu_registertime, stu_errCount, stu_errTime, 
+    stu_status, stu_signUpTime, stu_verifyStatus
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dsmp.pojo.TbStudentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_student
+    where stu_id = #{stuId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_student
+    where stu_id = #{stuId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dsmp.pojo.TbStudentExample" >
+    delete from tb_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dsmp.pojo.TbStudent" >
+    insert into tb_student (stu_id, coa_id, sch_id, 
+      sub_id, stu_name, stu_account, 
+      stu_password, stu_sex, stu_birthday, 
+      stu_idcard, stu_img, stu_headimg, 
+      stu_address, stu_registertime, stu_errCount, 
+      stu_errTime, stu_status, stu_signUpTime, 
+      stu_verifyStatus)
+    values (#{stuId,jdbcType=INTEGER}, #{coaId,jdbcType=INTEGER}, #{schId,jdbcType=INTEGER}, 
+      #{subId,jdbcType=INTEGER}, #{stuName,jdbcType=VARCHAR}, #{stuAccount,jdbcType=VARCHAR}, 
+      #{stuPassword,jdbcType=VARCHAR}, #{stuSex,jdbcType=VARCHAR}, #{stuBirthday,jdbcType=VARCHAR}, 
+      #{stuIdcard,jdbcType=VARCHAR}, #{stuImg,jdbcType=VARCHAR}, #{stuHeadimg,jdbcType=VARCHAR}, 
+      #{stuAddress,jdbcType=VARCHAR}, #{stuRegistertime,jdbcType=TIMESTAMP}, #{stuErrcount,jdbcType=INTEGER}, 
+      #{stuErrtime,jdbcType=TIMESTAMP}, #{stuStatus,jdbcType=VARCHAR}, #{stuSignuptime,jdbcType=TIMESTAMP}, 
+      #{stuVerifystatus,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dsmp.pojo.TbStudent" >
+    insert into tb_student
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        stu_id,
+      </if>
+      <if test="coaId != null" >
+        coa_id,
+      </if>
+      <if test="schId != null" >
+        sch_id,
+      </if>
+      <if test="subId != null" >
+        sub_id,
+      </if>
+      <if test="stuName != null" >
+        stu_name,
+      </if>
+      <if test="stuAccount != null" >
+        stu_account,
+      </if>
+      <if test="stuPassword != null" >
+        stu_password,
+      </if>
+      <if test="stuSex != null" >
+        stu_sex,
+      </if>
+      <if test="stuBirthday != null" >
+        stu_birthday,
+      </if>
+      <if test="stuIdcard != null" >
+        stu_idcard,
+      </if>
+      <if test="stuImg != null" >
+        stu_img,
+      </if>
+      <if test="stuHeadimg != null" >
+        stu_headimg,
+      </if>
+      <if test="stuAddress != null" >
+        stu_address,
+      </if>
+      <if test="stuRegistertime != null" >
+        stu_registertime,
+      </if>
+      <if test="stuErrcount != null" >
+        stu_errCount,
+      </if>
+      <if test="stuErrtime != null" >
+        stu_errTime,
+      </if>
+      <if test="stuStatus != null" >
+        stu_status,
+      </if>
+      <if test="stuSignuptime != null" >
+        stu_signUpTime,
+      </if>
+      <if test="stuVerifystatus != null" >
+        stu_verifyStatus,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="stuId != null" >
+        #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="coaId != null" >
+        #{coaId,jdbcType=INTEGER},
+      </if>
+      <if test="schId != null" >
+        #{schId,jdbcType=INTEGER},
+      </if>
+      <if test="subId != null" >
+        #{subId,jdbcType=INTEGER},
+      </if>
+      <if test="stuName != null" >
+        #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAccount != null" >
+        #{stuAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="stuPassword != null" >
+        #{stuPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="stuSex != null" >
+        #{stuSex,jdbcType=VARCHAR},
+      </if>
+      <if test="stuBirthday != null" >
+        #{stuBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="stuIdcard != null" >
+        #{stuIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="stuImg != null" >
+        #{stuImg,jdbcType=VARCHAR},
+      </if>
+      <if test="stuHeadimg != null" >
+        #{stuHeadimg,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAddress != null" >
+        #{stuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stuRegistertime != null" >
+        #{stuRegistertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stuErrcount != null" >
+        #{stuErrcount,jdbcType=INTEGER},
+      </if>
+      <if test="stuErrtime != null" >
+        #{stuErrtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stuStatus != null" >
+        #{stuStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="stuSignuptime != null" >
+        #{stuSignuptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stuVerifystatus != null" >
+        #{stuVerifystatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dsmp.pojo.TbStudentExample" resultType="java.lang.Integer" >
+    select count(*) from tb_student
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_student
+    <set >
+      <if test="record.stuId != null" >
+        stu_id = #{record.stuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.coaId != null" >
+        coa_id = #{record.coaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.schId != null" >
+        sch_id = #{record.schId,jdbcType=INTEGER},
+      </if>
+      <if test="record.subId != null" >
+        sub_id = #{record.subId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuName != null" >
+        stu_name = #{record.stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuAccount != null" >
+        stu_account = #{record.stuAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuPassword != null" >
+        stu_password = #{record.stuPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuSex != null" >
+        stu_sex = #{record.stuSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuBirthday != null" >
+        stu_birthday = #{record.stuBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuIdcard != null" >
+        stu_idcard = #{record.stuIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuImg != null" >
+        stu_img = #{record.stuImg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuHeadimg != null" >
+        stu_headimg = #{record.stuHeadimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuAddress != null" >
+        stu_address = #{record.stuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuRegistertime != null" >
+        stu_registertime = #{record.stuRegistertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.stuErrcount != null" >
+        stu_errCount = #{record.stuErrcount,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuErrtime != null" >
+        stu_errTime = #{record.stuErrtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.stuStatus != null" >
+        stu_status = #{record.stuStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stuSignuptime != null" >
+        stu_signUpTime = #{record.stuSignuptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.stuVerifystatus != null" >
+        stu_verifyStatus = #{record.stuVerifystatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_student
+    set stu_id = #{record.stuId,jdbcType=INTEGER},
+      coa_id = #{record.coaId,jdbcType=INTEGER},
+      sch_id = #{record.schId,jdbcType=INTEGER},
+      sub_id = #{record.subId,jdbcType=INTEGER},
+      stu_name = #{record.stuName,jdbcType=VARCHAR},
+      stu_account = #{record.stuAccount,jdbcType=VARCHAR},
+      stu_password = #{record.stuPassword,jdbcType=VARCHAR},
+      stu_sex = #{record.stuSex,jdbcType=VARCHAR},
+      stu_birthday = #{record.stuBirthday,jdbcType=VARCHAR},
+      stu_idcard = #{record.stuIdcard,jdbcType=VARCHAR},
+      stu_img = #{record.stuImg,jdbcType=VARCHAR},
+      stu_headimg = #{record.stuHeadimg,jdbcType=VARCHAR},
+      stu_address = #{record.stuAddress,jdbcType=VARCHAR},
+      stu_registertime = #{record.stuRegistertime,jdbcType=TIMESTAMP},
+      stu_errCount = #{record.stuErrcount,jdbcType=INTEGER},
+      stu_errTime = #{record.stuErrtime,jdbcType=TIMESTAMP},
+      stu_status = #{record.stuStatus,jdbcType=VARCHAR},
+      stu_signUpTime = #{record.stuSignuptime,jdbcType=TIMESTAMP},
+      stu_verifyStatus = #{record.stuVerifystatus,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbStudent" >
+    update tb_student
+    <set >
+      <if test="coaId != null" >
+        coa_id = #{coaId,jdbcType=INTEGER},
+      </if>
+      <if test="schId != null" >
+        sch_id = #{schId,jdbcType=INTEGER},
+      </if>
+      <if test="subId != null" >
+        sub_id = #{subId,jdbcType=INTEGER},
+      </if>
+      <if test="stuName != null" >
+        stu_name = #{stuName,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAccount != null" >
+        stu_account = #{stuAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="stuPassword != null" >
+        stu_password = #{stuPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="stuSex != null" >
+        stu_sex = #{stuSex,jdbcType=VARCHAR},
+      </if>
+      <if test="stuBirthday != null" >
+        stu_birthday = #{stuBirthday,jdbcType=VARCHAR},
+      </if>
+      <if test="stuIdcard != null" >
+        stu_idcard = #{stuIdcard,jdbcType=VARCHAR},
+      </if>
+      <if test="stuImg != null" >
+        stu_img = #{stuImg,jdbcType=VARCHAR},
+      </if>
+      <if test="stuHeadimg != null" >
+        stu_headimg = #{stuHeadimg,jdbcType=VARCHAR},
+      </if>
+      <if test="stuAddress != null" >
+        stu_address = #{stuAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="stuRegistertime != null" >
+        stu_registertime = #{stuRegistertime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stuErrcount != null" >
+        stu_errCount = #{stuErrcount,jdbcType=INTEGER},
+      </if>
+      <if test="stuErrtime != null" >
+        stu_errTime = #{stuErrtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stuStatus != null" >
+        stu_status = #{stuStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="stuSignuptime != null" >
+        stu_signUpTime = #{stuSignuptime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="stuVerifystatus != null" >
+        stu_verifyStatus = #{stuVerifystatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stu_id = #{stuId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dsmp.pojo.TbStudent" >
+    update tb_student
+    set coa_id = #{coaId,jdbcType=INTEGER},
+      sch_id = #{schId,jdbcType=INTEGER},
+      sub_id = #{subId,jdbcType=INTEGER},
+      stu_name = #{stuName,jdbcType=VARCHAR},
+      stu_account = #{stuAccount,jdbcType=VARCHAR},
+      stu_password = #{stuPassword,jdbcType=VARCHAR},
+      stu_sex = #{stuSex,jdbcType=VARCHAR},
+      stu_birthday = #{stuBirthday,jdbcType=VARCHAR},
+      stu_idcard = #{stuIdcard,jdbcType=VARCHAR},
+      stu_img = #{stuImg,jdbcType=VARCHAR},
+      stu_headimg = #{stuHeadimg,jdbcType=VARCHAR},
+      stu_address = #{stuAddress,jdbcType=VARCHAR},
+      stu_registertime = #{stuRegistertime,jdbcType=TIMESTAMP},
+      stu_errCount = #{stuErrcount,jdbcType=INTEGER},
+      stu_errTime = #{stuErrtime,jdbcType=TIMESTAMP},
+      stu_status = #{stuStatus,jdbcType=VARCHAR},
+      stu_signUpTime = #{stuSignuptime,jdbcType=TIMESTAMP},
+      stu_verifyStatus = #{stuVerifystatus,jdbcType=VARCHAR}
+    where stu_id = #{stuId,jdbcType=INTEGER}
+  </update>
+</mapper>

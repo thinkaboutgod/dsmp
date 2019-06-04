@@ -1,0 +1,45 @@
+package com.dsmp.pojo;
+
+import java.util.Date;
+
+public class TbNotice {
+    private Integer notId;
+
+    private String notTitle;
+
+    private String notContent;
+
+    private Date notTime;
+
+    public Integer getNotId() {
+        return notId;
+    }
+
+    public void setNotId(Integer notId) {
+        this.notId = notId;
+    }
+
+    public String getNotTitle() {
+        return notTitle;
+    }
+
+    public void setNotTitle(String notTitle) {
+        this.notTitle = notTitle == null ? null : notTitle.trim();
+    }
+
+    public String getNotContent() {
+        return notContent;
+    }
+
+    public void setNotContent(String notContent) {
+        this.notContent = notContent == null ? null : notContent.trim();
+    }
+
+    public Date getNotTime() {
+        return notTime;
+    }
+
+    public void setNotTime(Date notTime) {
+        this.notTime = notTime;
+    }
+}

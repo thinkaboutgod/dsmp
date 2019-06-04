@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbSchoolMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbSchool" >
+    <id column="sch_id" property="schId" jdbcType="INTEGER" />
+    <result column="rol_id" property="rolId" jdbcType="INTEGER" />
+    <result column="sch_name" property="schName" jdbcType="VARCHAR" />
+    <result column="sch_account" property="schAccount" jdbcType="VARCHAR" />
+    <result column="sch_password" property="schPassword" jdbcType="VARCHAR" />
+    <result column="sch_address" property="schAddress" jdbcType="VARCHAR" />
+    <result column="sch_introduction" property="schIntroduction" jdbcType="VARCHAR" />
+    <result column="sch_bossName" property="schBossname" jdbcType="VARCHAR" />
+    <result column="sch_registerCapital" property="schRegistercapital" jdbcType="INTEGER" />
+    <result column="sch_creditcode" property="schCreditcode" jdbcType="VARCHAR" />
+    <result column="sch_type" property="schType" jdbcType="VARCHAR" />
+    <result column="sch_signUpStatus" property="schSignupstatus" jdbcType="VARCHAR" />
+    <result column="sch_headimg" property="schHeadimg" jdbcType="VARCHAR" />
+    <result column="sch_operativeStatus" property="schOperativestatus" jdbcType="VARCHAR" />
+    <result column="sch_charge" property="schCharge" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sch_id, rol_id, sch_name, sch_account, sch_password, sch_address, sch_introduction, 
+    sch_bossName, sch_registerCapital, sch_creditcode, sch_type, sch_signUpStatus, sch_headimg, 
+    sch_operativeStatus, sch_charge
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dsmp.pojo.TbSchoolExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tb_school
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_school
+    where sch_id = #{schId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_school
+    where sch_id = #{schId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.dsmp.pojo.TbSchoolExample" >
+    delete from tb_school
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.dsmp.pojo.TbSchool" >
+    insert into tb_school (sch_id, rol_id, sch_name, 
+      sch_account, sch_password, sch_address, 
+      sch_introduction, sch_bossName, sch_registerCapital, 
+      sch_creditcode, sch_type, sch_signUpStatus, 
+      sch_headimg, sch_operativeStatus, sch_charge
+      )
+    values (#{schId,jdbcType=INTEGER}, #{rolId,jdbcType=INTEGER}, #{schName,jdbcType=VARCHAR}, 
+      #{schAccount,jdbcType=VARCHAR}, #{schPassword,jdbcType=VARCHAR}, #{schAddress,jdbcType=VARCHAR}, 
+      #{schIntroduction,jdbcType=VARCHAR}, #{schBossname,jdbcType=VARCHAR}, #{schRegistercapital,jdbcType=INTEGER}, 
+      #{schCreditcode,jdbcType=VARCHAR}, #{schType,jdbcType=VARCHAR}, #{schSignupstatus,jdbcType=VARCHAR}, 
+      #{schHeadimg,jdbcType=VARCHAR}, #{schOperativestatus,jdbcType=VARCHAR}, #{schCharge,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dsmp.pojo.TbSchool" >
+    insert into tb_school
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="schId != null" >
+        sch_id,
+      </if>
+      <if test="rolId != null" >
+        rol_id,
+      </if>
+      <if test="schName != null" >
+        sch_name,
+      </if>
+      <if test="schAccount != null" >
+        sch_account,
+      </if>
+      <if test="schPassword != null" >
+        sch_password,
+      </if>
+      <if test="schAddress != null" >
+        sch_address,
+      </if>
+      <if test="schIntroduction != null" >
+        sch_introduction,
+      </if>
+      <if test="schBossname != null" >
+        sch_bossName,
+      </if>
+      <if test="schRegistercapital != null" >
+        sch_registerCapital,
+      </if>
+      <if test="schCreditcode != null" >
+        sch_creditcode,
+      </if>
+      <if test="schType != null" >
+        sch_type,
+      </if>
+      <if test="schSignupstatus != null" >
+        sch_signUpStatus,
+      </if>
+      <if test="schHeadimg != null" >
+        sch_headimg,
+      </if>
+      <if test="schOperativestatus != null" >
+        sch_operativeStatus,
+      </if>
+      <if test="schCharge != null" >
+        sch_charge,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="schId != null" >
+        #{schId,jdbcType=INTEGER},
+      </if>
+      <if test="rolId != null" >
+        #{rolId,jdbcType=INTEGER},
+      </if>
+      <if test="schName != null" >
+        #{schName,jdbcType=VARCHAR},
+      </if>
+      <if test="schAccount != null" >
+        #{schAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="schPassword != null" >
+        #{schPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="schAddress != null" >
+        #{schAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="schIntroduction != null" >
+        #{schIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="schBossname != null" >
+        #{schBossname,jdbcType=VARCHAR},
+      </if>
+      <if test="schRegistercapital != null" >
+        #{schRegistercapital,jdbcType=INTEGER},
+      </if>
+      <if test="schCreditcode != null" >
+        #{schCreditcode,jdbcType=VARCHAR},
+      </if>
+      <if test="schType != null" >
+        #{schType,jdbcType=VARCHAR},
+      </if>
+      <if test="schSignupstatus != null" >
+        #{schSignupstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="schHeadimg != null" >
+        #{schHeadimg,jdbcType=VARCHAR},
+      </if>
+      <if test="schOperativestatus != null" >
+        #{schOperativestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="schCharge != null" >
+        #{schCharge,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.dsmp.pojo.TbSchoolExample" resultType="java.lang.Integer" >
+    select count(*) from tb_school
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update tb_school
+    <set >
+      <if test="record.schId != null" >
+        sch_id = #{record.schId,jdbcType=INTEGER},
+      </if>
+      <if test="record.rolId != null" >
+        rol_id = #{record.rolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.schName != null" >
+        sch_name = #{record.schName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schAccount != null" >
+        sch_account = #{record.schAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schPassword != null" >
+        sch_password = #{record.schPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schAddress != null" >
+        sch_address = #{record.schAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schIntroduction != null" >
+        sch_introduction = #{record.schIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schBossname != null" >
+        sch_bossName = #{record.schBossname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schRegistercapital != null" >
+        sch_registerCapital = #{record.schRegistercapital,jdbcType=INTEGER},
+      </if>
+      <if test="record.schCreditcode != null" >
+        sch_creditcode = #{record.schCreditcode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schType != null" >
+        sch_type = #{record.schType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schSignupstatus != null" >
+        sch_signUpStatus = #{record.schSignupstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schHeadimg != null" >
+        sch_headimg = #{record.schHeadimg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schOperativestatus != null" >
+        sch_operativeStatus = #{record.schOperativestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schCharge != null" >
+        sch_charge = #{record.schCharge,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update tb_school
+    set sch_id = #{record.schId,jdbcType=INTEGER},
+      rol_id = #{record.rolId,jdbcType=INTEGER},
+      sch_name = #{record.schName,jdbcType=VARCHAR},
+      sch_account = #{record.schAccount,jdbcType=VARCHAR},
+      sch_password = #{record.schPassword,jdbcType=VARCHAR},
+      sch_address = #{record.schAddress,jdbcType=VARCHAR},
+      sch_introduction = #{record.schIntroduction,jdbcType=VARCHAR},
+      sch_bossName = #{record.schBossname,jdbcType=VARCHAR},
+      sch_registerCapital = #{record.schRegistercapital,jdbcType=INTEGER},
+      sch_creditcode = #{record.schCreditcode,jdbcType=VARCHAR},
+      sch_type = #{record.schType,jdbcType=VARCHAR},
+      sch_signUpStatus = #{record.schSignupstatus,jdbcType=VARCHAR},
+      sch_headimg = #{record.schHeadimg,jdbcType=VARCHAR},
+      sch_operativeStatus = #{record.schOperativestatus,jdbcType=VARCHAR},
+      sch_charge = #{record.schCharge,jdbcType=DOUBLE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbSchool" >
+    update tb_school
+    <set >
+      <if test="rolId != null" >
+        rol_id = #{rolId,jdbcType=INTEGER},
+      </if>
+      <if test="schName != null" >
+        sch_name = #{schName,jdbcType=VARCHAR},
+      </if>
+      <if test="schAccount != null" >
+        sch_account = #{schAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="schPassword != null" >
+        sch_password = #{schPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="schAddress != null" >
+        sch_address = #{schAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="schIntroduction != null" >
+        sch_introduction = #{schIntroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="schBossname != null" >
+        sch_bossName = #{schBossname,jdbcType=VARCHAR},
+      </if>
+      <if test="schRegistercapital != null" >
+        sch_registerCapital = #{schRegistercapital,jdbcType=INTEGER},
+      </if>
+      <if test="schCreditcode != null" >
+        sch_creditcode = #{schCreditcode,jdbcType=VARCHAR},
+      </if>
+      <if test="schType != null" >
+        sch_type = #{schType,jdbcType=VARCHAR},
+      </if>
+      <if test="schSignupstatus != null" >
+        sch_signUpStatus = #{schSignupstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="schHeadimg != null" >
+        sch_headimg = #{schHeadimg,jdbcType=VARCHAR},
+      </if>
+      <if test="schOperativestatus != null" >
+        sch_operativeStatus = #{schOperativestatus,jdbcType=VARCHAR},
+      </if>
+      <if test="schCharge != null" >
+        sch_charge = #{schCharge,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where sch_id = #{schId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dsmp.pojo.TbSchool" >
+    update tb_school
+    set rol_id = #{rolId,jdbcType=INTEGER},
+      sch_name = #{schName,jdbcType=VARCHAR},
+      sch_account = #{schAccount,jdbcType=VARCHAR},
+      sch_password = #{schPassword,jdbcType=VARCHAR},
+      sch_address = #{schAddress,jdbcType=VARCHAR},
+      sch_introduction = #{schIntroduction,jdbcType=VARCHAR},
+      sch_bossName = #{schBossname,jdbcType=VARCHAR},
+      sch_registerCapital = #{schRegistercapital,jdbcType=INTEGER},
+      sch_creditcode = #{schCreditcode,jdbcType=VARCHAR},
+      sch_type = #{schType,jdbcType=VARCHAR},
+      sch_signUpStatus = #{schSignupstatus,jdbcType=VARCHAR},
+      sch_headimg = #{schHeadimg,jdbcType=VARCHAR},
+      sch_operativeStatus = #{schOperativestatus,jdbcType=VARCHAR},
+      sch_charge = #{schCharge,jdbcType=DOUBLE}
+    where sch_id = #{schId,jdbcType=INTEGER}
+  </update>
+</mapper>
