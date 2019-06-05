@@ -69,20 +69,7 @@
   <sql id="Base_Column_List" >
     man_id, rol_id, man_name, man_account, man_password
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dsmp.pojo.TbManagerExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from tb_manager
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -92,12 +79,6 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_manager
     where man_id = #{manId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.dsmp.pojo.TbManagerExample" >
-    delete from tb_manager
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
   </delete>
   <insert id="insert" parameterType="com.dsmp.pojo.TbManager" >
     insert into tb_manager (man_id, rol_id, man_name, 
@@ -142,12 +123,6 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.dsmp.pojo.TbManagerExample" resultType="java.lang.Integer" >
-    select count(*) from tb_manager
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
   <update id="updateByExampleSelective" parameterType="map" >
     update tb_manager
     <set >

@@ -24,7 +24,7 @@ public class MenuController {
 		Map<TbMenu, List<TbMenu>> menuMap = menuService.selectMen(Integer.valueOf(role_id));
 //		mav.addObject(menuMap);
 		session.setAttribute("menuMap", menuMap);
-		mav.setViewName("");
+		mav.setViewName("back/bimg");
 		return mav;
 	}
 
