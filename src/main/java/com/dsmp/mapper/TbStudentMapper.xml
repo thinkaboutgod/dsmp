@@ -85,20 +85,6 @@
     stu_idcard, stu_img, stu_headimg, stu_address, stu_registertime, stu_errCount, stu_errTime, 
     stu_status, stu_signUpTime, stu_verifyStatus
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dsmp.pojo.TbStudentExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from tb_student
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -108,12 +94,6 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_student
     where stu_id = #{stuId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.dsmp.pojo.TbStudentExample" >
-    delete from tb_student
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
   </delete>
   <insert id="insert" parameterType="com.dsmp.pojo.TbStudent" >
     insert into tb_student (stu_id, coa_id, sch_id, 
@@ -252,102 +232,6 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.dsmp.pojo.TbStudentExample" resultType="java.lang.Integer" >
-    select count(*) from tb_student
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update tb_student
-    <set >
-      <if test="record.stuId != null" >
-        stu_id = #{record.stuId,jdbcType=INTEGER},
-      </if>
-      <if test="record.coaId != null" >
-        coa_id = #{record.coaId,jdbcType=INTEGER},
-      </if>
-      <if test="record.schId != null" >
-        sch_id = #{record.schId,jdbcType=INTEGER},
-      </if>
-      <if test="record.subId != null" >
-        sub_id = #{record.subId,jdbcType=INTEGER},
-      </if>
-      <if test="record.stuName != null" >
-        stu_name = #{record.stuName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stuAccount != null" >
-        stu_account = #{record.stuAccount,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stuPassword != null" >
-        stu_password = #{record.stuPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stuSex != null" >
-        stu_sex = #{record.stuSex,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stuBirthday != null" >
-        stu_birthday = #{record.stuBirthday,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stuIdcard != null" >
-        stu_idcard = #{record.stuIdcard,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stuImg != null" >
-        stu_img = #{record.stuImg,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stuHeadimg != null" >
-        stu_headimg = #{record.stuHeadimg,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stuAddress != null" >
-        stu_address = #{record.stuAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stuRegistertime != null" >
-        stu_registertime = #{record.stuRegistertime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.stuErrcount != null" >
-        stu_errCount = #{record.stuErrcount,jdbcType=INTEGER},
-      </if>
-      <if test="record.stuErrtime != null" >
-        stu_errTime = #{record.stuErrtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.stuStatus != null" >
-        stu_status = #{record.stuStatus,jdbcType=VARCHAR},
-      </if>
-      <if test="record.stuSignuptime != null" >
-        stu_signUpTime = #{record.stuSignuptime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.stuVerifystatus != null" >
-        stu_verifyStatus = #{record.stuVerifystatus,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update tb_student
-    set stu_id = #{record.stuId,jdbcType=INTEGER},
-      coa_id = #{record.coaId,jdbcType=INTEGER},
-      sch_id = #{record.schId,jdbcType=INTEGER},
-      sub_id = #{record.subId,jdbcType=INTEGER},
-      stu_name = #{record.stuName,jdbcType=VARCHAR},
-      stu_account = #{record.stuAccount,jdbcType=VARCHAR},
-      stu_password = #{record.stuPassword,jdbcType=VARCHAR},
-      stu_sex = #{record.stuSex,jdbcType=VARCHAR},
-      stu_birthday = #{record.stuBirthday,jdbcType=VARCHAR},
-      stu_idcard = #{record.stuIdcard,jdbcType=VARCHAR},
-      stu_img = #{record.stuImg,jdbcType=VARCHAR},
-      stu_headimg = #{record.stuHeadimg,jdbcType=VARCHAR},
-      stu_address = #{record.stuAddress,jdbcType=VARCHAR},
-      stu_registertime = #{record.stuRegistertime,jdbcType=TIMESTAMP},
-      stu_errCount = #{record.stuErrcount,jdbcType=INTEGER},
-      stu_errTime = #{record.stuErrtime,jdbcType=TIMESTAMP},
-      stu_status = #{record.stuStatus,jdbcType=VARCHAR},
-      stu_signUpTime = #{record.stuSignuptime,jdbcType=TIMESTAMP},
-      stu_verifyStatus = #{record.stuVerifystatus,jdbcType=VARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbStudent" >
     update tb_student
     <set >

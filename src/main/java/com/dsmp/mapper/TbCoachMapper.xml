@@ -80,20 +80,7 @@
     coa_idcard, coa_headimg, coa_address, coa_introduction, coa_status, coa_level
   </sql>
   
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dsmp.pojo.TbCoachExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from tb_coach
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
+
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
@@ -105,12 +92,7 @@
     delete from tb_coach
     where coa_id = #{coaId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.dsmp.pojo.TbCoachExample" >
-    delete from tb_coach
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+ 
   <insert id="insert" parameterType="com.dsmp.pojo.TbCoach" >
     insert into tb_coach (coa_id, rol_id, sch_id, 
       coa_name, coa_account, coa_password, 
@@ -123,103 +105,7 @@
       #{coaHeadimg,jdbcType=VARCHAR}, #{coaAddress,jdbcType=VARCHAR}, #{coaIntroduction,jdbcType=VARCHAR}, 
       #{coaStatus,jdbcType=VARCHAR}, #{coaLevel,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.dsmp.pojo.TbCoach" >
-    insert into tb_coach
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="coaId != null" >
-        coa_id,
-      </if>
-      <if test="rolId != null" >
-        rol_id,
-      </if>
-      <if test="schId != null" >
-        sch_id,
-      </if>
-      <if test="coaName != null" >
-        coa_name,
-      </if>
-      <if test="coaAccount != null" >
-        coa_account,
-      </if>
-      <if test="coaPassword != null" >
-        coa_password,
-      </if>
-      <if test="coaSex != null" >
-        coa_sex,
-      </if>
-      <if test="coaBirthday != null" >
-        coa_birthday,
-      </if>
-      <if test="coaIdcard != null" >
-        coa_idcard,
-      </if>
-      <if test="coaHeadimg != null" >
-        coa_headimg,
-      </if>
-      <if test="coaAddress != null" >
-        coa_address,
-      </if>
-      <if test="coaIntroduction != null" >
-        coa_introduction,
-      </if>
-      <if test="coaStatus != null" >
-        coa_status,
-      </if>
-      <if test="coaLevel != null" >
-        coa_level,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="coaId != null" >
-        #{coaId,jdbcType=INTEGER},
-      </if>
-      <if test="rolId != null" >
-        #{rolId,jdbcType=INTEGER},
-      </if>
-      <if test="schId != null" >
-        #{schId,jdbcType=INTEGER},
-      </if>
-      <if test="coaName != null" >
-        #{coaName,jdbcType=VARCHAR},
-      </if>
-      <if test="coaAccount != null" >
-        #{coaAccount,jdbcType=VARCHAR},
-      </if>
-      <if test="coaPassword != null" >
-        #{coaPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="coaSex != null" >
-        #{coaSex,jdbcType=VARCHAR},
-      </if>
-      <if test="coaBirthday != null" >
-        #{coaBirthday,jdbcType=VARCHAR},
-      </if>
-      <if test="coaIdcard != null" >
-        #{coaIdcard,jdbcType=VARCHAR},
-      </if>
-      <if test="coaHeadimg != null" >
-        #{coaHeadimg,jdbcType=VARCHAR},
-      </if>
-      <if test="coaAddress != null" >
-        #{coaAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="coaIntroduction != null" >
-        #{coaIntroduction,jdbcType=VARCHAR},
-      </if>
-      <if test="coaStatus != null" >
-        #{coaStatus,jdbcType=VARCHAR},
-      </if>
-      <if test="coaLevel != null" >
-        #{coaLevel,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.dsmp.pojo.TbCoachExample" resultType="java.lang.Integer" >
-    select count(*) from tb_coach
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
+
   <update id="updateByExampleSelective" parameterType="map" >
     update tb_coach
     <set >

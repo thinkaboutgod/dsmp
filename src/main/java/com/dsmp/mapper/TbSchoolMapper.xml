@@ -81,20 +81,6 @@
     sch_bossName, sch_registerCapital, sch_creditcode, sch_type, sch_signUpStatus, sch_headimg, 
     sch_operativeStatus, sch_charge
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dsmp.pojo.TbSchoolExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from tb_school
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
@@ -104,12 +90,6 @@
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from tb_school
     where sch_id = #{schId,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.dsmp.pojo.TbSchoolExample" >
-    delete from tb_school
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
   </delete>
   <insert id="insert" parameterType="com.dsmp.pojo.TbSchool" >
     insert into tb_school (sch_id, rol_id, sch_name, 
@@ -222,86 +202,8 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.dsmp.pojo.TbSchoolExample" resultType="java.lang.Integer" >
-    select count(*) from tb_school
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update tb_school
-    <set >
-      <if test="record.schId != null" >
-        sch_id = #{record.schId,jdbcType=INTEGER},
-      </if>
-      <if test="record.rolId != null" >
-        rol_id = #{record.rolId,jdbcType=INTEGER},
-      </if>
-      <if test="record.schName != null" >
-        sch_name = #{record.schName,jdbcType=VARCHAR},
-      </if>
-      <if test="record.schAccount != null" >
-        sch_account = #{record.schAccount,jdbcType=VARCHAR},
-      </if>
-      <if test="record.schPassword != null" >
-        sch_password = #{record.schPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="record.schAddress != null" >
-        sch_address = #{record.schAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="record.schIntroduction != null" >
-        sch_introduction = #{record.schIntroduction,jdbcType=VARCHAR},
-      </if>
-      <if test="record.schBossname != null" >
-        sch_bossName = #{record.schBossname,jdbcType=VARCHAR},
-      </if>
-      <if test="record.schRegistercapital != null" >
-        sch_registerCapital = #{record.schRegistercapital,jdbcType=INTEGER},
-      </if>
-      <if test="record.schCreditcode != null" >
-        sch_creditcode = #{record.schCreditcode,jdbcType=VARCHAR},
-      </if>
-      <if test="record.schType != null" >
-        sch_type = #{record.schType,jdbcType=VARCHAR},
-      </if>
-      <if test="record.schSignupstatus != null" >
-        sch_signUpStatus = #{record.schSignupstatus,jdbcType=VARCHAR},
-      </if>
-      <if test="record.schHeadimg != null" >
-        sch_headimg = #{record.schHeadimg,jdbcType=VARCHAR},
-      </if>
-      <if test="record.schOperativestatus != null" >
-        sch_operativeStatus = #{record.schOperativestatus,jdbcType=VARCHAR},
-      </if>
-      <if test="record.schCharge != null" >
-        sch_charge = #{record.schCharge,jdbcType=DOUBLE},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update tb_school
-    set sch_id = #{record.schId,jdbcType=INTEGER},
-      rol_id = #{record.rolId,jdbcType=INTEGER},
-      sch_name = #{record.schName,jdbcType=VARCHAR},
-      sch_account = #{record.schAccount,jdbcType=VARCHAR},
-      sch_password = #{record.schPassword,jdbcType=VARCHAR},
-      sch_address = #{record.schAddress,jdbcType=VARCHAR},
-      sch_introduction = #{record.schIntroduction,jdbcType=VARCHAR},
-      sch_bossName = #{record.schBossname,jdbcType=VARCHAR},
-      sch_registerCapital = #{record.schRegistercapital,jdbcType=INTEGER},
-      sch_creditcode = #{record.schCreditcode,jdbcType=VARCHAR},
-      sch_type = #{record.schType,jdbcType=VARCHAR},
-      sch_signUpStatus = #{record.schSignupstatus,jdbcType=VARCHAR},
-      sch_headimg = #{record.schHeadimg,jdbcType=VARCHAR},
-      sch_operativeStatus = #{record.schOperativestatus,jdbcType=VARCHAR},
-      sch_charge = #{record.schCharge,jdbcType=DOUBLE}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+  
+  
   <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbSchool" >
     update tb_school
     <set >
