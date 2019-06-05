@@ -16,16 +16,21 @@ import com.dsmp.service.MenuService;
 @Controller
 @RequestMapping("/menu")
 public class MenuController {
+	
 	@Autowired private MenuService menuService;
-	@Autowired HttpSession session;
+	@Autowired private HttpSession session;
+	
 	@RequestMapping(value="/toManageMain.action")
 	public ModelAndView toManageMain(String role_id) {
+		
 		ModelAndView mav = new ModelAndView();
 		Map<TbMenu, List<TbMenu>> menuMap = menuService.selectMen(Integer.valueOf(role_id));
-//		mav.addObject(menuMap);
 		session.setAttribute("menuMap", menuMap);
 		mav.setViewName("back/bimg");
+		
 		return mav;
 	}
 
+	
+	
 }
