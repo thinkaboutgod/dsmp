@@ -11,7 +11,7 @@ $(document).ready( function () {
 	            d.pageNo = info.page;}
 	    },
 	    "columns": [
-	        {"data": "xh"},
+	        {"data": ""},
 	        {"data": "xm"},
 	        {"data": "xbdm"},
 	        {"data": "mzdm"},

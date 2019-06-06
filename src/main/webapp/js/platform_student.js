@@ -31,7 +31,7 @@ $(function() {
 							state = data;
 							if (state == '启用') {
 								data = '<button id="start" class="btn btn-danger btn-sm bt_qi" >禁用</button>';
-							} else if (state == '禁用'){
+							} else if (state == '禁用' || state == '锁定'){
 								data = '<button id="forbit" class="btn btn-success btn-sm bt_qi" >启用</button>';
 							}
 							return data;
@@ -100,11 +100,11 @@ $(function() {
 						"render" : function(data, type, full, meta) {
 							state = data;
 							if (state == '启用') {
-								data = '<button id="start" class="btn btn-danger btn-sm bt_qi" >禁用</button>';
-							} else if (state == '禁用'){
-								data = '<button id="forbit" class="btn btn-success btn-sm bt_qi" >启用</button>';
+								data = '<button  class="btn btn-danger btn-sm bt_qi" >禁用</button>';
+							} else if (state == '禁用' || state == '锁定'){
+								data = '<button  class="btn btn-success btn-sm bt_qi" >启用</button>';
 							}
-							data = data + ' <button id="detail" class="btn btn-primary btn-sm bt_qi" >查看信息</button>';
+							data = data + ' <button  class="detail btn btn-primary btn-sm " >查看信息</button>';
 							return data;
 
 						}
@@ -183,7 +183,6 @@ $(function() {
 			data :  {stuId : id,state:state,preText:preText}  ,
 			dataType : "text",
 			success : function(data) {
-				alert(data);
 				var result = JSON.parse(data);
 				if (result.myresult=="success") {
 					layer.msg("修改成功");
@@ -191,10 +190,14 @@ $(function() {
 					case "启用":
 						button.parent().prev().text("启用");
 						button.text("禁用");
+						button.removeClass("btn-success");
+						button.addClass("btn-danger");
 						break;
 					case "禁用":
 						button.parent().prev().text("禁用");
 						button.text("启用");
+						button.removeClass("btn-danger");
+						button.addClass("btn-success");
 						break;
 					
 					}
@@ -209,6 +212,17 @@ $(function() {
 			}
 			
 		})
+	})
+	
+	// 查看详细信息
+	$(document).on("click", ".detail", function() { 
+		//此处拿到选择行的数据中的id 
+		var da = table.row($(this).parent().parent()).data();
+		$("#name").val(da.stuName);
+		$("#phone").val(da.stuAccount);
+		$("#address").val(da.stuAddress);
+		$("#coachName").val(da.tbCoach.coaName);
+		$("#studentDetail").modal("show");
 	})
 	
 })

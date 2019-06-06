@@ -9,10 +9,7 @@ public interface TbCoachMapper {
 
 	List<TbCoach> selectCoas();
 
-	List<TbStudent> belongtocoach(int stuid);
+	public TbCoach selectCoach();
+	public List<TbStudent> belongtocoach(int coaid);
 
-	TbCoach selectCoach();
- 
-	
-	
 }
