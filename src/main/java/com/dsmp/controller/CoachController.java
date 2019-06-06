@@ -18,13 +18,13 @@ public class CoachController {
 	@Autowired private CoachService coachService;
 	
 	public String selectCoasBySchId(Model model,Integer schId) {
-		
-		
+				
 		List<TbCoach> coaList =  coachService.selectCoas();
 		
 		model.addAttribute("coaList", coaList);
 		
 		return "back/school_coach";
+		
 	}
 	
 	
