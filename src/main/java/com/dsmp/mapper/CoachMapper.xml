@@ -61,7 +61,7 @@
     	<result column="sub_name" property="subName" jdbcType="VARCHAR" />
    		<result column="sub_time" property="subTime" jdbcType="INTEGER" />
     </association>
->
+
   </resultMap>
   
 <!--   <sql id="Example_Where_Clause" > -->
