@@ -53,10 +53,7 @@
     <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
     <result column="stu_signUpTime" property="stuSignuptime" jdbcType="TIMESTAMP" />
     <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
-    <association property="" column="" javaType="">
-    	
     
-    </association>
   </resultMap>
 <!--   <sql id="Example_Where_Clause" > -->
 <!--     <where > -->
