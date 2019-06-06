@@ -3,193 +3,224 @@ package com.dsmp.pojo;
 import java.util.Date;
 
 public class TbStudent {
-    private Integer stuId;
+	private Integer stuId;
 
-    private Integer coaId;
+	private Integer coaId;
 
-    private Integer schId;
+	private Integer schId;
 
-    private Integer subId;
+	private Integer subId;
 
-    private String stuName;
+	private String stuName;
 
-    private String stuAccount;
+	private String stuAccount;
 
-    private String stuPassword;
+	private String stuPassword;
 
-    private String stuSex;
+	private String stuSex;
 
-    private String stuBirthday;
+	private String stuBirthday;
 
-    private String stuIdcard;
+	private String stuIdcard;
 
-    private String stuImg;
+	private String stuImg;
 
-    private String stuHeadimg;
+	private String stuHeadimg;
 
-    private String stuAddress;
+	private String stuAddress;
 
-    private Date stuRegistertime;
+	private Date stuRegistertime;
 
-    private Integer stuErrcount;
+	private Integer stuErrcount;
 
-    private Date stuErrtime;
+	private Date stuErrtime;
 
-    private String stuStatus;
+	private String stuStatus;
 
-    private Date stuSignuptime;
+	private Date stuSignuptime;
 
-    private String stuVerifystatus;
+	private String stuVerifystatus;
+	
+	private TbSubject tbSubject;
 
-    public Integer getStuId() {
-        return stuId;
-    }
+	private TbCoach tbCoach;
 
-    public void setStuId(Integer stuId) {
-        this.stuId = stuId;
-    }
+	private TbSchool tbSchool;
 
-    public Integer getCoaId() {
-        return coaId;
-    }
+	public Integer getStuId() {
+		return stuId;
+	}
 
-    public void setCoaId(Integer coaId) {
-        this.coaId = coaId;
-    }
+	public void setStuId(Integer stuId) {
+		this.stuId = stuId;
+	}
 
-    public Integer getSchId() {
-        return schId;
-    }
+	public Integer getCoaId() {
+		return coaId;
+	}
 
-    public void setSchId(Integer schId) {
-        this.schId = schId;
-    }
+	public void setCoaId(Integer coaId) {
+		this.coaId = coaId;
+	}
 
-    public Integer getSubId() {
-        return subId;
-    }
+	public Integer getSchId() {
+		return schId;
+	}
 
-    public void setSubId(Integer subId) {
-        this.subId = subId;
-    }
+	public void setSchId(Integer schId) {
+		this.schId = schId;
+	}
 
-    public String getStuName() {
-        return stuName;
-    }
+	public Integer getSubId() {
+		return subId;
+	}
 
-    public void setStuName(String stuName) {
-        this.stuName = stuName == null ? null : stuName.trim();
-    }
+	public void setSubId(Integer subId) {
+		this.subId = subId;
+	}
 
-    public String getStuAccount() {
-        return stuAccount;
-    }
+	public String getStuName() {
+		return stuName;
+	}
 
-    public void setStuAccount(String stuAccount) {
-        this.stuAccount = stuAccount == null ? null : stuAccount.trim();
-    }
+	public void setStuName(String stuName) {
+		this.stuName = stuName == null ? null : stuName.trim();
+	}
 
-    public String getStuPassword() {
-        return stuPassword;
-    }
+	public String getStuAccount() {
+		return stuAccount;
+	}
 
-    public void setStuPassword(String stuPassword) {
-        this.stuPassword = stuPassword == null ? null : stuPassword.trim();
-    }
+	public void setStuAccount(String stuAccount) {
+		this.stuAccount = stuAccount == null ? null : stuAccount.trim();
+	}
 
-    public String getStuSex() {
-        return stuSex;
-    }
+	public String getStuPassword() {
+		return stuPassword;
+	}
 
-    public void setStuSex(String stuSex) {
-        this.stuSex = stuSex == null ? null : stuSex.trim();
-    }
+	public void setStuPassword(String stuPassword) {
+		this.stuPassword = stuPassword == null ? null : stuPassword.trim();
+	}
 
-    public String getStuBirthday() {
-        return stuBirthday;
-    }
+	public String getStuSex() {
+		return stuSex;
+	}
 
-    public void setStuBirthday(String stuBirthday) {
-        this.stuBirthday = stuBirthday == null ? null : stuBirthday.trim();
-    }
+	public void setStuSex(String stuSex) {
+		this.stuSex = stuSex == null ? null : stuSex.trim();
+	}
 
-    public String getStuIdcard() {
-        return stuIdcard;
-    }
+	public String getStuBirthday() {
+		return stuBirthday;
+	}
 
-    public void setStuIdcard(String stuIdcard) {
-        this.stuIdcard = stuIdcard == null ? null : stuIdcard.trim();
-    }
+	public void setStuBirthday(String stuBirthday) {
+		this.stuBirthday = stuBirthday == null ? null : stuBirthday.trim();
+	}
 
-    public String getStuImg() {
-        return stuImg;
-    }
+	public String getStuIdcard() {
+		return stuIdcard;
+	}
 
-    public void setStuImg(String stuImg) {
-        this.stuImg = stuImg == null ? null : stuImg.trim();
-    }
+	public void setStuIdcard(String stuIdcard) {
+		this.stuIdcard = stuIdcard == null ? null : stuIdcard.trim();
+	}
 
-    public String getStuHeadimg() {
-        return stuHeadimg;
-    }
+	public String getStuImg() {
+		return stuImg;
+	}
 
-    public void setStuHeadimg(String stuHeadimg) {
-        this.stuHeadimg = stuHeadimg == null ? null : stuHeadimg.trim();
-    }
+	public void setStuImg(String stuImg) {
+		this.stuImg = stuImg == null ? null : stuImg.trim();
+	}
 
-    public String getStuAddress() {
-        return stuAddress;
-    }
+	public String getStuHeadimg() {
+		return stuHeadimg;
+	}
 
-    public void setStuAddress(String stuAddress) {
-        this.stuAddress = stuAddress == null ? null : stuAddress.trim();
-    }
+	public void setStuHeadimg(String stuHeadimg) {
+		this.stuHeadimg = stuHeadimg == null ? null : stuHeadimg.trim();
+	}
 
-    public Date getStuRegistertime() {
-        return stuRegistertime;
-    }
+	public String getStuAddress() {
+		return stuAddress;
+	}
 
-    public void setStuRegistertime(Date stuRegistertime) {
-        this.stuRegistertime = stuRegistertime;
-    }
+	public void setStuAddress(String stuAddress) {
+		this.stuAddress = stuAddress == null ? null : stuAddress.trim();
+	}
 
-    public Integer getStuErrcount() {
-        return stuErrcount;
-    }
+	public Date getStuRegistertime() {
+		return stuRegistertime;
+	}
 
-    public void setStuErrcount(Integer stuErrcount) {
-        this.stuErrcount = stuErrcount;
-    }
+	public void setStuRegistertime(Date stuRegistertime) {
+		this.stuRegistertime = stuRegistertime;
+	}
 
-    public Date getStuErrtime() {
-        return stuErrtime;
-    }
+	public Integer getStuErrcount() {
+		return stuErrcount;
+	}
 
-    public void setStuErrtime(Date stuErrtime) {
-        this.stuErrtime = stuErrtime;
-    }
+	public void setStuErrcount(Integer stuErrcount) {
+		this.stuErrcount = stuErrcount;
+	}
 
-    public String getStuStatus() {
-        return stuStatus;
-    }
+	public Date getStuErrtime() {
+		return stuErrtime;
+	}
 
-    public void setStuStatus(String stuStatus) {
-        this.stuStatus = stuStatus == null ? null : stuStatus.trim();
-    }
+	public void setStuErrtime(Date stuErrtime) {
+		this.stuErrtime = stuErrtime;
+	}
 
-    public Date getStuSignuptime() {
-        return stuSignuptime;
-    }
+	public String getStuStatus() {
+		return stuStatus;
+	}
 
-    public void setStuSignuptime(Date stuSignuptime) {
-        this.stuSignuptime = stuSignuptime;
-    }
+	public void setStuStatus(String stuStatus) {
+		this.stuStatus = stuStatus == null ? null : stuStatus.trim();
+	}
 
-    public String getStuVerifystatus() {
-        return stuVerifystatus;
-    }
+	public Date getStuSignuptime() {
+		return stuSignuptime;
+	}
 
-    public void setStuVerifystatus(String stuVerifystatus) {
-        this.stuVerifystatus = stuVerifystatus == null ? null : stuVerifystatus.trim();
-    }
+	public void setStuSignuptime(Date stuSignuptime) {
+		this.stuSignuptime = stuSignuptime;
+	}
+
+	public String getStuVerifystatus() {
+		return stuVerifystatus;
+	}
+
+	public void setStuVerifystatus(String stuVerifystatus) {
+		this.stuVerifystatus = stuVerifystatus == null ? null : stuVerifystatus.trim();
+	}
+
+	public TbSubject getTbSubject() {
+		return tbSubject;
+	}
+
+	public void setTbSubject(TbSubject tbSubject) {
+		this.tbSubject = tbSubject;
+	}
+
+	public TbCoach getTbCoach() {
+		return tbCoach;
+	}
+
+	public void setTbCoach(TbCoach tbCoach) {
+		this.tbCoach = tbCoach;
+	}
+
+	public TbSchool getTbSchool() {
+		return tbSchool;
+	}
+
+	public void setTbSchool(TbSchool tbSchool) {
+		this.tbSchool = tbSchool;
+	}
+
 }
