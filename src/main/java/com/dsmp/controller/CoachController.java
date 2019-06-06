@@ -26,6 +26,7 @@ public class CoachController {
 		
 		return "back/school_coach";
 		
+		
 	}
 	
 	@RequestMapping("/coachlogin.action")
