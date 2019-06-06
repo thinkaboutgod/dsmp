@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.PlateformMapper" >
+	<resultMap id="searchStudent" type="com.dsmp.pojo.TbStudent" >
+    <id column="stu_id" property="stuId" jdbcType="INTEGER" />
+    <result column="coa_id" property="coaId" jdbcType="INTEGER" />
+    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+    <result column="stu_account" property="stuAccount" jdbcType="VARCHAR" />
+    <result column="stu_password" property="stuPassword" jdbcType="VARCHAR" />
+    <result column="stu_sex" property="stuSex" jdbcType="VARCHAR" />
+    <result column="stu_birthday" property="stuBirthday" jdbcType="VARCHAR" />
+    <result column="stu_idcard" property="stuIdcard" jdbcType="VARCHAR" />
+    <result column="stu_img" property="stuImg" jdbcType="VARCHAR" />
+    <result column="stu_headimg" property="stuHeadimg" jdbcType="VARCHAR" />
+    <result column="stu_address" property="stuAddress" jdbcType="VARCHAR" />
+    <result column="stu_registertime" property="stuRegistertime" jdbcType="TIMESTAMP" />
+    <result column="stu_errCount" property="stuErrcount" jdbcType="INTEGER" />
+    <result column="stu_errTime" property="stuErrtime" jdbcType="TIMESTAMP" />
+    <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
+    <result column="stu_signUpTime" property="stuSignuptime" jdbcType="VARCHAR" />
+    <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
+    <association property="tbCoach" javaType="com.dsmp.pojo.TbCoach">
+		<id column="coa_id" property="coaId" jdbcType="INTEGER" />
+	    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+	    <result column="coa_name" property="coaName" jdbcType="VARCHAR" />
+	    <result column="coa_account" property="coaAccount" jdbcType="VARCHAR" />
+	    <result column="coa_sex" property="coaSex" jdbcType="VARCHAR" />
+	    <result column="coa_introduction" property="coaIntroduction" jdbcType="VARCHAR" />	    
+	</association>
+	<association property="tbSchool" javaType="com.dsmp.pojo.TbSchool">
+		<id column="sch_id" property="schId" jdbcType="INTEGER" />
+	    <result column="sch_name" property="schName" jdbcType="VARCHAR" />
+	    <result column="sch_account" property="schAccount" jdbcType="VARCHAR" />
+	</association>
+	<association property="tbSubject" javaType="com.dsmp.pojo.TbSubject">
+		<id jdbcType="INTEGER" property="subId" column="sub_id"/>
+		<result jdbcType="VARCHAR" property="subName" column="sub_name"/>
+		<result jdbcType="DOUBLE" property="subTime" column="sub_time"/>
+	</association>
+  </resultMap>
+
+	<resultMap id="searchStudent2" type="com.dsmp.pojo.TbStudent" >
+    <id column="stu_id" property="stuId" jdbcType="INTEGER" />
+    <result column="coa_id" property="coaId" jdbcType="INTEGER" />
+    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+    <result column="stu_account" property="stuAccount" jdbcType="VARCHAR" />
+    <result column="stu_password" property="stuPassword" jdbcType="VARCHAR" />
+    <result column="stu_sex" property="stuSex" jdbcType="VARCHAR" />
+    <result column="stu_birthday" property="stuBirthday" jdbcType="VARCHAR" />
+    <result column="stu_idcard" property="stuIdcard" jdbcType="VARCHAR" />
+    <result column="stu_img" property="stuImg" jdbcType="VARCHAR" />
+    <result column="stu_headimg" property="stuHeadimg" jdbcType="VARCHAR" />
+    <result column="stu_address" property="stuAddress" jdbcType="VARCHAR" />
+    <result column="stu_registertime" property="stuRegistertime" jdbcType="TIMESTAMP" />
+    <result column="stu_errCount" property="stuErrcount" jdbcType="INTEGER" />
+    <result column="stu_errTime" property="stuErrtime" jdbcType="TIMESTAMP" />
+    <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
+    <result column="stu_signUpTime" property="stuSignuptime" jdbcType="VARCHAR" />
+    <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="searchAllstudent" resultMap="searchStudent">
+		select s.*,sc.*,c.*,su.* from tb_student s,tb_school sc,tb_coach c,tb_subject su
+		<where>
+			<if test="name!=null">stu_name like "%"#{name}"%"</if>
+			<if test="account!=null">and stu_account like "%"#{account}"%"</if>
+			<if test="fwhere!=null">and sch_name=#{fwhere}</if>
+			<if test="beginTime!=null">and stu_registertime&gt;#{beginTime}</if><!-- 大于号 -->
+			<if test="endTime!=null">and stu_registertime&lt;#{endTime}</if><!-- 小于号 -->
+			and s.sch_id=sc.sch_id and s.coa_id= c.coa_id and s.sub_id=su.sub_id
+		</where>
+		
+	</select>
+	
+	<select id="searchAllstudent2" resultMap="searchStudent2">
+		select * from (
+		select * from tb_student where stu_id not in (
+		select stu_id from tb_student where coa_id != ""
+		)) ss 
+		<where>
+			<if test="name!=null">and ss.stu_name like "%"#{name}"%"</if>
+			<if test="account!=null">and ss.stu_account like "%"#{account}"%"</if>
+			<if test="beginTime!=null">and ss.stu_registertime&gt;#{beginTime}</if><!-- 大于号 -->
+			<if test="endTime!=null">and ss.stu_registertime&lt;#{endTime}</if><!-- 小于号 -->
+			
+		</where>
+	</select>
+	
+	<update id="changeStudentState">
+		update tb_student set stu_status=#{param2} where stu_id=#{param1}
+	</update>
+
+</mapper>
