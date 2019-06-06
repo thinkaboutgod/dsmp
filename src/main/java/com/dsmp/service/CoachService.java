@@ -6,6 +6,7 @@ import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbStudent;
 
 
+
 public interface CoachService {
 
 	public List<TbCoach> selectCoas();
@@ -13,3 +14,4 @@ public interface CoachService {
 	public TbCoach selectcoach(int coaid);
 
 }
+

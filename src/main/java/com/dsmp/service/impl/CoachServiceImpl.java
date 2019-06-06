@@ -3,7 +3,6 @@ package com.dsmp.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.stereotype.Service;
 
 import com.dsmp.mapper.TbCoachMapper;
@@ -20,6 +19,7 @@ public class CoachServiceImpl implements CoachService {
 	public List<TbCoach> selectCoas() {
 		
 		return tbCoachMapper.selectCoas();
+
 	}
 	
 	@Override
@@ -34,5 +34,4 @@ public class CoachServiceImpl implements CoachService {
 		return null;
 
 	}
-
 }
