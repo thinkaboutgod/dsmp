@@ -15,6 +15,7 @@ import com.dsmp.service.MenuService;
 @Service
 public class MenuServiceImpl implements MenuService {
 	@Autowired TbMenuMapper tbMenuMapper;
+	
 	@Override
 	public Map<TbMenu, List<TbMenu>> selectMen(int rol_id) {
 		Map<TbMenu, List<TbMenu>> menuMap = new LinkedHashMap<>();

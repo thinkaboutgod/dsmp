@@ -1,5 +1,8 @@
 package com.dsmp.pojo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TbCoach {
     private Integer coaId;
 
@@ -29,6 +32,11 @@ public class TbCoach {
 
     private String coaLevel;
 
+    //
+    private TbSchool tbSchool;
+    
+    private List<TbStudent> stuList = new ArrayList<>();
+   
     public Integer getCoaId() {
         return coaId;
     }
