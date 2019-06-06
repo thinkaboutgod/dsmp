@@ -8,7 +8,12 @@ public class TbOption {
     private String optOption;
 
     private String optStatus;
+    
+    private TbTopic tbTopic;
 
+    public TbOption() {
+		
+	}
     public Integer getOptId() {
         return optId;
     }
@@ -40,4 +45,11 @@ public class TbOption {
     public void setOptStatus(String optStatus) {
         this.optStatus = optStatus == null ? null : optStatus.trim();
     }
+	public TbTopic getTbTopic() {
+		return tbTopic;
+	}
+	public void setTbTopic(TbTopic tbTopic) {
+		this.tbTopic = tbTopic;
+	}
+    
 }

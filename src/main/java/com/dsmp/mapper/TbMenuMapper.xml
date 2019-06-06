@@ -11,9 +11,7 @@
   
   
   <select id="selectMenu" resultMap="BaseResultMap"  >
- 	select * from tb_menu where men_id in(select men_id from tb_roleAndMenu where rol_id=#{param1} order by men_id) and men_father = #{param1}
+ 	select * from tb_menu where men_id in(select men_id from tb_roleAndMenu where rol_id=#{param1} order by men_id) and men_father = #{param2}
   </select>
-  
-  
-  
+
 </mapper>
