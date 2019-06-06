@@ -6,6 +6,5 @@ import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbStudent;
 
 public interface CoachMapper {
-	public TbCoach selectCoach();
-	public List<TbStudent> belongtocoach(int coaid);
+	
 }
