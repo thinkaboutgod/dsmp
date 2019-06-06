@@ -8,23 +8,21 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.dsmp.pojo.TbCoach;
-import com.dsmp.service.CoachService;
 import com.dsmp.service.SchoolService;
 
 @Controller
-@RequestMapping("coach")
-public class CoachController {
+@RequestMapping("school")
+public class SchoolController {
 
-	@Autowired private CoachService coachService;
+	@Autowired private SchoolService schoolService;
 	
-	public String selectCoasBySchId(Model model,Integer schId) {
-				
-		List<TbCoach> coaList =  coachService.selectCoas();
+	public String selectCoas(Model model) {
+		
+		List<TbCoach> coaList =  schoolService.selectCoas();
 		
 		model.addAttribute("coaList", coaList);
 		
 		return "back/school_coach";
-		
 	}
 	
 	

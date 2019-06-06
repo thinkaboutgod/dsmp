@@ -23,7 +23,7 @@ public class TopicProcessor implements PageProcessor {
 //				"[@id=\"mainBox\"]/main/div[1]/div[1]/h1/text()").toString());
 
 		
-		for(int i =1;i<=30;i++) {
+		for(int i =1306;i<=1332;i++) {
 			
 			String title = page.getHtml().xpath("//*[@id=\"q_"+i+"\"]/p/text()").get();
 			int index = title.lastIndexOf(".");
@@ -49,14 +49,15 @@ public class TopicProcessor implements PageProcessor {
 			System.out.println("第"+i+"题选项A:"+optA);
 			page.putField("第"+i+"题选项A",optA);
 			String optB = page.getHtml().xpath("//*[@id=\"p_32_"+i+"\"]/span/text()").get();
-			System.out.println("第"+i+"题选项B"+optB);
-			page.putField("第"+i+"题选项B:",optB);
+			System.out.println("第"+i+"题选项B:"+optB);
+			page.putField("第"+i+"题选项B",optB);
 			String optC = page.getHtml().xpath("//*[@id=\"p_64_"+i+"\"]/span/text()").get();
 			
 			if(null!=optC) {
 				System.out.println("第"+i+"题选项C:"+optC);
 				page.putField("第"+i+"题选项C",optC);
 			}
+			
 			
 			String optD = page.getHtml().xpath("//*[@id=\"p_128_"+i+"\"]/span/text()").get();
 			
@@ -65,7 +66,19 @@ public class TopicProcessor implements PageProcessor {
 				page.putField("第"+i+"题选项D",optD);
 			}
 			
-			String answer =  page.getHtml().xpath("//*[@id=\"answer_"+i+"\"]").css("input","value").get();
+			//1306题开始，答案的input节点的id发生变化
+			String answer="";
+			if(i>=1306&&i<1312) {
+				int b = 9554 +i;
+				answer =  page.getHtml().xpath("//*[@id=\"answer_"+b+"\"]").css("input","value").get();
+			}else if(i>=1312) {
+				//1312题，答案的id再次发生变化
+				int c = 9558 +i;
+				answer =  page.getHtml().xpath("//*[@id=\"answer_"+c+"\"]").css("input","value").get();
+			}else {
+				answer =  page.getHtml().xpath("//*[@id=\"answer_"+i+"\"]").css("input","value").get();
+			}
+			
 			
 			switch(answer) {
 				case"16":
