@@ -6,7 +6,7 @@
 		select * from tb_coach 
 	</select>
 	<select id="belongtocoach" resultType="com.dsmp.pojo.TbStudent" resultMap="studentResultMap">
-		select a.coa_id,a.stu_id,a.stu_name,a.stu_account,a.stu_sex,a.stu_address,a.stu_signUpTime,a.stu_verifyStatus,b.* from tb_student a where coa_id=#{coaid}
+		select a.coa_id,a.stu_id,a.stu_name,a.stu_account,a.stu_sex,a.stu_address,a.stu_signUpTime,a.stu_verifyStatus,b.* from tb_student a,tb_subject b where a.sub_id=b.sub_id and a.coa_id=#{coaid}
 	</select>
 <!-- 	<resultMap type="com.dsp.pojo.Coach" id="belongtocoach"> -->
 <!-- 		<id column="coa_id" property="coa_id"/>		 -->
@@ -15,7 +15,7 @@
 <!-- 		</collection> -->
 <!-- 	</resultMap> -->
 
-<!-- 庄祯封装好 -->	
+
   <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbCoach" >
     <id column="coa_id" property="coaId" jdbcType="INTEGER" />
     <result column="rol_id" property="rolId" jdbcType="INTEGER" />
@@ -53,9 +53,10 @@
     <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
     <result column="stu_signUpTime" property="stuSignuptime" jdbcType="TIMESTAMP" />
     <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
-    <association property="" column="" javaType="">
-    	
-    
+    <association property="tbSubject" column="sub_id" javaType="TbSubject">
+    	<id column="sub_id" property="subId" jdbcType="INTEGER" />
+    	<result column="sub_name" property="subName" jdbcType="VARCHAR" />
+   		<result column="sub_time" property="subTime" jdbcType="INTEGER" />
     </association>
   </resultMap>
 <!--   <sql id="Example_Where_Clause" > -->
