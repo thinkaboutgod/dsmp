@@ -15,7 +15,7 @@
        <c:forEach items="${menuMap}" begin="0" step="1" var="i">
      	<li class="treeview">
           <a href="#">
-            <i class="fa fa-dashboard"></i> <span>${i.key.menName}</span>
+            <i class="fa ${i.key.menImg}"></i> <span>${i.key.menName}</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
