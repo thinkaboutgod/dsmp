@@ -20,13 +20,21 @@ import com.dsmp.service.PlateformService;
 public class PlateformController {
 	@Autowired
 	private PlateformService plateformService;
-	@Autowired 
+	@Autowired
 	private MyResult myResult;
+
 	// 学员查看页面
 	@RequestMapping(value = "toStudentController.action")
 	public String toStudentController() {
 
 		return "back/plateform_student";
+	}
+
+	// 学员统计页面
+	@RequestMapping(value = "toStudentCount.action")
+	public String toStudentCount() {
+
+		return "back/plateform_studentcount";
 	}
 
 	// 搜索学员,已报名的
@@ -46,7 +54,8 @@ public class PlateformController {
 		map.put("data", list);
 		return map;
 	}
-	//修改学员状态
+
+	// 修改学员状态
 	@RequestMapping(value = "changeStudentState.action")
 	public @ResponseBody MyResult changeStudentState(HttpServletRequest request) {
 		myResult = plateformService.changeStudentState(request, myResult);
