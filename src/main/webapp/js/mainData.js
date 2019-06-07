@@ -11,14 +11,14 @@ $(document).ready( function () {
 	            d.pageNo = info.page;}
 	    },
 	    "columns": [
-	        {"data": ""},
-	        {"data": "xm"},
-	        {"data": "xbdm"},
-	        {"data": "mzdm"},
-	        {"data": "rxnd"},
-	        {"data": "xzbmc"},
-	        {"data": "jgmc"},
-	        {"data": "jgc"}
+	        {"data": "stuAccount"},
+	        {"data": "stuName"},
+	        {"data": "stuSignuptime"},
+	        {"data": "stuAccount"},
+	        {"data": "stuAddress"},
+	        {"data": "stuSex"},
+	        {"data": "tbSubject.subName"},
+	        {"data": ""}
 	    ]
 	});
 });

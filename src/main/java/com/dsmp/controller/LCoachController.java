@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbStudent;
-import com.dsmp.service.CoachService;
+import com.dsmp.service.LCoachService;
 
 @Controller
-@RequestMapping("coach")
-public class CoachController {
 
-	@Autowired private CoachService coachService;
+public class LCoachController {
+
+	@Autowired private LCoachService lCoachServiceImpl;
 	
 	public String selectCoasBySchId(Model model,Integer schId) {
 				
-		List<TbCoach> coaList =  coachService.selectCoas();
+		List<TbCoach> coaList =  lCoachServiceImpl.selectCoas();
 		
 		model.addAttribute("coaList", coaList);
 		
@@ -35,17 +35,15 @@ public class CoachController {
 		return "redirect:/jsp/bmain.jsp";
 	}
 	@RequestMapping("/belongtocoach.action")
-	public @ResponseBody List<TbStudent> getStudent(String coaId ,String coaPassword){
+	public @ResponseBody List<TbStudent> getStudent(){
 		
-		System.out.println(coaId);
-		System.out.println(coaPassword);
-		List<TbStudent> studentlist= coachService.belongtococh(1);
+		System.out.println("教练主页");
+		List<TbStudent> studentlist= lCoachServiceImpl.belongtococh(1);
 		System.out.println(studentlist.get(1).getStuName());
 		for(TbStudent tbStudent:studentlist) {
 			System.out.println(tbStudent.getStuName());
 			System.out.println(tbStudent.getStuAccount());			
 		}		
 		return studentlist;
-	}
-	
+	}	
 }
