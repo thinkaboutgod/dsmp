@@ -1,31 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> --%>
-<%-- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>管理端主页</title>
-<title>Employee DataTable Demos</title>
+<title>教练端主页</title>
 <%
-	String path = application.getContextPath();
+	String path = request.getContextPath();
 %>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-<%-- 	<link type="text/css" href="<%=request.getContextPath() %>/bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet"> --%>
     <link type="text/css" href="<%=path %>/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/font-awesome.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/ionicons.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/bootstrap-datatable/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/adminlte.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
-
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-		<jsp:include page="header.jsp"></jsp:include>
-		<jsp:include page="sliderbar.jsp"></jsp:include>
-	
+	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="sliderbar.jsp"></jsp:include>
 	  <div class="content-wrapper">
 	  	<section class="content-header">
 	  		
@@ -98,53 +93,16 @@
 	  	 	</div>
 	  	</section>
 	  </div>
-</div>
-<div class="modal fade" id="changeData" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
-            </div>
-				<div class="modal-body">
-					<div class="form-horizontal">
-						<div class="form-group">
-							<label for="ed_account" class="col-sm-2 control-label">账号：</label>
-							<div class="col-sm-10">
-								<input class="form-control" id="ed_account" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="ed_name" class="col-sm-2 control-label">姓名：</label>
-							<div class="col-sm-10">
-								<input class="form-control" id="ed_name" type="text">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="ed_phone" class="col-sm-2 control-label">电话：</label>
-							<div class="col-sm-10">
-								<input class="form-control" id="ed_phone" type="text">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<div class="center-block">
-               		 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                	 <button type="button" class="btn btn-success">提交更改</button>
-                	</div>
-           	   </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
+    <!-- 导入页脚 -->
+    <jsp:include page="footer.jsp"></jsp:include>
+</div><!-- 对应整个页面 -->
+
 </body>
 <script type="text/javascript" src=<%=request.getContextPath()+"/js/jquery-3.3.1.js" %>></script>
-<%-- <script type="text/javascript" src=<%=request.getContextPath()+"/js/jquery-2.2.3.min.js" %>></script> --%>
 <script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.min.js"%>></script>
-
+<!-- FastClick -->
 <script type="text/javascript" src=<%=path+"/bootstrap-datatable/js/jquery.dataTables.min.js"%>></script>
 <script type="text/javascript" src=<%=path+"/bootstrap-datatable/js/dataTables.bootstrap.min.js"%>></script>
-<!-- FastClick -->
 <script type="text/javascript" src=<%=path+"/adminlte/js/jquery.slimscroll.min.js"%>></script>
 <!-- AdminLTE App -->
 <script type="text/javascript" src=<%=path+"/adminlte/js/app.min.js"%>></script>
@@ -154,6 +112,6 @@
 <script type="text/javascript" src=<%=path+"/adminlte/js/demo.js"%>></script>
 <script type="text/javascript" src=<%=path + "/layer/layer.js"%>></script>
 <script type="text/javascript" src=<%=path+"/adminlte/js/menucontrol.js"%> ></script>
-<script type="text/javascript" src=<%=path+"/js/mainData.js" %>></script>
+<script type="text/javascript" src=<%=path+"/js/belongtocoach.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/datatables_setting.js" %>></script>
 </html>
