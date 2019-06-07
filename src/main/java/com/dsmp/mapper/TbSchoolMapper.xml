@@ -18,6 +18,13 @@
     <result column="sch_operativeStatus" property="schOperativestatus" jdbcType="VARCHAR" />
     <result column="sch_charge" property="schCharge" jdbcType="DOUBLE" />
   </resultMap>
+  
+  
+  
+  
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

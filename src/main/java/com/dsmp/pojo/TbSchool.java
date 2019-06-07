@@ -1,6 +1,10 @@
 package com.dsmp.pojo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class TbSchool {
+	
     private Integer schId;
 
     private Integer rolId;
@@ -31,6 +35,15 @@ public class TbSchool {
 
     private Double schCharge;
 
+    private TbRole tbRole;
+    
+    //驾校拥有的学员集合
+    private List<TbStudent> stuList = new ArrayList<>();
+    //驾校拥有的教练集合
+    private List<TbCoach> coaList = new ArrayList<>();
+    //车集合
+    private List<TbCar> carList = new ArrayList<>();
+    
     public Integer getSchId() {
         return schId;
     }
@@ -150,4 +163,40 @@ public class TbSchool {
     public void setSchCharge(Double schCharge) {
         this.schCharge = schCharge;
     }
+
+    
+	public TbRole getTbRole() {
+		return tbRole;
+	}
+
+	public void setTbRole(TbRole tbRole) {
+		this.tbRole = tbRole;
+	}
+
+	public List<TbStudent> getStuList() {
+		return stuList;
+	}
+
+	public void setStuList(List<TbStudent> stuList) {
+		this.stuList = stuList;
+	}
+
+	public List<TbCoach> getCoaList() {
+		return coaList;
+	}
+
+	public void setCoaList(List<TbCoach> coaList) {
+		this.coaList = coaList;
+	}
+
+	public List<TbCar> getCarList() {
+		return carList;
+	}
+
+	public void setCarList(List<TbCar> carList) {
+		this.carList = carList;
+	}
+    
+	
+    
 }

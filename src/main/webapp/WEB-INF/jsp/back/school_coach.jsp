@@ -7,7 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>管理端主页</title>
-<%	String path = request.getContextPath(); %>
+<title>Employee DataTable Demos</title>
+<%
+	String path = request.getContextPath();
+%>
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <%-- 	<link type="text/css" href="<%=request.getContextPath() %>/bootstrap-3.3.7-dist/css/bootstrap-theme.css" rel="stylesheet"> --%>
     <link type="text/css" href="<%=path %>/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
@@ -60,7 +63,7 @@
 									<table id="example1" class="table table-bordered table-hover">
 										<thead>
 											<tr role="row">
-<!--<th >选择</th> -->
+<!-- 													<th >选择</th> -->
 											<th >账号</th>
 											<th >姓名</th>
 											<th >性别</th>
