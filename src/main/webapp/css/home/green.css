@@ -1,0 +1,317 @@
+@charset "utf-8";
+
+/* CSS Document */
+a:hover {
+	color: #016a45;
+}
+
+/*top*/
+.topone {
+	width: 100%;
+	height: 30px;
+	background: #f1f3f3;
+}
+
+.top1 p {
+	line-height: 30px;
+	float: left;
+	color: #7c7d7d;
+	font-size: 14px;
+}
+
+.top1 a {
+	width: 70px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	margin-right: 5px;
+	display: block;
+	float: left;
+	*margin-right: 5px;
+	color: #7c7d7d;
+	font-size: 14px;
+}
+
+.top1 a:hover {
+	color: #f89303;
+}
+
+/*top phone*/
+.phone p {
+	width: 100%;
+	height: 50px;
+	float: right;
+	text-align: center;
+	font: 600 30px/50px "Microsoft YaHei";
+	color: #f89303;
+}
+
+/*menu*/
+.navBar {
+	width: 100%;
+	background: #029762;
+	position: absolute;
+	z-index: 999;
+	color: #fff;
+	height: 50px;
+}
+
+.nav .cur h3 a {
+	height: 50px;
+	background-color: #03ac70;
+}
+
+.nav .sub li a:hover {
+	background: #029762;
+	color: #fff;
+}
+
+.nav h3 a {
+	zoom: 1;
+	line-height: 46px;
+	display: block;
+	color: #fff
+}
+
+/*公告*/
+.noticeList li a:hover {
+	color: #f89303;
+}
+
+/*about us phonebg*/
+.aboutphone {
+	width: 835px;
+	height: 50px;
+	color: #FFF;
+	background: url(../images/greenphone_bg.jpg) left center no-repeat;
+	padding: 15px 0 15px 45px;
+	overflow: hidden;
+}
+
+/*Recommend hot show*/
+.hotpic h2 {
+	width: 308px;
+	height: 60px;
+	font: normal 24px/60px "Microsoft YaHei";
+	text-align: center;
+	background: url(../image/hotyellow.jpg) no-repeat left top;
+	border: #ededed solid 1px;
+}
+
+
+/*show products*/
+.productshow {
+	width: 100%;
+	height: 70px;
+	text-align: center;
+	background-color: #029762;
+	margin-top: 30px;
+}
+
+.productshow h1 {
+	font: normal 30px/70px "Microsoft YaHei";
+	color: #FFF;
+}
+
+.prod_left span {
+	width: 100%;
+	height: 102px;
+	display: block;
+	background: url(../images/greenclbg.jpg) center no-repeat;
+	text-align: center;
+	font: normal 20px/90px "Microsoft YaHei";
+	color: #FFF;
+}
+
+.prod_left ul li>a:hover {
+	background-color: #00c27b;
+	color: #FFF;
+}
+
+.lion a {
+	background-color: #00c27b;
+	color: #FFF;
+}
+
+
+/*classproducts*/
+.classmore {
+	width: 190px;
+	height: 50px;
+	font: 18px/50px "Microsoft YaHei";
+	text-align: right;
+	background: url(../images/greenclbgmore.jpg) center bottom no-repeat;
+	display: block;
+	padding-top: 40px;
+	padding-right: 10px;
+	*height: 60px;
+	*padding-top: 30px;
+	color: #FFF;
+}
+
+#casemore {
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	background-color: #029762;
+	color: #FFF;
+	display: inline-block;
+}
+
+/*case cententmore*/
+#casemore:hover {
+	background-color: #00c27b;
+	color: #FFF;
+}
+
+/*foot*/
+.footbox {
+	width: 100%;
+	height: 150px;
+	background-color: #029762;
+	padding: 30px 0;
+}
+
+.footdl dl a {
+	color: #FFF;
+}
+
+.footdl dl dd a:hover {
+	color: #FF0;
+}
+
+.footdl ul a {
+	color: #FFF;
+}
+
+.footdl ul li a:hover {
+	color: #FF0;
+}
+
+.footerwm p {
+	height: 30px;
+	line-height: 30px;
+	font-size: 14px;
+	color: #FFF;
+}
+
+/*link*/
+.linkbox {
+	width: 100%;
+	height: 50px;
+	line-height: 50px;
+	color: #FFF;
+	background-color: #03b173;
+}
+
+.linknr p a {
+	color: #FFF;
+}
+
+.linknr p a:hover {
+	color: #FF0;
+}
+
+.footend {
+	width: 100%;
+	height: 60px;
+	line-height: 60px;
+	color: #FFF;
+	background-color: #029762;
+}
+
+.footend p {
+	color: #FFF;
+	text-align: center;
+	font-size: 14px;
+}
+
+.footend p a {
+	color: #FFF;
+}
+
+.footend p a:hover {
+	color: #FF0;
+}
+
+/*==========layout========*/
+/*位置*/
+.position {
+	height: 50px;
+	line-height: 50px;
+	background-color: #029762;
+	margin-top: 370px;
+	overflow: hidden;
+	*position: relative;
+	*top: 370px;
+}
+
+.weizhi a:hover {
+	color: #FF0;
+}
+
+/*位置分类的栏目*/
+.ina {
+	background-color: #04c983;
+	color: #FFF;
+}
+
+/*右边子栏目第一个显示*/
+.positionlm a:hover {
+	background-color: #04c983;
+	color: #FFF;
+}
+
+/*产品分类栏目第一个*/
+.classon {
+	background-color: #029762;
+	color: #FFF
+}
+
+/*内页推荐的信息*/
+.morelook {
+	width: 100px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	display: block;
+	background-color: #029762;
+	color: #FFF;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+.morelook:hover {
+	background-color: #04c983;
+	color: #FF0;
+}
+
+/*分页*/
+.my_page li a:hover {
+	background: #F00;
+	color: #FFF;
+	text-decoration: none;
+}
+
+/*message*/
+#button {
+	font: 18px/30px "微软雅黑";
+	background-color: #029762;
+	border: none;
+	color: #FFF;
+	padding: 5px 20px;
+	margin-right: 20px;
+}
+
+#button:hover {
+	background-color: #F00;
+}
+
+/*内容上下篇*/
+.fyy ul li span {
+	font-weight: 600;
+	padding-right: 10px;
+	font-size: 14px;
+	color: #0571d0;
+}
