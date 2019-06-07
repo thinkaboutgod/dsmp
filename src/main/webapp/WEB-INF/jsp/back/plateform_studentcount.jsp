@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>学员管理</title>
+<title>学员报名统计</title>
 <%
 	String path = request.getContextPath();
 %>
@@ -19,6 +19,7 @@
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
+<input type="hidden" id="path" value=<%=path%>>
 <div class="wrapper">
 	<jsp:include page="header.jsp"></jsp:include>
 	<jsp:include page="sliderbar.jsp"></jsp:include>
@@ -27,65 +28,43 @@
 	  	 	<div class="row">
 	  	 		<div class="col-md-12">
            			 <div class="box-header">
-		              	<h3 class="box-title"><strong>学员管理</strong></h3>
+		              	<h3 class="box-title"><strong>学员报名统计</strong></h3>
 		           	 </div>
 		           	 <div class="box-body">
 
 		           	 	<div class="tabbable" id="tabs-643545">
 							<ul class="nav nav-tabs">
-								<li  class="active"><a href="#panel-139674" data-toggle="tab">已报名驾校</a></li>
-								<li><a href="#panel-185679" data-toggle="tab">未报名驾校</a></li>
+								<li  class="active"><a href="#panel-139674" data-toggle="tab">报名人数统计</a></li>
+								<li><a href="#panel-185679" data-toggle="tab">当月驾校费用统计</a></li>
 							</ul><br>
 							<div class="tab-content">
 								<div class="tab-pane active" id="panel-139674">
-                  <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                    <div class="row">
-                      <div class="col-sm-12">
-                               <div class = "input-group" >
-                                       <input type = "text" class=" form-control"  id="sname" placeholder="用户姓名">
-                                   </div>
-                                   <div class = "input-group">
-                                       <input type = "text" class = "form-control"  placeholder="账号"  id="saccount">
-                                   </div>
-                                   <div class = "input-group">
-                                       <input type = "text" class = "form-control"  placeholder="所属驾校"  id="school">
-                                   </div>
-                                   <div class = "input-group" >
-                         <span>注册时间：</span>
-                                   </div>
-                                   <div class = "input-group" >
-                                       <input type = "date" class=" form-control" name="dno"
-                                        id="begintime" placeholder="起始时间">
-                                   </div>
-                                   <div class = "input-group" >
-                         <span>至</span>
-                                   </div>
-                                   <div class = "input-group" >
-                                       <input type = "date" class=" form-control" name="dno"
-                                          id="endtime" placeholder="终止时间">
-                                   </div>
-                           <div class = "input-group">
-                                        <button  class="button btn-primary btn-sm bt_qi"  id="buttonsearch">搜索</button>
-                                   </div>
-                                   <table id="studentTable" class="table table-bordered table-hover">
-                          <thead>
-                            <tr role="row">
-                            <th >账号</th>
-                            <th >姓名</th>
-                            <th >性别</th>
-                            <th >注册时间</th>
-                            <th >所属驾校</th>
-                            <th >驾校报名审核状态</th>
-                            <th >账号状态</th>
-                            <th >操作</th>
-                            </tr>
-                          </thead>
-                          <tbody></tbody>
+                  <!-- BAR CHART表 -->
+                <div class="box box-success" style="width:500px;">
+                  <div class="box-header with-border">
+                    <h3 class="box-title">统计报表</h3>
 
-                        </table>
-                      </div>
+                    <div class="box-tools pull-right">
+                      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                      </button>
+             <!--          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
                     </div>
                   </div>
+                  <div class="">
+                    <label for="">请选择驾校</label>
+                    <select class="" id="schoolSelect">
+                      <option value="0">--请选择--</option>
+                      <c:forEach items="${listSchool}" begin="0" step="1" var="i">
+                        <option value="${i.schId}">${i.schName}</option>
+                      </c:forEach>
+                    </select>
+                    <button type="button" id="search" name="button">确定</button>
+                  </div>
+                  <div class="box-body chart-responsive">
+                    <div class="chart" id="bar-chart" style=" height: 300px;"></div>
+                  </div>
+                </div><!-- BAR CHART表 -->
+
 								</div>
 								<div class="tab-pane " id="panel-185679">
                   <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -146,50 +125,7 @@
     <jsp:include page="footer.jsp"></jsp:include>
 </div>
 <!-- 对应整个页面 -->
-<!-- 模态框 -->
-<div class="modal fade" id="studentDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">学员信息</h4>
-            </div>
-				<div class="modal-body">
-					<div class="form-horizontal">
-						<div class="form-group">
-							<label for="ed_name" class="col-sm-2 control-label">姓名：</label>
-							<div class="col-sm-10">
-								<input class="form-control" id="name" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="ed_phone" class="col-sm-2 control-label">电话：</label>
-							<div class="col-sm-10">
-								<input class="form-control" id="phone" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="ed_phone" class="col-sm-2 control-label">地址：</label>
-							<div class="col-sm-10">
-								<input class="form-control" id="address" type="text" readonly="readonly">
-							</div>
-						</div>
-						<div class="form-group">
-							<label for="ed_phone" class="col-sm-2 control-label">教练姓名：</label>
-							<div class="col-sm-10">
-								<input class="form-control" id="coachName" type="text" readonly="readonly">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="modal-footer">
-					<div class="center-block">
-               		 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                	</div>
-           	   </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- 对应模态框 -->
+
 </body>
 <script type="text/javascript" src=<%=path+"/js/jquery-3.3.1.js" %>></script>
 <script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.min.js"%>></script>
@@ -207,6 +143,6 @@
 <script type="text/javascript" src=<%=path + "/layer/layer.js"%>></script>
 <script type="text/javascript" src=<%=path+"/adminlte/js/menucontrol.js"%> ></script>
 <script type="text/javascript" src=<%=path+"/js/datatables_setting.js" %>></script>
-<script type="text/javascript" src=<%=path+"/js/platform_student.js" %>></script>
+<script type="text/javascript" src=<%=path+"/js/platform_studentcount.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/Date.js" %>></script>
 </html>
