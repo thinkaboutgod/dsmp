@@ -67,6 +67,7 @@
 		<where>
 			<if test="name!=null">stu_name like "%"#{name}"%"</if>
 			<if test="account!=null">and stu_account like "%"#{account}"%"</if>
+			
 			<if test="fwhere!=null">and sch_name=#{fwhere}</if>
 			<if test="beginTime!=null">and stu_registertime&gt;#{beginTime}</if><!-- 大于号 -->
 			<if test="endTime!=null">and stu_registertime&lt;#{endTime}</if><!-- 小于号 -->
@@ -93,4 +94,7 @@
 		update tb_student set stu_status=#{param2} where stu_id=#{param1}
 	</update>
 
+	<update id="changeStudentStateLock">
+		update tb_student set stu_status=#{param2},stu_errCount=0 where stu_id=#{param1}
+	</update>
 </mapper>
