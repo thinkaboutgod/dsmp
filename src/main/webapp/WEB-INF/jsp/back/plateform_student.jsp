@@ -146,7 +146,50 @@
     <jsp:include page="footer.jsp"></jsp:include>
 </div>
 <!-- 对应整个页面 -->
-
+<!-- 模态框 -->
+<div class="modal fade" id="studentDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">学员信息</h4>
+            </div>
+				<div class="modal-body">
+					<div class="form-horizontal">
+						<div class="form-group">
+							<label for="ed_name" class="col-sm-2 control-label">姓名：</label>
+							<div class="col-sm-10">
+								<input class="form-control" id="name" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="ed_phone" class="col-sm-2 control-label">电话：</label>
+							<div class="col-sm-10">
+								<input class="form-control" id="phone" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="ed_phone" class="col-sm-2 control-label">地址：</label>
+							<div class="col-sm-10">
+								<input class="form-control" id="address" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="ed_phone" class="col-sm-2 control-label">教练姓名：</label>
+							<div class="col-sm-10">
+								<input class="form-control" id="coachName" type="text" readonly="readonly">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="center-block">
+               		 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                	</div>
+           	   </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- 对应模态框 -->
 </body>
 <script type="text/javascript" src=<%=path+"/js/jquery-3.3.1.js" %>></script>
 <script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.min.js"%>></script>

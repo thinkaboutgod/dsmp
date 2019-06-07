@@ -89,22 +89,23 @@ public class PlateformServiceImpl implements PlateformService {
 		String state = request.getParameter("state");
 		String stuId = request.getParameter("stuId");
 		String preText = request.getParameter("preText");
+		int res = 0;
 		if (preText.equals("锁定")) {
-			
+			res = plateformMapper.changeStudentStateLock(Integer.valueOf(stuId), "启用");
 		}else {
 			if (state.equals("start")) {
 				state="启用";
 			}else if (state.equals("forbid")) {
 				state="禁用";
 			}
-			int res = plateformMapper.changeStudentState(Integer.valueOf(stuId), state);
-			if (res>0) {
-				myResult.setMyresult("success");
-			}else {
-				myResult.setMyresult("failed");
-			}
+			res = plateformMapper.changeStudentState(Integer.valueOf(stuId), state);
+			
 		}
-		
+		if (res>0) {
+			myResult.setMyresult("success");
+		}else {
+			myResult.setMyresult("failed");
+		}
 		return myResult;
 	}
 
