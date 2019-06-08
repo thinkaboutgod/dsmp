@@ -6,7 +6,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<%
+	String path = request.getContextPath();
+%>
 <body>
-教练登陆！
+	<a href=<%=path+"/tocoachmain.action?role_id=4"%>>去教练主页</a>
 </body>
 </html>

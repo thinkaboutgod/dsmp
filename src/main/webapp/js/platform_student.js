@@ -49,7 +49,7 @@ $(function() {
 				}, {
 					"name" : "beginTime",
 					"value" : $("#begintime2").val()
-				}, {
+				}, { 
 					"name" : "endTime",
 					"value" : $("#endtime2").val()
 				}

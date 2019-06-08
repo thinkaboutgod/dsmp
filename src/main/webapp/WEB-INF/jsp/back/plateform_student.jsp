@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>管理端主页</title>
+<title>学员管理</title>
 <%
 	String path = request.getContextPath();
 %>
