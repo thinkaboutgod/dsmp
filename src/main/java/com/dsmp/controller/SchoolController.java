@@ -16,14 +16,6 @@ public class SchoolController {
 
 	@Autowired private SchoolService schoolService;
 	
-	public String selectCoas(Model model) {
-		
-		List<TbCoach> coaList =  schoolService.selectCoas();
-		
-		model.addAttribute("coaList", coaList);
-		
-		return "back/school_coach";
-	}
 	
 	
 }

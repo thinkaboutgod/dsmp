@@ -1,6 +1,11 @@
 package com.dsmp.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,34 +23,38 @@ public class CoachController {
 
 	@Autowired private CoachService coachService;
 	
-	public String selectCoasBySchId(Model model,Integer schId) {
-				
-		List<TbCoach> coaList =  coachService.selectCoas();
-		
-		model.addAttribute("coaList", coaList);
-		
+	@RequestMapping(value="toSchool_Coach")
+	public String toSchoolCoach(HttpSession session) {
+		session.setAttribute("schId", 1);
 		return "back/school_coach";
+	}
+	
+	
+	@RequestMapping(value="selectCoasByCondition")
+	public @ResponseBody Map<String,List<TbCoach>> selectCoasByCondition(HttpServletRequest request) {
 		
+		Map<String,List<TbCoach>> map = new HashMap<>();
+		List<TbCoach> coaList =  coachService.selectCoasByCondition(request);
+		map.put("data", coaList);
+		return map;
 		
 	}
 	
-	@RequestMapping("/coachlogin.action")
-	public String coachLogin() {
-		System.out.println("教练登陆");	
-		return "redirect:/jsp/bmain.jsp";
-	}
-	@RequestMapping("/belongtocoach.action")
-	public @ResponseBody List<TbStudent> getStudent(String coaId ,String coaPassword){
-		
-		System.out.println(coaId);
-		System.out.println(coaPassword);
-		List<TbStudent> studentlist= coachService.belongtococh(1);
-		System.out.println(studentlist.get(1).getStuName());
-		for(TbStudent tbStudent:studentlist) {
-			System.out.println(tbStudent.getStuName());
-			System.out.println(tbStudent.getStuAccount());			
-		}		
-		return studentlist;
-	}
+	
+	
+//	@RequestMapping("/selectStusByCoaId.action")
+//	public @ResponseBody List<TbStudent> selectStusByCoaId(String coaId ,String coaPassword){
+//		
+//		System.out.println(coaId);
+//		System.out.println(coaPassword);
+//		List<TbStudent> studentlist= coachService.selectStusByCoaId(1);
+//		System.out.println(studentlist.get(1).getStuName());
+//		for(TbStudent tbStudent:studentlist) {
+//			System.out.println(tbStudent.getStuName());
+//			System.out.println(tbStudent.getStuAccount());			
+//		}	
+//		
+//		return studentlist;
+//	}
 	
 }
