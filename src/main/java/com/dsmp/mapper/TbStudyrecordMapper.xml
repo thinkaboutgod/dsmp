@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbStudyrecordMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbStudyrecord" >
+    <id column="str_id" property="strId" jdbcType="INTEGER" />
+    <result column="stu_id" property="stuId" jdbcType="INTEGER" />
+    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="str_time" property="strTime" jdbcType="DOUBLE" />
+    <result column="str_beginTime" property="strBegintime" jdbcType="TIMESTAMP" />
+    <result column="str_endTime" property="strEndtime" jdbcType="TIMESTAMP" />
+    <result column="str_state" property="strState" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    str_id, stu_id, sub_id, str_time, str_beginTime, str_endTime, str_state
+  </sql>
+ 
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_studyrecord
+    where str_id = #{strId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_studyrecord
+    where str_id = #{strId,jdbcType=INTEGER}
+  </delete>
+ 
+  <insert id="insert" parameterType="com.dsmp.pojo.TbStudyrecord" >
+    insert into tb_studyrecord (str_id, stu_id, sub_id, 
+      str_time, str_beginTime, str_endTime, 
+      str_state)
+    values (#{strId,jdbcType=INTEGER}, #{stuId,jdbcType=INTEGER}, #{subId,jdbcType=INTEGER}, 
+      #{strTime,jdbcType=DOUBLE}, #{strBegintime,jdbcType=TIMESTAMP}, #{strEndtime,jdbcType=TIMESTAMP}, 
+      #{strState,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dsmp.pojo.TbStudyrecord" >
+    insert into tb_studyrecord
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="strId != null" >
+        str_id,
+      </if>
+      <if test="stuId != null" >
+        stu_id,
+      </if>
+      <if test="subId != null" >
+        sub_id,
+      </if>
+      <if test="strTime != null" >
+        str_time,
+      </if>
+      <if test="strBegintime != null" >
+        str_beginTime,
+      </if>
+      <if test="strEndtime != null" >
+        str_endTime,
+      </if>
+      <if test="strState != null" >
+        str_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="strId != null" >
+        #{strId,jdbcType=INTEGER},
+      </if>
+      <if test="stuId != null" >
+        #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="subId != null" >
+        #{subId,jdbcType=INTEGER},
+      </if>
+      <if test="strTime != null" >
+        #{strTime,jdbcType=DOUBLE},
+      </if>
+      <if test="strBegintime != null" >
+        #{strBegintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="strEndtime != null" >
+        #{strEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="strState != null" >
+        #{strState,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbStudyrecord" >
+    update tb_studyrecord
+    <set >
+      <if test="stuId != null" >
+        stu_id = #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="subId != null" >
+        sub_id = #{subId,jdbcType=INTEGER},
+      </if>
+      <if test="strTime != null" >
+        str_time = #{strTime,jdbcType=DOUBLE},
+      </if>
+      <if test="strBegintime != null" >
+        str_beginTime = #{strBegintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="strEndtime != null" >
+        str_endTime = #{strEndtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="strState != null" >
+        str_state = #{strState,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where str_id = #{strId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dsmp.pojo.TbStudyrecord" >
+    update tb_studyrecord
+    set stu_id = #{stuId,jdbcType=INTEGER},
+      sub_id = #{subId,jdbcType=INTEGER},
+      str_time = #{strTime,jdbcType=DOUBLE},
+      str_beginTime = #{strBegintime,jdbcType=TIMESTAMP},
+      str_endTime = #{strEndtime,jdbcType=TIMESTAMP},
+      str_state = #{strState,jdbcType=VARCHAR}
+    where str_id = #{strId,jdbcType=INTEGER}
+  </update>
+ <!--  查询某学员该阶段已学时长 -->
+  <select id="countTimeByStuIdAndSubject" resultType="java.lang.Double">
+    SELECT SUM(str_time)as sum from tb_studyrecord where stu_id=#{param1} and sub_id = #{param2} and str_state='true'
+  </select>
+  
+</mapper>

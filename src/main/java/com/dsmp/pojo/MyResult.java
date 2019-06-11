@@ -7,6 +7,7 @@ public class MyResult {
 	private int code;
 	private String myresult;
 	private String data;
+	private Double sum;
 
 	public MyResult() {
 		super();
@@ -22,6 +23,14 @@ public class MyResult {
 		this.code = code;
 		this.myresult = myresult;
 		this.data = data;
+	}
+
+	public Double getSum() {
+		return sum;
+	}
+
+	public void setSum(Double sum) {
+		this.sum = sum;
 	}
 
 	public String getMyresult() {

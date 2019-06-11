@@ -1,53 +1,64 @@
 package com.dsmp.pojo;
 
 public class TbVideo {
-    private Integer vidId;
+	private Integer vidId;
 
-    private Integer subId;
+	private Integer subId;
 
-    private String vidPath;
+	private String vidPath;
 
-    private String vidImgpath;
+	private String vidImgpath;
 
-    private String vidTitle;
+	private String vidTitle;
 
-    public Integer getVidId() {
-        return vidId;
-    }
+	private TbSubject tbSubject;
 
-    public void setVidId(Integer vidId) {
-        this.vidId = vidId;
-    }
+	public Integer getVidId() {
+		return vidId;
+	}
 
-    public Integer getSubId() {
-        return subId;
-    }
+	public void setVidId(Integer vidId) {
+		this.vidId = vidId;
+	}
 
-    public void setSubId(Integer subId) {
-        this.subId = subId;
-    }
+	public Integer getSubId() {
+		return subId;
+	}
 
-    public String getVidPath() {
-        return vidPath;
-    }
+	public void setSubId(Integer subId) {
+		this.subId = subId;
+	}
 
-    public void setVidPath(String vidPath) {
-        this.vidPath = vidPath == null ? null : vidPath.trim();
-    }
+	public String getVidPath() {
+		return vidPath;
+	}
 
-    public String getVidImgpath() {
-        return vidImgpath;
-    }
+	public void setVidPath(String vidPath) {
+		this.vidPath = vidPath == null ? null : vidPath.trim();
+	}
 
-    public void setVidImgpath(String vidImgpath) {
-        this.vidImgpath = vidImgpath == null ? null : vidImgpath.trim();
-    }
+	public String getVidImgpath() {
+		return vidImgpath;
+	}
 
-    public String getVidTitle() {
-        return vidTitle;
-    }
+	public void setVidImgpath(String vidImgpath) {
+		this.vidImgpath = vidImgpath == null ? null : vidImgpath.trim();
+	}
 
-    public void setVidTitle(String vidTitle) {
-        this.vidTitle = vidTitle == null ? null : vidTitle.trim();
-    }
+	public String getVidTitle() {
+		return vidTitle;
+	}
+
+	public void setVidTitle(String vidTitle) {
+		this.vidTitle = vidTitle == null ? null : vidTitle.trim();
+	}
+
+	public TbSubject getTbSubject() {
+		return tbSubject;
+	}
+
+	public void setTbSubject(TbSubject tbSubject) {
+		this.tbSubject = tbSubject;
+	}
+
 }
