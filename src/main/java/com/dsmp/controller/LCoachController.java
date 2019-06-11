@@ -121,7 +121,7 @@ public class LCoachController {
 
 	// 查询学员已学时长
 	@RequestMapping(value = "/searchStudentStudyTime.action")
-	public MyResult searchStudentTime(String stuId,String subId) {
+	public @ResponseBody MyResult searchStudentTime(String stuId,String subId) {
 		
 		return lCoachServiceImpl.countTimeByStuIdAndSubject(stuId,subId);
 	}
