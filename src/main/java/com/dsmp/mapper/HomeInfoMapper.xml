@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.dsmp.mapper.HomeInfoMapper">
+ 		
+ 	<!-- 查询所有广告信息 -->
+ 	<select id="getAdvertisement" resultMap="AdvResultMap">
+ 		select * from tb_advertisement a,tb_school s where a.sch_id = s.sch_id;
+ 	</select>
+ 	
+ 	<resultMap type="com.dsmp.pojo.TbAdvertisement" id="AdvResultMap">
+ 		<id column="adv_id" jdbcType="INTEGER" property="advId"></id>
+ 		<result column="adv_path" jdbcType="VARCHAR" property="advPath"></result>
+ 		<result column="adv_imgPath" jdbcType="VARCHAR" property="advImgpath"></result>
+ 		<result column="adv_describe" jdbcType="VARCHAR" property="advDescribe"></result>
+ 		<association property="tbSchool" column="schId" javaType="com.dsmp.pojo.TbSchool">
+ 			<id column="sch_id" jdbcType="INTEGER" property="schId"></id>
+ 			<result column="sch_name" jdbcType="VARCHAR" property="schName"></result>
+ 		</association>
+ 	</resultMap>
+ 	
+ 	<!-- 查询所有广告信息 -->
+ 	<select id="findNotice" resultMap="NotResultMap">
+ 		select * from tb_notice;
+ 	</select>
+ 	
+ 	<resultMap type="com.dsmp.pojo.TbNotice" id="NotResultMap">
+ 		<id column="not_id" jdbcType="INTEGER" property="notId"></id>
+ 		<result column="not_title" jdbcType="VARCHAR" property="notTitle"></result>
+ 		<result column="not_content" jdbcType="VARCHAR" property="notContent"></result>
+ 		<result column="not_time" jdbcType="VARCHAR" property="notTime"></result>
+ 		<result column="not_path" jdbcType="VARCHAR" property="notPath"></result> 		
+ 	</resultMap>
+ 	
+ 	<!-- 查询所友情链接信息 -->
+ 	<select id="findHotlink" resultMap="HolResultMap">
+ 		select * from tb_hotlink;
+ 	</select>
+ 	
+ 	<resultMap type="com.dsmp.pojo.TbHotlink" id="HolResultMap">
+ 		<id column="hol_id" jdbcType="INTEGER" property="holId"></id>
+ 		<result column="hol_path" jdbcType="VARCHAR" property="holPath"></result>
+ 		<result column="hol_imgpath" jdbcType="VARCHAR" property="holImgpath"></result>
+ 		<result column="hol_title" jdbcType="VARCHAR" property="holTitle"></result>		
+ 	</resultMap>
+ </mapper>

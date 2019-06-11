@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbSubjectMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbSubject" >
+    <id column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="sub_name" property="subName" jdbcType="VARCHAR" />
+    <result column="sub_time" property="subTime" jdbcType="DOUBLE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    sub_id, sub_name, sub_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_subject
+    where sub_id = #{subId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_subject
+    where sub_id = #{subId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dsmp.pojo.TbSubject" >
+    insert into tb_subject (sub_id, sub_name, sub_time
+      )
+    values (#{subId,jdbcType=INTEGER}, #{subName,jdbcType=VARCHAR}, #{subTime,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dsmp.pojo.TbSubject" >
+    insert into tb_subject
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="subId != null" >
+        sub_id,
+      </if>
+      <if test="subName != null" >
+        sub_name,
+      </if>
+      <if test="subTime != null" >
+        sub_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="subId != null" >
+        #{subId,jdbcType=INTEGER},
+      </if>
+      <if test="subName != null" >
+        #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="subTime != null" >
+        #{subTime,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbSubject" >
+    update tb_subject
+    <set >
+      <if test="subName != null" >
+        sub_name = #{subName,jdbcType=VARCHAR},
+      </if>
+      <if test="subTime != null" >
+        sub_time = #{subTime,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where sub_id = #{subId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dsmp.pojo.TbSubject" >
+    update tb_subject
+    set sub_name = #{subName,jdbcType=VARCHAR},
+      sub_time = #{subTime,jdbcType=DOUBLE}
+    where sub_id = #{subId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAllSubject" resultMap="BaseResultMap">
+    select *
+    from tb_subject
+    
+  </select>
+  
+</mapper>

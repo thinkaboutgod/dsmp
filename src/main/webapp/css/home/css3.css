@@ -1,0 +1,52 @@
+/*aitecms.com 好用的企业内容管理系统*/
+@charset "utf-8";
+
+/* CSS Document */
+.zoomimg img {
+	-webkit-transform: scale(1, 1);
+	-webkit-transition-timing-function: ease-out;
+	-webkit-transition-duration: 1683ms;
+	-moz-transform: scale(1, 1);
+	-moz-transition-timing-function: ease-out;
+	-moz-transition-duration: 1683ms;
+}
+
+.zoomimg img:hover {
+	transform: scale(1.1);
+	transition: all 1s ease 0s;
+	-webkit-transform: scale(1.1);
+	-webkit-transform: all 1s ease 0s;
+}
+
+/*图片放大缩小效果*/
+.zoomimg ul li a img {
+	-webkit-transform: scale(1, 1);
+	-webkit-transition-timing-function: ease-out;
+	-webkit-transition-duration: 1683ms;
+	-moz-transform: scale(1, 1);
+	-moz-transition-timing-function: ease-out;
+	-moz-transition-duration: 1683ms;
+}
+
+.zoomimg ul li a img:hover {
+	transform: scale(1.1);
+	transition: all 1s ease 0s;
+	-webkit-transform: scale(1.1);
+	-webkit-transform: all 1s ease 0s;
+}
+
+.zoomimg dl li a img {
+	-webkit-transform: scale(1, 1);
+	-webkit-transition-timing-function: ease-out;
+	-webkit-transition-duration: 1683ms;
+	-moz-transform: scale(1, 1);
+	-moz-transition-timing-function: ease-out;
+	-moz-transition-duration: 1683ms;
+}
+
+.zoomimg dl li a img:hover {
+	transform: scale(1.1);
+	transition: all 1s ease 0s;
+	-webkit-transform: scale(1.1);
+	-webkit-transform: all 1s ease 0s;
+}

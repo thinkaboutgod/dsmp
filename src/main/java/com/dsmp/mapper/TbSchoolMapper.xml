@@ -19,6 +19,10 @@
     <result column="sch_charge" property="schCharge" jdbcType="DOUBLE" />
   </resultMap>
   
+  <!-- 驾校登录验证 -->
+  <select id="getSchool" resultType="com.dsmp.pojo.TbSchool" resultMap="BaseResultMap">
+		select * from tb_school where sch_account = #{schAccount};
+  </select>
   
   
   
@@ -277,4 +281,9 @@
       sch_charge = #{schCharge,jdbcType=DOUBLE}
     where sch_id = #{schId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectAllSchool" resultMap="BaseResultMap" >
+    select * from tb_school
+  </select>
+  
 </mapper>

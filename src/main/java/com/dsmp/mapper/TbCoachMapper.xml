@@ -2,21 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dsmp.mapper.TbCoachMapper" >
 
-   	<select id="selectCoach" resultType="com.dsmp.pojo.TbCoach" resultMap="BaseResultMap">
-		select * from tb_coach 
-	</select>
 	
-	<select id="belongtocoach" resultType="com.dsmp.pojo.TbStudent" resultMap="studentResultMap">
-		select a.coa_id,a.stu_id,a.stu_name,a.stu_account,a.stu_sex,a.stu_address,a.stu_signUpTime,a.stu_verifyStatus,b.* from tb_student a,tb_subject b where a.sub_id=b.sub_id and a.coa_id=#{coaid}
-	</select>
-	
-<!-- 	<resultMap type="com.dsp.pojo.Coach" id="belongtocoach"> -->
-<!-- 		<id column="coa_id" property="coa_id"/>		 -->
-<!-- 		<collection property="studentlist" ofType="com.dsp.pojo.Student" javaType="java.util.ArrayList" -->
-<!-- 		select="selectstudents" column="coa_id"> -->
-<!-- 		</collection> -->
-<!-- 	</resultMap> -->
-
 
   <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbCoach" >
     <id column="coa_id" property="coaId" jdbcType="INTEGER" />
@@ -61,4 +47,22 @@
    		<result column="sub_time" property="subTime" jdbcType="INTEGER" />
     </association>
   </resultMap>
+  
+  <!-- 教练登录查询 -->
+	<select id="getCoach" resultType="com.dsmp.pojo.TbCoach" resultMap="BaseResultMap">
+		select * from tb_coach where coa_account = #{coaAccount};
+	</select>
+	
+	<!-- 查询驾校名下教练 -->
+  <select id="selectCoasByCondition" resultMap="BaseResultMap" >
+		select * from tb_coach  
+		<where>
+			<if test="name!=null">coa_name like "%"#{name}"%"</if>
+			<if test="account!=null">and coa_account like "%"#{account}"%"</if>
+			<if test="beginTime!=null">and coa_registertime&gt;#{beginTime}</if><!-- 大于号 -->
+			<if test="endTime!=null">and coa_registertime&lt;#{endTime}</if><!-- 小于号 -->
+			and sch_id = #{schId}
+		</where>
+	</select>
+  
 </mapper>
