@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbVideoMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbVideo" >
+    <id column="vid_id" property="vidId" jdbcType="INTEGER" />
+    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="vid_path" property="vidPath" jdbcType="VARCHAR" />
+    <result column="vid_imgPath" property="vidImgpath" jdbcType="VARCHAR" />
+    <result column="vid_title" property="vidTitle" jdbcType="VARCHAR" />
+    <association property="tbSubject" javaType="com.dsmp.pojo.TbSubject">
+    	<id column="sub_id" property="subId" jdbcType="INTEGER" />
+   	 	<result column="sub_name" property="subName" jdbcType="VARCHAR" />
+    	<result column="sub_time" property="subTime" jdbcType="DOUBLE" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    vid_id, sub_id, vid_path, vid_imgPath, vid_title
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_video
+    where vid_id = #{vidId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_video
+    where vid_id = #{vidId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dsmp.pojo.TbVideo" >
+    insert into tb_video (vid_id, sub_id, vid_path, 
+      vid_imgPath, vid_title)
+    values (#{vidId,jdbcType=INTEGER}, #{subId,jdbcType=INTEGER}, #{vidPath,jdbcType=VARCHAR}, 
+      #{vidImgpath,jdbcType=VARCHAR}, #{vidTitle,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbVideo" >
+    update tb_video
+    <set >
+      <if test="subId != null" >
+        sub_id = #{subId,jdbcType=INTEGER},
+      </if>
+      <if test="vidPath != null" >
+        vid_path = #{vidPath,jdbcType=VARCHAR},
+      </if>
+      <if test="vidImgpath != null" >
+        vid_imgPath = #{vidImgpath,jdbcType=VARCHAR},
+      </if>
+      <if test="vidTitle != null" >
+        vid_title = #{vidTitle,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where vid_id = #{vidId,jdbcType=INTEGER}
+  </update>
+ <!--  根据科目查询视频 分页-->
+  <select id="searchVideoBySubect" resultMap="BaseResultMap"  >
+    select tb_video.*,tb_subject.*
+    from tb_video,tb_subject
+    where tb_subject.sub_id = #{param1} and tb_video.sub_id=tb_subject.sub_id
+    ORDER BY tb_video.vid_id LIMIT #{param2},#{param3}
+  </select>
+  
+  <!--  根据科目查询视频不分页 -->
+  <select id="searchVideoBySubId" resultMap="BaseResultMap"  >
+    select *
+    from tb_video
+    where sub_id = #{param1} ORDER BY vid_id 
+  </select>
+  
+  <!--  根据科目查询视频共几条 -->
+  <select id="countVideoBySubect" resultType="com.dsmp.pojo.PageResult"  >
+    select count(*)as totalPage
+    from tb_video,tb_subject
+    where tb_subject.sub_id = #{param1} and tb_video.sub_id=tb_subject.sub_id
+   
+  </select>
+  
+  <insert id="insertVideo" parameterType="com.dsmp.pojo.TbVideo" >
+    insert into tb_video (sub_id, vid_path, 
+      vid_imgPath, vid_title)
+    values ( #{subId,jdbcType=INTEGER}, #{vidPath,jdbcType=VARCHAR}, 
+      #{vidImgpath,jdbcType=VARCHAR}, #{vidTitle,jdbcType=VARCHAR})
+  </insert>
+  
+</mapper>

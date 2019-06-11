@@ -5,10 +5,9 @@ import java.util.List;
 import com.dsmp.pojo.BelongtoCoachStudentMsg;
 import com.dsmp.pojo.SearchBean;
 import com.dsmp.pojo.TbCoach;
+import com.dsmp.pojo.TbExamschedule;
 import com.dsmp.pojo.TbRating;
 import com.dsmp.pojo.TbStudent;
-import com.dsmp.pojo.TbStudyrecord;
-import com.dsmp.pojo.TbSubjectscore;
 
 public interface LCoachMapper {
 
@@ -19,5 +18,7 @@ public interface LCoachMapper {
 	public List<BelongtoCoachStudentMsg> selectStudentMsg(int stuid);
 	
 	public List<TbRating> selectStudentRating(int coaid,String choose);
+	
+	public List<TbExamschedule> selectTheTestMsg(int schId);
 
 }

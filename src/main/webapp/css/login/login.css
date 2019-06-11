@@ -1,0 +1,129 @@
+ .header-wrap{
+        width: 100%;
+        /*overflow: hidden;*/
+    }
+    .header-nav {
+        width: 1230px;
+        margin: 0 auto;
+        /*overflow: hidden;*/
+    }
+    .vip:hover a{
+        color: #00c356;
+    }
+    .left-nav{
+        height: 40px;
+        line-height: 40px;
+        float: left;
+    }
+    .left-nav div{
+        float: left;
+    }
+    .left-nav .logo-img{
+
+    }
+    .left-nav .logo-img a{
+        overflow: hidden;
+        height: 40px;
+        display: flex;
+        align-items: center;
+    }
+    .left-nav .logo-img img{
+        /*margin-top: 5px;*/
+        width: 30px;
+        height: 30px;
+    }
+    .left-nav .vip{
+        margin:  0 10px;
+    }
+    .left-nav .vip a{
+        font-size: 14px;
+    }
+    .left-nav .vip i{
+        font-size: 12px;
+        color: #00c356;
+    }
+    .left-nav .tel{
+        padding-left: 10px;
+        /*margin-top: 11px;*/
+        font-size: 14px;
+        color: #999999;
+    }
+    .left-nav .tel span{
+        color: #00C356;
+    }
+    .left-nav .nav-btn{
+        margin-left: 10px;
+    }
+    .left-nav .nav-btn span{
+        margin: 0 5px;
+    }
+    .left-nav .nav-btn a{
+        font-size: 14px;
+        color: #00c356;
+    }
+    .right-nav{
+        float: right;
+    }
+    .right-nav .right-text{
+        margin: 10px;
+        color: #00c356;
+        font-size: 14px;
+    }
+    .right-nav .right-text:last-child{
+        margin-right: 34px;
+    }
+    .comment-header-app{
+        font-size:14px;
+        color:rgba(102,102,102,1);
+        display: inline-block;
+        width: 80px;
+        height: 40px;
+        line-height: 40px;
+        text-align: center;
+        position: relative;
+    }
+    .comment-header-app:hover {
+        color: #00c356;
+        background-color: #fff;
+        /* border-color: #E5E5E5; */
+        box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.1);
+        /* border: none; */
+        /*border: 1px solid #E5E5E5;*/
+    }
+    .comment-header-app:hover .down-popup{
+        display: inline-block;
+    }
+    .down-popup{
+        border: 1px solid #E5E5E5;
+        left: -1px;
+        display: none;
+        position: absolute;
+        top: 40px;
+        z-index: 9999;
+        height: 76px;
+        width: 80px;
+        text-align: center;
+        margin: 0;
+        padding: 0;
+        background-color: #fff;
+        box-shadow: 0 3px 5px 0 rgba(0,0,0,.1);
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        border-top: none;
+    }
+    .down-popup li{
+        margin: 10px 0;
+        padding: 0;
+        height: 20px;
+        text-decoration: none;
+        line-height: 20px;
+        border-left: 1px solid transparent;
+        border-right: 1px solid transparent;
+    }
+    .down-popup li a{
+        font-size: 12px;
+        color: #999999;
+    }
+    .down-popup li a:hover{
+        color: #00c356;
+    }

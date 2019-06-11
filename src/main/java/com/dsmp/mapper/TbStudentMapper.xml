@@ -24,52 +24,54 @@
     <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
   </resultMap>
   
+  
+  
+  <resultMap id="searchStudent" type="com.dsmp.pojo.TbStudent" >
+    <id column="stu_id" property="stuId" jdbcType="INTEGER" />
+    <result column="coa_id" property="coaId" jdbcType="INTEGER" />
+    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+    <result column="stu_account" property="stuAccount" jdbcType="VARCHAR" />
+    <result column="stu_password" property="stuPassword" jdbcType="VARCHAR" />
+    <result column="stu_sex" property="stuSex" jdbcType="VARCHAR" />
+    <result column="stu_birthday" property="stuBirthday" jdbcType="VARCHAR" />
+    <result column="stu_idcard" property="stuIdcard" jdbcType="VARCHAR" />
+    <result column="stu_img" property="stuImg" jdbcType="VARCHAR" />
+    <result column="stu_headimg" property="stuHeadimg" jdbcType="VARCHAR" />
+    <result column="stu_address" property="stuAddress" jdbcType="VARCHAR" />
+    <result column="stu_registertime" property="stuRegistertime" jdbcType="TIMESTAMP" />
+    <result column="stu_errCount" property="stuErrcount" jdbcType="INTEGER" />
+    <result column="stu_errTime" property="stuErrtime" jdbcType="TIMESTAMP" />
+    <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
+    <result column="stu_signUpTime" property="stuSignuptime" jdbcType="VARCHAR" />
+    <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
+    <association property="tbCoach" javaType="com.dsmp.pojo.TbCoach">
+		<id column="coa_id" property="coaId" jdbcType="INTEGER" />
+	    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+	    <result column="coa_name" property="coaName" jdbcType="VARCHAR" />
+	    <result column="coa_account" property="coaAccount" jdbcType="VARCHAR" />
+	    <result column="coa_sex" property="coaSex" jdbcType="VARCHAR" />
+	    <result column="coa_introduction" property="coaIntroduction" jdbcType="VARCHAR" />	    
+	</association>
+	<association property="tbSchool" javaType="com.dsmp.pojo.TbSchool">
+		<id column="sch_id" property="schId" jdbcType="INTEGER" />
+	    <result column="sch_name" property="schName" jdbcType="VARCHAR" />
+	    <result column="sch_account" property="schAccount" jdbcType="VARCHAR" />
+	</association>
+	<association property="tbSubject" javaType="com.dsmp.pojo.TbSubject">
+		<id jdbcType="INTEGER" property="subId" column="sub_id"/>
+		<result jdbcType="VARCHAR" property="subName" column="sub_name"/>
+		<result jdbcType="DOUBLE" property="subTime" column="sub_time"/>
+	</association>
+  </resultMap>
+  
   <resultMap id="CountStudentMap" type="com.dsmp.pojo.Count" >
   	<result column="name" property="name" jdbcType="VARCHAR" />
     <result column="num" property="data" jdbcType="VARCHAR" />
     <result column="sch_account" property="phone" jdbcType="VARCHAR" />
   </resultMap>
-  
-	<resultMap id="searchStudent" type="com.dsmp.pojo.TbStudent" >
-	    <id column="stu_id" property="stuId" jdbcType="INTEGER" />
-	    <result column="coa_id" property="coaId" jdbcType="INTEGER" />
-	    <result column="sch_id" property="schId" jdbcType="INTEGER" />
-	    <result column="sub_id" property="subId" jdbcType="INTEGER" />
-	    <result column="stu_name" property="stuName" jdbcType="VARCHAR" />
-	    <result column="stu_account" property="stuAccount" jdbcType="VARCHAR" />
-	    <result column="stu_password" property="stuPassword" jdbcType="VARCHAR" />
-	    <result column="stu_sex" property="stuSex" jdbcType="VARCHAR" />
-	    <result column="stu_birthday" property="stuBirthday" jdbcType="VARCHAR" />
-	    <result column="stu_idcard" property="stuIdcard" jdbcType="VARCHAR" />
-	    <result column="stu_img" property="stuImg" jdbcType="VARCHAR" />
-	    <result column="stu_headimg" property="stuHeadimg" jdbcType="VARCHAR" />
-	    <result column="stu_address" property="stuAddress" jdbcType="VARCHAR" />
-	    <result column="stu_registertime" property="stuRegistertime" jdbcType="TIMESTAMP" />
-	    <result column="stu_errCount" property="stuErrcount" jdbcType="INTEGER" />
-	    <result column="stu_errTime" property="stuErrtime" jdbcType="TIMESTAMP" />
-	    <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
-	    <result column="stu_signUpTime" property="stuSignuptime" jdbcType="VARCHAR" />
-	    <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
-	    <association property="tbCoach" javaType="com.dsmp.pojo.TbCoach">
-			<id column="coa_id" property="coaId" jdbcType="INTEGER" />
-		    <result column="sch_id" property="schId" jdbcType="INTEGER" />
-		    <result column="coa_name" property="coaName" jdbcType="VARCHAR" />
-		    <result column="coa_account" property="coaAccount" jdbcType="VARCHAR" />
-		    <result column="coa_sex" property="coaSex" jdbcType="VARCHAR" />
-		    <result column="coa_introduction" property="coaIntroduction" jdbcType="VARCHAR" />	    
-		</association>
-		<association property="tbSchool" javaType="com.dsmp.pojo.TbSchool">
-			<id column="sch_id" property="schId" jdbcType="INTEGER" />
-		    <result column="sch_name" property="schName" jdbcType="VARCHAR" />
-		    <result column="sch_account" property="schAccount" jdbcType="VARCHAR" />
-		</association>
-		<association property="tbSubject" javaType="com.dsmp.pojo.TbSubject">
-			<id jdbcType="INTEGER" property="subId" column="sub_id"/>
-			<result jdbcType="VARCHAR" property="subName" column="sub_name"/>
-			<result jdbcType="DOUBLE" property="subTime" column="sub_time"/>
-		</association>
-  </resultMap>
-  
+
   <select id="searchAllstudent" resultMap="searchStudent">
 		select s.*,sc.*,c.*,su.* from tb_student s,tb_school sc,tb_coach c,tb_subject su
 		<where>
@@ -118,5 +120,23 @@
 	(select stu_signUpTime ,count(*) as num from tb_student where sch_id=#{param1}  GROUP BY DATE_FORMAT(stu_signUpTime , '%Y-%m-%d' )) t
  	ON DATE_FORMAT(t.stu_signUpTime , '%Y-%m-%d' )= a.day order by a.day
   </select>
+
+  <!-- 	查询教练底下处于科目二和三的学员 -->
+  <select id="selectStudentByCoachIdAndSubject" resultMap="searchStudent"  >
+  	select stu.stu_id,stu.sub_id,stu.stu_name,sub.* from tb_student stu,tb_subject sub where stu.coa_id = #{param1} and stu.sub_id != 1 and stu.sub_id != 4 and stu.sub_id = sub.sub_id
+  </select>
   
+  <!-- 用户登录 -->
+  <select id="findStudentByAccountPwd" parameterType="com.dsmp.pojo.TbStudent" resultMap="BaseResultMap">
+ 	select * from tb_student where stu_account=#{stuAccount};
+  </select>
+  <!-- 记录用户输错次数 -->
+  <update id="updateStudent" parameterType="com.dsmp.pojo.TbStudent">
+    update tb_student set stu_errCount = #{stuErrcount},stu_errTime = #{stuErrtime},stu_status=#{stuStatus} where stu_account=#{stuAccount};
+  </update>
+  <!-- 学员注册 -->
+  <insert id="insertStudent" parameterType="com.dsmp.pojo.TbStudent" >
+    insert into tb_student(stu_account,stu_password,stu_status) values(#{stuAccount},#{stuPassword},#{stuStatus});
+  </insert>
+
 </mapper>

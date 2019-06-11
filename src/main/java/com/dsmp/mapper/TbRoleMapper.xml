@@ -5,6 +5,11 @@
     <id column="rol_id" property="rolId" jdbcType="INTEGER" />
     <result column="rol_name" property="rolName" jdbcType="VARCHAR" />
   </resultMap>
+  <!-- 根据ID获取角色 -->
+  <select id="getRole" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+  	select * from tb_role where rol_id = #{rolId};
+  </select>
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
