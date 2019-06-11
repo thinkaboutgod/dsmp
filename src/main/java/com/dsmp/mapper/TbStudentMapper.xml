@@ -71,8 +71,7 @@
     <result column="num" property="data" jdbcType="VARCHAR" />
     <result column="sch_account" property="phone" jdbcType="VARCHAR" />
   </resultMap>
-  
-	
+
   <select id="searchAllstudent" resultMap="searchStudent">
 		select s.*,sc.*,c.*,su.* from tb_student s,tb_school sc,tb_coach c,tb_subject su
 		<where>
