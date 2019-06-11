@@ -281,4 +281,9 @@
       sch_charge = #{schCharge,jdbcType=DOUBLE}
     where sch_id = #{schId,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectAllSchool" resultMap="BaseResultMap" >
+    select * from tb_school
+  </select>
+  
 </mapper>

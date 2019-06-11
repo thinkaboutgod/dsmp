@@ -110,7 +110,7 @@ $(document).ready(function () {
 					var syzm = $(".register-yzm").val().trim();
 					alert(role);
 					$.ajax({
-						url:"/dsmp/user/studentLogin.action?",
+						url:"/dsmp/student/studentLogin.action?",
 						async:true,
 						type:"POST",
 						data:{"account":saccount,"password":spwd,"yzm":syzm,"role":role},
@@ -121,8 +121,7 @@ $(document).ready(function () {
 								alert("登录成功!");
 								switch(role){
 								case "5":
-									window.location.href = path+'/dsmp/home/main.action';
-									window.close();									
+									window.location.href = path+'/home/main.action';								
 									break;
 								case "4":
 									window.location.href = path+'/menu/toManageMain.action?role_id='+role;

@@ -8,7 +8,10 @@ public class MyResult {
 	private int roleId;
 	private String myresult;
 	private String data;
+	
 	private int errCount;
+	private Double sum;
+
 	public MyResult() {
 		super();
 	}
@@ -41,6 +44,14 @@ public class MyResult {
 
 	public void setErrCount(int errCount) {
 		this.errCount = errCount;
+	}
+
+	public Double getSum() {
+		return sum;
+	}
+
+	public void setSum(Double sum) {
+		this.sum = sum;
 	}
 
 	public String getMyresult() {

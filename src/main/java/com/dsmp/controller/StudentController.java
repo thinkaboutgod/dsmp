@@ -6,6 +6,10 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,15 +19,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dsmp.pojo.MyResult;
+import com.dsmp.pojo.TbStudent;
 import com.dsmp.service.StudentService;
 import com.dsmp.utils.GsonUtils;
 import com.zhenzi.sms.ZhenziSmsClient;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("student")
 public class StudentController {
 
-	@Autowired private StudentService studentService;
+	@Autowired
+	private StudentService studentService;
+	
 	//主页跳登录页
 	@RequestMapping("/login")
 	public ModelAndView getLoginPage() {
@@ -38,6 +45,22 @@ public class StudentController {
 		mav.setViewName("client/register");
 		return mav;
 	}
+	
+	
+	@RequestMapping(value="toschool_student")
+	public String toSchoolCoach(HttpSession session) {
+		session.setAttribute("schId", 1);
+		return "back/school_student";
+	}
+	
+	@RequestMapping(value = "searchAllStudent.action")
+	public @ResponseBody Map<String, List<TbStudent>> searchAllstudent(HttpServletRequest request) {
+		List<TbStudent> list = studentService.searchAllstudent(request);
+		Map<String, List<TbStudent>> map = new HashMap<>();
+		map.put("data", list);
+		return map;
+	}
+	
 	
 	
 	//用户登录判断

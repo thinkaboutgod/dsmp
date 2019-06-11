@@ -1,6 +1,7 @@
 package com.dsmp.pojo;
 
 public class TbCar {
+	
     private Integer carId;
 
     private Integer coaId;
@@ -16,7 +17,15 @@ public class TbCar {
     private String carStatus;
 
     private String carColor;
-
+    
+    private String carStartTime;
+    
+    private String carUsedTime;
+    
+    private TbCoach tbCoach;
+    
+    private TbSchool tbSchool;
+   
     public Integer getCarId() {
         return carId;
     }
@@ -76,8 +85,44 @@ public class TbCar {
     public String getCarColor() {
         return carColor;
     }
+    
+    public String getCarStartTime() {
+		return carStartTime;
+	}
 
-    public void setCarColor(String carColor) {
+	public void setCarStartTime(String carStartTime) {
+		this.carStartTime = carStartTime;
+	}
+
+	public void setCarColor(String carColor) {
         this.carColor = carColor == null ? null : carColor.trim();
     }
+
+	public TbCoach getTbCoach() {
+		return tbCoach;
+	}
+
+	public void setTbCoach(TbCoach tbCoach) {
+		this.tbCoach = tbCoach;
+	}
+
+	public TbSchool getTbSchool() {
+		return tbSchool;
+	}
+
+	public void setTbSchool(TbSchool tbSchool) {
+		this.tbSchool = tbSchool;
+	}
+
+	public String getCarUsedTime() {
+		return carUsedTime;
+	}
+
+	public void setCarUsedTime(String carUsedTime) {
+		this.carUsedTime = carUsedTime;
+	}
+
+	
+
+    
 }

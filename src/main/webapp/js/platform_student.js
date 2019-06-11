@@ -35,7 +35,6 @@ $(function() {
 								data = '<button id="forbit" class="btn btn-success btn-sm bt_qi" >启用</button>';
 							}
 							return data;
-
 						}
 					},  ],
 
@@ -50,7 +49,7 @@ $(function() {
 				}, {
 					"name" : "beginTime",
 					"value" : $("#begintime2").val()
-				}, {
+				}, { 
 					"name" : "endTime",
 					"value" : $("#endtime2").val()
 				}
@@ -147,7 +146,6 @@ $(function() {
 			table.$('tr.selected').removeClass('selected');
 			$(this).addClass('selected');
 			$(this).addClass('selected');
-
 		}
 	});
 	

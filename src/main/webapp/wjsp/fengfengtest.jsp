@@ -11,6 +11,6 @@
 </head>
 <body>
 <%-- 		<a href=<%=path+"/menu/findTopic.action?top_id=1"%>>查询一道题目</a> --%>
-		<a href=<%=path+"/menu/findManyTopic.action"%>>查询多道题目</a>
+		<a href=<%=path+"/topic/findManyTopic.action"%>>查询多道题目</a>
 </body>
 </html>

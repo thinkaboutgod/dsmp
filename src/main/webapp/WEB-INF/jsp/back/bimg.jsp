@@ -24,7 +24,7 @@
 	  	<section class="content">
 	  	 	<div class="row">
 	  	 		<div class="col-md-12">
-           			 <img src=<%=path+"/images/hai.jpg"%> alt="">
+           		<img src=<%=path+"/images/hai.jpg"%> alt="">
 	  	 		</div>  <!-- /.box-body -->
 	  	 	</div>
 	  	</section>

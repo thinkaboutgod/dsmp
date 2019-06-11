@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.LCoachMapper" >
+	
+	<select id="selectCoach" resultType="com.dsmp.pojo.TbCoach" resultMap="BaseResultMap">
+		select * from tb_coach 
+	</select>
+	
+	<select id="belongtocoach" resultType="com.dsmp.pojo.TbStudent" resultMap="studentResultMap">
+		select a.coa_id,a.stu_id,a.stu_name,a.stu_account,a.stu_sex,a.stu_address,a.stu_signUpTime,a.stu_verifyStatus,b.* from tb_student a,tb_subject b 
+		<where>
+			<if test="param2.name!=null">and stu_name like "%"#{param2.name}"%"</if>
+			<if test="param2.account!=null">and stu_account like "%"#{param2.account}"%"</if>
+			<if test="param2.beginTime!=null">and stu_signUpTime&gt;#{param2.beginTime}</if><!-- 大于号 -->
+			<if test="param2.belongSubject!=null">and sub_name=#{param2.belongSubject}</if>
+			<if test="param2.endTime!=null">and stu_signUpTime&lt;#{param2.endTime}</if><!-- 小于号 -->
+			and a.sub_id=b.sub_id and a.coa_id=#{param1}
+		</where>
+	</select>
+	
+	<select id="selectStudentMsg" resultType="com.dsmp.pojo.TbStudyrecord" resultMap="studentMsgMap">
+		select ss.*,c.sus_score from(select a.str_time,a.stu_id,a.sub_id,b.sub_name,b.sub_time from tb_studyRecord a ,tb_subject b where a.sub_id=b.sub_id and a.stu_id=#{param1})ss 
+		left join tb_subjectScore c on ss.sub_id=c.sub_id
+	</select>
+	
+	<select id="selectStudentRating" resultType="com.dsmp.pojo.TbRating" resultMap="studentRating">
+		 select * from tb_rating 
+		 <where>
+		 	<if test="param2!=null">
+		 		rat_type=#{param2}
+		 	</if>
+		 	and coa_id=#{param1};
+		 </where>
+		 
+	</select>
+	
+	<resultMap type="com.dsmp.pojo.TbRating" id="studentRating">
+		<id column="rat_id" property="ratId" jdbcType="INTEGER"/>
+  		<result column="coa_id" property="coaId" jdbcType="INTEGER" />
+  		<result column="sch_id" property="schId" jdbcType="INTEGER" />
+    	<result column="stu_id" property="stuId" jdbcType="INTEGER" />
+   		<result column="rat_content" property="ratContent" jdbcType="VARCHAR" />
+    	<result column="rat_time" property="ratTime" jdbcType="TIMESTAMP" />
+    	<result column="rat_star" property="ratStar" jdbcType="INTEGER" />
+    	<result column="rat_type" property="ratType" jdbcType="VARCHAR" />
+	</resultMap>
+	
+  <resultMap type="com.dsmp.pojo.BelongtoCoachStudentMsg" id="studentMsgMap">
+  		<id column="sub_id" property="subId" jdbcType="INTEGER"/>
+  		<result column="stu_id" property="stuId" jdbcType="INTEGER" />
+  		<result column="str_time" property="strTime" jdbcType="INTEGER" />
+    	<result column="sub_name" property="subName" jdbcType="VARCHAR" />
+   		<result column="sub_time" property="subTime" jdbcType="INTEGER" />
+    	<result column="sus_score" property="susScore" jdbcType="INTEGER" />  
+  </resultMap>
+  
+  
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbCoach" >
+    <id column="coa_id" property="coaId" jdbcType="INTEGER" />
+    <result column="rol_id" property="rolId" jdbcType="INTEGER" />
+    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+    <result column="coa_name" property="coaName" jdbcType="VARCHAR" />
+    <result column="coa_account" property="coaAccount" jdbcType="VARCHAR" />
+    <result column="coa_password" property="coaPassword" jdbcType="VARCHAR" />
+    <result column="coa_sex" property="coaSex" jdbcType="VARCHAR" />
+    <result column="coa_birthday" property="coaBirthday" jdbcType="VARCHAR" />
+    <result column="coa_idcard" property="coaIdcard" jdbcType="VARCHAR" />
+    <result column="coa_headimg" property="coaHeadimg" jdbcType="VARCHAR" />
+    <result column="coa_address" property="coaAddress" jdbcType="VARCHAR" />
+    <result column="coa_introduction" property="coaIntroduction" jdbcType="VARCHAR" />
+    <result column="coa_status" property="coaStatus" jdbcType="VARCHAR" />
+    <result column="coa_level" property="coaLevel" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <resultMap id="studentResultMap" type="com.dsmp.pojo.TbStudent" >
+    <id column="stu_id" property="stuId" jdbcType="INTEGER" />
+    <result column="coa_id" property="coaId" jdbcType="INTEGER" />
+    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+    <result column="stu_account" property="stuAccount" jdbcType="VARCHAR" />
+    <result column="stu_password" property="stuPassword" jdbcType="VARCHAR" />
+    <result column="stu_sex" property="stuSex" jdbcType="VARCHAR" />
+    <result column="stu_birthday" property="stuBirthday" jdbcType="VARCHAR" />
+    <result column="stu_idcard" property="stuIdcard" jdbcType="VARCHAR" />
+    <result column="stu_img" property="stuImg" jdbcType="VARCHAR" />
+    <result column="stu_headimg" property="stuHeadimg" jdbcType="VARCHAR" />
+    <result column="stu_address" property="stuAddress" jdbcType="VARCHAR" />
+    <result column="stu_registertime" property="stuRegistertime" jdbcType="TIMESTAMP" />
+    <result column="stu_errCount" property="stuErrcount" jdbcType="INTEGER" />
+    <result column="stu_errTime" property="stuErrtime" jdbcType="TIMESTAMP" />
+    <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
+    <result column="stu_signUpTime" property="stuSignuptime" jdbcType="TIMESTAMP" />
+    <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
+    <association property="tbSubject" column="sub_id" javaType="TbSubject">
+    	<id column="sub_id" property="subId" jdbcType="INTEGER" />
+    	<result column="sub_name" property="subName" jdbcType="VARCHAR" />
+   		<result column="sub_time" property="subTime" jdbcType="INTEGER" />
+    </association>
+  </resultMap>
+  
+<!--   <sql id="Example_Where_Clause" > -->
+<!--     <where > -->
+<!--       <foreach collection="oredCriteria" item="criteria" separator="or" > -->
+<!--         <if test="criteria.valid" > -->
+<!--           <trim prefix="(" suffix=")" prefixOverrides="and" > -->
+<!--             <foreach collection="criteria.criteria" item="criterion" > -->
+<!--               <choose > -->
+<!--                 <when test="criterion.noValue" > -->
+<!--                   and ${criterion.condition} -->
+<!--                 </when> -->
+<!--                 <when test="criterion.singleValue" > -->
+<!--                   and ${criterion.condition} #{criterion.value} -->
+<!--                 </when> -->
+<!--                 <when test="criterion.betweenValue" > -->
+<!--                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue} -->
+<!--                 </when> -->
+<!--                 <when test="criterion.listValue" > -->
+<!--                   and ${criterion.condition} -->
+<!--                   <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," > -->
+<!--                     #{listItem} -->
+<!--                   </foreach> -->
+<!--                 </when> -->
+<!--               </choose> -->
+<!--             </foreach> -->
+<!--           </trim> -->
+<!--         </if> -->
+<!--       </foreach> -->
+<!--     </where> -->
+<!--   </sql> -->
+<!--   <sql id="Update_By_Example_Where_Clause" > -->
+<!--     <where > -->
+<!--       <foreach collection="example.oredCriteria" item="criteria" separator="or" > -->
+<!--         <if test="criteria.valid" > -->
+<!--           <trim prefix="(" suffix=")" prefixOverrides="and" > -->
+<!--             <foreach collection="criteria.criteria" item="criterion" > -->
+<!--               <choose > -->
+<!--                 <when test="criterion.noValue" > -->
+<!--                   and ${criterion.condition} -->
+<!--                 </when> -->
+<!--                 <when test="criterion.singleValue" > -->
+<!--                   and ${criterion.condition} #{criterion.value} -->
+<!--                 </when> -->
+<!--                 <when test="criterion.betweenValue" > -->
+<!--                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue} -->
+<!--                 </when> -->
+<!--                 <when test="criterion.listValue" > -->
+<!--                   and ${criterion.condition} -->
+<!--                   <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," > -->
+<!--                     #{listItem} -->
+<!--                   </foreach> -->
+<!--                 </when> -->
+<!--               </choose> -->
+<!--             </foreach> -->
+<!--           </trim> -->
+<!--         </if> -->
+<!--       </foreach> -->
+<!--     </where> -->
+<!--   </sql> -->
+<!--   <sql id="Base_Column_List" > -->
+<!--     coa_id, rol_id, sch_id, coa_name, coa_account, coa_password, coa_sex, coa_birthday,  -->
+<!--     coa_idcard, coa_headimg, coa_address, coa_introduction, coa_status, coa_level -->
+<!--   </sql> -->
+  
+<!--   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.dsmp.pojo.TbCoachExample" > -->
+<!--     select -->
+<!--     <if test="distinct" > -->
+<!--       distinct -->
+<!--     </if> -->
+<!--     <include refid="Base_Column_List" /> -->
+<!--     from tb_coach -->
+<!--     <if test="_parameter != null" > -->
+<!--       <include refid="Example_Where_Clause" /> -->
+<!--     </if> -->
+<!--     <if test="orderByClause != null" > -->
+<!--       order by ${orderByClause} -->
+<!--     </if> -->
+<!--   </select> -->
+  
+<!--   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" > -->
+<!--     select  -->
+<!--     <include refid="Base_Column_List" /> -->
+<!--     from tb_coach -->
+<!--     where coa_id = #{coaId,jdbcType=INTEGER} -->
+<!--   </select> -->
+<!--   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" > -->
+<!--     delete from tb_coach -->
+<!--     where coa_id = #{coaId,jdbcType=INTEGER} -->
+<!--   </delete> -->
+<!--   <delete id="deleteByExample" parameterType="com.dsmp.pojo.TbCoachExample" > -->
+<!--     delete from tb_coach -->
+<!--     <if test="_parameter != null" > -->
+<!--       <include refid="Example_Where_Clause" /> -->
+<!--     </if> -->
+<!--   </delete> -->
+<!--   <insert id="insert" parameterType="com.dsmp.pojo.TbCoach" > -->
+<!--     insert into tb_coach (coa_id, rol_id, sch_id,  -->
+<!--       coa_name, coa_account, coa_password,  -->
+<!--       coa_sex, coa_birthday, coa_idcard,  -->
+<!--       coa_headimg, coa_address, coa_introduction,  -->
+<!--       coa_status, coa_level) -->
+<!--     values (#{coaId,jdbcType=INTEGER}, #{rolId,jdbcType=INTEGER}, #{schId,jdbcType=INTEGER},  -->
+<!--       #{coaName,jdbcType=VARCHAR}, #{coaAccount,jdbcType=VARCHAR}, #{coaPassword,jdbcType=VARCHAR},  -->
+<!--       #{coaSex,jdbcType=VARCHAR}, #{coaBirthday,jdbcType=VARCHAR}, #{coaIdcard,jdbcType=VARCHAR},  -->
+<!--       #{coaHeadimg,jdbcType=VARCHAR}, #{coaAddress,jdbcType=VARCHAR}, #{coaIntroduction,jdbcType=VARCHAR},  -->
+<!--       #{coaStatus,jdbcType=VARCHAR}, #{coaLevel,jdbcType=VARCHAR}) -->
+<!--   </insert> -->
+<!--   <insert id="insertSelective" parameterType="com.dsmp.pojo.TbCoach" > -->
+<!--     insert into tb_coach -->
+<!--     <trim prefix="(" suffix=")" suffixOverrides="," > -->
+<!--       <if test="coaId != null" > -->
+<!--         coa_id, -->
+<!--       </if> -->
+<!--       <if test="rolId != null" > -->
+<!--         rol_id, -->
+<!--       </if> -->
+<!--       <if test="schId != null" > -->
+<!--         sch_id, -->
+<!--       </if> -->
+<!--       <if test="coaName != null" > -->
+<!--         coa_name, -->
+<!--       </if> -->
+<!--       <if test="coaAccount != null" > -->
+<!--         coa_account, -->
+<!--       </if> -->
+<!--       <if test="coaPassword != null" > -->
+<!--         coa_password, -->
+<!--       </if> -->
+<!--       <if test="coaSex != null" > -->
+<!--         coa_sex, -->
+<!--       </if> -->
+<!--       <if test="coaBirthday != null" > -->
+<!--         coa_birthday, -->
+<!--       </if> -->
+<!--       <if test="coaIdcard != null" > -->
+<!--         coa_idcard, -->
+<!--       </if> -->
+<!--       <if test="coaHeadimg != null" > -->
+<!--         coa_headimg, -->
+<!--       </if> -->
+<!--       <if test="coaAddress != null" > -->
+<!--         coa_address, -->
+<!--       </if> -->
+<!--       <if test="coaIntroduction != null" > -->
+<!--         coa_introduction, -->
+<!--       </if> -->
+<!--       <if test="coaStatus != null" > -->
+<!--         coa_status, -->
+<!--       </if> -->
+<!--       <if test="coaLevel != null" > -->
+<!--         coa_level, -->
+<!--       </if> -->
+<!--     </trim> -->
+<!--     <trim prefix="values (" suffix=")" suffixOverrides="," > -->
+<!--       <if test="coaId != null" > -->
+<!--         #{coaId,jdbcType=INTEGER}, -->
+<!--       </if> -->
+<!--       <if test="rolId != null" > -->
+<!--         #{rolId,jdbcType=INTEGER}, -->
+<!--       </if> -->
+<!--       <if test="schId != null" > -->
+<!--         #{schId,jdbcType=INTEGER}, -->
+<!--       </if> -->
+<!--       <if test="coaName != null" > -->
+<!--         #{coaName,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaAccount != null" > -->
+<!--         #{coaAccount,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaPassword != null" > -->
+<!--         #{coaPassword,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaSex != null" > -->
+<!--         #{coaSex,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaBirthday != null" > -->
+<!--         #{coaBirthday,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaIdcard != null" > -->
+<!--         #{coaIdcard,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaHeadimg != null" > -->
+<!--         #{coaHeadimg,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaAddress != null" > -->
+<!--         #{coaAddress,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaIntroduction != null" > -->
+<!--         #{coaIntroduction,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaStatus != null" > -->
+<!--         #{coaStatus,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaLevel != null" > -->
+<!--         #{coaLevel,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--     </trim> -->
+<!--   </insert> -->
+<!--   <select id="countByExample" parameterType="com.dsmp.pojo.TbCoachExample" resultType="java.lang.Integer" > -->
+<!--     select count(*) from tb_coach -->
+<!--     <if test="_parameter != null" > -->
+<!--       <include refid="Example_Where_Clause" /> -->
+<!--     </if> -->
+<!--   </select> -->
+<!--   <update id="updateByExampleSelective" parameterType="map" > -->
+<!--     update tb_coach -->
+<!--     <set > -->
+<!--       <if test="record.coaId != null" > -->
+<!--         coa_id = #{record.coaId,jdbcType=INTEGER}, -->
+<!--       </if> -->
+<!--       <if test="record.rolId != null" > -->
+<!--         rol_id = #{record.rolId,jdbcType=INTEGER}, -->
+<!--       </if> -->
+<!--       <if test="record.schId != null" > -->
+<!--         sch_id = #{record.schId,jdbcType=INTEGER}, -->
+<!--       </if> -->
+<!--       <if test="record.coaName != null" > -->
+<!--         coa_name = #{record.coaName,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="record.coaAccount != null" > -->
+<!--         coa_account = #{record.coaAccount,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="record.coaPassword != null" > -->
+<!--         coa_password = #{record.coaPassword,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="record.coaSex != null" > -->
+<!--         coa_sex = #{record.coaSex,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="record.coaBirthday != null" > -->
+<!--         coa_birthday = #{record.coaBirthday,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="record.coaIdcard != null" > -->
+<!--         coa_idcard = #{record.coaIdcard,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="record.coaHeadimg != null" > -->
+<!--         coa_headimg = #{record.coaHeadimg,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="record.coaAddress != null" > -->
+<!--         coa_address = #{record.coaAddress,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="record.coaIntroduction != null" > -->
+<!--         coa_introduction = #{record.coaIntroduction,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="record.coaStatus != null" > -->
+<!--         coa_status = #{record.coaStatus,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="record.coaLevel != null" > -->
+<!--         coa_level = #{record.coaLevel,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--     </set> -->
+<!--     <if test="_parameter != null" > -->
+<!--       <include refid="Update_By_Example_Where_Clause" /> -->
+<!--     </if> -->
+<!--   </update> -->
+<!--   <update id="updateByExample" parameterType="map" > -->
+<!--     update tb_coach -->
+<!--     set coa_id = #{record.coaId,jdbcType=INTEGER}, -->
+<!--       rol_id = #{record.rolId,jdbcType=INTEGER}, -->
+<!--       sch_id = #{record.schId,jdbcType=INTEGER}, -->
+<!--       coa_name = #{record.coaName,jdbcType=VARCHAR}, -->
+<!--       coa_account = #{record.coaAccount,jdbcType=VARCHAR}, -->
+<!--       coa_password = #{record.coaPassword,jdbcType=VARCHAR}, -->
+<!--       coa_sex = #{record.coaSex,jdbcType=VARCHAR}, -->
+<!--       coa_birthday = #{record.coaBirthday,jdbcType=VARCHAR}, -->
+<!--       coa_idcard = #{record.coaIdcard,jdbcType=VARCHAR}, -->
+<!--       coa_headimg = #{record.coaHeadimg,jdbcType=VARCHAR}, -->
+<!--       coa_address = #{record.coaAddress,jdbcType=VARCHAR}, -->
+<!--       coa_introduction = #{record.coaIntroduction,jdbcType=VARCHAR}, -->
+<!--       coa_status = #{record.coaStatus,jdbcType=VARCHAR}, -->
+<!--       coa_level = #{record.coaLevel,jdbcType=VARCHAR} -->
+<!--     <if test="_parameter != null" > -->
+<!--       <include refid="Update_By_Example_Where_Clause" /> -->
+<!--     </if> -->
+<!--   </update> -->
+<!--   <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbCoach" > -->
+<!--     update tb_coach -->
+<!--     <set > -->
+<!--       <if test="rolId != null" > -->
+<!--         rol_id = #{rolId,jdbcType=INTEGER}, -->
+<!--       </if> -->
+<!--       <if test="schId != null" > -->
+<!--         sch_id = #{schId,jdbcType=INTEGER}, -->
+<!--       </if> -->
+<!--       <if test="coaName != null" > -->
+<!--         coa_name = #{coaName,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaAccount != null" > -->
+<!--         coa_account = #{coaAccount,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaPassword != null" > -->
+<!--         coa_password = #{coaPassword,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaSex != null" > -->
+<!--         coa_sex = #{coaSex,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaBirthday != null" > -->
+<!--         coa_birthday = #{coaBirthday,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaIdcard != null" > -->
+<!--         coa_idcard = #{coaIdcard,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaHeadimg != null" > -->
+<!--         coa_headimg = #{coaHeadimg,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaAddress != null" > -->
+<!--         coa_address = #{coaAddress,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaIntroduction != null" > -->
+<!--         coa_introduction = #{coaIntroduction,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaStatus != null" > -->
+<!--         coa_status = #{coaStatus,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--       <if test="coaLevel != null" > -->
+<!--         coa_level = #{coaLevel,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+<!--     </set> -->
+<!--     where coa_id = #{coaId,jdbcType=INTEGER} -->
+<!--   </update> -->
+<!--   <update id="updateByPrimaryKey" parameterType="com.dsmp.pojo.TbCoach" > -->
+<!--     update tb_coach -->
+<!--     set rol_id = #{rolId,jdbcType=INTEGER}, -->
+<!--       sch_id = #{schId,jdbcType=INTEGER}, -->
+<!--       coa_name = #{coaName,jdbcType=VARCHAR}, -->
+<!--       coa_account = #{coaAccount,jdbcType=VARCHAR}, -->
+<!--       coa_password = #{coaPassword,jdbcType=VARCHAR}, -->
+<!--       coa_sex = #{coaSex,jdbcType=VARCHAR}, -->
+<!--       coa_birthday = #{coaBirthday,jdbcType=VARCHAR}, -->
+<!--       coa_idcard = #{coaIdcard,jdbcType=VARCHAR}, -->
+<!--       coa_headimg = #{coaHeadimg,jdbcType=VARCHAR}, -->
+<!--       coa_address = #{coaAddress,jdbcType=VARCHAR}, -->
+<!--       coa_introduction = #{coaIntroduction,jdbcType=VARCHAR}, -->
+<!--       coa_status = #{coaStatus,jdbcType=VARCHAR}, -->
+<!--       coa_level = #{coaLevel,jdbcType=VARCHAR} -->
+<!--     where coa_id = #{coaId,jdbcType=INTEGER} -->
+<!--   </update> -->
+</mapper>

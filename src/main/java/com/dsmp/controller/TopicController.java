@@ -14,7 +14,7 @@ import com.dsmp.pojo.TbTopic;
 import com.dsmp.service.TopicService;
 
 @Controller
-@RequestMapping("/menu")
+@RequestMapping("/topic")
 public class TopicController {
 	@Autowired
 	private TopicService topicService;
@@ -44,10 +44,13 @@ public class TopicController {
 		
 		return mav;
 	}
+	/**
+	 * @return 随机出一张卷子(题目集合)
+	 */
 	@RequestMapping(value="/findManyTopic.action")
 	public ModelAndView findManyTopic() {
 		ModelAndView mav = new ModelAndView();
-		List<TbTopic> topicList = topicService.findManyTopic(5);//topicList表示一张卷子题目集合；参数10表示一份卷子出10道题目
+		List<TbTopic> topicList = topicService.findManyTopic(10);//topicList表示一张卷子题目集合；参数10表示一份卷子出10道题目
 		for (TbTopic tbTopic : topicList) {
 			System.out.println(":"+tbTopic.getTopTopic());
 			for (TbOption option : tbTopic.getOptions()) {

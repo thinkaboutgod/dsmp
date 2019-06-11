@@ -18,9 +18,9 @@
 						<a class="right-text" href=""><span>欢迎：${student.stuName}</span></a>						
 					</c:when>
 					<c:otherwise>
-						<a class="right-text" href=<%=path + "/user/login.action"%>					
+						<a class="right-text" href=<%=path + "/student/login.action"%>					
 						onclick="clickLog('from=JXEDT_HEADER_LOGIN')">登录</a> <a
-						class="right-text" href=<%=path + "/user/register.action"%>
+						class="right-text" href=<%=path + "/student/register.action"%>
 					    onclick="clickLog('from=JXEDT_HEADER_SIGNIN')">注册</a>
 					</c:otherwise>
 				</c:choose>								

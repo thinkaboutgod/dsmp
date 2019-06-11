@@ -65,7 +65,7 @@
                                           id="endtime" placeholder="终止时间">
                                    </div>
                            <div class = "input-group">
-                                        <button  class="button btn-primary btn-sm bt_qi"  id="buttonsearch">搜索</button>
+                                        <button  class="button btn-primary btn-sm "  id="buttonsearch">搜索</button>
                                    </div>
                                    <table id="studentTable" class="table table-bordered table-hover">
                           <thead>
@@ -112,7 +112,7 @@
                                 id="endtime2" placeholder="终止时间">
                          </div>
                          <div class = "input-group">
-                             <button  class="button btn-primary btn-sm bt_qi"  id="buttonsearch2">搜索</button>
+                             <button  class="button btn-primary btn-sm "  id="buttonsearch2">搜索</button>
                          </div>
                         <table id="studentTable2" class="table table-bordered table-hover">
                         <thead>
