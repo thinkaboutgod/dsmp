@@ -7,17 +7,54 @@
 	</select>
 	
 	<select id="belongtocoach" resultType="com.dsmp.pojo.TbStudent" resultMap="studentResultMap">
-		select a.coa_id,a.stu_id,a.stu_name,a.stu_account,a.stu_sex,a.stu_address,a.stu_signUpTime,a.stu_verifyStatus,b.* from tb_student a,tb_subject b where a.sub_id=b.sub_id and a.coa_id=#{coaid}
+		select a.coa_id,a.stu_id,a.stu_name,a.stu_account,a.stu_sex,a.stu_address,a.stu_signUpTime,a.stu_verifyStatus,b.* from tb_student a,tb_subject b 
+		<where>
+			<if test="param2.name!=null">and stu_name like "%"#{param2.name}"%"</if>
+			<if test="param2.account!=null">and stu_account like "%"#{param2.account}"%"</if>
+			<if test="param2.beginTime!=null">and stu_signUpTime&gt;#{param2.beginTime}</if><!-- 大于号 -->
+			<if test="param2.belongSubject!=null">and sub_name=#{param2.belongSubject}</if>
+			<if test="param2.endTime!=null">and stu_signUpTime&lt;#{param2.endTime}</if><!-- 小于号 -->
+			and a.sub_id=b.sub_id and a.coa_id=#{param1}
+		</where>
 	</select>
 	
-<!-- 	<resultMap type="com.dsp.pojo.Coach" id="belongtocoach"> -->
-<!-- 		<id column="coa_id" property="coa_id"/>		 -->
-<!-- 		<collection property="studentlist" ofType="com.dsp.pojo.Student" javaType="java.util.ArrayList" -->
-<!-- 		select="selectstudents" column="coa_id"> -->
-<!-- 		</collection> -->
-<!-- 	</resultMap> -->
-
-
+	<select id="selectStudentMsg" resultType="com.dsmp.pojo.TbStudyrecord" resultMap="studentMsgMap">
+		select ss.*,c.sus_score from(select a.str_time,a.stu_id,a.sub_id,b.sub_name,b.sub_time from tb_studyRecord a ,tb_subject b where a.sub_id=b.sub_id and a.stu_id=#{param1})ss 
+		left join tb_subjectScore c on ss.sub_id=c.sub_id
+	</select>
+	
+	<select id="selectStudentRating" resultType="com.dsmp.pojo.TbRating" resultMap="studentRating">
+		 select * from tb_rating 
+		 <where>
+		 	<if test="param2!=null">
+		 		rat_type=#{param2}
+		 	</if>
+		 	and coa_id=#{param1};
+		 </where>
+		 
+	</select>
+	
+	<resultMap type="com.dsmp.pojo.TbRating" id="studentRating">
+		<id column="rat_id" property="ratId" jdbcType="INTEGER"/>
+  		<result column="coa_id" property="coaId" jdbcType="INTEGER" />
+  		<result column="sch_id" property="schId" jdbcType="INTEGER" />
+    	<result column="stu_id" property="stuId" jdbcType="INTEGER" />
+   		<result column="rat_content" property="ratContent" jdbcType="VARCHAR" />
+    	<result column="rat_time" property="ratTime" jdbcType="TIMESTAMP" />
+    	<result column="rat_star" property="ratStar" jdbcType="INTEGER" />
+    	<result column="rat_type" property="ratType" jdbcType="VARCHAR" />
+	</resultMap>
+	
+  <resultMap type="com.dsmp.pojo.BelongtoCoachStudentMsg" id="studentMsgMap">
+  		<id column="sub_id" property="subId" jdbcType="INTEGER"/>
+  		<result column="stu_id" property="stuId" jdbcType="INTEGER" />
+  		<result column="str_time" property="strTime" jdbcType="INTEGER" />
+    	<result column="sub_name" property="subName" jdbcType="VARCHAR" />
+   		<result column="sub_time" property="subTime" jdbcType="INTEGER" />
+    	<result column="sus_score" property="susScore" jdbcType="INTEGER" />  
+  </resultMap>
+  
+  
   <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbCoach" >
     <id column="coa_id" property="coaId" jdbcType="INTEGER" />
     <result column="rol_id" property="rolId" jdbcType="INTEGER" />

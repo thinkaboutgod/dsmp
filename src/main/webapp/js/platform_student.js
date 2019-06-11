@@ -146,7 +146,6 @@ $(function() {
 			table.$('tr.selected').removeClass('selected');
 			$(this).addClass('selected');
 			$(this).addClass('selected');
-
 		}
 	});
 	

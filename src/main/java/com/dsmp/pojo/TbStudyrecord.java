@@ -16,6 +16,10 @@ public class TbStudyrecord {
     private Date strEndtime;
 
     private String strState;
+    
+    private TbSubject tbSubject;
+    
+    private TbSubjectscore tbsubjectScore;
 
     public Integer getStrId() {
         return strId;
@@ -72,4 +76,23 @@ public class TbStudyrecord {
     public void setStrState(String strState) {
         this.strState = strState == null ? null : strState.trim();
     }
+
+    
+
+	public TbSubject getTbSubject() {
+		return tbSubject;
+	}
+
+	public void setTbSubject(TbSubject tbSubject) {
+		this.tbSubject = tbSubject;
+	}
+
+	public TbSubjectscore getTbsubjectScore() {
+		return tbsubjectScore;
+	}
+
+	public void setTbsubjectScore(TbSubjectscore tbsubjectScore) {
+		this.tbsubjectScore = tbsubjectScore;
+	}
+    
 }
