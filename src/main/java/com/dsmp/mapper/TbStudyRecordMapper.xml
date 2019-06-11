@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbStudyRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbStudyrecord" >
+    <id column="str_id" property="strId" jdbcType="INTEGER" />
+    <result column="stu_id" property="stuId" jdbcType="INTEGER" />
+    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="str_time" property="strTime" jdbcType="DOUBLE" />
+    <result column="str_beginTime" property="strBegintime" jdbcType="TIMESTAMP" />
+    <result column="str_endTime" property="strEndtime" jdbcType="TIMESTAMP" />
+    <result column="str_state" property="strState" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <select id="findTimeLength" resultType="java.lang.Integer">
+<!--   TIME_TO_SEC(end_time) -TIME_TO_SEC(start_time) -->
+  	SELECT (TIME_TO_SEC(str_endTime)-TIME_TO_SEC(str_beginTime)) FROM tb_studyrecord where str_beginTime=(select max(str_beginTime) as str_beginTime from tb_studyRecord where stu_id=#{stuId} and sub_id=#{subId})	
+  </select>
+  
+  <select id="sumTimeLength" resultType="java.lang.Integer">
+  		select sum(str_time) from tb_studyrecord where stu_id=#{stuId} and sub_id=#{subId}
+  </select>
+  
+  <insert id="addStudyBeginTime">
+  	insert into tb_studyRecord(stu_id,sub_id,str_time,str_beginTime) values(#{stuId},#{subId},0,now())
+  </insert>
+
+  <update id="addStudyEndTime">
+  	update tb_studyRecord sr1 set str_endTime=now() where stu_id=#{stuId} and sub_id=#{subId} and str_beginTime=(select t.str_beginTime from (select max(str_beginTime) as str_beginTime from tb_studyRecord sr2 where stu_id=#{stuId} and sub_id=#{subId})t)
+  </update>
+  	
+  <update id="addTimeLength">
+  	update tb_studyRecord set str_time=#{studyLength} where stu_id=#{stuId} and sub_id=#{subId} and str_beginTime=(select t.str_beginTime from (select max(str_beginTime) as str_beginTime from tb_studyRecord where stu_id=#{stuId} and sub_id=#{subId})t)
+  </update>
+  
+  </mapper>

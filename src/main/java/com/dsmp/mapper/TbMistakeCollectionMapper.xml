@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbMistakeCollectionMapper" >
+	<resultMap type="com.dsmp.pojo.TbMistakeCollection" id="BaseResultMap">
+		<id column="mic_id" property="micId"/>
+		<result column="stu_id" property="stuId"/>
+		<result column="top_id" property="topId"/>
+	</resultMap>
+	
+	<select id="findMistakeTopicBySidAndTopId" resultMap="BaseResultMap">
+		select * from tb_mistakeCollection where stu_id=#{stuId} and top_id=#{topId}
+	</select>
+	
+	<insert id="addMistakeTopic">
+		insert into tb_mistakeCollection(stu_id,top_id) values(#{stuId},#{topId})
+	</insert>
+	
+	<delete id="delMistakeTopic">
+		delete from tb_mistakeCollection where stu_id=#{stuId} and top_id=#{topId}
+	</delete>
+	
+</mapper>
