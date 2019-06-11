@@ -10,6 +10,10 @@
 		select a.coa_id,a.stu_id,a.stu_name,a.stu_account,a.stu_sex,a.stu_address,a.stu_signUpTime,a.stu_verifyStatus,b.* from tb_student a,tb_subject b where a.sub_id=b.sub_id and a.coa_id=#{coaid}
 	</select>
 	
+	<!-- 教练登录查询 -->
+	<select id="getCoach" resultType="com.dsmp.pojo.TbCoach" resultMap="BaseResultMap">
+		select * from tb_coach where coa_account = #{coaAccount};
+	</select>
 <!-- 	<resultMap type="com.dsp.pojo.Coach" id="belongtocoach"> -->
 <!-- 		<id column="coa_id" property="coa_id"/>		 -->
 <!-- 		<collection property="studentlist" ofType="com.dsp.pojo.Student" javaType="java.util.ArrayList" -->

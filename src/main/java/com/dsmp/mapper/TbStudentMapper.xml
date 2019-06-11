@@ -22,6 +22,19 @@
     <result column="stu_signUpTime" property="stuSignuptime" jdbcType="TIMESTAMP" />
     <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!-- 用户登录 -->
+  <select id="findStudentByAccountPwd" parameterType="com.dsmp.pojo.TbStudent" resultMap="BaseResultMap">
+ 	select * from tb_student where stu_account=#{stuAccount};
+  </select>
+  <!-- 记录用户输错次数 -->
+  <update id="updateStudent" parameterType="com.dsmp.pojo.TbStudent">
+    update tb_student set stu_errCount = #{stuErrcount},stu_errTime = #{stuErrtime},stu_status=#{stuStatus} where stu_account=#{stuAccount};
+  </update>
+  <!-- 学员注册 -->
+  <insert id="insertStudent" parameterType="com.dsmp.pojo.TbStudent" >
+    insert into tb_student(stu_account,stu_password,stu_status) values(#{stuAccount},#{stuPassword},#{stuStatus});
+  </insert>
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

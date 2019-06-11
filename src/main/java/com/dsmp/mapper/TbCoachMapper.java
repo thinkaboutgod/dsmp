@@ -11,5 +11,7 @@ public interface TbCoachMapper {
 
 	public TbCoach selectCoach();
 	public List<TbStudent> belongtocoach(int coaid);
-
+	
+	//教练登陆
+	public TbCoach getCoach(TbCoach coach);
 }

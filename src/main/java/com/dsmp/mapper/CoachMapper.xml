@@ -16,8 +16,7 @@
 <!-- 		select="selectstudents" column="coa_id"> -->
 <!-- 		</collection> -->
 <!-- 	</resultMap> -->
-
-
+  
   <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbCoach" >
     <id column="coa_id" property="coaId" jdbcType="INTEGER" />
     <result column="rol_id" property="rolId" jdbcType="INTEGER" />

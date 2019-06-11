@@ -1,0 +1,172 @@
+.content{
+    width: 970px;
+    margin: 0 auto;
+    margin-top: 40px;
+	padding-bottom: 10px;;
+	margin-bottom: 40px;;
+}
+.content ul .input #code {
+    width: 90px;
+    float: left;
+    margin-right: 8px;
+}
+.findtype{
+    line-height: 50px;
+    font-size: 16px;
+    padding-left: 30px;
+    border-top: 1px solid #E6E6E6;
+    border-bottom: 1px solid #E6E6E6;
+}
+.findtype input{
+    width: 13px;
+    height: 13px;
+    margin-left: 20px;
+    vertical-align: middle;
+}
+.findtype span{
+    font-size: 15px;
+}
+.findtype i{
+    color: #ff0000;
+    font-style:inherit;
+}
+form ul .sub {
+    width: 89px;
+    line-height: 30px;
+    clear: both;
+}
+form ul li {
+    float: left;
+    height: 54px;
+}
+form ul .input{
+    width: 217px;
+}
+form ul .input input{
+    width: 217px;
+    height: 32px;
+    border-bottom: #e9e9e9 1px solid;
+    border-top: #97a6a6 1px solid;
+    border-left: #aabbbb 1px solid;
+    border-right: #e9e9e9 1px solid;
+    line-height: 28px;
+    padding: 0 3px;
+    color: #595959;
+}
+form ul .input button{
+    width: 120px;
+    height: 32px;
+    color: #ffffff;
+    background-color: #3ec834;
+    font-size: 15px;
+    border-radius: 3px;
+    margin-right: -6px;
+    border: none;
+}
+.warning{
+    color: #ff2929;
+    font-size: 12px;
+    margin-top: 3px;
+    margin-left: 40px;
+    line-height: 26px;
+    display: none;
+}
+.warning i{
+    background: url(../images/warning.png) no-repeat center;
+    background-size: 12px 12px;
+    width: 12px;
+    position: absolute;
+    margin-left: -21px;
+    margin-top: 7px;
+    height: 12px;
+}
+
+/*验证码图形验证--start*/
+.register-pop-mask{
+    z-index: 999;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top:0;
+    left: 0;
+    background: #000;
+    opacity: 0.7;
+    filter:alpha(opacity=70);
+    display: none;
+}
+.register-pop{
+    z-index: 9999;
+    display: none;
+    width: 380px;
+    height: 264px;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    margin-top: -132px;
+    margin-left: -190px;
+    border-radius: 10px;
+    border: 1px solid #f3f3f3;
+    background: #f3f3f3;
+}
+.register-pop-title{
+    margin-top: 21px;
+    font-size: 22px;
+    color: #333;
+    text-align: center;
+}
+.register-pop-msg{
+    margin-top: 21px;
+    font-size: 18px;
+    color: #999;
+    text-align: center;
+}
+.register-pop-bd{
+    height: 62px;
+    margin: 22px auto 25px auto;
+}
+.register-pop-text{
+    width: 182px;
+    color:#cfcfcf;
+    font-size:22px;
+    text-indent: 1em;
+    line-height: 59px;
+    height: 59px;
+    float: left;
+    border: 0;
+    margin-left: 20px;
+    border-radius: 4px;
+}
+.register-pop-img{
+    width: 146px;
+    height: 61px;
+    float: left;
+    margin-left: 10px;
+}
+.register-pop-img img{
+    width: 146px;
+    height: 61px;
+    display: block;
+    border: 0;
+}
+.register-pop-submit{
+    width: 365px;
+    height: 59px;
+    text-align: center;
+    line-height: 59px;
+    background: #51b737;
+    font-size: 24px;
+    border-radius: 8px;
+    border: 0;
+    color: #fff;
+    margin: 0 auto;
+}
+.register-pop-close{
+    cursor: pointer;
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    font-size: 28px;
+    color: #333;
+    text-decoration: none;
+}
+/*验证码图形验证--  end*/

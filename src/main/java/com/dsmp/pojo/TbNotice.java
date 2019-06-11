@@ -10,8 +10,18 @@ public class TbNotice {
     private String notContent;
 
     private Date notTime;
+    
+    private String notPath;
 
-    public Integer getNotId() {
+    public String getNotPath() {
+		return notPath;
+	}
+
+	public void setNotPath(String notPath) {
+		this.notPath = notPath;
+	}
+
+	public Integer getNotId() {
         return notId;
     }
 

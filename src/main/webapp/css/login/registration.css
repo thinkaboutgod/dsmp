@@ -259,6 +259,7 @@ input::-ms-reveal {
 	margin-top: 170px
 }
 
+
 .login-guide-main .jx-register .register-form h4 {
 	font-size: 24px;
 	color: #4a4a4a;
@@ -267,24 +268,24 @@ input::-ms-reveal {
 	text-align: center
 }
 
-.login-guide-main .jx-register .register-form form {
+.login-guide-main .jx-register .register-form {
 	margin: 0 30px;
 	padding-bottom: 20px
 }
 
-.login-guide-main .jx-register .register-form form .checkbox-div {
+.login-guide-main .jx-register .register-form .checkbox-div {
 	margin-bottom: 15px
 }
 
-.login-guide-main .jx-register .register-form form .captcha-block {
+.login-guide-main .jx-register .register-form .captcha-block {
 	margin: -8px 0 10px
 }
 
-.login-guide-main .jx-register .register-form form .div-wrap {
+.login-guide-main .jx-register .register-form .div-wrap {
 	position: relative
 }
 
-.login-guide-main .jx-register .register-form form .div-wrap i {
+.login-guide-main .jx-register .register-form .div-wrap i {
 	position: absolute;
 	top: 20px;
 	width: 30px;
@@ -294,12 +295,12 @@ input::-ms-reveal {
 	background: url(http://img.58cdn.com.cn/dist/jxedt/pc/products/jxregister/images/register_jx.png) no-repeat
 }
 
-.login-guide-main .jx-register .register-form form .code-block i,
-.login-guide-main .jx-register .register-form form .code-login-to i {
+.login-guide-main .jx-register .register-form .code-block i,
+.login-guide-main .jx-register .register-form .code-login-to i {
 	right: 145px
 }
 
-.login-guide-main .jx-register .register-form form .icon-jinggao {
+.login-guide-main .jx-register .register-form .icon-jinggao {
 	line-height: 16px;
 	font-size: 14px;
 	color: #fb6e52;
@@ -307,7 +308,7 @@ input::-ms-reveal {
 	visibility: hidden
 }
 
-.login-guide-main .jx-register .register-form form input {
+.login-guide-main .jx-register .register-form input {
 	outline: 0;
 	margin-top: 10px;
 	width: 370px;
@@ -320,31 +321,31 @@ input::-ms-reveal {
 	font-size: 16px
 }
 
-.login-guide-main .jx-register .register-form form ::-webkit-input-placeholder {
+.login-guide-main .jx-register .register-form ::-webkit-input-placeholder {
 	font-size: 14px;
 	color: #a9a9a9;
 	line-height: 40px
 }
 
-.login-guide-main .jx-register .register-form form ::-moz-placeholder {
+.login-guide-main .jx-register .register-form ::-moz-placeholder {
 	font-size: 14px;
 	color: #a9a9a9;
 	line-height: 40px
 }
 
-.login-guide-main .jx-register .register-form form :-ms-input-placeholder {
+.login-guide-main .jx-register .register-form :-ms-input-placeholder {
 	font-size: 14px;
 	color: #a9a9a9;
 	line-height: 40px
 }
 
-.login-guide-main .jx-register .register-form form input:-moz-placeholder {
+.login-guide-main .jx-register .register-form input:-moz-placeholder {
 	font-size: 14px;
 	color: #a9a9a9;
 	line-height: 40px
 }
 
-.login-guide-main .jx-register .register-form form .register-code-btn {
+.login-guide-main .jx-register .register-form .register-code-btn {
 	display: inline-block;
 	padding: 1px 0;
 	width: 130px;
@@ -360,19 +361,19 @@ input::-ms-reveal {
 	user-select: none
 }
 
-.login-guide-main .jx-register .register-form form .register-code {
+.login-guide-main .jx-register .register-form.register-code {
 	width: 230px;
 	height: 40px;
 	border-radius: 3px;
 	border: 1px solid #eee
 }
 
-.login-guide-main .jx-register .register-form form .code-login-to {
+.login-guide-main .jx-register .register-form .code-login-to {
 	display: none
 }
 
-.login-guide-main .jx-register .register-form form .login-submit,
-.login-guide-main .jx-register .register-form form .register-submit {
+.login-guide-main .jx-register .register-form .login-submit,
+.login-guide-main .jx-register .register-form .register-submit {
 	display: inline-block;
 	width: 380px;
 	height: 40px;
@@ -388,7 +389,7 @@ input::-ms-reveal {
 	user-select: none
 }
 
-.login-guide-main .jx-register .register-form form .register-submit-on {
+.login-guide-main .jx-register .register-form .register-submit-on {
 	background: #DDD;
 	cursor: default
 }
@@ -398,11 +399,11 @@ input::-ms-reveal {
 	cursor: pointer
 }
 
-.login-guide-main .jx-register .register-form form label {
+.login-guide-main .jx-register .register-form label {
 	margin-top: 10px
 }
 
-.login-guide-main .jx-register .register-form form label .register-checkbox {
+.login-guide-main .jx-register .register-form label .register-checkbox {
 	-webkit-user-select: none;
 	user-select: none;
 	appearance: none;
@@ -411,7 +412,7 @@ input::-ms-reveal {
 	display: none
 }
 
-.login-guide-main .jx-register .register-form form label .register-checkbox+span {
+.login-guide-main .jx-register .register-form label .register-checkbox+span {
 	width: auto;
 	height: 16px;
 	line-height: 16px;
@@ -425,7 +426,7 @@ input::-ms-reveal {
 	color: #999
 }
 
-.login-guide-main .jx-register .register-form form label .register-checkbox:checked+span {
+.login-guide-main .jx-register .register-form label .register-checkbox:checked+span {
 	width: auto;
 	height: 16px;
 	line-height: 16px;
@@ -434,7 +435,7 @@ input::-ms-reveal {
 	background: url(http://img.58cdn.com.cn/dist/jxedt/pc/products/jxregister/images/register_jx.png) -5px -154px no-repeat
 }
 
-.login-guide-main .jx-register .register-form form label .register-checkbox+span a {
+.login-guide-main .jx-register .register-form label .register-checkbox+span a {
 	text-decoration: underline;
 	color: #00C356
 }
@@ -588,5 +589,14 @@ input::-ms-reveal {
 }
 
 #yzm{
-	width:200px;
+	width:240px;
 }
+
+#login{
+	padding-left: 20px;
+}
+
+.toggle-div{
+	padding-right: 20px;
+}
+
