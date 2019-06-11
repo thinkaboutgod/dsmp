@@ -36,43 +36,42 @@
             		<div class="box-body">
 						<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 							<div class="row">
-								<div class="col-sm-12">
-									<div class = "input-group" >
-<!--                               		<span class="input-group-addon text-center"></span> -->
-                              			<input type = "text" class=" form-control" name="dno" id="sname" placeholder="用户姓名">
-                           			</div>
-                           			<div class = "input-group">
-<!--                                	<span class = "input-group-addon"></span> -->
-                               			<input type = "text" class = "form-control"  placeholder="账号" name="userName" id="saccount">
-                           			</div>
-                           			<div class = "input-group" >
-<!--                               		<span class="input-group-addon text-center"></span> -->
-										<span>注册时间：</span>
-                              			<input type = "date" class=" form-control" name="dno"
-                               			id="begintime" placeholder="起始时间">
-                           			</div>
-                           			<div class = "input-group" >
-<!--                               		 至<span class="input-group-addon text-center"></span> -->
-                              			 <input type = "date" class=" form-control" name="dno"
-                               					 id="endtime" placeholder="终止时间">
-                           			</div>
-									<div class = "input-group">
-                               			<input type = "button"  value="搜索"
-                               				 id="buttonsearch">
-                           			</div>
-									<table id="example1" class="table table-bordered table-hover">
+                      <div class="col-sm-12">
+                      <input type="hidden" id="schId" value="${schId}">
+                               <div class = "input-group" >
+                                       <input type = "text" class=" form-control"  id="cname" placeholder="用户姓名">
+                                   </div>
+                                   <div class = "input-group">
+                                       <input type = "text" class = "form-control"  placeholder="账号"  id="caccount">
+                                   </div>
+                                   <div class = "input-group" >
+                         <span>注册时间：</span>
+                                   </div>
+                                   <div class = "input-group" >
+                                       <input type = "date" class=" form-control" name="dno"
+                                        id="begintime" placeholder="起始时间">
+                                   </div>
+                                   <div class = "input-group" >
+                         <span>至</span>
+                                   </div>
+                                   <div class = "input-group" >
+                                       <input type = "date" class=" form-control" name="dno"
+                                          id="endtime" placeholder="终止时间">
+                                   </div>
+                           <div class = "input-group">
+                                        <button  class="button btn-primary btn-sm bt_qi"  id="buttonsearch">搜索</button>
+                                   </div>
+									<table id="coachTable" class="table table-bordered table-hover">
 										<thead>
 											<tr role="row">
 <!-- 													<th >选择</th> -->
 											<th >账号</th>
 											<th >姓名</th>
 											<th >性别</th>
-											<th >生日</th>
 											<th >住址</th>
 											<th >执教资质</th>
 											<th >用户状态</th>
 											<th >操作</th>
-											<th >测试</th>
 											</tr>
 										</thead>
 										<tbody></tbody>
@@ -86,21 +85,7 @@
 	  	 		</div>
 	  	 	</div>
 	        <!-- BAR CHART表 -->
-	       <div class="box box-success" style="width:500px;">
-	         <div class="box-header with-border">
-	           <h3 class="box-title">统计报表</h3>
-	
-	           <div class="box-tools pull-right">
-	             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-	             </button>
-	    <!--          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
-	           </div>
-	         </div>
-	         <div class="box-body chart-responsive">
-	           <div class="chart" id="bar-chart" style=" height: 300px;"></div>
-	         </div>
-	         <!-- /.box-body -->
-	       </div>
+	       
 	  	</section>
 
 	  </div><!-- 对应右侧主界面 -->
@@ -114,7 +99,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title" id="myModalLabel">修改用户信息</h4>
+                <h4 class="modal-title" id="myModalLabel">查看教练信息</h4>
             </div>
 				<div class="modal-body">
 					<div class="form-horizontal">
@@ -149,9 +134,7 @@
 </div><!-- 对应模态框 -->
 </body>
 <script type="text/javascript" src=<%=request.getContextPath()+"/js/jquery-3.3.1.js" %>></script>
-<%-- <script type="text/javascript" src=<%=request.getContextPath()+"/js/jquery-2.2.3.min.js" %>></script> --%>
 <script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.min.js"%>></script>
-
 <script type="text/javascript" src=<%=path+"/bootstrap-datatable/js/jquery.dataTables.min.js"%>></script>
 <script type="text/javascript" src=<%=path+"/bootstrap-datatable/js/dataTables.bootstrap.min.js"%>></script>
 <!-- FastClick -->
@@ -164,33 +147,11 @@
 <script type="text/javascript" src=<%=path+"/adminlte/js/demo.js"%>></script>
 <script type="text/javascript" src=<%=path + "/layer/layer.js"%>></script>
 <script type="text/javascript" src=<%=path+"/adminlte/js/menucontrol.js"%> ></script>
-<script type="text/javascript" src=<%=path+"/js/mainData.js" %>></script>
+<script type="text/javascript" src=<%=path+"/js/school_coach.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/datatables_setting.js" %>></script>
 <!-- Morris.js charts -->
 <script type="text/javascript" src=<%=path+"/adminlte/js/raphael-min.js"%> ></script>
 <script type="text/javascript" src=<%=path+"/adminlte/js/morris.js"%> ></script>
 
-<script type="text/javascript">
-$(function () {
-	//BAR CHART
-    var bar = new Morris.Bar({
-      element: 'bar-chart',
-      resize: true,
-      data: [
-        {y: '2006', a: 100, b: 90},
-        {y: '2007', a: 75, b: 65},
-        {y: '2008', a: 50, b: 40},
-        {y: '2009', a: 75, b: 65},
-        {y: '2010', a: 50, b: 40},
-        {y: '2011', a: 75, b: 65},
-        {y: '2012', a: 100, b: 90}
-      ],
-      barColors: ['#00a65a', '#f56954'],
-      xkey: 'y',
-      ykeys: ['a', 'b'],
-      labels: ['CPU', 'DISK'],
-      hideHover: 'auto'
-    });
-})
-</script>
+
 </html>

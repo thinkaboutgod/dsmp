@@ -2,28 +2,37 @@ $(function() {
 	
 	$.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 	
-	datatable_otherSet2 = {
-			"ajax" : "../plateform/searchAllStudent2.action",
+	datatable_otherSet = {
+			"ajax" : "../coach/selectCoasByCondition.action",
 			"autoWidth" : false,
 			"columns" : [
 					{
-						"data" : "stuAccount"
+						"data" : "coaAccount"
 					},
 					{
-						"data" : "stuName"
+						"data" : "coaName"
 					},
 					{
-						"data" : "stuRegistertime",
-						"render" : function(data, type, full, meta) {
-						return data = new Date(data).format("yyyy-MM-dd hh:mm:ss");
-						}
+						"data" : "coaSex"
 					},
 					{
-						"data" : "stuStatus",
+						"data" : "coaAddress"
+					},
+					{
+						"data" : "coaLevel"
+					},
+//					{
+//						"data" : "coaRegistertime",
+//						"render" : function(data, type, full, meta) {
+//						return data = new Date(data).format("yyyy-MM-dd hh:mm:ss");
+//						}
+//					},
+					{
+						"data" : "coaStatus",
 						"orderable" : false, // 禁用排序
 					},
 					{
-						"data" : "stuStatus",
+						"data" : "coaStatus",
 						"orderable" : false, // 禁用排序
 						"sDefaultContent" : '',
 						"sWidth" : "",
@@ -42,84 +51,13 @@ $(function() {
 				aoData._rand = Math.random();
 				aoData.push({
 					"name" : "name",
-					"value" : $("#sname2").val()
+					"value" : $("#cname").val()
 				}, {
 					"name" : "account",
-					"value" : $("#saccount2").val()
+					"value" : $("#caccount").val()
 				}, {
-					"name" : "beginTime",
-					"value" : $("#begintime2").val()
-				}, { 
-					"name" : "endTime",
-					"value" : $("#endtime2").val()
-				}
-
-				);
-			},
-
-		};
-	
-	
-	datatable_otherSet = {
-			"ajax" : "../plateform/searchAllStudent.action",
-			"columns" : [
-					{
-						"data" : "stuAccount"
-					},
-					{
-						"data" : "stuName"
-					},
-					{
-						"data" : "stuSex",
-						"orderable" : false, // 禁用排序
-					},
-					{
-						"data" : "stuRegistertime",
-						"render" : function(data, type, full, meta) {
-						return data = new Date(data).format("yyyy-MM-dd hh:mm:ss");
-						}
-					},
-					{
-						"data" : "tbSchool.schName",
-						"orderable" : false, // 禁用排序
-					},
-					{
-						"data" : "stuVerifystatus",
-						"orderable" : false, // 禁用排序
-					},
-					{
-						"data" : "stuStatus",
-						"orderable" : false, // 禁用排序
-					},
-					{
-						"data" : "stuStatus",
-						"orderable" : false, // 禁用排序
-						"sDefaultContent" : '',
-						"sWidth" : "",
-						"render" : function(data, type, full, meta) {
-							state = data;
-							if (state == '启用') {
-								data = '<button  class="btn btn-danger btn-sm bt_qi" >禁用</button>';
-							} else if (state == '禁用' || state == '锁定'){
-								data = '<button  class="btn btn-success btn-sm bt_qi" >启用</button>';
-							}
-							data = data + ' <button  class="detail btn btn-primary btn-sm " >查看信息</button>';
-							return data;
-
-						}
-					},  ],
-
-			"fnServerParams" : function(aoData) {//设置参数
-				aoData._rand = Math.random();
-				aoData.push({
-					"name" : "name",
-					"value" : $("#sname").val()
-				}, {
-					"name" : "account",
-					"value" : $("#saccount").val()
-				}, {
-					"name" : "school",
-					"value" : $("#school").val()
+					"name" : "schId",
+					"value" : $("#schId").val()
 				},{
 					"name" : "beginTime",
 					"value" : $("#begintime").val()
@@ -134,9 +72,7 @@ $(function() {
 		};
 	
 	
-	
-	var table2 = $("#studentTable2").DataTable(datatable_otherSet2);//初始化
-	var table = $("#studentTable").DataTable(datatable_otherSet);//初始化
+	var table = $("#coachTable").DataTable(datatable_otherSet);//初始化
 	
 	// 选择行,两个表格公用
 	$('tbody').on('click', 'tr', function() {
@@ -146,6 +82,7 @@ $(function() {
 			table.$('tr.selected').removeClass('selected');
 			$(this).addClass('selected');
 			$(this).addClass('selected');
+
 		}
 	});
 	
@@ -154,10 +91,7 @@ $(function() {
 	$("#buttonsearch").on("click", function() {
 		table.ajax.reload(null, false);// 刷新数据方法,false代表保持当前页
 	})
-	//自定义搜索
-	$("#buttonsearch2").on("click", function() {
-		table2.ajax.reload(null, false);// 刷新数据方法,false代表保持当前页
-	})
+	
 	
 	// 启用禁用方式
 	$(document).on("click", ".bt_qi", function() { 
@@ -167,18 +101,18 @@ $(function() {
 		var button = $(this);
 		var preText = button.parent().prev().text();
 		var text = $(this).text();
-//		var id = table.rows('.selected').data()[0].cuid;
 		var state;
+		
 		if ("启用" == text) {
 			state="start"
 		} else if ("禁用" == text) {
 			state="forbid"
 		};
 		$.ajax({
-			url : "../plateform/changeStudentState.action",
+			url : "../coach/changeCoachState.action",
 			async : true,
 			type : "POST",
-			data :  {stuId : id,state:state,preText:preText}  ,
+			data :  {coaId : id,state:state,preText:preText}  ,
 			dataType : "text",
 			success : function(data) {
 				var result = JSON.parse(data);
@@ -204,9 +138,7 @@ $(function() {
 				}
 			},
 			error : function() {
-				
 				layer.msg("服务器繁忙");
-
 			}
 			
 		})
@@ -220,7 +152,7 @@ $(function() {
 		$("#phone").val(da.stuAccount);
 		$("#address").val(da.stuAddress);
 		$("#coachName").val(da.tbCoach.coaName);
-		$("#studentDetail").modal("show");
+		$("#coachDetail").modal("show");
 	})
 	
 })

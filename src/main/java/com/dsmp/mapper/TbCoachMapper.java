@@ -2,14 +2,16 @@ package com.dsmp.mapper;
 
 import java.util.List;
 
+import com.dsmp.pojo.SearchBean;
 import com.dsmp.pojo.TbCoach;
-import com.dsmp.pojo.TbStudent;
 
 public interface TbCoachMapper {
-//	List<TbCoach> selectCoas();
-//
-//	public TbCoach selectCoach();
-//	
-//	public List<TbStudent> belongtocoach(int coaid);
+
+	public List<TbCoach> selectCoasBySchId(Integer schId);
+
+	public TbCoach selectCoach(String coaAccount,String pwd);
+
+	public List<TbCoach> selectCoasByCondition(SearchBean sBean);
+
 
 }

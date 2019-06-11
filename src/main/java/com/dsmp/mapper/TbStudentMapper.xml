@@ -22,6 +22,15 @@
     <result column="stu_signUpTime" property="stuSignuptime" jdbcType="TIMESTAMP" />
     <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <resultMap id="CountStudentMap" type="com.dsmp.pojo.Count" >
+  	<result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="num" property="data" jdbcType="VARCHAR" />
+    <result column="sch_account" property="phone" jdbcType="VARCHAR" />
+  </resultMap>
+  
+
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -314,4 +323,41 @@
       stu_verifyStatus = #{stuVerifystatus,jdbcType=VARCHAR}
     where stu_id = #{stuId,jdbcType=INTEGER}
   </update>
+  
+ <!--  根据驾校查询近半年每个月报名人数 -->
+  <select id="countStudentBySchool" resultMap="CountStudentMap"  >
+    select c.month as name,num from
+	(SELECT 
+	date_format(@lastDay := last_day( date_add(@lastDay,interval 1 month ) ) ,'%Y-%m'  ) month
+	from 
+	(SELECT @lastDay := date_add(curdate(),interval -7 month) from tb_student  limit 6) a) c 
+	LEFT JOIN(select stu_signUpTime ,count(*) as num from tb_student where sch_id=#{param1}  GROUP BY DATE_FORMAT(stu_signUpTime , '%Y-%m' )) t ON DATE_FORMAT(t.stu_signUpTime , '%Y-%m' )= c.month order by c.month
+    
+  </select>
+  <!-- 查询前六个月日期 -->
+  <select id="searchDate" resultMap="CountStudentMap"  >
+	SELECT 
+	date_format(@lastDay := last_day( date_add(@lastDay,interval 1 month ) ) ,'%Y-%m'  ) name
+	from 
+	(SELECT @lastDay := date_add(curdate(),interval -7 month) from tb_student  limit 6) a
+    
+  </select>
+  <!-- 查询某一个月所有驾校报名人数 -->
+  <select id="countStudentByDate" resultMap="CountStudentMap"  >
+	select a.sch_name name,a.sch_account, count(a.sch_name) as num from (
+	select sc.sch_name as sch_name,sc.sch_account as sch_account from tb_student st,tb_school sc 
+	where st.sch_id= sc.sch_id and DATE_FORMAT(st.stu_signUpTime , '%Y-%m' )=#{param1} ) a GROUP BY a.sch_name
+  </select>
+  <!-- 查询某近30天某个驾校驾校报名人数 -->
+  <select id="countStudentByMonth" resultMap="CountStudentMap"  >
+	select a.day as name,t.num from
+	(select date_add(curdate(), interval(cast(help_topic_id as signed integer) - 30) day) day
+	from mysql.help_topic
+	where help_topic_id  &lt; day(last_day(curdate()))
+	order by help_topic_id)a
+	LEFT JOIN
+	(select stu_signUpTime ,count(*) as num from tb_student where sch_id=#{param1}  GROUP BY DATE_FORMAT(stu_signUpTime , '%Y-%m-%d' )) t
+ 	ON DATE_FORMAT(t.stu_signUpTime , '%Y-%m-%d' )= a.day order by a.day
+	
+  </select>
 </mapper>
