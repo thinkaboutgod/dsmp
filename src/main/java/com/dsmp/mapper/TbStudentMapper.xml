@@ -69,6 +69,7 @@
 			<result jdbcType="DOUBLE" property="subTime" column="sub_time"/>
 		</association>
   </resultMap>
+  
   <select id="searchAllstudent" resultMap="searchStudent">
 		select s.*,sc.*,c.*,su.* from tb_student s,tb_school sc,tb_coach c,tb_subject su
 		<where>
@@ -97,14 +98,15 @@
 	date_format(@lastDay := last_day( date_add(@lastDay,interval 1 month ) ) ,'%Y-%m'  ) name
 	from 
 	(SELECT @lastDay := date_add(curdate(),interval -7 month) from tb_student  limit 6) a
-    
   </select>
+  
   <!-- 查询某一个月所有驾校报名人数 -->
   <select id="countStudentByDate" resultMap="CountStudentMap"  >
 	select a.sch_name name,a.sch_account, count(a.sch_name) as num from (
 	select sc.sch_name as sch_name,sc.sch_account as sch_account from tb_student st,tb_school sc 
 	where st.sch_id= sc.sch_id and DATE_FORMAT(st.stu_signUpTime , '%Y-%m' )=#{param1} ) a GROUP BY a.sch_name
   </select>
+  
   <!-- 查询某近30天某个驾校驾校报名人数 -->
   <select id="countStudentByMonth" resultMap="CountStudentMap"  >
 	select a.day as name,t.num from
