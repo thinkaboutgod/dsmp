@@ -44,6 +44,8 @@
 		$("#upBtn").on({
 			"click":function(){
 				alert('点击了上一题');
+				
+				
 			},
 			
 		});
@@ -81,17 +83,7 @@
 			
 			
 		});
-/* 		$("input[type='radio']").on({
-			"click":function(){
-				alert(2332);
-				//获取学员答错选项（选项表（数据库中）的optStatus为'no'）所属题目id
-				var optStatus = $(this).attr("value");
-				var topId = $(this).attr("name");
-				alert('选项对错：'+optStatus);
-				alert('选项所属数据库题目表id：'+parseInt(topId));
-			},
-			
-		}); */
+
 		
 			});
 

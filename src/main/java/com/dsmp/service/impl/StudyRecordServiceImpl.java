@@ -6,12 +6,12 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dsmp.mapper.TbStudyRecordMapper;
+import com.dsmp.mapper.TbStudyrecordMapper;
 import com.dsmp.service.StudyRecordService;
 @Service
 public class StudyRecordServiceImpl implements StudyRecordService {
 	@Autowired
-	private TbStudyRecordMapper tbStudyRecordMapper;
+	private TbStudyrecordMapper tbStudyRecordMapper;
 	@Override
 	public boolean addStudyBeginTime(Integer stuId, Integer subId) {
 		boolean addRes=false;
