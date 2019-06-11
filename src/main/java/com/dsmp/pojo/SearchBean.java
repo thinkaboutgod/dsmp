@@ -13,6 +13,12 @@ public class SearchBean {
 	private String fwhere;
 	private String beginTime;
 	private String endTime;
+	
+	private String carPlateNum;
+	private String coachName;
+	private String schId;
+	
+	private String belongSubject;
 
 	public SearchBean() {
 		super();
@@ -25,6 +31,16 @@ public class SearchBean {
 		this.fwhere = fwhere;
 		this.beginTime = beginTime;
 		this.endTime = endTime;
+	}	
+	public SearchBean(String account, String name, String fwhere, String beginTime, String endTime,
+			String belongSubject) {
+		super();
+		this.account = account;
+		this.name = name;
+		this.fwhere = fwhere;
+		this.beginTime = beginTime;
+		this.endTime = endTime;
+		this.belongSubject = belongSubject;
 	}
 
 	public String getAccount() {
@@ -67,4 +83,39 @@ public class SearchBean {
 		this.endTime = endTime;
 	}
 
+
+	public String getCarPlateNum() {
+		return carPlateNum;
+	}
+
+	public void setCarPlateNum(String carPlateNum) {
+		this.carPlateNum = carPlateNum;
+	}
+
+	public String getCoachName() {
+		return coachName;
+	}
+
+	public void setCoachName(String coachName) {
+		this.coachName = coachName;
+	}
+
+	public String getSchId() {
+		return schId;
+	}
+
+	public void setSchId(String schId) {
+		this.schId = schId;
+	}
+	
+
+	public String getBelongSubject() {
+		return belongSubject;
+	}
+
+	public void setBelongSubject(String belongSubject) {
+		this.belongSubject = belongSubject;
+	}
+
+	
 }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbCarMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbCar" >
+    <id column="car_id" property="carId" jdbcType="INTEGER" />
+    <result column="coa_id" property="coaId" jdbcType="INTEGER" />
+    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+    <result column="car_plateNum" property="carPlatenum" jdbcType="VARCHAR" />
+    <result column="car_style" property="carStyle" jdbcType="VARCHAR" />
+    <result column="car_img" property="carImg" jdbcType="VARCHAR" />
+    <result column="car_status" property="carStatus" jdbcType="VARCHAR" />
+    <result column="car_color" property="carColor" jdbcType="VARCHAR" />
+  </resultMap>
+  
+   <resultMap id="school_car_map" type="com.dsmp.pojo.TbCar" >
+    <id column="car_id" property="carId" jdbcType="INTEGER" />
+    <result column="coa_id" property="coaId" jdbcType="INTEGER" />
+    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+    <result column="car_plateNum" property="carPlatenum" jdbcType="VARCHAR" />
+    <result column="car_style" property="carStyle" jdbcType="VARCHAR" />
+    <result column="car_img" property="carImg" jdbcType="VARCHAR" />
+    <result column="car_status" property="carStatus" jdbcType="VARCHAR" />
+    <result column="car_color" property="carColor" jdbcType="VARCHAR" />
+    <result column="car_startTime" property="carStartTime" jdbcType="TIMESTAMP" />
+    <association property="tbSchool" javaType="com.dsmp.pojo.TbSchool">
+    	<id column="sch_id" property="schId" jdbcType="INTEGER" />
+		<result column="sch_name" property="schName" jdbcType="VARCHAR" />
+		<result column="sch_account" property="schAccount" jdbcType="VARCHAR" />
+    </association>
+    <association property="tbCoach" javaType="com.dsmp.pojo.TbCoach">
+		<id column="coa_id" property="coaId" jdbcType="INTEGER" />
+		<result column="sch_id" property="schId" jdbcType="INTEGER" />
+		<result column="coa_name" property="coaName" jdbcType="VARCHAR" />
+		<result column="coa_account" property="coaAccount" jdbcType="VARCHAR" />
+		<result column="coa_sex" property="coaSex" jdbcType="VARCHAR" />
+		<result column="coa_introduction" property="coaIntroduction" jdbcType="VARCHAR" />	    
+	</association>
+  </resultMap>
+ 
+ <select id="selectCarsByCondition" resultMap="school_car_map">
+ 	select ca.*,sc.*,c.* from tb_car ca,tb_school sc,tb_coach c
+		<where>
+			<if test="carPlateNum!=null">car_plateNum like "%"#{carPlateNum}"%"</if>
+			<if test="coachName!=null">and c.coa_Name like "%"#{coachName}"%"</if>
+			and ca.sch_id=sc.sch_id and ca.coa_id= c.coa_id and ca.sch_id=#{schId}
+		</where>
+	</select>
+	
+	<select id="selectCurTime" resultType="java.lang.String">
+		SELECT DATE_FORMAT(NOW(),"%Y-%m-%d");
+	</select>
+	
+</mapper>
