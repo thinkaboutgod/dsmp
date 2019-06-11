@@ -3,48 +3,50 @@ $(function() {
 	$.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 	
 	datatable_otherSet = {
-			"ajax" : "../coach/selectCoasByCondition.action",
-			"autoWidth" : false,
+			"ajax" : "../student/searchAllStudent.action",
 			"columns" : [
 					{
-						"data" : "coaAccount"
+						"data" : "stuAccount"
 					},
 					{
-						"data" : "coaName"
+						"data" : "stuName"
 					},
 					{
-						"data" : "coaSex"
-					},
-					{
-						"data" : "coaAddress"
-					},
-					{
-						"data" : "coaLevel"
-					},
-//					{
-//						"data" : "coaRegistertime",
-//						"render" : function(data, type, full, meta) {
-//						return data = new Date(data).format("yyyy-MM-dd hh:mm:ss");
-//						}
-//					},
-					{
-						"data" : "coaStatus",
+						"data" : "stuSex",
 						"orderable" : false, // 禁用排序
 					},
 					{
-						"data" : "coaStatus",
+						"data" : "stuSignuptime",
+						"render" : function(data, type, full, meta) {
+						return data = new Date(data).format("yyyy-MM-dd hh:mm:ss");
+						}
+					},
+					{
+						"data" : "tbCoach.coaName",
+						"orderable" : false, // 禁用排序
+					},
+					{
+						"data" : "tbSubject.subName",
+						"orderable" : false, // 禁用排序
+					},
+					{
+						"data" : "stuVerifystatus",
+						"orderable" : false, // 禁用排序
+					},
+					{
+						"data" : "stuVerifystatus",
 						"orderable" : false, // 禁用排序
 						"sDefaultContent" : '',
 						"sWidth" : "",
 						"render" : function(data, type, full, meta) {
-							state = data;
-							if (state == '启用') {
-								data = '<button id="start" class="btn btn-danger btn-sm bt_qi" >禁用</button>';
-							} else if (state == '禁用' || state == '锁定'){
-								data = '<button id="forbit" class="btn btn-success btn-sm bt_qi" >启用</button>';
-							}
-							data += '<button id="forbit" class="btn btn-success btn-sm detail" >查看详情</button>'
+							stuVerifystatus = data;
+							data="";
+							if (stuVerifystatus == '未审核') {
+								data = '<button  class="btn btn-danger btn-sm bt_qi" >审核</button>';
+							} 
+							data = data + ' <button  class="detail btn btn-primary btn-sm " >查看信息</button>';
 							return data;
+
 						}
 					},  ],
 
@@ -52,10 +54,10 @@ $(function() {
 				aoData._rand = Math.random();
 				aoData.push({
 					"name" : "name",
-					"value" : $("#cname").val()
+					"value" : $("#sname").val()
 				}, {
 					"name" : "account",
-					"value" : $("#caccount").val()
+					"value" : $("#saccount").val()
 				}, {
 					"name" : "schId",
 					"value" : $("#schId").val()
@@ -69,10 +71,10 @@ $(function() {
 
 				);
 			},
+
 		};
 	
-	
-	var table = $("#coachTable").DataTable(datatable_otherSet);//初始化
+	var table = $("#studentTable").DataTable(datatable_otherSet);//初始化
 	
 	// 选择行,两个表格公用
 	$('tbody').on('click', 'tr', function() {
@@ -80,6 +82,7 @@ $(function() {
 			$(this).removeClass('selected');
 		} else {
 			table.$('tr.selected').removeClass('selected');
+			$(this).addClass('selected');
 			$(this).addClass('selected');
 
 		}
@@ -100,18 +103,18 @@ $(function() {
 		var button = $(this);
 		var preText = button.parent().prev().text();
 		var text = $(this).text();
+//		var id = table.rows('.selected').data()[0].cuid;
 		var state;
-		
 		if ("启用" == text) {
 			state="start"
 		} else if ("禁用" == text) {
 			state="forbid"
 		};
 		$.ajax({
-			url : "../coach/changeCoachState.action",
+			url : "../student/changeStudentState.action",
 			async : true,
 			type : "POST",
-			data :  {coaId : id,state:state,preText:preText}  ,
+			data :  {stuId : id,state:state,preText:preText}  ,
 			dataType : "text",
 			success : function(data) {
 				var result = JSON.parse(data);
@@ -137,7 +140,9 @@ $(function() {
 				}
 			},
 			error : function() {
+				
 				layer.msg("服务器繁忙");
+
 			}
 			
 		})
@@ -147,11 +152,11 @@ $(function() {
 	$(document).on("click", ".detail", function() { 
 		//此处拿到选择行的数据中的id 
 		var da = table.row($(this).parent().parent()).data();
-		$("#accountDe").val(da.coaAccount);
-		$("#nameDe").val(da.coaName);
-		$("#address").val(da.coaAddress);
-		$("#schoolName").val(da.tbSchool.schName);
-		$("#coachDetail").modal("show");
+		$("#name").val(da.stuName);
+		$("#phone").val(da.stuAccount);
+		$("#address").val(da.stuAddress);
+		$("#coachName").val(da.tbCoach.coaName);
+		$("#studentDetail").modal("show");
 	})
 	
 })

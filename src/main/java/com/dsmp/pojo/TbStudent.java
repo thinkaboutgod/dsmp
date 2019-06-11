@@ -3,6 +3,7 @@ package com.dsmp.pojo;
 import java.util.Date;
 
 public class TbStudent {
+	
 	private Integer stuId;
 
 	private Integer coaId;
@@ -46,7 +47,7 @@ public class TbStudent {
 	private TbCoach tbCoach;
 
 	private TbSchool tbSchool;
-
+	
 	public Integer getStuId() {
 		return stuId;
 	}

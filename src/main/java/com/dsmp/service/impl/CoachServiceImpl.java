@@ -16,29 +16,25 @@ import com.dsmp.service.CoachService;
 @Service
 public class CoachServiceImpl implements CoachService {
 
-	private String account;
-	private String name;
-	private String fwhere;
-	private String beginTime;
-	private String endTime;
+	
 	
 	@Autowired private TbCoachMapper tbCoachMapper;
 
 	@Override
 	public List<TbCoach> selectCoasByCondition(HttpServletRequest request) {
-		account = request.getParameter("account");
-		name = request.getParameter("name");
-		fwhere = request.getParameter("schId");
-		beginTime = request.getParameter("beginTime");
-		endTime = request.getParameter("endTime");
+		String account = request.getParameter("account");
+		String name = request.getParameter("name");
+		String schId = request.getParameter("schId");
+		String beginTime = request.getParameter("beginTime");
+		String endTime = request.getParameter("endTime");
 		if (account.trim().equals("")) {
 			account = null;
 		}
 		if (name.trim().equals("")) {
 			name = null;
 		}
-		if (fwhere.trim().equals("")) {
-			fwhere = null;
+		if (schId.trim().equals("")) {
+			schId = null;
 		}
 		if (beginTime.trim().equals("")) {
 			beginTime = null;
@@ -49,8 +45,12 @@ public class CoachServiceImpl implements CoachService {
 		} else {
 			endTime = endTime + " 23:59:59";
 		}
-		SearchBean sBean = new SearchBean(account, name, fwhere, beginTime, endTime);
-		
+		SearchBean sBean = new SearchBean();
+		sBean.setAccount(account);
+		sBean.setName(name);
+		sBean.setSchId(schId);
+		sBean.setBeginTime(beginTime);
+		sBean.setEndTime(endTime);
 		return tbCoachMapper.selectCoasByCondition(sBean);
 	}
 

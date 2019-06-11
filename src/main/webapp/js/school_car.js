@@ -3,59 +3,62 @@ $(function() {
 	$.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 	
 	datatable_otherSet = {
-			"ajax" : "../coach/selectCoasByCondition.action",
-			"autoWidth" : false,
+			"ajax" : "../car/selectCarsByCondition.action",
 			"columns" : [
 					{
-						"data" : "coaAccount"
+						"data" : "carPlatenum"
 					},
 					{
-						"data" : "coaName"
+						"data" : "carStyle"
 					},
 					{
-						"data" : "coaSex"
+						"data" : "carColor"
 					},
 					{
-						"data" : "coaAddress"
-					},
-					{
-						"data" : "coaLevel"
-					},
-//					{
-//						"data" : "coaRegistertime",
-//						"render" : function(data, type, full, meta) {
-//						return data = new Date(data).format("yyyy-MM-dd hh:mm:ss");
-//						}
-//					},
-					{
-						"data" : "coaStatus",
+						"data" : "tbCoach.coaName",
 						"orderable" : false, // 禁用排序
 					},
 					{
-						"data" : "coaStatus",
+						"data" : "carUsedTime",
+					},
+//					{
+//						"data" : "tbCoach.coaName",
+//						"orderable" : false, // 禁用排序
+//					},
+//					{
+//						"data" : "tbSubject.subName",
+//						"orderable" : false, // 禁用排序
+//					},
+					{
+						"data" : "carStatus",
+						"orderable" : false, // 禁用排序
+					},
+					{
+						"data" : "carUsedTime",
 						"orderable" : false, // 禁用排序
 						"sDefaultContent" : '',
 						"sWidth" : "",
 						"render" : function(data, type, full, meta) {
-							state = data;
-							if (state == '启用') {
-								data = '<button id="start" class="btn btn-danger btn-sm bt_qi" >禁用</button>';
-							} else if (state == '禁用' || state == '锁定'){
-								data = '<button id="forbit" class="btn btn-success btn-sm bt_qi" >启用</button>';
-							}
-							data += '<button id="forbit" class="btn btn-success btn-sm detail" >查看详情</button>'
+							usedtime = data;
+							data="";
+							var year = parseInt(usedtime.split("年")[0])
+							if (year >= 10) {
+								data = '<button  class="btn btn-danger btn-sm bt_scrap" >报废</button>';
+							} 
+							data = data + ' <button  class="detail btn btn-primary btn-sm " >查看信息</button>';
 							return data;
 						}
 					},  ],
-
+					
+				
 			"fnServerParams" : function(aoData) {//设置参数
 				aoData._rand = Math.random();
 				aoData.push({
-					"name" : "name",
-					"value" : $("#cname").val()
+					"name" : "carPlateNum",
+					"value" : $("#carPlateNum").val()
 				}, {
-					"name" : "account",
-					"value" : $("#caccount").val()
+					"name" : "coachName",
+					"value" : $("#coachName").val()
 				}, {
 					"name" : "schId",
 					"value" : $("#schId").val()
@@ -69,10 +72,10 @@ $(function() {
 
 				);
 			},
+
 		};
 	
-	
-	var table = $("#coachTable").DataTable(datatable_otherSet);//初始化
+	var table = $("#studentTable").DataTable(datatable_otherSet);//初始化
 	
 	// 选择行,两个表格公用
 	$('tbody').on('click', 'tr', function() {
@@ -81,7 +84,6 @@ $(function() {
 		} else {
 			table.$('tr.selected').removeClass('selected');
 			$(this).addClass('selected');
-
 		}
 	});
 	
@@ -92,26 +94,26 @@ $(function() {
 	})
 	
 	
-	// 启用禁用方式
-	$(document).on("click", ".bt_qi", function() { 
+	// 车辆报废
+	$(document).on("click", ".bt_ban", function() { 
 		//此处拿到选择行的数据中的id 
-		var id = table.row($(this).parent().parent()).data().stuId;  
+		var id = table.row($(this).parent().parent()).data().carId;  
 		
 		var button = $(this);
 		var preText = button.parent().prev().text();
 		var text = $(this).text();
+//		var id = table.rows('.selected').data()[0].cuid;
 		var state;
-		
 		if ("启用" == text) {
 			state="start"
 		} else if ("禁用" == text) {
 			state="forbid"
 		};
 		$.ajax({
-			url : "../coach/changeCoachState.action",
+			url : "../car/scrapCar.action",
 			async : true,
 			type : "POST",
-			data :  {coaId : id,state:state,preText:preText}  ,
+			data :  {stuId : id,state:state,preText:preText}  ,
 			dataType : "text",
 			success : function(data) {
 				var result = JSON.parse(data);
@@ -139,7 +141,6 @@ $(function() {
 			error : function() {
 				layer.msg("服务器繁忙");
 			}
-			
 		})
 	})
 	
@@ -147,11 +148,13 @@ $(function() {
 	$(document).on("click", ".detail", function() { 
 		//此处拿到选择行的数据中的id 
 		var da = table.row($(this).parent().parent()).data();
-		$("#accountDe").val(da.coaAccount);
-		$("#nameDe").val(da.coaName);
-		$("#address").val(da.coaAddress);
-		$("#schoolName").val(da.tbSchool.schName);
-		$("#coachDetail").modal("show");
+		$("#carPlateNumDe").val(da.carPlatenum);
+		$("#carStyleDe").val(da.carStyle);
+		$("#carColorDe").val(da.carColor);
+		$("#coachNameDe").val(da.tbCoach.coaName);
+		$("#carStartTimeDe").val(da.carStartTime);
+		$("#carUsedTimeDe").val(da.carUsedTime);
+		$("#carDetail").modal("show");
 	})
 	
 })

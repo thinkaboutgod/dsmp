@@ -21,7 +21,7 @@ public class CoachController {
 
 	@Autowired private CoachService coachService;
 	
-	@RequestMapping(value="toSchool_Coach")
+	@RequestMapping(value="toschool_coach")
 	public String toSchoolCoach(HttpSession session) {
 		session.setAttribute("schId", 1);
 		return "back/school_coach";
@@ -30,15 +30,11 @@ public class CoachController {
 	
 	@RequestMapping(value="selectCoasByCondition")
 	public @ResponseBody Map<String,List<TbCoach>> selectCoasByCondition(HttpServletRequest request) {
-		
 		Map<String,List<TbCoach>> map = new HashMap<>();
 		List<TbCoach> coaList =  coachService.selectCoasByCondition(request);
 		map.put("data", coaList);
 		return map;
-		
 	}
-	
-	
 	
 //	@RequestMapping("/selectStusByCoaId.action")
 //	public @ResponseBody List<TbStudent> selectStusByCoaId(String coaId ,String coaPassword){
@@ -54,5 +50,7 @@ public class CoachController {
 //		
 //		return studentlist;
 //	}
+	
+	
 	
 }

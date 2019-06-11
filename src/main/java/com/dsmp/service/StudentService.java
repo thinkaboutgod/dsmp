@@ -2,6 +2,8 @@ package com.dsmp.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.dsmp.pojo.TbStudent;
 
 public interface StudentService {
@@ -19,6 +21,8 @@ public interface StudentService {
 	 * @return
 	 */
 	public List<TbStudent> selectStusBySchId(Integer schId);
+
+	public List<TbStudent> searchAllstudent(HttpServletRequest request);
 	
 	
 	
