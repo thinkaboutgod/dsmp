@@ -10,6 +10,9 @@ function error(error) {
 var path = $("#path").val();
 var nowTime;//已学时长
 var allTime;//共需时长
+var stuId;//学员id
+var subId;//科目id
+var type;//打卡类型
 $(function() {
 	$("#studentSelect").val(0);
 	var video = document.getElementById("video");
@@ -17,7 +20,10 @@ var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 var mediaStreamTrack=null;
 $("#begin").click(function() {//开始打卡启动摄像头
-	var stuId = $("#studentSelect").val();
+	type = "begin";
+	var arr = $("#studentSelect").val().split("_")
+	var stuId = arr[0];//学员id
+	var subId = arr[1];//学员科目id
 	if (stuId==0) {
 		layer.msg("请选择学员");
 		return;
@@ -29,8 +35,74 @@ $("#begin").click(function() {//开始打卡启动摄像头
     	  });
 		return;
 	}
-	openUserMedia();
-	
+	$.ajax({//判断能否开始打卡
+		async:true,
+		type:"POST",
+		url:path+"/coach/beginStudyJud.action",
+		data:{stuId:stuId,
+			subId :subId
+			},
+		dataType : "text",
+		success:function(data){
+			var result = JSON.parse(data);
+			if (result!=null) {
+				var myResult = result.myresult;
+				if (myResult=="outOfTime") {//不在打卡时间内
+					var beginTime = result.data.split("_")[0]+":00";
+					var endTime = result.data.split("_")[1]+":00";
+					layer.msg("当前时间不在打卡允许时间内,请在"+beginTime+"至"+endTime+"时间内打卡",{
+						time:10000,
+						btn:["知道了"]
+					})
+				}else if (myResult=="haveNotEnd") {
+					layer.msg("今天有打卡还未结束打卡，请先结束打卡",{
+						time:10000,
+						btn:["知道了"]
+					})
+				}else if (myResult=="timeEnough") {
+					layer.msg("今日打卡时长已满足上限"+result.data+"小时，无法继续打卡",{
+						time:10000,
+						btn:["知道了"]
+					})
+				}else if (myResult=="allow") {//满足条件可以打卡
+					openUserMedia();//开启摄像头
+				}
+			}
+			
+		},
+		error:function(){
+			alert("服务器繁忙");
+		}
+		})
+})//点击开始打卡
+
+//结束打卡启动摄像头
+$("#end").click(function() {
+	type = "end";
+	$.ajax({
+		async:true,
+		type:"POST",
+		url:path+"/coach/searchStudentStudyTime.action",
+		data:{stuId:stuId,
+			subId :subId
+			},
+		dataType : "text",
+		success:function(data){
+			var result = JSON.parse(data);
+			if (result.myresult=="doNotEnd") {
+				layer.msg("今天没有需要结束打卡的记录，请先进行打卡学习",{
+					time:10000,
+					btn:["知道了"]
+				})
+			}else if (result.myresult=="allowEnd") {//有需要结束打卡
+				openUserMedia();//开启摄像头
+			}
+			
+		},
+		error:function(){
+			layer.msg("服务器繁忙");
+		}
+		})
 })
 
 $("#end").click(function() {//结束打卡启动摄像头
@@ -38,12 +110,15 @@ $("#end").click(function() {//结束打卡启动摄像头
 })
 
 $("#cancle").click(function() {//取消，关闭摄像头
+	 closeVideo();
+})
+//关闭摄像头
+function closeVideo() {
 	offUserMedia();
 	buttonHide();
 	video.srcObject=null;
-})
-
-$("#studentSelect").change(function() {
+}
+$("#studentSelect").change(function() {//监听下拉框变化
 	if ($(this).val()==0) {
 		$("#info").text("（暂未选择）");
 		$("#subject").text("（暂无）");
@@ -53,13 +128,14 @@ $("#studentSelect").change(function() {
 	}
 	$("#info").text($(this).find("option:selected").text());
 	$("#subject").text($(this).val().split("_")[2]);
-	var stuId = $(this).val().split("_")[0];
-	var subId = $(this).val().split("_")[1];
+	stuId = $(this).val().split("_")[0];
+	subId = $(this).val().split("_")[1];
 	var subTime = $(this).val().split("_")[3];
+	
 	$.ajax({
 		async:true,
 		type:"POST",
-		url:path+"/searchStudentStudyTime.action",
+		url:path+"/coach/searchStudentStudyTime.action",
 		data:{stuId:stuId,
 			subId :subId
 			},
@@ -67,47 +143,136 @@ $("#studentSelect").change(function() {
 		success:function(data){
 			var result = JSON.parse(data);
 			if (result!=null) {
-				$("#time2").text(subTime+"小时");
-				$("#time").text(result.sum+"小时");
+				$("#timeAll").text(subTime+"小时");
+				$("#timeNow").text(result.sum+"小时");
 				allTime = subTime;
 				nowTime = result.sum;
 			}
 			
 		},
 		error:function(){
-			alert("服务器繁忙");
+			layer.msg("服务器繁忙");
 		}
 		})
 	
 })
-
+//点击确认打卡
 $("#submit").on("click",function(){
 	var base = getFace(context);
-	
-	$.ajax({
+	var index = layer.load();
+	$.ajax({//人脸识别判断
 		type:"POST",
-		url:"../../forFace.action",
-		data:{base:base},
+		url:path+"/coach/makeClock.action",
+		data:{base:base,
+			stuId : stuId,
+			subId : subId
+		},
 		dataType : "text",
 		success:function(data){
-			alert(data);
 			var result = JSON.parse(data);
-			result = JSON.parse(result);
-			if (result.result!=null) {
-				alert(result.result.score);
-			}
+			result = JSON.parse(result.myresult);
+//			if (result.result!=null) {//打印分数
+//				alert(result.result.score);
+//			}
 			if (result.error_code==0) {
-				if (result.result.score>=80) {
-					alert("验证成功");
+				if (result.result.score>=85) {//是本人打卡
+					switch (type) {
+					case "begin"://属于开始打卡
+						$.ajax({//发送插入打卡记录信息
+							async:true,
+							type:"POST",
+							url:path+"/coach/studyRecord.action",
+							data:{stuId:stuId,
+								subId :subId
+								},
+							dataType : "text",
+							success:function(data){
+								var result = JSON.parse(data);
+								if (result!=null) {
+									layer.close(index);
+									switch (result.myresult) {
+									case "success":
+										layer.msg("开始打卡成功", {
+								    	    time: 3000, //3s后自动关闭
+								    	    btn: [ '知道了']
+								    	  });
+										break;
+									case "failed":
+										layer.msg("系统异常，打卡失败，请联系管理员", {
+								    	    time: 3000, //3s后自动关闭
+								    	    btn: [ '知道了']
+								    	  });
+										break;
+									}
+								}
+								setTimeout(() => {
+									 closeVideo();//关闭摄像头
+								}, 1000);
+							},
+							error:function(){
+								layer.close(index);
+								layer.msg("服务器繁忙");
+							}
+							})
+						break;
+					case "end"://属于结束打卡
+						$.ajax({//发送结束打卡记录信息插入
+							async:true,
+							type:"POST",
+							url:path+"/coach/endStudyRecord.action",
+							data:{stuId:stuId,
+								subId :subId
+								},
+							dataType : "text",
+							success:function(data){
+								var result = JSON.parse(data);
+								if (result!=null) {
+									layer.close(index);
+									switch (result.myresult) {
+									case "success":
+										layer.msg("开始打卡成功", {
+								    	    time: 3000, //3s后自动关闭
+								    	    btn: [ '知道了']
+								    	  });
+										break;
+									case "failed":
+										layer.msg("系统异常，打卡失败，请联系管理员", {
+								    	    time: 3000, //3s后自动关闭
+								    	    btn: [ '知道了']
+								    	  });
+										break;
+									}
+								}
+								setTimeout(() => {
+									 closeVideo();//关闭摄像头
+								}, 1000);
+							},
+							error:function(){
+								layer.close(index);
+								layer.msg("服务器繁忙");
+							}
+							})
+						break;
+					}
+					
 				}else {
-					alert("验证失败，请确保是本人");
+					layer.close(index);
+					layer.msg("人脸识别失败，请确保是本人", {
+			    	    time: 5000, //5s后自动关闭
+			    	    btn: [ '知道了']
+			    	  });
 				}
 			}else {
-				alert("请本人正面对准摄像头，以便系统正确识别");
+				layer.close(index);
+				layer.msg("请本人正面对准摄像头，以便系统正确识别", {
+		    	    time: 5000, //5s后自动关闭
+		    	    btn: [ '知道了']
+		    	  });
 			}
 		},
 		error:function(){
-			alert("服务器繁忙");
+			layer.close(index);
+			layer.msg("服务器繁忙");
 		}
 		})
 	
@@ -126,7 +291,7 @@ function success(stream){
         video.play();// 播放视频
 
         // 将视频绘制到canvas上
-        buttonShow();
+        buttonShow();//显示确认打卡按钮
     }catch (e) {
     	layer.msg("开启摄像头失败，请刷新网页重试", {
     	    time: 20000, //20s后自动关闭
