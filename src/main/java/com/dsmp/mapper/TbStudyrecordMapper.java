@@ -19,4 +19,10 @@ public interface TbStudyrecordMapper {
     public List<TbStudyrecord> selectNowDayRecord(String stuId, String subId);//查询该学员今天最新的一条学习记录
     
     public int insertStudyRecord(String stuId, String subId);//插入该学员学习记录
+    
+    public int updateByPrimaryKeySelective(TbStudyrecord tbStudyrecord);//更新学习记录,有效的
+    
+    public int updatefalse(int str_id);//更新学习记录,无效的
+    
+    public int updateNormal(int str_id,double str_time);//更新学习记录,有效
 }

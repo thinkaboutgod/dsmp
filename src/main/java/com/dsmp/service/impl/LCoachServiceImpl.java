@@ -1,5 +1,6 @@
 package com.dsmp.service.impl;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.alipay.api.domain.Data;
 import com.dsmp.mapper.LCoachMapper;
 import com.dsmp.mapper.TbStudentMapper;
 import com.dsmp.mapper.TbStudyrecordMapper;
@@ -164,8 +166,8 @@ public class LCoachServiceImpl implements LCoachService {
 		// 获得今天的学习记录集合
 		List<TbStudyrecord> recodList = tbStudyrecordMapper.selectNowDayRecord(stuId, subId);
 		double time = 0.00;
-		if (recodList.size()>0) {//有过记录
-			if (recodList.get(0).getStrTime() == time) {// 说明有还没结束的打卡，今天
+		if (recodList.size() > 0) {// 有过记录
+			if (recodList.get(0).getStrTime() == time&& recodList.get(0).getStrState()==null) {// 说明有还没结束的打卡，今天
 				myResult.setMyresult("haveNotEnd");
 				return myResult;
 			}
@@ -178,34 +180,36 @@ public class LCoachServiceImpl implements LCoachService {
 				return myResult;
 			}
 		}
-		
+
 		myResult.setMyresult("allow");
 
 		return myResult;
 	}
 
 	// 查询该学员结束打卡学习判断，是否有需要结束的记录
-		@Override
-		public MyResult endStudyJud(String stuId, String subId) {
-			// 获得今天的学习记录集合
-			List<TbStudyrecord> recodList = tbStudyrecordMapper.selectNowDayRecord(stuId, subId);
-			double time = 0.00;
-			if (recodList.size()==0) {//没有记录，不需要结束
-				if (recodList.get(0).getStrTime() == time) {// 说明有还没结束的打卡，今天
-					myResult.setMyresult("allowEnd");
-					return myResult;
-				}
+	@Override
+	public MyResult endStudyJud(String stuId, String subId) {
+		// 获得今天的学习记录集合
+		List<TbStudyrecord> recodList = tbStudyrecordMapper.selectNowDayRecord(stuId, subId);
+		double time = 0.00;
+		if (recodList.size() != 0) {// 有记录，才需要判断是否要结束
+			// 说明有还没结束的打卡，今天，且非无效记录
+			if (recodList.get(0).getStrTime() == time && recodList.get(0).getStrState() == null) {
+				myResult.setMyresult("allowEnd");
+				return myResult;
 			}
-			myResult.setMyresult("doNotEnd");
-			return myResult;
 		}
-	
+		myResult.setMyresult("doNotEnd");
+		return myResult;
+	}
+
 	// 学员人脸识别打卡
 	@Override
-	public MyResult makeClock(HttpServletRequest request,String base, String stuId, String subId) {
+	public MyResult makeClock(HttpServletRequest request, String base, String stuId, String subId) {
 		// 请求url
 		String url = "https://aip.baidubce.com/rest/2.0/face/v3/match";
 		try {
+			String photoPath = tbStudentMapper.findStudentImgByStuId(Integer.valueOf(stuId));//获取学员照片
 			String path = request.getServletContext().getRealPath("upload/13328414633.jpg");
 			byte[] bytes1 = FileUtil.readFileByBytes(path);
 //					byte[] bytes2 = FileUtil.readFileByBytes("【本地文件2地址】");
@@ -240,27 +244,60 @@ public class LCoachServiceImpl implements LCoachService {
 			myResult.setMyresult(result);
 
 		} catch (Exception e) {
+			System.out.println("报错");
 			e.printStackTrace();
-			myResult.setData("failed");;
+			myResult.setData("failed");
 		}
 		return myResult;
 	}
-	//插入学员开始打卡记录
+
+	// 插入学员开始打卡记录
 	@Override
 	public MyResult insertStudyRecord(String stuId, String subId) {
 		int res = tbStudyrecordMapper.insertStudyRecord(stuId, subId);
-		if (res>0) {
+		if (res > 0) {
 			myResult.setMyresult("success");
-		}else {
+		} else {
 			myResult.setMyresult("failed");
+		}
+
+		return myResult;
+	}
+
+	// 学员结束打卡，更新记录
+	@Override
+	public MyResult endStudyRecord(String stuId, String subId) {
+		// 获得今天的学习记录集合
+		List<TbStudyrecord> recordList = tbStudyrecordMapper.selectNowDayRecord(stuId, subId);
+		Date startTime = recordList.get(0).getStrBegintime();
+		long nowTime = System.currentTimeMillis();
+		double minTime = 0.1;//最小学习时长
+		double maxTime = 4;//最长学习时长每天
+		if (nowTime-startTime.getTime()<1000*60*minTime*60) {//小于5分钟
+			tbStudyrecordMapper.updatefalse(recordList.get(0).getStrId());//添加无效学习记录
+			myResult.setMyresult("timeTOShort");
+			myResult.setData(minTime+"");
+			return myResult;
+		}else {
+			double todayTime=0.0;
+			for (int i = 0; i < recordList.size(); i++) {
+				todayTime+=recordList.get(i).getStrTime();//今天已经学的时间
+			}
+			double timeLenth = (nowTime-startTime.getTime())/(double)(1000*60*60);//本次学习时长
+			//今天超过允许时长
+			if (timeLenth+todayTime>maxTime) {
+				double allowTime = maxTime-todayTime;
+				tbStudyrecordMapper.updateNormal(recordList.get(0).getStrId(), allowTime);
+				myResult.setMyresult("timeTOLong");
+				myResult.setData(maxTime+"_"+allowTime);
+				return myResult;
+			}
+			//没有超出时长
+			tbStudyrecordMapper.updateNormal(recordList.get(0).getStrId(), timeLenth);
+			myResult.setMyresult("timeOk");
+			myResult.setData(new DecimalFormat("#.00").format(timeLenth));
 		}
 		
 		return myResult;
-	}
-	//学员结束打卡，更新记录
-	@Override
-	public MyResult endStudyRecord(String stuId, String subId) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

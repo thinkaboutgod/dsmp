@@ -13,13 +13,15 @@ var allTime;//共需时长
 var stuId;//学员id
 var subId;//科目id
 var type;//打卡类型
-$(function() {
-	$("#studentSelect").val(0);
-	var video = document.getElementById("video");
+var video = document.getElementById("video");
 var canvas = document.getElementById("canvas");
 var context = canvas.getContext("2d");
 var mediaStreamTrack=null;
+$(function() {
+	$("#studentSelect").val(0);
+
 $("#begin").click(function() {//开始打卡启动摄像头
+	closeVideo();//先关闭摄像头
 	type = "begin";
 	var arr = $("#studentSelect").val().split("_")
 	var stuId = arr[0];//学员id
@@ -55,7 +57,7 @@ $("#begin").click(function() {//开始打卡启动摄像头
 						btn:["知道了"]
 					})
 				}else if (myResult=="haveNotEnd") {
-					layer.msg("今天有打卡还未结束打卡，请先结束打卡",{
+					layer.msg("今天有打卡记录还未结束打卡，请先结束打卡",{
 						time:10000,
 						btn:["知道了"]
 					})
@@ -78,11 +80,18 @@ $("#begin").click(function() {//开始打卡启动摄像头
 
 //结束打卡启动摄像头
 $("#end").click(function() {
+	closeVideo();//先关闭摄像头
+	var arr = $("#studentSelect").val().split("_");
+	stuId = arr[0];//学员id
 	type = "end";
+	if (stuId==0) {
+		layer.msg("请选择学员");
+		return ;
+	};
 	$.ajax({
 		async:true,
 		type:"POST",
-		url:path+"/coach/searchStudentStudyTime.action",
+		url:path+"/coach/endStudyJud.action",
 		data:{stuId:stuId,
 			subId :subId
 			},
@@ -105,19 +114,11 @@ $("#end").click(function() {
 		})
 })
 
-$("#end").click(function() {//结束打卡启动摄像头
-	openUserMedia();
-})
 
 $("#cancle").click(function() {//取消，关闭摄像头
 	 closeVideo();
 })
-//关闭摄像头
-function closeVideo() {
-	offUserMedia();
-	buttonHide();
-	video.srcObject=null;
-}
+
 $("#studentSelect").change(function() {//监听下拉框变化
 	if ($(this).val()==0) {
 		$("#info").text("（暂未选择）");
@@ -170,6 +171,12 @@ $("#submit").on("click",function(){
 		dataType : "text",
 		success:function(data){
 			var result = JSON.parse(data);
+			if (result.data=="failed") {
+				layer.msg("打卡失败，请检查网络连接，若网络连接无问题，请联系管理员",
+						{time: 5000, //3s后自动关闭
+						btn: [ '知道了']})
+				return;
+			}
 			result = JSON.parse(result.myresult);
 //			if (result.result!=null) {//打印分数
 //				alert(result.result.score);
@@ -178,80 +185,10 @@ $("#submit").on("click",function(){
 				if (result.result.score>=85) {//是本人打卡
 					switch (type) {
 					case "begin"://属于开始打卡
-						$.ajax({//发送插入打卡记录信息
-							async:true,
-							type:"POST",
-							url:path+"/coach/studyRecord.action",
-							data:{stuId:stuId,
-								subId :subId
-								},
-							dataType : "text",
-							success:function(data){
-								var result = JSON.parse(data);
-								if (result!=null) {
-									layer.close(index);
-									switch (result.myresult) {
-									case "success":
-										layer.msg("开始打卡成功", {
-								    	    time: 3000, //3s后自动关闭
-								    	    btn: [ '知道了']
-								    	  });
-										break;
-									case "failed":
-										layer.msg("系统异常，打卡失败，请联系管理员", {
-								    	    time: 3000, //3s后自动关闭
-								    	    btn: [ '知道了']
-								    	  });
-										break;
-									}
-								}
-								setTimeout(() => {
-									 closeVideo();//关闭摄像头
-								}, 1000);
-							},
-							error:function(){
-								layer.close(index);
-								layer.msg("服务器繁忙");
-							}
-							})
+						beginClockInsert(index);//开始打卡记录插入
 						break;
 					case "end"://属于结束打卡
-						$.ajax({//发送结束打卡记录信息插入
-							async:true,
-							type:"POST",
-							url:path+"/coach/endStudyRecord.action",
-							data:{stuId:stuId,
-								subId :subId
-								},
-							dataType : "text",
-							success:function(data){
-								var result = JSON.parse(data);
-								if (result!=null) {
-									layer.close(index);
-									switch (result.myresult) {
-									case "success":
-										layer.msg("开始打卡成功", {
-								    	    time: 3000, //3s后自动关闭
-								    	    btn: [ '知道了']
-								    	  });
-										break;
-									case "failed":
-										layer.msg("系统异常，打卡失败，请联系管理员", {
-								    	    time: 3000, //3s后自动关闭
-								    	    btn: [ '知道了']
-								    	  });
-										break;
-									}
-								}
-								setTimeout(() => {
-									 closeVideo();//关闭摄像头
-								}, 1000);
-							},
-							error:function(){
-								layer.close(index);
-								layer.msg("服务器繁忙");
-							}
-							})
+						endClockInsert(index);//结束打卡记录插入
 						break;
 					}
 					
@@ -279,7 +216,101 @@ $("#submit").on("click",function(){
 })
 })
 
+//关闭摄像头
+function closeVideo() {
+	offUserMedia();
+	buttonHide();
+	video.srcObject=null;
+}
 
+//开始打卡记录插入
+function beginClockInsert(index) {
+	$.ajax({//发送插入打卡记录信息
+		async:true,
+		type:"POST",
+		url:path+"/coach/studyRecord.action",
+		data:{stuId:stuId,
+			subId :subId
+			},
+		dataType : "text",
+		success:function(data){
+			var result = JSON.parse(data);
+			if (result!=null) {
+				layer.close(index);
+				switch (result.myresult) {
+				case "success":
+					layer.msg("开始打卡成功", {
+			    	    time: 5000, //5s后自动关闭
+			    	    btn: [ '知道了']
+			    	  });
+					break;
+				case "failed":
+					layer.msg("系统异常，打卡失败，请联系管理员", {
+			    	    time: 5000, //5s后自动关闭
+			    	    btn: [ '知道了']
+			    	  });
+					break;
+				}
+			}
+			setTimeout(() => {
+				 closeVideo();//关闭摄像头
+			}, 1000);
+		},
+		error:function(){
+			layer.close(index);
+			layer.msg("服务器繁忙");
+		}
+		})
+}
+//结束打卡记录插入
+function endClockInsert(index) {
+	$.ajax({//发送结束打卡记录信息插入
+		async:true,
+		type:"POST",
+		url:path+"/coach/endStudyRecord.action",
+		data:{stuId:stuId,
+			subId :subId
+			},
+		dataType : "text",
+		success:function(data){
+			var result = JSON.parse(data);
+			if (result!=null) {
+				layer.close(index);
+				switch (result.myresult) {
+				case "timeOk":
+					var realTime = parseFloat(result.data);
+					layer.msg("结束打卡成功，本次打卡时长为："+realTime+"小时", {
+			    	    time: 5000, //3s后自动关闭
+			    	    btn: [ '知道了']
+			    	  });
+					break;
+				case "timeTOShort":
+					var shorttime = parseFloat(result.data)*60;
+					layer.msg("本次打卡持续时间小于"+shorttime+"分钟,记录无效", {
+			    	    time: 5000, //3s后自动关闭
+			    	    btn: [ '知道了']
+			    	  });
+					break;
+				case "timeTOLong":
+					var longtime = parseFloat(result.data.split("_")[0]);
+					var realTime = parseFloat(result.data.split("_")[1]);
+					layer.msg("今日打卡持续时间超出每天打卡上限"+longtime+"小时,本次有效记录"+realTime+"小时", {
+			    	    time: 5000, //3s后自动关闭
+			    	    btn: [ '知道了']
+			    	  });
+					break;
+				}
+			}
+			setTimeout(() => {
+				 closeVideo();//关闭摄像头
+			}, 1000);
+		},
+		error:function(){
+			layer.close(index);
+			layer.msg("服务器繁忙");
+		}
+		})
+}
 function success(stream){
     // 兼容webkit核心浏览器
     // var CompatibleURL = window.URL || window.webkitURL;
@@ -345,17 +376,23 @@ function openUserMedia() {
 //        alert('你的浏览器不支持访问用户媒体设备');
     }
 }
-function  offUserMedia() {
-    if(mediaStreamTrack!=null)
-    mediaStreamTrack.getTracks()[0].stop();
+function  offUserMedia() {//关闭摄像头
+    if(mediaStreamTrack!=null){
+    	mediaStreamTrack.getTracks()[0].stop();
+    }
+    
 }
 
-function buttonShow() {
+function buttonShow() {//显示确认和取消提交按钮
 	$("#submit").attr("type","button");
 	$("#cancle").attr("type","button");
 }
 
-function buttonHide() {
+function buttonHide() {//关闭确认取消按钮
 	$("#submit").attr("type","hidden");
 	$("#cancle").attr("type","hidden");
+}
+
+function hideBeginButton() {
+	$("#end").attr("disabled",true);
 }

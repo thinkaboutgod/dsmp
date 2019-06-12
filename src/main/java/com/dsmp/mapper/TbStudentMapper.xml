@@ -126,6 +126,10 @@
   	select stu.stu_id,stu.sub_id,stu.stu_name,sub.* from tb_student stu,tb_subject sub where stu.coa_id = #{param1} and stu.sub_id != 1 and stu.sub_id != 4 and stu.sub_id = sub.sub_id
   </select>
   
+  <select id="findStudentImgByStuId" resultType="java.lang.String">
+  	select stu_img from tb_student where stu_id = #{param1}
+  </select>
+  
   <!-- 用户登录 -->
   <select id="findStudentByAccountPwd" parameterType="com.dsmp.pojo.TbStudent" resultMap="BaseResultMap">
  	select * from tb_student where stu_account=#{stuAccount};

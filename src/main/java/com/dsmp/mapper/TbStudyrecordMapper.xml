@@ -140,7 +140,7 @@
       </if>
     </trim>
   </insert>
-  
+
   <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbStudyrecord" >
     update tb_studyrecord
     <set >
@@ -190,6 +190,15 @@
     insert into tb_studyrecord ( stu_id, sub_id)
     values (#{param1},#{param2})
   </insert>
+  <!--   更新学习记录，无效的记录 -->
+  <update id="updatefalse" parameterType="com.dsmp.pojo.TbStudyrecord" >
+  	update tb_studyrecord set str_endTime=now(),str_state = 'false' where str_id = #{param1}
+  </update>
+  
+   <!--   更新学习记录，有效记录，正常时长或超时 -->
+  <update id="updateNormal" parameterType="com.dsmp.pojo.TbStudyrecord" >
+  	update tb_studyrecord set str_endTime=now(),str_time=#{param2} where str_id = #{param1}
+  </update>
   <!-- zdcEnd -->
   
   <!-- ren start -->
