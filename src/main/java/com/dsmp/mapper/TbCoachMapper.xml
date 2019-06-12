@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dsmp.mapper.TbCoachMapper" >
 
+	
+
   <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbCoach" >
     <id column="coa_id" property="coaId" jdbcType="INTEGER" />
     <result column="rol_id" property="rolId" jdbcType="INTEGER" />
@@ -46,15 +48,12 @@
     </association>
   </resultMap>
   
-  	<select id="selectCoach" resultType="com.dsmp.pojo.TbCoach" resultMap="BaseResultMap">
-		select * from tb_coach where coa_account = #{param1} and coa_pwd = #{param2};
+  <!-- 教练登录查询 -->
+	<select id="getCoach" resultType="com.dsmp.pojo.TbCoach" resultMap="BaseResultMap">
+		select * from tb_coach where coa_account = #{coaAccount};
 	</select>
 	
-	<select id="belongtocoach" resultType="com.dsmp.pojo.TbStudent" resultMap="studentResultMap">
-		select a.coa_id,a.stu_id,a.stu_name,a.stu_account,a.stu_sex,a.stu_address,a.stu_signUpTime,a.stu_verifyStatus,b.* from tb_student a,tb_subject b where a.sub_id=b.sub_id and a.coa_id=#{coaid}
-	</select>
-  
-  
+	<!-- 查询驾校名下教练 -->
   <select id="selectCoasByCondition" resultMap="BaseResultMap" >
 		select * from tb_coach  
 		<where>

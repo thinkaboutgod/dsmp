@@ -8,6 +8,13 @@
     <result column="man_account" property="manAccount" jdbcType="VARCHAR" />
     <result column="man_password" property="manPassword" jdbcType="VARCHAR" />
   </resultMap>
+  
+  <!-- 管理员登录验证 -->
+   <select id="findManage" resultMap="BaseResultMap" parameterType="com.dsmp.pojo.TbManager" >
+    select * from tb_manager where man_account = #{manAccount};
+  </select>  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >

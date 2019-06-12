@@ -26,6 +26,10 @@
  <!-- 查询多道题目及其子对象（选项集合） -->
     <select id="findManyTopic" resultMap="BaseResultMap">
    		select * from tb_topic top left join tb_option opt on top.top_id=opt.top_id
-   </select>  
+   </select> 
+   <!-- 查询某学员的所有的错题集 --> 
+    <select id="findMistakeTopic" resultMap="BaseResultMap">
+   		select * from tb_topic top left join tb_option opt on top.top_id=opt.top_id where top.top_id in(select top_id from tb_mistakeCollection where stu_id=#{stuId})
+   </select> 
   
 </mapper>
