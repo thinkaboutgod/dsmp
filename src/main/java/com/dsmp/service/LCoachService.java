@@ -27,4 +27,15 @@ public interface LCoachService {
 
 	public List<TbExamschedule> selectThetestmsg(int schId);//根据驾校id查找本驾校的考试安排
 	
+	
+	public MyResult beginStudyJud (String stuId, String subId);//学员科目二三开始打卡判断
+	
+	public MyResult makeClock(HttpServletRequest request,String base,String stuId, String subId);//人脸识别打卡判断
+	
+	public MyResult insertStudyRecord(String stuId, String subId);//插入打卡记录
+	
+	
+	public MyResult endStudyJud (String stuId, String subId);//学员科目二三结束打卡判断
+	
+	public MyResult endStudyRecord (String stuId, String subId);//学员科目二三结束打卡更新记录
 }

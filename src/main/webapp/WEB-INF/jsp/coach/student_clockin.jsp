@@ -26,7 +26,7 @@
 	  	 	<div class="row">
 	  	 		<div class="col-md-12">
            			<div class="box-header">
-		              	<h3 class="box-title"><strong>视频管理</strong></h3>
+		              	<h3 class="box-title"><strong>学员打卡</strong></h3>
 		           	 </div>
 		           	 <div class="col-xs-2" >
                     <select class="form-control " id="studentSelect">
@@ -43,8 +43,8 @@
                  	<hr style="height:1px;border:none;border-top:1px solid #555555;" />
                  	当前选择学员为：<label id="info">（暂未选择）</label>
                  	正在学习科目：<label id="subject">（暂未选择）</label>
-                 	已打卡学时为：<label id="time">（暂无）/</label>
-                 	共需学时：<label id="time2">（暂无）</label>
+                 	已打卡学时为：<label id="timeNow">（暂无）/</label>
+                 	共需学时：<label id="timeAll">（暂无）</label>
 					<div >
 						<video  id="video" style="width:480px;height: 320px;margin-left: 280px;"></video>
 						<canvas id="canvas" style="display: none;"></canvas>
