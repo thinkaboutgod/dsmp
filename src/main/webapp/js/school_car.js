@@ -95,45 +95,29 @@ $(function() {
 	
 	
 	// 车辆报废
-	$(document).on("click", ".bt_ban", function() { 
+	$(document).on("click", ".bt_scrap", function() { 
 		//此处拿到选择行的数据中的id 
 		var id = table.row($(this).parent().parent()).data().carId;  
 		
 		var button = $(this);
 		var preText = button.parent().prev().text();
 		var text = $(this).text();
-//		var id = table.rows('.selected').data()[0].cuid;
 		var state;
-		if ("启用" == text) {
-			state="start"
-		} else if ("禁用" == text) {
-			state="forbid"
-		};
+		if ("报废" == text) {
+			state="已报废";
+		}; 
 		$.ajax({
 			url : "../car/scrapCar.action",
 			async : true,
 			type : "POST",
-			data :  {stuId : id,state:state,preText:preText}  ,
+			data :  {carId : id,state:state,preText:preText}  ,
 			dataType : "text",
 			success : function(data) {
 				var result = JSON.parse(data);
 				if (result.myresult=="success") {
 					layer.msg("修改成功");
-					switch (text) {
-					case "启用":
-						button.parent().prev().text("启用");
-						button.text("禁用");
-						button.removeClass("btn-success");
-						button.addClass("btn-danger");
-						break;
-					case "禁用":
-						button.parent().prev().text("禁用");
-						button.text("启用");
-						button.removeClass("btn-danger");
-						button.addClass("btn-success");
-						break;
+					button.parent().prev().text("已报废");
 					
-					}
 				}else if (result.myresult=="failed") {
 					layer.msg("修改失败");
 				}

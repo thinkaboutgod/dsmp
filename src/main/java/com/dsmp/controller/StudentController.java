@@ -31,6 +31,8 @@ public class StudentController {
 	@Autowired
 	private StudentService studentService;
 	
+	@Autowired private MyResult myResult;
+	
 	//主页跳登录页
 	@RequestMapping("/login")
 	public ModelAndView getLoginPage() {
@@ -53,6 +55,11 @@ public class StudentController {
 		return "back/school_student";
 	}
 	
+	/**
+	 *	 查询所有学生
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "searchAllStudent.action")
 	public @ResponseBody Map<String, List<TbStudent>> searchAllstudent(HttpServletRequest request) {
 		List<TbStudent> list = studentService.searchAllstudent(request);
@@ -81,7 +88,6 @@ public class StudentController {
 			result = studentService.schoolLogin(session, account, password, role);
 			break;
 		}
-			
 		return result;
 	}
 	
@@ -124,4 +130,12 @@ public class StudentController {
 		System.out.println(result.getMyresult());
 		return result;
 	}
+	
+	
+	@RequestMapping(value = "changeStudentState.action")
+	public @ResponseBody MyResult changeStudentState(HttpServletRequest request) {
+		myResult = studentService.changeStudentState(request, myResult);
+		return myResult;
+	}
+	
 }

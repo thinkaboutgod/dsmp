@@ -9,4 +9,7 @@ public interface TbTopicMapper {
 	public List<TbTopic> findManyTopic();
 	public List<TbTopic> findMistakeTopic(Integer stuId);
 	
+	public int insertTopic(TbTopic tbTopic);
+	public Integer selectNewTopId();
+	
 }

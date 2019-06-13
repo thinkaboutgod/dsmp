@@ -79,7 +79,6 @@
 													</tr>
 												</thead>
 												<tbody></tbody>
-
 											</table>
 										</div>
 									</div>
@@ -109,21 +108,40 @@
 					<div class="modal-body">
 						<div class="form-horizontal">
 							<div class="form-group">
-								<label for="ed_account" class="col-sm-2 control-label">账号：</label>
+								<label for="accountDe" class="col-sm-2 control-label">账号：</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="ed_account" type="text" readonly="readonly">
+									<input class="form-control" id="accountDe" type="text">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="ed_name" class="col-sm-2 control-label">姓名：</label>
+								<label for="nameDe" class="col-sm-2 control-label">姓名：</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="ed_name" type="text">
+									<input class="form-control" id="nameDe" type="text">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="ed_phone" class="col-sm-2 control-label">电话：</label>
+								<label for="phoneDe" class="col-sm-2 control-label">电话：</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="ed_phone" type="text">
+									<input class="form-control" id="phoneDe" type="text" >
+								</div>
+							</div>
+								<div class="form-group">
+								<label for="addressDe" class="col-sm-2 control-label">地址：</label>
+								<div class="col-sm-10">
+									<input class="form-control" id="addressDe" type="text" >
+								</div>
+								</div>
+									<div class="form-group">
+								<label for="idCardDe" class="col-sm-2 control-label">身份证号：</label>
+								<div class="col-sm-10">
+									<input class="form-control" id="idCardDe" type="text" >
+								</div>
+								</div>
+										<div class="form-group">
+								<label for="carDe" class="col-sm-2 control-label">教练车：</label>
+								<div class="col-sm-10">
+									<input class="form-control" id="carDe" type="text" >
+								</div>
 								</div>
 							</div>
 						</div>

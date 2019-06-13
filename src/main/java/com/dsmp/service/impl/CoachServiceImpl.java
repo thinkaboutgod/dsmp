@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dsmp.mapper.TbCoachMapper;
+import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.SearchBean;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.service.CoachService;
@@ -52,6 +53,27 @@ public class CoachServiceImpl implements CoachService {
 		sBean.setBeginTime(beginTime);
 		sBean.setEndTime(endTime);
 		return tbCoachMapper.selectCoasByCondition(sBean);
+	}
+
+	@Override
+	public MyResult changeCoachState(HttpServletRequest request, MyResult myResult) {
+		String state = request.getParameter("state");
+		String coaId = request.getParameter("coaId");
+		int res = 0;
+		if (state.equals("start")) {
+			state = "启用";
+		} else if (state.equals("forbid")) {
+			state = "禁用";
+		}
+		
+		res = tbCoachMapper.changeCoachState(Integer.valueOf(coaId), state);
+
+		if (res > 0) {
+			myResult.setMyresult("success");
+		} else {
+			myResult.setMyresult("failed");
+		}
+		return myResult;
 	}
 
 

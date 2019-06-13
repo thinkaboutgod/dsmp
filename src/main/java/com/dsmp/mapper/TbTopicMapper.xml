@@ -32,4 +32,12 @@
    		select * from tb_topic top left join tb_option opt on top.top_id=opt.top_id where top.top_id in(select top_id from tb_mistakeCollection where stu_id=#{stuId})
    </select> 
   
+  <insert id="insertTopic" parameterType="com.dsmp.pojo.TbTopic" >
+  		insert into tb_topic(sub_id,top_topic,top_img,top_answer,top_answerDetail) values(#{subId},#{topTopic},#{topImg},#{topAnswer},#{topAnswerDetail})
+  </insert>
+  
+  <select id="selectNewTopId" resultType="java.lang.Integer"> 
+  		select max(top_id) from tb_topic 
+  </select>
+  
 </mapper>

@@ -139,4 +139,9 @@
     insert into tb_student(stu_account,stu_password,stu_status) values(#{stuAccount},#{stuPassword},#{stuStatus});
   </insert>
 
+	<!-- 修改学员状态 -->
+	<update id="changeStudentState" >
+		update tb_student set stu_status=#{param2} where stu_id=#{param1}
+	</update>
+
 </mapper>

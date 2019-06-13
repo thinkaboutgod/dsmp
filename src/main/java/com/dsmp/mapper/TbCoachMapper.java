@@ -12,5 +12,7 @@ public interface TbCoachMapper {
 
 	public List<TbCoach> selectCoasByCondition(SearchBean sBean);
 
+	public Integer changeCoachState(Integer valueOf, String state);
+
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.service.CoachService;
 
@@ -20,6 +21,8 @@ import com.dsmp.service.CoachService;
 public class CoachController {
 
 	@Autowired private CoachService coachService;
+	
+	@Autowired private MyResult myResult;
 	
 	@RequestMapping(value="toschool_coach")
 	public String toSchoolCoach(HttpSession session) {
@@ -35,6 +38,15 @@ public class CoachController {
 		map.put("data", coaList);
 		return map;
 	}
+	
+	// 修改学员状态
+	@RequestMapping(value = "changeCoachState.action")
+	public @ResponseBody MyResult changeCoachState(HttpServletRequest request) {
+		myResult = coachService.changeCoachState(request, myResult);
+		return myResult;
+	}
+	
+	
 	
 //	@RequestMapping("/selectStusByCoaId.action")
 //	public @ResponseBody List<TbStudent> selectStusByCoaId(String coaId ,String coaPassword){
