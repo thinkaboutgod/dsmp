@@ -96,15 +96,7 @@
 			</li>
 			<li class="m "">
 				<h3>
-					<a href=" javascript:;">学员在线报名</a>
-				</h3>
-				<ul>
-
-				</ul>
-			</li>
-			<li class="m "">
-				<h3>
-					<a href=" javascript:;">荣誉资质</a>
+					<a href=<%=path+"/student/apply.action?" %>>学员在线报名</a>
 				</h3>
 				<ul>
 
@@ -113,6 +105,14 @@
 			<li class="m "">
 				<h3>
 					<a href=" javascript:;">人才招聘</a>
+				</h3>
+				<ul>
+
+				</ul>
+			</li>
+			<li class="m "">
+				<h3>
+					<a href=" javascript:;">个人中心</a>
 				</h3>
 				<ul>
 

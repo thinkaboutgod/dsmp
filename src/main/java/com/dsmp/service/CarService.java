@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCar;
 
 public interface CarService {
@@ -13,8 +14,14 @@ public interface CarService {
 	 * @param schId
 	 * @return
 	 */
-	public List<TbCar> selectCarsBySchId(Integer schId);
-
 	public List<TbCar> selectCarsByCondition(HttpServletRequest request);
+
+	/**
+	 * 	报废车辆
+	 * @param request
+	 * @param myResult
+	 * @return
+	 */
+	public MyResult scrapCar(HttpServletRequest request, MyResult myResult);
 
 }

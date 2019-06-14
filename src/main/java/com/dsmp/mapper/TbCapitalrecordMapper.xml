@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbCapitalrecordMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbCapitalrecord" >
+    <id column="cap_id" property="capId" jdbcType="INTEGER" />
+    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+    <result column="stu_id" property="stuId" jdbcType="INTEGER" />
+    <result column="cap_orderNumber" property="capOrderNumber" jdbcType="VARCHAR" />
+    <result column="cap_money" property="capMoney" jdbcType="DOUBLE" />
+    <result column="cap_time" property="capTime" jdbcType="TIMESTAMP" />
+    <result column="cap_feeType" property="capFeetype" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <!-- 增加学员在线报名资金记录 -->
+  <insert id="insertTbCapitalrecord" parameterType="com.dsmp.pojo.TbCapitalrecord" >
+    insert into tb_capitalrecord(sch_id,stu_id,cap_orderNumber,cap_money,cap_time,cap_feeType) 
+    values(#{schId},#{stuId},#{capOrderNumber},#{capMoney},now(),#{capFeetype});
+  </insert>
+</mapper>

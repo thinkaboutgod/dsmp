@@ -189,7 +189,7 @@
 			</div>
 		</article>
 		<footer>
-			<p>厦门传一科技有限公司 &nbsp; 闽ICP备09002072号</p>
+			<p>厦门传一信息科技有限公司 &nbsp; 闽ICP备09002072号</p>
 		</footer>
 	</div>
 </body>

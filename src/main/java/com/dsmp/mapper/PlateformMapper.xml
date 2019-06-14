@@ -95,4 +95,5 @@
 	<update id="changeStudentStateLock">
 		update tb_student set stu_status=#{param2},stu_errCount=0 where stu_id=#{param1}
 	</update>
+	
 </mapper>

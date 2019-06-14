@@ -7,6 +7,7 @@
     <result column="opt_option" property="optOption" jdbcType="VARCHAR" />
     <result column="opt_status" property="optStatus" jdbcType="VARCHAR" />
   </resultMap>
+<<<<<<< HEAD
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
@@ -142,5 +143,13 @@
     delete from tb_option
     where top_id = #{topId,jdbcType=INTEGER}
   </delete>
+=======
+  
+  
+  
+  <insert id="insertOption" parameterType="com.dsmp.pojo.TbOption">
+ 	 insert into tb_option(top_id,opt_option,opt_status) values(#{topId},#{optOption},#{optStatus});
+  </insert>
+>>>>>>> branch 'master' of https://github.com/thinkaboutgod/dsmp
   
 </mapper>
