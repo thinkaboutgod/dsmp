@@ -24,6 +24,7 @@ public class MenuController {
 
 	@RequestMapping(value = "/toManageMain.action")
 	public ModelAndView toManageMain(String role_id) {
+		
 		System.out.println("执行");
 		ModelAndView mav = new ModelAndView();
 		Map<TbMenu, List<TbMenu>> menuMap = menuService.selectMen(Integer.valueOf(role_id));

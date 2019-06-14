@@ -17,7 +17,7 @@
 			and a.sub_id=b.sub_id and a.coa_id=#{param1}
 		</where>
 	</select>
-	
+		
 	<select id="selectStudentMsg" resultType="com.dsmp.pojo.TbStudyrecord" resultMap="studentMsgMap">
 		select ss.*,c.sus_score from(select a.str_time,a.stu_id,a.sub_id,b.sub_name,b.sub_time from tb_studyRecord a ,tb_subject b where a.sub_id=b.sub_id and a.stu_id=#{param1})ss 
 		left join tb_subjectScore c on ss.sub_id=c.sub_id
@@ -30,10 +30,115 @@
 		 		rat_type=#{param2}
 		 	</if>
 		 	and coa_id=#{param1};
-		 </where>
-		 
+		 </where>		 
 	</select>
+	<!-- 搜索可预约场次 -->
+	<select id="selectTheTestMsg" resultType="com.dsmp.pojo.TbExamschedule" resultMap="thetestmsg">
+		select a.*,b.sub_name from tb_examschedule a,tb_subject b 
+		<where>
+			<if test="param3!=null">
+				and b.sub_name=#{param3}
+			</if>
+			and a.sub_id=b.sub_id and a.exs_signUpNum&lt;a.exs_totalNum and  exs_endTime&gt;#{param1} and a.sch_id=#{param2}
+		</where>
+				
+	</select>
+	<!-- 搜索可预约学员 -->
+	<select id="selectTestappointment" resultMap="testappointment1">
+		select a.stu_name,a.stu_id,b.sub_name,b.sub_time,c.str_time from tb_student a,tb_subject b,tb_studyrecord c 
+		<where>
+			<if test="param1!=null">and a.sub_id=#{param1}</if>
+			and a.sub_id=b.sub_id and a.stu_id=c.stu_id and a.sub_id=c.sub_id and a.coa_id=#{param2} and a.stu_bookingstate!="已预约"	
+		</where>				
+	</select>
+	<!-- 搜索已预约学员 -->
+	<select id="selectHaveappointment" resultMap="testappointment2">
+		select a.stu_name,a.sub_id,b.eas_seatNum,c.exs_address,c.exs_time,d.sub_name 
+		from tb_student a,tb_examscheduleandstudent b,tb_examschedule c,tb_subject d
+		<where>
+			<if test="param2!=null">
+				and a.stu_id=#{param2}
+			</if>
+			and a.stu_id=b.stu_id and b.exs_id=c.exs_id and a.sub_id=d.sub_id and a.coa_id=#{param1} and stu_bookingstate='已预约'
+		</where>  
+				
+	</select>
+	<!-- 统计教练名下各科目的人数，五个人后就不能预约 -->
+	<select id="selectNumberofsubjects" resultMap="statisticalnum">
+		select count(stu_id) as count from tb_student where stu_bookingstate="已预约" and sub_id=#{param1} and coa_id=#{param2} 
+	</select>
+	<!-- 座位号 -->
+	<select id="selecteasSeatNum" resultMap="maxseatNum">
+		select Max(eas_seatNum) easseatNum from  tb_examscheduleandstudent where exs_id=#{param1}
+	</select>
+	<!-- 预约插入 -->
+	<insert id="insertBooking" >
+		insert into tb_examscheduleandstudent (exs_id,stu_id,eas_seatNum) values(#{param1},#{param2},#{param3});		
+	</insert>
 	
+	<update id="updateBookingstate">
+		update tb_student set stu_bookingstate="已预约" where stu_id=#{param1}; 
+	</update>
+	
+	<resultMap type="INTEGER" id="maxseatNum">		
+		<result property="easseatNum" column="easseatNum" jdbcType="INTEGER" />		
+	</resultMap>
+	
+	<resultMap type="INTEGER" id="statisticalnum">		
+		<result property="count" column="count" jdbcType="INTEGER" />		
+	</resultMap>
+	
+	<resultMap type="com.dsmp.pojo.TbStudent" id="testappointment2">
+		<id column="stu_id" property="stuId" jdbcType="INTEGER"/>
+		<result column="sub_id" property="subId" jdbcType="INTEGER" />
+		<result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+		<association property="tbSubject" column="sub_id" javaType="TbSubject">
+			<id column="sub_id" property="subId" jdbcType="INTEGER" />
+    		<result column="sub_name" property="subName" jdbcType="VARCHAR" />
+		</association>
+		<association property="tbExamscheduleandstudent" column="stu_id" javaType="TbExamscheduleandstudent">
+			<id column="eas_id" property="easId" jdbcType="INTEGER" />
+    		<result column="eas_seatNum" property="easSeatnum" jdbcType="INTEGER" />
+    		<association property="tbExamschedule" column="exs_id">
+    			<id column="exs_id" property="exsId" jdbcType="INTEGER" />
+    			<result column="exs_address" property="exsAddress" jdbcType="VARCHAR" />
+    			<result column="exs_time" property="exsTime" jdbcType="TIMESTAMP" />
+    		</association>
+		</association>					
+	</resultMap>
+	
+	<resultMap type="com.dsmp.pojo.TbStudent" id="testappointment1">
+		<id column="stu_id" property="stuId" jdbcType="INTEGER"/>
+		<result column="coa_id" property="coaId" jdbcType="INTEGER" />
+		<result column="sub_id" property="subId" jdbcType="INTEGER" />
+		<result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+		<association property="tbSubject" column="sub_id" javaType="TbSubject">
+			<id column="sub_id" property="subId" jdbcType="INTEGER" />
+    		<result column="sub_name" property="subName" jdbcType="VARCHAR" />
+			<result column="sub_time" property="subTime" jdbcType="INTEGER" />
+		</association>
+		<association property="tbStudyrecord" column="stu_id" javaType="TbStudyrecord">
+			<id column="str_id" property="strId" jdbcType="INTEGER" />
+			<result column="str_time" property="strTime" jdbcType="INTEGER" />
+			<result column="stu_id" property="stuId" jdbcType="INTEGER" />		
+		</association>
+	</resultMap>
+	
+	<resultMap type="com.dsmp.pojo.TbExamschedule" id="thetestmsg">
+		<id column="exs_id" property="exsId" jdbcType="INTEGER"/>
+  		<result column="sch_id" property="schId" jdbcType="INTEGER" />
+  		<result column="sub_id" property="subId" jdbcType="INTEGER" />
+    	<result column="exs_time" property="exsTime" jdbcType="TIMESTAMP" />
+   		<result column="exs_address" property="exsAddress" jdbcType="VARCHAR" />
+    	<result column="exs_signUpNum" property="exsSignupnum" jdbcType="INTEGER" />
+    	<result column="exs_endTime" property="exsEndtime" jdbcType="TIMESTAMP" />
+    	<result column="exs_totalNum" property="exsTotalnum" jdbcType="INTEGER" />
+    	<association property="tbSubject" column="sub_id" javaType="TbSubject">
+    		<id column="sub_id" property="subId" jdbcType="INTEGER" />
+    		<result column="sub_name" property="subName" jdbcType="VARCHAR" />
+    	</association>
+	</resultMap>
+
 	<resultMap type="com.dsmp.pojo.TbRating" id="studentRating">
 		<id column="rat_id" property="ratId" jdbcType="INTEGER"/>
   		<result column="coa_id" property="coaId" jdbcType="INTEGER" />

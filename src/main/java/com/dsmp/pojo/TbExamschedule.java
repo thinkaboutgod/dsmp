@@ -18,6 +18,9 @@ public class TbExamschedule {
     private Date exsEndtime;
 
     private Integer exsTotalnum;
+    
+    private TbSubject tbSubject;
+    
 
     public Integer getExsId() {
         return exsId;
@@ -82,4 +85,13 @@ public class TbExamschedule {
     public void setExsTotalnum(Integer exsTotalnum) {
         this.exsTotalnum = exsTotalnum;
     }
+
+	public TbSubject getTbSubject() {
+		return tbSubject;
+	}
+
+	public void setTbSubject(TbSubject tbSubject) {
+		this.tbSubject = tbSubject;
+	}
+    
 }

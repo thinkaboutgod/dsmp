@@ -39,7 +39,7 @@ $(function() {
 	})
 	datatable_otherSet = {
 			"ajax" : {
-						"url": "belongtocoach.action",
+						"url": "coach/belongtocoach.action",
 						"type":"post"
 					},
 			"columns" : [
@@ -119,14 +119,13 @@ $(function() {
 	});	
 	$(document).on("click", ".detail", function() { 
 		var da = table.row($(this).parent().parent()).data();
-		var vv=da.stuId;
-		
+		var vv=da.stuId;		
 		layer.open({
 			title: '学员详情',
 			type: 2,
 			area: ['700px', '500px'],
 			shadeClose: true, //点击遮罩关闭
-			content: ['tostudentparticulars.action?stuId='+vv,'no']
+			content: ['coach/tostudentparticulars.action?stuId='+vv,'no']
 		});
 //		$.ajax({
 //	    	  type: 'GET',

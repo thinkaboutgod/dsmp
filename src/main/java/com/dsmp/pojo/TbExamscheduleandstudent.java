@@ -8,8 +8,18 @@ public class TbExamscheduleandstudent {
     private Integer stuId;
 
     private Integer easSeatnum;
+    
+    private TbExamschedule tbExamschedule;
+    
+    public TbExamschedule getTbExamschedule() {
+		return tbExamschedule;
+	}
 
-    public Integer getEasId() {
+	public void setTbExamschedule(TbExamschedule tbExamschedule) {
+		this.tbExamschedule = tbExamschedule;
+	}
+
+	public Integer getEasId() {
         return easId;
     }
 
