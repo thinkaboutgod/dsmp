@@ -37,4 +37,6 @@ public interface TbStudentMapper {
 	public int changeStudentState(int stuId,String state);//修改学员账号状态
 	public int changeStudentStateLock(int stuId,String state);
 	
+	public String findStudentImgByStuId(int stuId);//根据id查学员照片路径
+	
 }

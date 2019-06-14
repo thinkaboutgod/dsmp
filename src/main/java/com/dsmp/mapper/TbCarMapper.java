@@ -9,5 +9,7 @@ public interface TbCarMapper {
 	List<TbCar> selectCarsByCondition(SearchBean sBean);
 
 	String selectCurTime();
+
+	int scrapCar(Integer carId, String state);
 	
 }

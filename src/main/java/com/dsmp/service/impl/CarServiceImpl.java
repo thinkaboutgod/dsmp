@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dsmp.mapper.TbCarMapper;
+import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.SearchBean;
 import com.dsmp.pojo.TbCar;
 import com.dsmp.service.CarService;
@@ -24,13 +25,6 @@ public class CarServiceImpl implements CarService {
 	@Autowired private TbCarMapper tbCarMapper;
 	
 	@Override
-	public List<TbCar> selectCarsBySchId(Integer schId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	@Test
 	public List<TbCar> selectCarsByCondition(HttpServletRequest request) {
 		String carPlateNum = request.getParameter("carPlateNum");
 		String coachName = request.getParameter("coachName");
@@ -79,9 +73,23 @@ public class CarServiceImpl implements CarService {
 	        tbCar.setCarStartTime(fromDate);
 			tbCar.setCarUsedTime(carUsedTime.toString());
 		}
-		
 		return carList;
-		
 	}
 
+	@Override
+	public MyResult scrapCar(HttpServletRequest request, MyResult myResult) {
+		String state = request.getParameter("state");
+		String carId = request.getParameter("carId");
+	
+		int res = tbCarMapper.scrapCar(Integer.valueOf(carId), state);
+
+		if (res > 0) {
+			myResult.setMyresult("success");
+		} else {
+			myResult.setMyresult("failed");
+		}
+		return myResult;
+	}
+
+	
 }

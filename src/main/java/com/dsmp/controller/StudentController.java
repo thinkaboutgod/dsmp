@@ -49,7 +49,8 @@ public class StudentController {
 	@Autowired
 	private TbStudentMapper tbStudentMapper;
 	@Autowired
-	private TbCapitalrecordMapper tbCapitalrecordMapper;
+	private TbCapitalrecordMapper tbCapitalrecordMapper;	
+	@Autowired private MyResult myResult;
 	//主页跳登录页
 	@RequestMapping("/login")
 	public ModelAndView getLoginPage() {
@@ -174,6 +175,11 @@ public class StudentController {
 		return "back/school_student";
 	}
 	
+	/**
+	 *	 查询所有学生
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "searchAllStudent.action")
 	public @ResponseBody Map<String, List<TbStudent>> searchAllstudent(HttpServletRequest request) {
 		List<TbStudent> list = studentService.searchAllstudent(request);
@@ -202,7 +208,6 @@ public class StudentController {
 			result = studentService.schoolLogin(session, account, password, role);
 			break;
 		}
-			
 		return result;
 	}
 	
@@ -246,6 +251,7 @@ public class StudentController {
 		return result;
 	}
 	
+
 	//用户在线报名判断
 	@RequestMapping("/studentApply")
 	public @ResponseBody MyResult studentApply(HttpServletRequest request,HttpSession session,
@@ -285,4 +291,11 @@ public class StudentController {
 		result = studentService.changePwd(request,newPassword, phone,verifyCode);
 		return result;
 	}
+	
+	@RequestMapping(value = "changeStudentState.action")
+	public @ResponseBody MyResult changeStudentState(HttpServletRequest request) {
+		myResult = studentService.changeStudentState(request, myResult);
+		return myResult;
+	}
+	
 }

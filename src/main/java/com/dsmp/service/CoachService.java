@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCoach;
 
 /**
@@ -22,5 +23,13 @@ public interface CoachService {
 	public List<TbCoach> selectCoasByCondition(HttpServletRequest request);
 	
 	public List<TbCoach> selectCoach(Integer schId);
+	/**
+	 * 	修改教练的状态
+	 * @param request
+	 * @param myResult
+	 * @return
+	 */
+	public MyResult changeCoachState(HttpServletRequest request, MyResult myResult);
+	
 }
 

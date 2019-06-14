@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>科目一模拟试卷</title>
+<title>科目一模拟试卷错题集</title>
 <%
 	String path = request.getContextPath();
 %>
@@ -64,7 +64,7 @@
 <script type="text/javascript" src=<%=path+"/js/map.js" %>></script>
 <script type="text/javascript">
 		//倒计时：
-		setInterval("countTime()",1000);//1秒执行一次
+/* 		setInterval("countTime()",1000);//1秒执行一次
 		var leftDateLong = 45*60*1000;//考试时间设置成45min
 		function countTime(){
 			if(leftDateLong>0){
@@ -77,7 +77,7 @@
 				
 			}
 			
-		}
+		} */
 		//计算百分比：
 		function getPercent(num, total) {//用法：getPercent(1,100)；
 		    /// <summary>
@@ -93,12 +93,6 @@
 		    return total <= 0 ? "0%" : (Math.round(num / total * 10000) / 100.00)+"%";
 		}
 	$(function(){
-		//记录点击先后时间：
-		var arr = new Array();//arr[0]=new Date();arr[1]=new Date();
-		//偶数点击给arr[0]，奇数给arr[1]
-		arr[0]=new Date();//初始给一个时间
-		var clickTimes = 0;
-		var timeLengthLimit = 20*60*1000;//答题时间长度限制（20min） 20*60*1000
 		//取到学员id
 		var stuId = $("#stuId").val();
 		//取到科目号
@@ -108,30 +102,6 @@
 		//选中了题目，则获取当前页面题目序号，方格子区域变成蓝色表示改题已经选择
 		$("input[type='radio']").on({
 			"click":function(){
-				//根据点击的次数是偶数还是奇数，决定当前时间放arr[0]还是arr[1]
-				clickTimes++;
-// 				alert("clickTimes:"+clickTimes);
-				if(clickTimes%2==0){//偶数
-					arr[0] = new Date();
-// 					alert('偶数：'+arr[1]);
-				}else{//奇数
-					arr[1] = new Date();	
-// 					alert('奇数：'+arr[0]);
-				}
-				if(arr[1]>arr[0]){
-					var timeLenth = arr[1]-arr[0];
-				}else{
-					var timeLenth = arr[0]-arr[1];
-				}
-// 				alert('点击时间间隔:'+timeLenth);//点击的时间间隔超过30分钟就视为挂机(单位：毫秒)
-				if(timeLenth>timeLengthLimit){//点击的时间间隔超过30分钟就视为挂机(单位：毫秒)
-					alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+timeLenth+'s');
-					alert('重新出卷');
-					window.location.href="findManyTopic.action?stu_id="+stuId+"&sub_id="+subId;
-					return;
-				}
-				
-				
 				var topicOrder = $(this).attr("class");//获取当前页面题目序号
 // 				alert('选题'+topicOrder);
 				$("#view"+topicOrder).css({
@@ -159,34 +129,6 @@
 		$("#submitBtn").on({
 			"click":function(){
 				alert('提交试卷');
-				//提交试卷的时候跟上一次选择的时候是否间隔过久？
-				var commitTime = new Date();
-// 				alert(arr.length);
-				if(arr.length==1){//说明没有点击过选项
-					if(commitTime-arr[0]>timeLengthLimit){
-						alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+(commitTime-arr[0])+'ms');
-						alert('重新出卷');
-						window.location.href="findManyTopic.action?stu_id="+stuId+"&sub_id="+subId;
-						return;
-					}
-				}else if(arr.length==2){
-					if(arr[1]>arr[0]){
-						if(commitTime-arr[1]>timeLengthLimit){
-							alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+(commitTime-arr[1])+'s');
-							alert('重新出卷');
-							window.location.href="findManyTopic.action?stu_id="+stuId+"&sub_id="+subId;
-							return;
-						}
-					}else{
-						if(commitTime-arr[0]>timeLengthLimit){
-							alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+(commitTime-arr[0])+'s');
-							alert('重新出卷');
-							window.location.href="findManyTopic.action?stu_id="+stuId+"&sub_id="+subId;
-							return;
-						}
-					}
-				}
-				
 			    	var totalScore="0";
 			    	totalScore=parseInt(totalScore);
 			    examResultMap.each(function(key,value,index){//key表示数据库题目表的topId，value表示学员所选答案是'yes'还是'no'  
@@ -222,12 +164,6 @@
 					datatype:"json",
 					data:{"jsonData":exresMap2json,"studentId":stuId,"subId":subId},
 					success:function(data){
-// 						alert(data);
-// 						$.each(data,function(i,val){
-// 							alert(i);
-// 							alert(val);							
-// 						});
-						
 						if(data==null||data=='') {
 // 							alert('您在线超24小时，有挂机嫌疑，本次学习时长不算数。');				
 						}else{
@@ -245,7 +181,6 @@
 							
 							
 						}
-						
 					},
 					error:function(){
 						alert("可能路径有问题，未访问到服务器");
@@ -258,7 +193,7 @@
 		$("#updateExamBtn").on({
 			"click":function(){
 				alert('重新出卷');
-				window.location.href="findManyTopic.action?stu_id="+stuId+"&sub_id="+subId;
+				window.location.href="findManyTopic.action?stu_id="+stuId;
 			}
 		});
 		$("img").on({
@@ -280,22 +215,23 @@
 </script>
 </head>
 <body>
-	
+		<h4>错题集</h4>
 		<form action="" method="post">
-			<input id="stuId" type="hidden" name="stuId" value="${stu_id}"/>			
-			<input id="subId" type="hidden" name="subId" value="${sub_id}"/>			
+			<input id="stuId" type="hidden" name="stuId" value="${stu_id}"/>
+			<input id="subId" type="hidden" name="subId" value="${sub_id}"/>
+			<h1>${loginMessage}</h1>	
+			<c:if test="${loginMessage==null}">		
 			<div id="leftDiv">
 						<ol type="1" class="topicClass">
-							<c:forEach begin="0" step="1" items="${topicList}" var="i" varStatus="topicStatus">				
+							<c:forEach begin="0" step="1" items="${mistakeTopicList}" var="i" varStatus="topicStatus">				
 									<li>
-									<span>${topicStatus.count}.</span>${i.topTopic}<!-- ${topicStatus.count}是为了拿到题目序号（页面显示的） -->
+									<span>${topicStatus.count}.</span>${i.topTopic }<!-- ${topicStatus.count}是为了拿到题目序号（页面显示的） -->
 									</li>
 									<li>
-<%-- 									<img alt="" src=<%=path+"/images/hai.jpg" %>>									 --%>
-									<c:if test="${i.topImg!=null&&''!=i.topImg}">
-										<img alt="" src=<%=path%>${i.topImg}>									
-									
-									</c:if>
+<%-- 									<img alt="" src=<%=path+"/images/hai.jpg" %>> --%>
+										<c:if test="${i.topImg!=null&&''!=i.topImg}">
+											<img alt="" src=<%=path%>${i.topImg}>																		
+										</c:if>								
 									</li>
 								<ol class="optionClass">
 									<c:forEach begin="0" step="1" items="${i.options}" var="j">
@@ -309,8 +245,8 @@
 						</ol>
 			</div>
 			<div id="rightDiv">
-		<%-- 		${fn:length(topicList)} 该份试卷共有几道题 --%>
-				剩余时间：<span id="countTime">45分00秒</span>	
+		<%-- 		${fn:length(mistakeTopicList)} 该份试卷共有几道题 --%>
+<!-- 				剩余时间：<span id="countTime">45分00秒</span>	 -->
 <!-- 				进度条 -->
 				<p>学习时长/任务时长(单位：秒)：<span id="studyTimeSpan">${currTotalTimeLength}/${totalTimeLength}</span></p>
 				<div class="progress">
@@ -319,11 +255,10 @@
 				  </div>
 				    <span id="percentageId">${percentage}</span>
 				</div>
-				
 				<table>
-				<c:forEach begin="0" step="5" items="${topicList}" varStatus="topicStatus">
+				<c:forEach begin="0" step="5" items="${mistakeTopicList}" varStatus="topicStatus">
 				<tr>
-					<c:forEach begin="${topicStatus.index}" end="${(topicStatus.index)+4}" step="1" items="${topicList}" varStatus="tStatus">
+					<c:forEach begin="${topicStatus.index}" end="${(topicStatus.index)+4}" step="1" items="${mistakeTopicList}" varStatus="tStatus">
 						<td id="view${(tStatus.index)+1}">${(tStatus.index)+1}</td>
 							
 						
@@ -347,10 +282,11 @@
 				
 			</div>
 			<div id="resultDiv">
-			<input id="submitBtn" type="button" value="提交试卷"></input>
-			<input id="updateExamBtn" type="button" value="重新出题"></input>
+			<input id="submitBtn" type="button" value="提交"></input>
+<!-- 			<input id="updateExamBtn" type="button" value="重新出题"></input> -->
 			
 			</div>
+			</c:if>
 		</form>
 </body>
 </html>

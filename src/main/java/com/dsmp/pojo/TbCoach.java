@@ -32,8 +32,9 @@ public class TbCoach {
 
     private String coaLevel;
 
-    //
     private TbSchool tbSchool;
+    
+    private TbCar tbCar;
     
     private List<TbStudent> stuList = new ArrayList<>();
    
@@ -148,4 +149,30 @@ public class TbCoach {
     public void setCoaLevel(String coaLevel) {
         this.coaLevel = coaLevel == null ? null : coaLevel.trim();
     }
+
+	public TbSchool getTbSchool() {
+		return tbSchool;
+	}
+
+	public void setTbSchool(TbSchool tbSchool) {
+		this.tbSchool = tbSchool;
+	}
+
+	public TbCar getTbCar() {
+		return tbCar;
+	}
+
+	public void setTbCar(TbCar tbCar) {
+		this.tbCar = tbCar;
+	}
+
+	public List<TbStudent> getStuList() {
+		return stuList;
+	}
+
+	public void setStuList(List<TbStudent> stuList) {
+		this.stuList = stuList;
+	}
+    
+    
 }

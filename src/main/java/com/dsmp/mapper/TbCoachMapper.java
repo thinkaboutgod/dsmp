@@ -10,8 +10,11 @@ public interface TbCoachMapper {
 	//教练登陆
 	public TbCoach getCoach(TbCoach coach);
 
-	public List<TbCoach> selectCoasByCondition(SearchBean sBean);
-	 
+	public List<TbCoach> selectCoasByCondition(SearchBean sBean); 
+	
 	public List<TbCoach> selseCoach(Integer schId);
+
+	public Integer changeCoachState(Integer valueOf, String state);
+
 
 }

@@ -30,20 +30,19 @@ public interface StudentService {
 	//学员忘记密码
 	public MyResult changePwd(HttpServletRequest request,String newPassword,String phone,String code);
 	/**
-	 * 	根据教练的id查询教练名下的学生信息
-	 * @param coaId
+	 * 	查询所有学员
+	 * @param request
 	 * @return
 	 */
-	public List<TbStudent> selectStusByCoaId(Integer coaId);
+	public List<TbStudent> searchAllstudent(HttpServletRequest request);
 	
 	/**
-	 * 	根据驾校的id查询驾校名下的学生信息
-	 * @param schId
+	 * 	修改学员状态
+	 * @param request
+	 * @param myResult
 	 * @return
 	 */
-	public List<TbStudent> selectStusBySchId(Integer schId);
-
-	public List<TbStudent> searchAllstudent(HttpServletRequest request);
+	public MyResult changeStudentState(HttpServletRequest request, MyResult myResult);
 	
 	
 }

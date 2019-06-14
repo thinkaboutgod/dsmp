@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.dsmp.mapper.TbStudentMapper" >
-
   <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbStudent" >
     <id column="stu_id" property="stuId" jdbcType="INTEGER" />
     <result column="coa_id" property="coaId" jdbcType="INTEGER" />
@@ -100,14 +99,15 @@
 	date_format(@lastDay := last_day( date_add(@lastDay,interval 1 month ) ) ,'%Y-%m'  ) name
 	from 
 	(SELECT @lastDay := date_add(curdate(),interval -7 month) from tb_student  limit 6) a
-    
   </select>
+  
   <!-- 查询某一个月所有驾校报名人数 -->
   <select id="countStudentByDate" resultMap="CountStudentMap"  >
 	select a.sch_name name,a.sch_account, count(a.sch_name) as num from (
 	select sc.sch_name as sch_name,sc.sch_account as sch_account from tb_student st,tb_school sc 
 	where st.sch_id= sc.sch_id and DATE_FORMAT(st.stu_signUpTime , '%Y-%m' )=#{param1} ) a GROUP BY a.sch_name
   </select>
+  
   <!-- 查询某近30天某个驾校驾校报名人数 -->
   <select id="countStudentByMonth" resultMap="CountStudentMap"  >
 	select a.day as name,t.num from
@@ -123,6 +123,10 @@
   <!-- 	查询教练底下处于科目二和三的学员 -->
   <select id="selectStudentByCoachIdAndSubject" resultMap="searchStudent"  >
   	select stu.stu_id,stu.sub_id,stu.stu_name,sub.* from tb_student stu,tb_subject sub where stu.coa_id = #{param1} and stu.sub_id != 1 and stu.sub_id != 4 and stu.sub_id = sub.sub_id
+  </select>
+  
+  <select id="findStudentImgByStuId" resultType="java.lang.String">
+  	select stu_img from tb_student where stu_id = #{param1}
   </select>
   
   <!-- 用户登录 -->
@@ -148,4 +152,9 @@
     stu_img = #{stuImg},stu_address = #{stuAddress},stu_errCount = #{stuErrcount},
     stu_signUpTime=now(),stu_verifyStatus=#{stuVerifystatus} where stu_account=#{stuAccount};
   </update>
+
+	<!-- 修改学员状态 -->
+	<update id="changeStudentState" >
+		update tb_student set stu_status=#{param2} where stu_id=#{param1}
+	</update>
 </mapper>
