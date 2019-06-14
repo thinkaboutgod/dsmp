@@ -8,18 +8,49 @@ public class TbCapitalrecord {
     private Integer schId;
 
     private Integer stuId;
-
+    
+    private String capOrderNumber;
+    
     private Double capMoney;
 
     private Date capTime;
 
     private String capFeetype;
+    
+    private TbStudent tbStudent;
+    
+    private TbSchool tbSchool;
+   
 
-    public Integer getCapId() {
+	public String getCapOrderNumber() {
+		return capOrderNumber;
+	}
+
+	public void setCapOrderNumber(String capOrderNumber) {
+		this.capOrderNumber = capOrderNumber;
+	}
+
+	public Integer getCapId() {
         return capId;
     }
+    
+    public TbStudent getTbStudent() {
+		return tbStudent;
+	}
 
-    public void setCapId(Integer capId) {
+	public void setTbStudent(TbStudent tbStudent) {
+		this.tbStudent = tbStudent;
+	}
+
+	public TbSchool getTbSchool() {
+		return tbSchool;
+	}
+
+	public void setTbSchool(TbSchool tbSchool) {
+		this.tbSchool = tbSchool;
+	}
+
+	public void setCapId(Integer capId) {
         this.capId = capId;
     }
 

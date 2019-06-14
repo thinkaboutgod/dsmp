@@ -53,6 +53,11 @@
 		select * from tb_coach where coa_account = #{coaAccount};
 	</select>
 	
+	<!-- 根据驾校查询底下所有教练 -->
+ 	<select id="selseCoach" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+ 		select * from tb_coach where sch_id=#{schId}
+ 	</select>
+	
 	<!-- 查询驾校名下教练 -->
   <select id="selectCoasByCondition" resultMap="BaseResultMap" >
 		select * from tb_coach  

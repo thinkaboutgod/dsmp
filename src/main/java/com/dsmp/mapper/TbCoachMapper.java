@@ -11,6 +11,7 @@ public interface TbCoachMapper {
 	public TbCoach getCoach(TbCoach coach);
 
 	public List<TbCoach> selectCoasByCondition(SearchBean sBean);
-
+	 
+	public List<TbCoach> selseCoach(Integer schId);
 
 }

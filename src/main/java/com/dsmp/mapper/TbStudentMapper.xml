@@ -137,5 +137,15 @@
   <insert id="insertStudent" parameterType="com.dsmp.pojo.TbStudent" >
     insert into tb_student(stu_account,stu_password,stu_status) values(#{stuAccount},#{stuPassword},#{stuStatus});
   </insert>
-
+  <!-- 学员忘记密码找回 -->
+  <update id="updateStudentPwd" parameterType="com.dsmp.pojo.TbStudent">
+    update tb_student set stu_password = #{stuPassword} where stu_account=#{stuAccount};
+  </update>
+   <!-- 学员报名驾校信息录入 -->
+  <update id="updateStudentInfo" parameterType="com.dsmp.pojo.TbStudent">
+    update tb_student set coa_id = #{coaId},sch_id = #{schId},sub_id = #{subId},
+    stu_name = #{stuName},stu_sex = #{stuSex},stu_idCard = #{stuIdcard},
+    stu_img = #{stuImg},stu_address = #{stuAddress},stu_errCount = #{stuErrcount},
+    stu_signUpTime=now(),stu_verifyStatus=#{stuVerifystatus} where stu_account=#{stuAccount};
+  </update>
 </mapper>

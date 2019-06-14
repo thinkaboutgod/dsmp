@@ -54,6 +54,12 @@ public class CoachServiceImpl implements CoachService {
 		return tbCoachMapper.selectCoasByCondition(sBean);
 	}
 
+	@Override
+	public List<TbCoach> selectCoach(Integer schId) {
+		List<TbCoach> coaList = tbCoachMapper.selseCoach(schId);
+		return coaList;
+	}
+
 
 
 	

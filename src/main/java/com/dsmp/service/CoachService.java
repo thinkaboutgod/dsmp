@@ -21,5 +21,6 @@ public interface CoachService {
 	 */
 	public List<TbCoach> selectCoasByCondition(HttpServletRequest request);
 	
+	public List<TbCoach> selectCoach(Integer schId);
 }
 

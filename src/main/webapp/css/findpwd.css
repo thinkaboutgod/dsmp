@@ -1,0 +1,222 @@
+@charset "utf-8";
+.clears {
+ clear:both
+}
+.for-liucheng {
+ width:640px;
+ margin:30px auto;
+ height:50px;
+ padding:20px 0 0;
+ position:relative
+}
+.liulist {
+ float:left;
+ width:25%;
+ height:7px;
+ background:#ccc
+}
+.liutextbox {
+ position:absolute;
+ width:100%;
+ left:0;
+ top:10px
+}
+.liutextbox .liutext {
+ float:left;
+ width:25%;
+ text-align:center
+}
+.liutextbox .liutext em {
+ display:inline-block;
+ width:24px;
+ height:24px;
+ -moz-border-radius:24px;
+ -webkit-border-radius:24px;
+ border-radius:24px;
+ background:#ccc;
+ text-align:center;
+ font-size:14px;
+ line-height:24px;
+ font-style:normal;
+ font-weight:700;
+ color:#fff
+}
+.liutextbox .liutext strong {
+ display:inline-block;
+ height:26px;
+ line-height:26px;
+ font-weight:400
+}
+.liulist.for-cur,
+.liutextbox .for-cur em {
+ background:#00C356
+}
+.liutextbox .for-cur strong {
+ color:#00C356
+}
+.verification_phone {
+ margin-bottom:120px
+}
+.verification_phone input.error::-webkit-input-placeholder {
+ color:#F74835
+}
+.verification_phone input.error:-moz-placeholder {
+ color:#F74835
+}
+.verification_phone input.error::-moz-placeholder {
+ color:#F74835
+}
+.verification_phone input.error:-ms-input-placeholder {
+ color:#F74835
+}
+.verification_phone input.error {
+ border:1px solid #F74835
+}
+.verification_phone div {
+ margin:0 0 20px 190px
+}
+.verification_phone div input {
+ width:393px;
+ height:40px;
+ font-size:14px;
+ background:0 0;
+ border:1px solid #EEE;
+ outline:0;
+ border-radius:3px;
+ padding-left:5px
+}
+.verification_phone div :focus {
+ outline:0
+}
+.verification_phone div input::-webkit-input-placeholder {
+ color:silver;
+ font-size:14px;
+ font-family:PingFangSC-Regular;
+ line-height:20px
+}
+.verification_phone div input::-moz-input-placeholder {
+ color:silver;
+ font-size:14px;
+ font-family:PingFangSC-Regular;
+ line-height:20px
+}
+.verification_phone div input::-ms-input-placeholder {
+ color:silver;
+ font-size:14px;
+ font-family:PingFangSC-Regular;
+ line-height:20px
+}
+.verification_phone div button {
+ width:400px;
+ height:40px;
+ border:none;
+ background-color:#00C356;
+ color:#fff;
+ cursor:pointer
+}
+.verification_code .verification_code_prompt {
+ font-size:14px;
+ font-family:MicrosoftSansSerif;
+ color:#999;
+ line-height:16px
+}
+.verification_code input.error::-webkit-input-placeholder {
+ color:#da7878
+}
+.verification_code input.error:-moz-placeholder {
+ color:#da7878
+}
+.verification_code input.error::-moz-placeholder {
+ color:#da7878
+}
+.verification_code input.error:-ms-input-placeholder {
+ color:#da7878
+}
+.verification_code .print_code {
+ margin-left:190px;
+ width:250px;
+ height:40px
+}
+.verification_code .obtain_btn {
+ cursor:pointer;
+ width:150px;
+ border:none;
+ height:40px;
+ background:#00C356;
+ color:#fff
+}
+.verification_code .print_code {
+ background:0 0;
+ border:1px solid #EEE;
+ outline:0;
+ border-radius:3px;
+ padding-left:5px
+}
+.verification_code .print_code:focus {
+ outline:0;
+ background-color:transparent
+}
+.verification_code .print_code::-webkit-input-placeholder {
+ font-size:14px;
+ font-family:PingFangSC-Regular;
+ color:silver;
+ line-height:20px
+}
+.verification_code .print_code::-moz-input-placeholder {
+ font-size:14px;
+ font-family:PingFangSC-Regular;
+ color:silver;
+ line-height:20px
+}
+.verification_code .print_code::-ms-input-placeholder {
+ font-size:14px;
+ font-family:PingFangSC-Regular;
+ color:silver;
+ line-height:20px
+}
+.verification_code div {
+ width:500px;
+ margin:15px 0 15px 190px
+}
+.verification_code div button {
+ width:412px;
+ height:40px;
+ border:none;
+ background-color:#00C356;
+ color:#fff;
+ border-radius:3px
+}
+
+.verification_code input{
+ width:400px;
+ height:40px;
+ font-size:14px;
+ background:0 0;
+ border:1px solid #EEE;
+ outline:0;
+ border-radius:3px;
+ padding-left:5px
+}
+
+
+.verification_code div :focus {
+ outline:0
+}
+.verification_code div input::-webkit-input-placeholder {
+ font-size:14px;
+ font-family:PingFangSC-Regular;
+ color:silver;
+ line-height:20px
+}
+.verification_code div input::-moz-input-placeholder {
+ font-size:14px;
+ font-family:PingFangSC-Regular;
+ color:silver;
+ line-height:20px
+}
+.verification_code div input::-ms-input-placeholder {
+ font-size:14px;
+ font-family:PingFangSC-Regular;
+ color:silver;
+ line-height:20px
+}
