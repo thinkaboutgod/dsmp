@@ -199,19 +199,6 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 
-	
-	//手机验证码验证
-	@Override
-	public List<TbStudent> selectStusByCoaId(Integer coaId) {
-		
-		return null;
-	}
-
-	@Override
-	public List<TbStudent> selectStusBySchId(Integer schId) {
-		
-		return null;
-	}
 
 	@Override
 	public List<TbStudent> searchAllstudent(HttpServletRequest request) {

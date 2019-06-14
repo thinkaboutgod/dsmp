@@ -100,6 +100,7 @@
                         <table id="countTable" class="table table-bordered table-striped table-hover">
                         <thead>
                           <tr role="row">
+                          <th >序号</th>
                           <th >驾校名称</th>
                           <th >驾校电话</th>
                           <th >报名人数</th>

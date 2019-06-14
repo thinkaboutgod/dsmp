@@ -3,6 +3,11 @@ package com.dsmp.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.web.multipart.MultipartFile;
+
+import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbTopic;
 
 public interface TopicService {
@@ -25,4 +30,11 @@ public interface TopicService {
 	public List<TbTopic> findMistakeTopic(Integer stuId);
 	public List<TbTopic> findAllTopic();
 	
+	public List<TbTopic> searchAllTopic(String subId);//查询题库；
+	
+	public String changeTopic(HttpServletRequest request,String map,MultipartFile newImg);//修改科目一题目
+
+	public String addTopic(HttpServletRequest request,String map,MultipartFile addnewImg);//增加科目一题目
+	
+	public MyResult deleteTopic(HttpServletRequest request,String topId);//删除题目
 }

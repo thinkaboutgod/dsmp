@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbOptionMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbOption" >
+    <id column="opt_id" property="optId" jdbcType="INTEGER" />
+    <result column="top_id" property="topId" jdbcType="INTEGER" />
+    <result column="opt_option" property="optOption" jdbcType="VARCHAR" />
+    <result column="opt_status" property="optStatus" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    opt_id, top_id, opt_option, opt_status
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_option
+    where opt_id = #{optId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_option
+    where opt_id = #{optId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.dsmp.pojo.TbOption" >
+    insert into tb_option (opt_id, top_id, opt_option, 
+      opt_status)
+    values (#{optId,jdbcType=INTEGER}, #{topId,jdbcType=INTEGER}, #{optOption,jdbcType=VARCHAR}, 
+      #{optStatus,jdbcType=VARCHAR})
+  </insert>
+<!--   插入题目 -->
+  <insert id="insertSelective" parameterType="com.dsmp.pojo.TbOption" >
+    insert into tb_option
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="topId != null" >
+        top_id,
+      </if>
+      <if test="optOption != null" >
+        opt_option,
+      </if>
+      <if test="optStatus != null" >
+        opt_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="topId != null" >
+        #{topId,jdbcType=INTEGER},
+      </if>
+      <if test="optOption != null" >
+        #{optOption,jdbcType=VARCHAR},
+      </if>
+      <if test="optStatus != null" >
+        #{optStatus,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+<!--   更新选项 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbOption" >
+    update tb_option
+    <set >
+      <if test="topId != null" >
+        top_id = #{topId,jdbcType=INTEGER},
+      </if>
+      <if test="optOption != null" >
+        opt_option = #{optOption,jdbcType=VARCHAR},
+      </if>
+      <if test="optStatus != null" >
+        opt_status = #{optStatus,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where opt_id = #{optId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dsmp.pojo.TbOption" >
+    update tb_option
+    set top_id = #{topId,jdbcType=INTEGER},
+      opt_option = #{optOption,jdbcType=VARCHAR},
+      opt_status = #{optStatus,jdbcType=VARCHAR}
+    where opt_id = #{optId,jdbcType=INTEGER}
+  </update>
+  
+  <!--   删除选项 -->
+  <delete id="deleteByTopId" parameterType="java.lang.Integer" >
+    delete from tb_option
+    where top_id = #{topId,jdbcType=INTEGER}
+  </delete>
+  
+</mapper>

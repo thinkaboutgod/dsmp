@@ -357,7 +357,7 @@ function getUserMediaToPhoto(constraints,success,error) {
         navigator.getUserMedia(constraints,success,error);
     }
 }
-
+//获取图片
 function getFace(context) {
         context.drawImage(video,0,0,200,150);
         this.img=canvas.toDataURL('image/jpg')
@@ -365,6 +365,7 @@ function getFace(context) {
         this.img=img.split(',')[1];
         return this.img;
 }
+//打开摄像头
 function openUserMedia() {
     if(navigator.mediaDevices.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.getUserMedia){
         getUserMediaToPhoto({video:{width:480,height:320,facingMode: "user"}},success,error);

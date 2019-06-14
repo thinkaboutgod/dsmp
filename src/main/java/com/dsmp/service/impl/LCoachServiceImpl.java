@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.alipay.api.domain.Data;
 import com.dsmp.mapper.LCoachMapper;
@@ -210,7 +211,7 @@ public class LCoachServiceImpl implements LCoachService {
 		String url = "https://aip.baidubce.com/rest/2.0/face/v3/match";
 		try {
 			String photoPath = tbStudentMapper.findStudentImgByStuId(Integer.valueOf(stuId));//获取学员照片
-			String path = request.getServletContext().getRealPath("upload/13328414633.jpg");
+			String path = request.getServletContext().getRealPath("images/student/"+photoPath);
 			byte[] bytes1 = FileUtil.readFileByBytes(path);
 //					byte[] bytes2 = FileUtil.readFileByBytes("【本地文件2地址】");
 			String image1 = Base64Util.encode(bytes1);
@@ -221,6 +222,7 @@ public class LCoachServiceImpl implements LCoachService {
 			Map<String, Object> map1 = new HashMap<>();
 			map1.put("image", image1);
 			map1.put("image_type", "BASE64");
+			
 			map1.put("face_type", "CERT");
 			map1.put("quality_control", "LOW");
 			map1.put("liveness_control", "NONE");
@@ -252,6 +254,7 @@ public class LCoachServiceImpl implements LCoachService {
 	}
 
 	// 插入学员开始打卡记录
+	@Transactional
 	@Override
 	public MyResult insertStudyRecord(String stuId, String subId) {
 		int res = tbStudyrecordMapper.insertStudyRecord(stuId, subId);
@@ -263,7 +266,8 @@ public class LCoachServiceImpl implements LCoachService {
 
 		return myResult;
 	}
-
+	
+	@Transactional
 	// 学员结束打卡，更新记录
 	@Override
 	public MyResult endStudyRecord(String stuId, String subId) {

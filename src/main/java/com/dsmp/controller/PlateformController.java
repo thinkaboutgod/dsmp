@@ -11,24 +11,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alipay.api.domain.Topic;
 import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.PageResult;
+import com.dsmp.pojo.TbCapitalrecord;
+import com.dsmp.pojo.TbOption;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbSubject;
+import com.dsmp.pojo.TbTopic;
 import com.dsmp.pojo.TbVideo;
 import com.dsmp.service.PlateformService;
+import com.dsmp.service.TopicService;
+import com.dsmp.utils.GsonUtils;
 
 @Controller
 @RequestMapping("/plateform")
 public class PlateformController {
 	@Autowired
 	private PlateformService plateformService;
+	@Autowired
+	private TopicService topicService;
 	@Autowired
 	private MyResult myResult;
 
@@ -138,5 +147,52 @@ public class PlateformController {
 	@RequestMapping(value = "uploadVideoImg.action")
 	public @ResponseBody MyResult uploadVideoImg(HttpServletRequest request, MultipartFile fileImg) {
 		return plateformService.uploadVideoImg(request, fileImg);
+	}
+
+	// 发送题库管理界面
+	@RequestMapping(value = "toTopicControl.action")
+	public String toTopicControl() {
+		return "back/topic_control";
+	}
+
+	// 题库管理查询所有题目
+	@RequestMapping(value = "searchAllTopic.action")
+	public @ResponseBody Map<String, List<TbTopic>> searchAllTopic(String subId) {
+		Map<String, List<TbTopic>> map = new HashMap<>();
+		List<TbTopic> list = topicService.searchAllTopic(subId);
+		map.put("data", list);
+		return map;
+	}
+
+	// 科目一题库修改
+	@RequestMapping(value = "changeTopic.action")
+	public @ResponseBody String changeTopic(HttpServletRequest request, String map, MultipartFile newImg) {
+		return topicService.changeTopic(request, map, newImg);
+	}
+
+	// 科目一题库增加
+	@RequestMapping(value = "addTopic.action")
+	public @ResponseBody String addTopic(HttpServletRequest request, String map, MultipartFile addnewImg) {
+		return topicService.addTopic(request, map, addnewImg);
+	}
+
+	// 科目一题目删除
+	@RequestMapping(value = "deleteTopic.action")
+	public @ResponseBody MyResult deleteTopic(HttpServletRequest request, String topId) {
+		return topicService.deleteTopic(request, topId);
+	}
+
+	// 发送资金记录界面
+	@RequestMapping(value = "searchMoney.action")
+	public String searchMoney() {
+		return "back/plateform_money";
+	}
+
+	// 查询资金记录
+	@RequestMapping(value = "searchMoneyRecord.action")
+	public Map<String, List<TbCapitalrecord>> searchMoneyRecord(HttpServletRequest request) {
+		Map< String,  List<TbCapitalrecord>> map = new HashMap<>();
+		
+		return map;
 	}
 }

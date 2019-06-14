@@ -70,6 +70,7 @@
                                    <table id="studentTable" class="table table-bordered table-hover">
                           <thead>
                             <tr role="row">
+                            <th >序号</th>
                             <th >账号</th>
                             <th >姓名</th>
                             <th >性别</th>
@@ -117,6 +118,7 @@
                         <table id="studentTable2" class="table table-bordered table-hover">
                         <thead>
                           <tr role="row">
+                          <th >序号</th>
                           <th >账号</th>
                           <th >姓名</th>
                           <th >注册时间</th>

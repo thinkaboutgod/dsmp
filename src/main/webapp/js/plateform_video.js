@@ -202,7 +202,7 @@ function initFileInput(ctrlName, uploadUrl,type) {
 
 	$('#' + ctrlName).on("fileuploaded",
 			function(event, data, previewId, index) {
-				if (data.response.myresult=="success") {
+				if (data.response.myresult=="success") {//视频上传成功
 					setTimeout(() => {
 						$("#addVideoModal").modal("hide");//关闭视频上传模态框
 						$(event.target).fileinput('clear').fileinput('unlock') ;// 清空文件和输入框内容						
@@ -210,10 +210,10 @@ function initFileInput(ctrlName, uploadUrl,type) {
 						$("#addVideoImgModal").modal("show");
 					}, 800);
 		            
-				}else if (data.response.myresult=="successUpload") {
+				}else if (data.response.myresult=="successUpload") {//图片上传成功
 					setTimeout(() => {
 						layer.msg("上传成功");
-						$("#addVideoImgModal").modal("hide");//关闭视频上传模态框
+						$("#addVideoImgModal").modal("hide");//关闭视频图片上传模态框
 						$(event.target).fileinput('clear').fileinput('unlock') ;// 清空文件和输入框内容						
 						$("#pageoption .active a").click();//刷新当前页
 					}, 800);
