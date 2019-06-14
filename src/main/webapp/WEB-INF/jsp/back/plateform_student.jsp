@@ -210,5 +210,6 @@
 <script type="text/javascript" src=<%=path+"/adminlte/js/menucontrol.js"%> ></script>
 <script type="text/javascript" src=<%=path+"/js/datatables_setting.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/platform_student.js" %>></script>
+<!-- 日期格式 -->
 <script type="text/javascript" src=<%=path+"/js/Date.js" %>></script>
 </html>

@@ -9,11 +9,31 @@
     <result column="cap_money" property="capMoney" jdbcType="DOUBLE" />
     <result column="cap_time" property="capTime" jdbcType="TIMESTAMP" />
     <result column="cap_feeType" property="capFeetype" jdbcType="VARCHAR" />
+    <association property="tbStudent" javaType="com.dsmp.pojo.TbStudent">
+    	<id column="stu_id" property="stuId" jdbcType="INTEGER" />
+    	<result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+    </association>
+    <association property="tbSchool" javaType="com.dsmp.pojo.TbSchool">
+    	<id column="sch_id" property="schId" jdbcType="INTEGER" />
+    	<result column="sch_name" property="schName" jdbcType="VARCHAR" />
+    </association>
   </resultMap>
+  
+  
   
   <!-- 增加学员在线报名资金记录 -->
   <insert id="insertTbCapitalrecord" parameterType="com.dsmp.pojo.TbCapitalrecord" >
     insert into tb_capitalrecord(sch_id,stu_id,cap_orderNumber,cap_money,cap_time,cap_feeType) 
     values(#{schId},#{stuId},#{capOrderNumber},#{capMoney},now(),#{capFeetype});
   </insert>
+  <!-- 查询资金记录 -->
+  <select id="searchMoneyRecord" resultMap="BaseResultMap">
+  	select rec.cap_id,rec.cap_orderNumber,rec.cap_money,rec.cap_time,rec.cap_feeType,stu.stu_id,stu.stu_name,sch.sch_id,sch.sch_name from tb_capitalrecord rec,tb_student stu,tb_school sch 
+  	where rec.sch_id=sch.sch_id and rec.stu_id=stu.stu_id
+  	<if test="capOrderNumber!=null">and rec.cap_orderNumber like "%"#{capOrderNumber}"%"</if>
+  	<if test="stuName!=null">and stu.stu_name like "%"#{stuName}"%"</if>
+  	<if test="schName!=null">and sch.sch_name like "%"#{schName}"%"</if>
+  	<if test="beginTime!=null">and rec.cap_time&gt;#{beginTime}</if><!-- 大于号 -->
+	<if test="endTime!=null">and rec.cap_time&lt;#{endTime}</if><!-- 小于号 -->
+  </select>
 </mapper>

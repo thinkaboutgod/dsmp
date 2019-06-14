@@ -190,9 +190,10 @@ public class PlateformController {
 
 	// 查询资金记录
 	@RequestMapping(value = "searchMoneyRecord.action")
-	public Map<String, List<TbCapitalrecord>> searchMoneyRecord(HttpServletRequest request) {
+	public @ResponseBody Map<String, List<TbCapitalrecord>> searchMoneyRecord(HttpServletRequest request) {
 		Map< String,  List<TbCapitalrecord>> map = new HashMap<>();
-		
+		List<TbCapitalrecord> recordList = plateformService.searchMoneyRecord(request);
+		map.put("data", recordList);
 		return map;
 	}
 }

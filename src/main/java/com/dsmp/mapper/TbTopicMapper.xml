@@ -53,8 +53,7 @@
     </set>
     where top_id = #{topId,jdbcType=INTEGER}
   </update>
-  
-<<<<<<< HEAD
+
 <!--   增加题目 -->
     <insert id="insertSelective" parameterType="com.dsmp.pojo.TbTopic" >
     insert into tb_topic
@@ -108,7 +107,6 @@
     where top_id = #{topId,jdbcType=INTEGER}
   </delete>
  
-=======
   <insert id="insertTopic" parameterType="com.dsmp.pojo.TbTopic" >
   		insert into tb_topic(sub_id,top_topic,top_img,top_answer,top_answerDetail) values(#{subId},#{topTopic},#{topImg},#{topAnswer},#{topAnswerDetail})
   </insert>
@@ -117,5 +115,5 @@
   		select max(top_id) from tb_topic 
   </select>
   
->>>>>>> branch 'master' of https://github.com/thinkaboutgod/dsmp
+
 </mapper>

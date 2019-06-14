@@ -9,7 +9,6 @@ public interface TbTopicMapper {
 	public List<TbTopic> findManyTopic(Integer subId);
 	public List<TbTopic> findMistakeTopic(Integer stuId);
 	
-<<<<<<< HEAD
 	
 	public int updateByPrimaryKeySelective(TbTopic record);//更新题目
 	
@@ -20,9 +19,8 @@ public interface TbTopicMapper {
 	public String selecttopImg (Integer topId);//查询需要修改题目的旧图片
 	
 	public int deleteByPrimaryKey(Integer topId);//删除题目
-=======
+
 	public int insertTopic(TbTopic tbTopic);
 	public Integer selectNewTopId();
 	
->>>>>>> branch 'master' of https://github.com/thinkaboutgod/dsmp
 }

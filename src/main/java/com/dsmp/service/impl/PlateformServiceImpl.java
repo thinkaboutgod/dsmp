@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dsmp.mapper.PlateformMapper;
+import com.dsmp.mapper.TbCapitalrecordMapper;
 import com.dsmp.mapper.TbOptionMapper;
 import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.mapper.TbStudentMapper;
@@ -58,7 +59,8 @@ public class PlateformServiceImpl implements PlateformService {
 	private TbVideoMapper tbVideoMapper;
 	@Autowired
 	private TbSubjectMapper tbSubjectMapper;
-	
+	@Autowired
+	private TbCapitalrecordMapper tbCapitalrecordMapper;
 
 	@Override
 	public List<TbStudent> searchStudent(HttpServletRequest request) {// 查询已报名学员
@@ -296,8 +298,31 @@ public class PlateformServiceImpl implements PlateformService {
 
 	@Override
 	public List<TbCapitalrecord> searchMoneyRecord(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		String capOrderNumber = request.getParameter("capOrderNumber");
+		String stuName = request.getParameter("stuName");
+		String schName = request.getParameter("schName");
+		String beginTime = request.getParameter("beginTime");
+		String endTime = request.getParameter("endTime");
+		if (capOrderNumber.trim().equals("")) {
+			capOrderNumber = null;
+		}
+		if (stuName.trim().equals("")) {
+			stuName = null;
+		}
+		if (beginTime.trim().equals("")) {
+			beginTime = null;
+		}
+		if (schName.trim().equals("")) {
+			schName = null;
+		}
+
+		if (endTime.trim().equals("")) {
+			endTime = null;
+		} else {
+			endTime = endTime + " 23:59:59";
+		}
+		
+		return tbCapitalrecordMapper.searchMoneyRecord(capOrderNumber, stuName, schName, beginTime, endTime);
 	}
 
 	

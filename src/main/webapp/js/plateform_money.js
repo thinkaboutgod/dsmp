@@ -4,7 +4,6 @@ $.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 	
 	datatable_otherSet = {
 			"ajax" : path+"/plateform/searchMoneyRecord.action",
-			"searching" : true,
 			"columns" : [
 					{
 			            sTitle: '序号',
@@ -18,21 +17,20 @@ $.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 						"data" : "capOrderNumber",
 							
 					},{
-						"data" : "stuName",
+						"data" : "tbStudent.stuName",
 						"orderable" : false, 
 					},{
-						"data" : "schName",
+						"data" : "tbSchool.schName",
 						"orderable" : false, 
 					},{
 						"data" : "capTime",
-						"orderable" : false, 
+						"render" : function(data, type, full, meta) {
+							return data = new Date(data).format("yyyy-MM-dd hh:mm:ss");
+						}
 					},{
 						"data" : "capMoney",
 					},{
-						"data" : "capTime",
-						"orderable" : false, 
-					},{
-						"data" : "capFeeType",
+						"data" : "capFeetype",
 						"orderable" : false, 
 					}, 
 					],
@@ -46,13 +44,13 @@ $.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 					"name" : "stuName",
 					"value" : $("#stuName").val(),
 				},{
-					"name" : "schname",
+					"name" : "schName",
 					"value" : $("#schname").val(),
 				},{
-					"name" : "begintime",
+					"name" : "beginTime",
 					"value" : $("#begintime").val(),
 				},{
-					"name" : "endtime",
+					"name" : "endTime",
 					"value" : $("#endtime").val(),
 				}
 				);
@@ -62,6 +60,8 @@ $.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 	
 var table = $("#moneyTable").DataTable(datatable_otherSet);//初始化
 
-
+$("#buttonsearch").click(function() {
+	table.ajax.reload(null,false);
+})
 
 })

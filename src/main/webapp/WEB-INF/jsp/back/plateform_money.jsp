@@ -59,8 +59,8 @@
                                         <button  class="button btn-primary btn-sm "  id="buttonsearch">搜索</button>
                                    </div>
 
-<!--                           <hr style="height:1px;border:none;border-top:1px solid #555555;" /> -->
-                         <br><br>
+                          <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+                         
                           <table id="moneyTable" class="table table-bordered table-hover">
 		                      <thead>
 		                        <tr role="row">
@@ -104,6 +104,7 @@
 <script type="text/javascript" src=<%=path + "/layer/layer.js"%>></script>
 <script type="text/javascript" src=<%=path+"/adminlte/js/menucontrol.js"%> ></script>
 <script type="text/javascript" src=<%=path+"/js/datatables_setting.js" %>></script>
-<script type="text/javascript" src=<%=path+"/js/ajaxfileupload.js"%> ></script>
-<script type="text/javascript" src=<%=path+"/js/topic_control.js"%> ></script>
+<!-- 日期格式 -->
+<script type="text/javascript" src=<%=path+"/js/Date.js" %>></script>
+<script type="text/javascript" src=<%=path+"/js/plateform_money.js"%> ></script>
 </html>

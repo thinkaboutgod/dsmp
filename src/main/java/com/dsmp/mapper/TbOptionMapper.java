@@ -4,7 +4,7 @@ import com.dsmp.pojo.TbOption;
 
 public interface TbOptionMapper {
 
-<<<<<<< HEAD
+
     int deleteByPrimaryKey(Integer optId);
 
     int insert(TbOption record);
@@ -18,8 +18,7 @@ public interface TbOptionMapper {
     public int deleteByTopId(Integer optId);//删除题目
 
     int updateByPrimaryKey(TbOption record);
-=======
+
 	int insertOption(TbOption tbOption);
 	
->>>>>>> branch 'master' of https://github.com/thinkaboutgod/dsmp
 }
