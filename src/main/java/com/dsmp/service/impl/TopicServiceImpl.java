@@ -31,8 +31,8 @@ public class TopicServiceImpl implements TopicService {
 	 * @return 随机产生一份题目数量为topicAmount的试卷
 	 */
 	@Override
-	public List<TbTopic> findManyTopic(Integer topicAmount) {
-		List<TbTopic> topicList = tbTopicMapper.findManyTopic();//从数据库题目表查出所有试题
+	public List<TbTopic> findManyTopic(Integer topicAmount,Integer subId) {
+		List<TbTopic> topicList = tbTopicMapper.findManyTopic(subId);//从数据库题目表查出所有试题
 		topicList = randomTopic(topicList,topicAmount);
 		
 		return topicList;
@@ -108,6 +108,10 @@ public class TopicServiceImpl implements TopicService {
 		}
 		
 	}
+	/**通过学员id查询出该学员的错题集
+	 * @param stuId 学员id
+	 * @return 错题集
+	 */
 	@Override
 	public List<TbTopic> findMistakeTopic(Integer stuId) {
 		
@@ -115,10 +119,58 @@ public class TopicServiceImpl implements TopicService {
 		return tbTopicMapper.findMistakeTopic(stuId);
 	}
 	@Override
-	public List<TbTopic> findAllTopic() {
-		List<TbTopic> topicList = tbTopicMapper.findManyTopic();//从数据库题目表查出所有试题
+	public List<TbTopic> findAllTopic(Integer subId) {
+		List<TbTopic> topicList = tbTopicMapper.findManyTopic(subId);//从数据库题目表查出所有试题
 		
 		return topicList;
+	}
+	/**（单题目类型）选错时，加入错题集
+	 * @param studentId 学员id
+	 * @param subId 科目id
+	 * @param topId 选对的题目id
+	 */
+	@Override
+	public void addMistakeCollection2exercise(Integer studentId, Integer subId, String topId) {
+		//先查看一下这条记录是否已经存在：
+		TbMistakeCollection mistakeCollection = mistakeCollectionService.findMistakeTopicBySidAndTopId(studentId, topId);
+		boolean topicExist = true;//错题集存在这题
+		if(null==mistakeCollection) {
+			topicExist = false;//错题集不存在这题
+		}
+		//记录插入到错题集表里：
+		if(!topicExist) {//错题集不存在这题
+			System.out.println("错题集不存在这题,可执行插入：");
+			boolean addres = mistakeCollectionService.addMistakeTopic(studentId, topId);
+			if(addres) {
+				System.out.println("插入studentId&topId："+studentId+","+topId+"成功！");
+			}
+		}else {
+			System.out.println("学员做错了，但错题集已经存在这题，无需插入！");
+		}
+		
+	}
+	/**（单题目类型）选对时，加入错题集
+	 * @param studentId 学员id
+	 * @param subId 科目id
+	 * @param topId 选对的题目id
+	 */
+	@Override
+	public void delMistakeCollection2exercise(Integer studentId, Integer subId, String topId) {
+		//先查看一下这条记录是否已经存在：
+		TbMistakeCollection mistakeCollection = mistakeCollectionService.findMistakeTopicBySidAndTopId(studentId, topId);
+		boolean topicExist = true;//错题集存在这题
+		if(null==mistakeCollection) {
+			topicExist = false;//错题集不存在这题
+		}
+		//从错题集中删除这条记录：
+		if(topicExist) {//错题集存在这题
+			System.out.println("学员做对了，错题集存在这题,可执行删除：");
+			boolean delres = mistakeCollectionService.delMistakeTopic(studentId, topId);
+			if(delres) {
+				System.out.println("删除studentId&topId："+studentId+","+topId+"成功！");
+			}
+		}
+		
 	}
 
 }

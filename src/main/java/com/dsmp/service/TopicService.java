@@ -11,7 +11,7 @@ public interface TopicService {
 	 * @param topicAmount 出题数量
 	 * @return 随机产生一份题目数量为topicAmount的试卷
 	 */
-	public List<TbTopic> findManyTopic(Integer topicAmount);
+	public List<TbTopic> findManyTopic(Integer topicAmount,Integer subId);
 	/**
 	 * @param studentId 学员id
 	 * @param exResultMap 学员提交一份模拟卷时候的map集合，key-题目id，value-该题学员做对了(yes)还是错了(no)
@@ -23,6 +23,18 @@ public interface TopicService {
 	 * @return 错题集
 	 */
 	public List<TbTopic> findMistakeTopic(Integer stuId);
-	public List<TbTopic> findAllTopic();
+	public List<TbTopic> findAllTopic(Integer subId);
+	/**（单题目类型）选对时，加入错题集
+	 * @param studentId 学员id
+	 * @param subId 科目id
+	 * @param topId 选对的题目id
+	 */
+	public void addMistakeCollection2exercise(Integer studentId,Integer subId,String topId);
+	/**（单题目类型）做对删除错题集记录
+	 * @param studentId 学员id
+	 * @param subId 科目id
+	 * @param topId 选对的题目id
+	 */
+	public void delMistakeCollection2exercise(Integer studentId,Integer subId,String topId);
 	
 }
