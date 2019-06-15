@@ -7,7 +7,7 @@
 	var zongshu=0;	
 	$(document).ready( function () {
 		$.ajax({
-			url:"studentratingmsg.action",
+			url:"coach/studentratingmsg.action",
 			async:true,
 			type:"POST",
 			data:"chooserating=所有评价",
@@ -47,9 +47,9 @@
 						      series: {
 						        bars: {
 						          show: true,
-						          barWidth: 0.5,
+						          barWidth: 0.3,
 						          align: "center"
-						        }
+						        } 
 						      },
 						      xaxis: {
 						        mode: "categories",
@@ -105,7 +105,7 @@
 		$(".chooserating").click(function() {
 			var choose=$(this).text();
 			$.ajax({
-				url:"studentratingmsg.action",
+				url:"coach/studentratingmsg.action",
 				data:"chooserating="+choose,
 				async:true,
 				type:"POST",
@@ -125,7 +125,6 @@
 				},
 				error:function(){
 					alert("网络出错！请检查网络！");
-					
 				},
 			});
 		});

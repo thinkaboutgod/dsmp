@@ -140,7 +140,7 @@
       </if>
     </trim>
   </insert>
-  
+
   <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbStudyrecord" >
     update tb_studyrecord
     <set >
@@ -177,8 +177,30 @@
   </update>
  <!--  查询某学员该阶段已学时长 -->
   <select id="countTimeByStuIdAndSubject" resultType="java.lang.Double">
-    SELECT SUM(str_time)as sum from tb_studyrecord where stu_id=#{param1} and sub_id = #{param2} and str_state='true'
+    SELECT SUM(str_time)as sum from tb_studyrecord where stu_id=#{param1} and sub_id = #{param2} 
   </select>
+  <!-- zdcstart -->
+  <!--  查询某学员该阶段当天的学习记录为判断此次能否打卡 -->
+  <select id="selectNowDayRecord" resultMap="BaseResultMap">
+    select * from tb_studyrecord  where to_days(str_beginTime)=to_days(now())and stu_id=#{param1} and sub_id=#{param2}
+ 	order by str_id desc
+  </select>
+<!--   插入该学员学习记录 -->
+  <insert id="insertStudyRecord" parameterType="com.dsmp.pojo.TbStudyrecord" >
+    insert into tb_studyrecord ( stu_id, sub_id)
+    values (#{param1},#{param2})
+  </insert>
+  <!--   更新学习记录，无效的记录 -->
+  <update id="updatefalse" parameterType="com.dsmp.pojo.TbStudyrecord" >
+  	update tb_studyrecord set str_endTime=now(),str_state = 'false' where str_id = #{param1}
+  </update>
+  
+   <!--   更新学习记录，有效记录，正常时长或超时 -->
+  <update id="updateNormal" parameterType="com.dsmp.pojo.TbStudyrecord" >
+  	update tb_studyrecord set str_endTime=now(),str_time=#{param2} where str_id = #{param1}
+  </update>
+  <!-- zdcEnd -->
+  
   <!-- ren start -->
  <!-- 查询科目某学员的学习时长（片段） -->
  <select id="findTimeLength" resultType="java.lang.Integer">

@@ -20,12 +20,17 @@
   </resultMap>
   
   <!-- 驾校登录验证 -->
-  <select id="getSchool" resultType="com.dsmp.pojo.TbSchool" resultMap="BaseResultMap">
+  <select id="getSchool"  resultMap="BaseResultMap">
 		select * from tb_school where sch_account = #{schAccount};
   </select>
-  
-  
-  
+  <!-- 根据驾校ID查询驾校 -->
+  <select id="findSchoolBySchId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select * from tb_school where sch_id = #{schId};
+  </select>
+  <!-- 查询所有驾校 -->
+  <select id="selectAllSchool" resultMap="BaseResultMap" >
+    select * from tb_school
+  </select>
   
   
   
@@ -282,8 +287,5 @@
     where sch_id = #{schId,jdbcType=INTEGER}
   </update>
   
-  <select id="selectAllSchool" resultMap="BaseResultMap" >
-    select * from tb_school
-  </select>
   
 </mapper>

@@ -593,5 +593,27 @@ input::-ms-reveal {
 
 #reg{
 	padding-top: 25px;
-	margin-left: 25%;
+	margin-left: 10%;
 }
+
+.d1{
+	width:600px;
+	 height:600px; 
+	 background:#FFFFFF; 
+	 float: left; 
+}
+
+.d2{
+	text-align:center;
+	padding-top:20px;
+	width:370px;
+	height:600px; 
+	background:#FFFFFF; 
+	float: right; 
+}
+
+.d2 button{
+	margin-top:30px;
+	
+}
+

@@ -24,7 +24,10 @@ public interface TbStudentMapper {
 	public void updateStudent(TbStudent tbStudent);
 	//学员注册
 	public void insertStudent(TbStudent tbStudent);
-	
+	//学员忘记密码
+	public int updateStudentPwd(TbStudent tbStudent);
+	//学员报名驾校信息录入
+	public int updateStudentInfo(TbStudent tbStudent);
 	/**
 	 * 	查询驾校名下的所有学员
 	 * @param sBean
@@ -33,5 +36,7 @@ public interface TbStudentMapper {
 	public List<TbStudent> searchAllstudent(SearchBean sBean);
 	public int changeStudentState(int stuId,String state);//修改学员账号状态
 	public int changeStudentStateLock(int stuId,String state);
+	
+	public String findStudentImgByStuId(int stuId);//根据id查学员照片路径
 	
 }

@@ -7,6 +7,15 @@ $(function() {
 			"autoWidth" : false,
 			"columns" : [
 					{
+			            sTitle: '序号',
+			            data: null,
+			            className: 'text-center whiteSpace',
+			            render:function(data,type,row,meta) {
+			                return meta.row + 1 +
+			                meta.settings._iDisplayStart;
+			            }
+			        },
+					{
 						"data" : "stuAccount"
 					},
 					{
@@ -63,6 +72,15 @@ $(function() {
 	datatable_otherSet = {
 			"ajax" : "../plateform/searchAllStudent.action",
 			"columns" : [
+					{
+			            sTitle: '序号',
+			            data: null,
+			            className: 'text-center whiteSpace',
+			            render:function(data,type,row,meta) {
+			                return meta.row + 1 +
+			                meta.settings._iDisplayStart;
+			            }
+			        },
 					{
 						"data" : "stuAccount"
 					},

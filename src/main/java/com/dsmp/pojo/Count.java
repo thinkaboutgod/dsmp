@@ -1,5 +1,12 @@
 package com.dsmp.pojo;
 
+/**   
+ * @ClassName:  Count   
+ * @Description:统计使用实体类  
+ * @author: 张德承
+ * @date:   2019年6月12日 上午12:16:47   
+ *   
+ */ 
 public class Count {
 	private String name;
 	private String data;

@@ -3,7 +3,37 @@ layui.use(['upload','form'], function(){
   var $ = layui.jquery
   ,upload = layui.upload,form = layui.form;
   
-  //普通图片上传
+  //事件所监听
+  form.on('select(schools)', function(data){
+	  console.log(data);
+	  var path = $("#path").val();
+	  var childArr = $("#teachers").children();
+		for(var i=0;i<childArr.length;i++){
+			if(i!=0){
+				childArr[i].remove();
+			}
+		}
+		var selectSchool = $("#schools").val();
+		alert(selectSchool);
+		$.ajax({
+			url:path+"/school/selectCoach.action?",
+			async:true,
+			data:{"selectSchool":selectSchool},
+			dataType:"text",
+			success:function(res){
+				var arr = JSON.parse(res);
+				for (var i = 0; i < arr.length; i++) {
+					console.log(arr[i].coaName);
+					$("#teachers").append("<option>"+arr[i].coaName+"</option>");
+				}	
+				form.render('select');//刷新select选择框渲染
+			},
+			error:function(){
+				alert("操作失败！");
+			}
+		})
+	});  
+//普通图片上传
   var uploadInst = upload.render({
     elem: '#test1'
     ,url: '/upload/'
@@ -46,40 +76,7 @@ layui.use(['upload','form'], function(){
     }
   });
   
-  //指定允许上传的文件类型
-  upload.render({
-    elem: '#test3'
-    ,url: '/upload/'
-    ,accept: 'file' //普通文件
-    ,done: function(res){
-      console.log(res)
-    }
-  });
-  upload.render({ //允许上传的文件后缀
-    elem: '#test4'
-    ,url: '/upload/'
-    ,accept: 'file' //普通文件
-    ,exts: 'zip|rar|7z' //只允许上传压缩文件
-    ,done: function(res){
-      console.log(res)
-    }
-  });
-  upload.render({
-    elem: '#test5'
-    ,url: '/upload/'
-    ,accept: 'video' //视频
-    ,done: function(res){
-      console.log(res)
-    }
-  });
-  upload.render({
-    elem: '#test6'
-    ,url: '/upload/'
-    ,accept: 'audio' //音频
-    ,done: function(res){
-      console.log(res)
-    }
-  });
+ 
   
   //设定文件大小限制
   upload.render({
@@ -102,19 +99,49 @@ layui.use(['upload','form'], function(){
       console.log(item); //获取当前触发上传的元素，layui 2.1.0 新增
     }
   })
-  
+  var path =$("#path").val();
   //选完文件后不自动上传
   upload.render({
     elem: '#test8'
-    ,url: '/upload/'
+    ,url: path+'/idCard/idCard.action'
     ,auto: false
     //,multiple: true
-    ,bindAction: '#test9'
-    ,done: function(res){
-	
-      console.log(res)
+    	,choose: function(obj){  //上传前选择回调方法
+            var flag = true;
+            obj.preview(function(index, file, result){
+                console.log(file);            //file表示文件信息，result表示文件src地址
+                var img = new Image();
+                img.src = result;
+                img.onload = function () { //初始化夹在完成后获取上传图片宽高，判断限制上传图片的大小。
+                    if(img.width <=3500 && img.height <=3500){                   	 
+                        obj.upload(index, file); //满足条件调用上传方法
+                        layer.msg("识别身份证中，请稍等....");
+                    }else{
+                        flag = false;
+                        layer.msg("您上传的图片分辨率必须小于3500*3500！");
+                        return false;
+                    }
+                }
+                return flag;
+            });
+        }
+    ,done: function(res){	
+      console.log(res);
+      if(res.name != ""){
+    	  
+    	  $("#real_name").val(res.name);
+          $("#idnum").val(res.IDCard);
+          $("#student_address").val(res.address);
+          $("#sex").val(res.sex);
+          layer.msg("识别成功！");
+      }else{
+    	  layer.msg("请选择身份证图片进行识别！",{time:5000,btn:["知道了"]});
+      }
+     
     }
   });
+  
+  
   
   //拖拽上传
   upload.render({

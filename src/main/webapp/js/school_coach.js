@@ -40,10 +40,10 @@ $(function() {
 							state = data;
 							if (state == '启用') {
 								data = '<button id="start" class="btn btn-danger btn-sm bt_qi" >禁用</button>';
-							} else if (state == '禁用' || state == '锁定'){
+							} else if (state == '禁用'){
 								data = '<button id="forbit" class="btn btn-success btn-sm bt_qi" >启用</button>';
 							}
-							data += '<button id="forbit" class="btn btn-success btn-sm detail" >查看详情</button>'
+							data = data+'<button class=" detail btn btn-success btn-sm detail">查看详情</button>'
 							return data;
 						}
 					},  ],
@@ -95,7 +95,7 @@ $(function() {
 	// 启用禁用方式
 	$(document).on("click", ".bt_qi", function() { 
 		//此处拿到选择行的数据中的id 
-		var id = table.row($(this).parent().parent()).data().stuId;  
+		var id = table.row($(this).parent().parent()).data().coaId;  
 		
 		var button = $(this);
 		var preText = button.parent().prev().text();
@@ -149,8 +149,11 @@ $(function() {
 		var da = table.row($(this).parent().parent()).data();
 		$("#accountDe").val(da.coaAccount);
 		$("#nameDe").val(da.coaName);
-		$("#address").val(da.coaAddress);
-		$("#schoolName").val(da.tbSchool.schName);
+		$("#addressDe").val(da.coaAddress);
+		$("#phoneDe").val(da.coaAccount);
+		$("#idCardDe").val(da.coaIdcard);
+//		$("#carDe").val(da.tbCar.car);
+//		$("#schoolNameDe").val(da.tbSchool.schName);
 		$("#coachDetail").modal("show");
 	})
 	

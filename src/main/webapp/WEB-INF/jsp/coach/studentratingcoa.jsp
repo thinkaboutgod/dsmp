@@ -58,10 +58,10 @@
 	  	 			<!-- 标题 -->
 	  	 			<div class="layui-tab layui-tab-brief">
  				 		<ul class="layui-tab-title">
-			   				<li class="chooserating layui-this">所有评价</li>
-		  					<li class="chooserating">好评</li>
-		  			 		<li class="chooserating">中评</li>
- 		  					<li class="chooserating">差评</li>
+			   				<li class="chooserating layui-this"><h3>所有评价</h3></li>
+		  					<li class="chooserating"><h3>好评</h3></li>
+		  			 		<li class="chooserating"><h3>中评</h3></li>
+ 		  					<li class="chooserating"><h3>差评</h3></li>
   		 					   				 
  						</ul> 				 
 					</div> 

@@ -95,7 +95,7 @@
 									</div>
 									<div class="toggle-div">
 										<p class="forget-pwd">
-											<a href="changepwd.html">忘记密码</a>
+											<a href=<%=path+"/student/changePwdPage.action" %>>忘记密码</a>
 										</p>
 									</div>
 									<div>

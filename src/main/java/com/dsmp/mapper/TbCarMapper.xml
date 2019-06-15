@@ -37,17 +37,24 @@
 	</association>
   </resultMap>
  
- <select id="selectCarsByCondition" resultMap="school_car_map">
- 	select ca.*,sc.*,c.* from tb_car ca,tb_school sc,tb_coach c
+ 	<!-- 查询车辆 -->
+ 	<select id="selectCarsByCondition" resultMap="school_car_map">
+ 		select ca.*,sc.*,c.* from tb_car ca,tb_school sc,tb_coach c
 		<where>
 			<if test="carPlateNum!=null">car_plateNum like "%"#{carPlateNum}"%"</if>
 			<if test="coachName!=null">and c.coa_Name like "%"#{coachName}"%"</if>
 			and ca.sch_id=sc.sch_id and ca.coa_id= c.coa_id and ca.sch_id=#{schId}
 		</where>
 	</select>
-	
+		
+	<!-- 查询最新的时间 -->	
 	<select id="selectCurTime" resultType="java.lang.String">
 		SELECT DATE_FORMAT(NOW(),"%Y-%m-%d");
 	</select>
+	
+	<!-- 报废车辆 -->
+	<update id="scrapCar">
+		update tb_car set car_status=#{param2} where car_id=#{param1}
+	</update>
 	
 </mapper>
