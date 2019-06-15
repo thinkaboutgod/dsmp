@@ -40,9 +40,10 @@ $(function() {
 							state = data;
 							if (state == '启用') {
 								data = '<button id="start" class="btn btn-danger btn-sm bt_qi" >禁用</button>';
-							} else if (state == '禁用' || state == '锁定'){
+							} else if (state == '禁用'){
 								data = '<button id="forbit" class="btn btn-success btn-sm bt_qi" >启用</button>';
 							}
+							data = data+'<button class=" detail btn btn-success btn-sm detail">查看详情</button>'
 							return data;
 						}
 					},  ],
@@ -68,7 +69,6 @@ $(function() {
 
 				);
 			},
-
 		};
 	
 	
@@ -80,7 +80,6 @@ $(function() {
 			$(this).removeClass('selected');
 		} else {
 			table.$('tr.selected').removeClass('selected');
-			$(this).addClass('selected');
 			$(this).addClass('selected');
 
 		}
@@ -96,7 +95,7 @@ $(function() {
 	// 启用禁用方式
 	$(document).on("click", ".bt_qi", function() { 
 		//此处拿到选择行的数据中的id 
-		var id = table.row($(this).parent().parent()).data().stuId;  
+		var id = table.row($(this).parent().parent()).data().coaId;  
 		
 		var button = $(this);
 		var preText = button.parent().prev().text();
@@ -148,10 +147,13 @@ $(function() {
 	$(document).on("click", ".detail", function() { 
 		//此处拿到选择行的数据中的id 
 		var da = table.row($(this).parent().parent()).data();
-		$("#name").val(da.stuName);
-		$("#phone").val(da.stuAccount);
-		$("#address").val(da.stuAddress);
-		$("#coachName").val(da.tbCoach.coaName);
+		$("#accountDe").val(da.coaAccount);
+		$("#nameDe").val(da.coaName);
+		$("#addressDe").val(da.coaAddress);
+		$("#phoneDe").val(da.coaAccount);
+		$("#idCardDe").val(da.coaIdcard);
+//		$("#carDe").val(da.tbCar.car);
+//		$("#schoolNameDe").val(da.tbSchool.schName);
 		$("#coachDetail").modal("show");
 	})
 	

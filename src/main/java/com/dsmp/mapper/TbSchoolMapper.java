@@ -15,4 +15,8 @@ public interface TbSchoolMapper {
 	public List<TbCoach> selectCoas();
 	
 	public List<TbCar> selectCars();
+	
+	//驾校登录验证
+	public TbSchool getSchool(TbSchool tbSchool);
+	public TbSchool findSchoolBySchId(Integer schId);
 }

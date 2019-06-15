@@ -11,8 +11,18 @@ public class TbAdvertisement {
     private String advImgpath;
 
     private String advDescribe;
+    
+    private TbSchool tbSchool;
+    
+    public TbSchool getTbSchool() {
+		return tbSchool;
+	}
 
-    public Integer getAdvId() {
+	public void setTbSchool(TbSchool tbSchool) {
+		this.tbSchool = tbSchool;
+	}
+
+	public Integer getAdvId() {
         return advId;
     }
 

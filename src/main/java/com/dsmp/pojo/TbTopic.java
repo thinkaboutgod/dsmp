@@ -74,5 +74,11 @@ public class TbTopic {
 	public void setTopAnswerDetail(String topAnswerDetail) {
 		this.topAnswerDetail = topAnswerDetail;
 	}
+	@Override
+	public String toString() {
+		return "TbTopic [topId=" + topId + ", subId=" + subId + ", topTopic=" + topTopic + ", topImg=" + topImg
+				+ ", topAnswer=" + topAnswer + ", topAnswerDetail=" + topAnswerDetail + ", options=" + options + "]";
+	}
     
+	
 }

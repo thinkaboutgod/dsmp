@@ -25,8 +25,6 @@
 	  	 	<div class="row">
 	  	 		<div class="col-md-12">
            		<img src=<%=path+"/images/hai.jpg"%> alt="">
-<%-- 					<a href=<%=path+"/jsp/belongtocoachstudent.jsp" %>></a> --%>
-<!-- 						<a href="http://localhost:8080/dsmp/jsp/belongtocoachstudent.jsp" >sjj</a> -->
 	  	 		</div>  <!-- /.box-body -->
 	  	 	</div>
 	  	</section>

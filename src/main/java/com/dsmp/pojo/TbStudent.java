@@ -3,6 +3,7 @@ package com.dsmp.pojo;
 import java.util.Date;
 
 public class TbStudent {
+	
 	private Integer stuId;
 
 	private Integer coaId;
@@ -68,6 +69,7 @@ public class TbStudent {
 	public void setTbStudyrecord(TbStudyrecord tbStudyrecord) {
 		this.tbStudyrecord = tbStudyrecord;
 	}
+
 
 	public Integer getStuId() {
 		return stuId;

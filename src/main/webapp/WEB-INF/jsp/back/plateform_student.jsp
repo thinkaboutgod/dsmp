@@ -65,11 +65,12 @@
                                           id="endtime" placeholder="终止时间">
                                    </div>
                            <div class = "input-group">
-                                        <button  class="button btn-primary btn-sm bt_qi"  id="buttonsearch">搜索</button>
+                                        <button  class="button btn-primary btn-sm "  id="buttonsearch">搜索</button>
                                    </div>
                                    <table id="studentTable" class="table table-bordered table-hover">
                           <thead>
                             <tr role="row">
+                            <th >序号</th>
                             <th >账号</th>
                             <th >姓名</th>
                             <th >性别</th>
@@ -112,11 +113,12 @@
                                 id="endtime2" placeholder="终止时间">
                          </div>
                          <div class = "input-group">
-                             <button  class="button btn-primary btn-sm bt_qi"  id="buttonsearch2">搜索</button>
+                             <button  class="button btn-primary btn-sm "  id="buttonsearch2">搜索</button>
                          </div>
                         <table id="studentTable2" class="table table-bordered table-hover">
                         <thead>
                           <tr role="row">
+                          <th >序号</th>
                           <th >账号</th>
                           <th >姓名</th>
                           <th >注册时间</th>
@@ -208,5 +210,6 @@
 <script type="text/javascript" src=<%=path+"/adminlte/js/menucontrol.js"%> ></script>
 <script type="text/javascript" src=<%=path+"/js/datatables_setting.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/platform_student.js" %>></script>
+<!-- 日期格式 -->
 <script type="text/javascript" src=<%=path+"/js/Date.js" %>></script>
 </html>

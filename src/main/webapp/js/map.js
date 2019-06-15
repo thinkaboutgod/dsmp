@@ -1,3 +1,9 @@
+/*
+ * js中要使用map集合，要自己写一个map集合，引入到jsp中就可以当成Java中的集合来用，最大的作用是我
+ * 用在了examOfSubject1.jsp里的答题缩略的对错颜色变换，同样的题号topId（key）在多次选择（学员在
+ * 选完一题后不可能就不动了，可能反复选，这时候用map可以保证同一题最终只能插入一个记录，且后面的选择会覆盖
+ * 之前选的）
+ * */
 Array.prototype.remove = function(s) {     
     for (var i = 0; i < this.length; i++) {     
         if (s == this[i])     

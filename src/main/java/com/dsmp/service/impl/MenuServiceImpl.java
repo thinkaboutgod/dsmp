@@ -25,7 +25,5 @@ public class MenuServiceImpl implements MenuService {
 			menuMap.put(listMenu.get(i), list);
 		}
 		return menuMap;
-	}
-
-	
+	}	
 }

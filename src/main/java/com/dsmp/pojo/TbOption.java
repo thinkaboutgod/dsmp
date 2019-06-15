@@ -51,5 +51,11 @@ public class TbOption {
 	public void setTbTopic(TbTopic tbTopic) {
 		this.tbTopic = tbTopic;
 	}
+	@Override
+	public String toString() {
+		return "TbOption [optId=" + optId + ", topId=" + topId + ", optOption=" + optOption + ", optStatus=" + optStatus
+				+ ", tbTopic=" + tbTopic + "]";
+	}
     
+	
 }

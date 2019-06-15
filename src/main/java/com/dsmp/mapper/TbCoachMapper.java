@@ -7,11 +7,14 @@ import com.dsmp.pojo.TbCoach;
 
 public interface TbCoachMapper {
 
-	public List<TbCoach> selectCoasBySchId(Integer schId);
+	//教练登陆
+	public TbCoach getCoach(TbCoach coach);
 
-	public TbCoach selectCoach(String coaAccount,String pwd);
+	public List<TbCoach> selectCoasByCondition(SearchBean sBean); 
+	
+	public List<TbCoach> selseCoach(Integer schId);
 
-	public List<TbCoach> selectCoasByCondition(SearchBean sBean);
+	public Integer changeCoachState(Integer valueOf, String state);
 
 
 }
