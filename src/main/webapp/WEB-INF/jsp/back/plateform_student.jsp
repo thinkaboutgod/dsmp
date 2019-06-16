@@ -70,6 +70,7 @@
                                    <table id="studentTable" class="table table-bordered table-hover">
                           <thead>
                             <tr role="row">
+                            <th >序号</th>
                             <th >账号</th>
                             <th >姓名</th>
                             <th >性别</th>
@@ -117,6 +118,7 @@
                         <table id="studentTable2" class="table table-bordered table-hover">
                         <thead>
                           <tr role="row">
+                          <th >序号</th>
                           <th >账号</th>
                           <th >姓名</th>
                           <th >注册时间</th>
@@ -208,5 +210,6 @@
 <script type="text/javascript" src=<%=path+"/adminlte/js/menucontrol.js"%> ></script>
 <script type="text/javascript" src=<%=path+"/js/datatables_setting.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/platform_student.js" %>></script>
+<!-- 日期格式 -->
 <script type="text/javascript" src=<%=path+"/js/Date.js" %>></script>
 </html>

@@ -19,7 +19,21 @@ public class TbRating {
 
     private String ratType;
 
-    public Integer getRatId() {
+    
+    public TbRating(Integer ratId, Integer coaId, Integer schId, Integer stuId, String ratContent, Date ratTime,
+			Integer ratStar, String ratType) {
+		super();
+		this.ratId = ratId;
+		this.coaId = coaId;
+		this.schId = schId;
+		this.stuId = stuId;
+		this.ratContent = ratContent;
+		this.ratTime = ratTime;
+		this.ratStar = ratStar;
+		this.ratType = ratType;
+	}
+
+	public Integer getRatId() {
         return ratId;
     }
 

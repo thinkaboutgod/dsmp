@@ -7,7 +7,7 @@
 	var zongshu=0;	
 	$(document).ready( function () {
 		$.ajax({
-			url:"studentratingmsg.action",
+			url:"coach/studentratingmsg.action",
 			async:true,
 			type:"POST",
 			data:"chooserating=所有评价",
@@ -18,7 +18,6 @@
 					$.each(date,function(i,val){
 						if(val.ratType=="好评"){
 							haoping+=1;
-							
 						};
 						if(val.ratType=="中评"){
 							zhongping+=1;
@@ -33,7 +32,6 @@
 							);
 					});
 					
-					
 					  var bar_data = {
 						      data: [["好评", haoping], ["中评", zhongping], ["差评", chaping]],
 						      color: "#ff4500"
@@ -47,9 +45,9 @@
 						      series: {
 						        bars: {
 						          show: true,
-						          barWidth: 0.5,
+						          barWidth: 0.3,
 						          align: "center"
-						        }
+						        } 
 						      },
 						      xaxis: {
 						        mode: "categories",
@@ -105,7 +103,7 @@
 		$(".chooserating").click(function() {
 			var choose=$(this).text();
 			$.ajax({
-				url:"studentratingmsg.action",
+				url:"coach/studentratingmsg.action",
 				data:"chooserating="+choose,
 				async:true,
 				type:"POST",

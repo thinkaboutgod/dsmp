@@ -1,5 +1,6 @@
 package com.dsmp.mapper;
 
+import java.util.Date;
 import java.util.List;
 
 import com.dsmp.pojo.BelongtoCoachStudentMsg;
@@ -20,7 +21,23 @@ public interface LCoachMapper {
 	
 	public List<TbRating> selectStudentRating(int coaid,String choose);
 	
+
+	public List<TbExamschedule> selectTheTestMsg(Date datenow,int schId,String subName);
+	
+	public List<TbStudent> selectTestappointment(Integer subid,int coaid);
+	
+	public List<TbStudent> selectHaveappointment(int coaid,Integer stuid);
+	
+	public Integer selectNumberofsubjects(int subid,int coaid);
+	
+	public Integer selecteasSeatNum(int exsid);
+	
+	public void insertBooking(int exsid,int stuid,int seatNum);//预约插入一
+	
+	public void updateBookingstate(int stuid);//预约记录插入二
+
+
 	public List<TbExamschedule> selectTheTestMsg(int schId);
 	
-	
+
 }

@@ -11,24 +11,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alipay.api.domain.Topic;
 import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.PageResult;
+import com.dsmp.pojo.TbCapitalrecord;
+import com.dsmp.pojo.TbHotlink;
+import com.dsmp.pojo.TbOption;
+import com.dsmp.pojo.TbParameter;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbSubject;
+import com.dsmp.pojo.TbTopic;
 import com.dsmp.pojo.TbVideo;
+import com.dsmp.service.BlogrollService;
 import com.dsmp.service.PlateformService;
+import com.dsmp.service.TopicService;
+import com.dsmp.utils.GsonUtils;
 
 @Controller
 @RequestMapping("/plateform")
 public class PlateformController {
 	@Autowired
 	private PlateformService plateformService;
+	@Autowired
+	private TopicService topicService;
+	@Autowired
+	private BlogrollService blogrollService;
 	@Autowired
 	private MyResult myResult;
 
@@ -138,5 +152,107 @@ public class PlateformController {
 	@RequestMapping(value = "uploadVideoImg.action")
 	public @ResponseBody MyResult uploadVideoImg(HttpServletRequest request, MultipartFile fileImg) {
 		return plateformService.uploadVideoImg(request, fileImg);
+	}
+
+	// 发送题库管理界面
+	@RequestMapping(value = "toTopicControl.action")
+	public String toTopicControl() {
+		return "back/topic_control";
+	}
+
+	// 题库管理查询所有题目
+	@RequestMapping(value = "searchAllTopic.action")
+	public @ResponseBody Map<String, List<TbTopic>> searchAllTopic(String subId) {
+		Map<String, List<TbTopic>> map = new HashMap<>();
+		List<TbTopic> list = topicService.searchAllTopic(subId);
+		map.put("data", list);
+		return map;
+	}
+
+	// 科目一题库修改
+	@RequestMapping(value = "changeTopic.action")
+	public @ResponseBody String changeTopic(HttpServletRequest request, String map, MultipartFile newImg) {
+		return topicService.changeTopic(request, map, newImg);
+	}
+
+	// 科目一题库增加
+	@RequestMapping(value = "addTopic.action")
+	public @ResponseBody String addTopic(HttpServletRequest request, String map, MultipartFile addnewImg) {
+		return topicService.addTopic(request, map, addnewImg);
+	}
+
+	// 科目一题目删除
+	@RequestMapping(value = "deleteTopic.action")
+	public @ResponseBody MyResult deleteTopic(HttpServletRequest request, String topId) {
+		return topicService.deleteTopic(request, topId);
+	}
+
+	// 发送资金记录界面
+	@RequestMapping(value = "searchMoney.action")
+	public String searchMoney() {
+		return "back/plateform_money";
+	}
+
+	// 查询资金记录
+	@RequestMapping(value = "searchMoneyRecord.action")
+	public @ResponseBody Map<String, List<TbCapitalrecord>> searchMoneyRecord(HttpServletRequest request) {
+		Map<String, List<TbCapitalrecord>> map = new HashMap<>();
+		List<TbCapitalrecord> recordList = plateformService.searchMoneyRecord(request);
+		map.put("data", recordList);
+		return map;
+	}
+
+	// 发送参数管理界面
+	@RequestMapping(value = "toParameterController.action")
+	public String toParameter() {
+		return "back/plateform_parameter";
+	}
+
+	// 查询参数记录
+	@RequestMapping(value = "searchParameter.action")
+	public @ResponseBody Map<String, List<TbParameter>> searchParameter() {
+		Map<String, List<TbParameter>> map = new HashMap<>();
+		List<TbParameter> parList = plateformService.searchParameter();
+		map.put("data", parList);
+		return map;
+	}
+
+	// 修改参数表的参数
+	@RequestMapping(value = "changeParameter.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
+	public @ResponseBody MyResult changeParameter(@RequestBody TbParameter tbParameter) {
+		return plateformService.updataParmeter(tbParameter);
+	}
+
+	// 发送友情链接管理界面
+	@RequestMapping(value = "toblogRollController.action")
+	public String toblogRollControl() {
+		return "back/plateform_blogroll";
+	}
+
+	// 查询友情链接
+	@RequestMapping(value = "searchAllBlogRoll.action")
+	public @ResponseBody Map<String,List<TbHotlink>> searchAllBlogRoll() {
+		Map<String,List<TbHotlink>> map = new HashMap<>();
+		List<TbHotlink> bloList = blogrollService.searchAllBlogRoll();
+		map.put("data", bloList);
+		return map;
+	}
+
+	// 修改友情链接
+	@RequestMapping(value = "changeBlogroll.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
+	public @ResponseBody MyResult changeBlogroll(@RequestBody TbHotlink tbHotlink) {
+		return blogrollService.updateBlogroll(tbHotlink);
+	}
+
+	// 删除友情链接
+	@RequestMapping(value = "deleteBlogroll.action")
+	public @ResponseBody MyResult deleteBlogroll(String holId) {
+		return blogrollService.deleteBlogroll(holId);
+	}
+
+	// 新增友情链接
+	@RequestMapping(value = "addBlogroll.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
+	public @ResponseBody MyResult addBlogroll(@RequestBody TbHotlink tbHotlink) {
+		return blogrollService.insertBlogroll(tbHotlink);
 	}
 }

@@ -1,40 +1,25 @@
 package com.dsmp.service.impl;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dsmp.mapper.TbSchoolMapper;
+
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCar;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
+
 import com.dsmp.service.SchoolService;
 import com.dsmp.utils.Md5Tools;
+
 @Service
 public class SchoolServiceImpl implements SchoolService {
 
 	@Autowired private TbSchoolMapper tbSchoolMapper;
 
-	@Override
-	public List<TbStudent> selectStus() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-	@Override
-	public List<TbCoach> selectCoas() {
-
-		return null;
-	}
-
-	@Override
-	public List<TbCar> selectCars() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	@Override
 	public MyResult insertSchoolInfo(String phone,String password,String sch_creditcode,String sch_name,
@@ -75,6 +60,5 @@ public class SchoolServiceImpl implements SchoolService {
 		System.out.println(result);
 		return result;
 	}
-	
 	
 }

@@ -11,18 +11,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.ibatis.annotations.ResultMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbStudent;
+import com.dsmp.service.CoachService;
 import com.dsmp.service.CoachService;
 import com.dsmp.service.SchoolService;
 import com.dsmp.utils.Md5Tools;
@@ -33,7 +35,7 @@ public class SchoolController {
 
 	@Autowired private SchoolService schoolService;		
 	@Autowired private CoachService coachService;
-	
+
 	@RequestMapping("/selectCoach")
 	public @ResponseBody List<TbCoach> selectCoach(Integer selectSchool){
 		System.out.println(selectSchool);
@@ -79,12 +81,7 @@ public class SchoolController {
 	public @ResponseBody MyResult getHomePage(HttpServletRequest request,MultipartFile file,
 			String phone,String password,String sch_creditcode,String sch_name,
 			String sch_type,String sch_address,String sch_bossname,String sch_registerCapital,
-			String sch_introduce,Double sch_charge) throws IllegalStateException, IOException {
-		System.out.println("文件名："+file.getOriginalFilename());
-		System.out.println("手机号："+phone);
-		System.out.println("社会信用代码："+sch_creditcode);
-		System.out.println("地址："+sch_address);
-		System.out.println("简介："+sch_introduce);
+			String sch_introduce,Double sch_charge) throws IllegalStateException, IOException{
 		MyResult result = null;
 		if (!file.isEmpty()) {
 			// 上传文件路径

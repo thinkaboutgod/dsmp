@@ -23,6 +23,7 @@ public interface StudentService {
 	public MyResult schoolLogin(HttpSession session,String account,String password,String role); 
 	//学员注册
 	public MyResult studentRegister(HttpServletRequest request,String stuAccount,String stuPassword,String verifyCode);
+
 	//学员在线报名
 	public MyResult studentApply(HttpServletRequest request,HttpSession session,String filename,String name,
 			String idCard,String address,String sex,Integer school,Integer coach,

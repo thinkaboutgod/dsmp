@@ -203,8 +203,7 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 
-
-	// 手机验证码验证
+	//查询所有学生
 	@Override
 	public List<TbStudent> searchAllstudent(HttpServletRequest request) {
 		String account = request.getParameter("account");

@@ -20,9 +20,9 @@
 			  /*border: 1px solid black;*/
 			  box-sizing: border-box;
 			}
-	.optionClass{
+ 	.optionClass{
 		list-style:none;
-	}
+	} 
 	#leftDiv{
 		float: left;
 		width: 70%;
@@ -98,7 +98,7 @@
 		//偶数点击给arr[0]，奇数给arr[1]
 		arr[0]=new Date();//初始给一个时间
 		var clickTimes = 0;
-		var timeLengthLimit = 20*60*1000;//答题时间长度限制（20min） 20*60*1000
+		var timeLengthLimit =20*60*1000;//答题时间长度限制（20min） 20*60*1000
 		//取到学员id
 		var stuId = $("#stuId").val();
 		//取到科目号
