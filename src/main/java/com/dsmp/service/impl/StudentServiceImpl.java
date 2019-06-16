@@ -123,7 +123,7 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return result;
 	}
-
+	//学员注册（//手机验证码验证）
 	@Override
 	public MyResult studentRegister(HttpServletRequest request, String stuAccount, String stuPassword,
 			String verifyCode) {
@@ -160,7 +160,7 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return result;
 	}
-
+	//教练登陆
 	@Override
 	public MyResult coachLogin(HttpSession session, String account, String password, String role) {
 		MyResult result = new MyResult();
@@ -181,7 +181,7 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return result;
 	}
-
+	//驾校登录
 	@Override
 	public MyResult schoolLogin(HttpSession session, String account, String password, String role) {
 		MyResult result = new MyResult();
@@ -203,7 +203,7 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 
-	// 手机验证码验证
+	//查询所有学生
 	@Override
 	public List<TbStudent> searchAllstudent(HttpServletRequest request) {
 		String account = request.getParameter("account");
@@ -236,6 +236,92 @@ public class StudentServiceImpl implements StudentService {
 		sBean.setBeginTime(beginTime);
 		sBean.setEndTime(endTime);
 		return tbStudentMapper.searchAllstudent(sBean);
+	}
+	
+	//学员在线报名实现类
+	@Override
+	public MyResult studentApply(HttpServletRequest request,HttpSession session,String filename, String name, String idCard, String address, String sex,
+			Integer school, Integer coach, String code, String phone) {
+		System.out.println("报名手机号："+phone);
+		System.out.println("输入验证码："+code);
+		MyResult result = new MyResult();
+		Map<String, String> map= (Map<String, String>) request.getSession().getAttribute("verifyCode");
+		if(map == null){		
+			result.setMyresult("codeErr");
+		}
+		if(!map.get("mobile").equals(phone)){
+			result.setMyresult("phoneErr");
+		}
+		if(!map.get("verifyCode").equals(code)){
+			result.setMyresult("codeErr");
+		}
+		if((System.currentTimeMillis() - Long.valueOf(map.get("createTime"))) > 1000 * 60 * 5){
+			result.setMyresult("pastDue");
+		}
+		if(map != null && map.get("mobile").equals(phone) && map.get("verifyCode").equals(code) && ((System.currentTimeMillis() - Long.valueOf(map.get("createTime"))) < 1000 * 60 * 5)) {
+			TbStudent student = new TbStudent();
+			student.setStuAccount(phone);
+			TbStudent tbStudent = tbStudentMapper.findStudentByAccountPwd(student);
+			TbStudent tStudent =(TbStudent) request.getSession().getAttribute("student");
+			System.out.println("session学员ID："+tStudent.getStuId());
+			if(tbStudent.getSchId() != null) {
+				result.setMyresult("already");
+			}else {
+				System.out.println("学员照片："+filename);
+				System.out.println("地址："+address);
+				student.setStuId(tStudent.getStuId());
+				student.setCoaId(coach);
+				student.setSchId(school);	
+				student.setStuName(name);
+				student.setStuSex(sex);
+				student.setStuAddress(address);
+				student.setStuIdcard(idCard);
+				student.setStuImg(filename);
+				student.setStuErrcount(0);
+				student.setStuStatus("启用");
+				student.setStuVerifystatus("未审核");
+				System.out.println("用户地址："+student.getStuAddress());
+				session.setAttribute("students", student);
+				result.setMyresult("success");
+			}						
+		}
+		return result;
+
+	}
+	
+	//学员忘记密码
+	@Override
+	public MyResult changePwd(HttpServletRequest request,String newPassword, String phone,String code) {
+		System.out.println("报名手机号："+phone);
+		System.out.println("输入验证码："+code);
+		MyResult result = new MyResult();
+		Map<String, String> map= (Map<String, String>) request.getSession().getAttribute("verifyCode");
+		if(map == null){		
+			result.setMyresult("codeErr");
+		}
+		if(!map.get("mobile").equals(phone)){
+			result.setMyresult("phoneErr");
+		}
+		if(!map.get("verifyCode").equals(code)){
+			result.setMyresult("codeErr");
+		}
+		if((System.currentTimeMillis() - Long.valueOf(map.get("createTime"))) > 1000 * 60 * 5){
+			result.setMyresult("pastDue");
+		}
+		if(map != null && map.get("mobile").equals(phone) && map.get("verifyCode").equals(code) && ((System.currentTimeMillis() - Long.valueOf(map.get("createTime"))) < 1000 * 60 * 5)) {
+			TbStudent student = new TbStudent();
+			String md5Password = Md5Tools.getMd5(newPassword);
+			student.setStuAccount(phone);
+			student.setStuPassword(md5Password);
+			int res = tbStudentMapper.updateStudentPwd(student);
+			System.err.println("修改结果："+res);
+			if(res==1) {
+				result.setMyresult("success");
+			}else {
+				result.setMyresult("failed");
+			}	
+		}		
+		return result;
 	}
 
 	public MyResult changeStudentState(HttpServletRequest request, MyResult myResult) {

@@ -1,4 +1,6 @@
  $(function() {
+	 	var path = $("#path").val();
+	 
 	    $(".register-phone").keyup(function () {
 	        jxPhoneReg();
 	    });
@@ -132,7 +134,7 @@
 	        $.ajax({
 	            dataType: 'json',
 	            type: 'POST',
-	            url: '/dsmp/user/verificationCode.action?',
+	            url: path+'/student/verificationCode.action?',
 	            data: {
 	                "mobile": phone,
 	            },
@@ -206,7 +208,7 @@
 	        var pwd = $.trim($(".register-pwd").val());
 	        var code = $.trim($(".register-code").val());
 	        $.ajax({
-				url:"/dsmp/user/studentRegister.action?",
+				url:path+"/student/studentRegister.action?",
 				async:true,
 				type:"POST",
 				data:{"phone":phone,"pwd":pwd,"verifyCode":code},
@@ -215,7 +217,7 @@
 					var msge = JSON.parse(msg);
 					if(msge.myresult == "success"){
 						alert("注册成功!");
-						window.location.href = '/dsmp/user/login.action';
+						window.location.href = path+'/student/login.action';
 					}else if(msge.myresult == "codeErr"){
 						alert("注册失败，验证码错误!");
 					}else if(msge.myresult == "phoneErr"){

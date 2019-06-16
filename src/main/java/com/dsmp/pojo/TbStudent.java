@@ -42,18 +42,49 @@ public class TbStudent {
 
 	private String stuVerifystatus;
 	
+	private String stuBookingstate;
+	
 	private TbSubject tbSubject;
 
 	private TbCoach tbCoach;
 
 	private TbSchool tbSchool;
 	
+	private TbStudyrecord tbStudyrecord;
+	
+	private TbExamscheduleandstudent tbExamscheduleandstudent;
+	
+	public TbExamscheduleandstudent getTbExamscheduleandstudent() {
+		return tbExamscheduleandstudent;
+	}
+
+	public void setTbExamscheduleandstudent(TbExamscheduleandstudent tbExamscheduleandstudent) {
+		this.tbExamscheduleandstudent = tbExamscheduleandstudent;
+	}
+
+	public TbStudyrecord getTbStudyrecord() {
+		return tbStudyrecord;
+	}
+
+	public void setTbStudyrecord(TbStudyrecord tbStudyrecord) {
+		this.tbStudyrecord = tbStudyrecord;
+	}
+
+
 	public Integer getStuId() {
 		return stuId;
 	}
 
 	public void setStuId(Integer stuId) {
 		this.stuId = stuId;
+	}
+	
+	public String getStuBookingstate() {
+		return stuBookingstate;
+	}
+
+	public void setStuBookingstate(String stuBookingstate) {
+		this.stuBookingstate = stuBookingstate;
 	}
 
 	public Integer getCoaId() {

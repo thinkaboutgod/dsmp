@@ -9,10 +9,12 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.PageResult;
+import com.dsmp.pojo.TbCapitalrecord;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbSubject;
+import com.dsmp.pojo.TbTopic;
 import com.dsmp.pojo.TbVideo;
 
 public interface PlateformService {
@@ -41,4 +43,8 @@ public interface PlateformService {
 	public MyResult uploadVideo(HttpServletRequest request,String vidTitle,String subject,MultipartFile file);//上传视频
 	
 	public MyResult uploadVideoImg (HttpServletRequest request,MultipartFile fileImg);//上传视频图片
+
+	public List<TbCapitalrecord> searchMoneyRecord(HttpServletRequest request);//查询资金记录
+	
+	
 }

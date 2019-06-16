@@ -34,14 +34,14 @@
 	  	 			 
            		 <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
  				 <ul class="layui-tab-title">
-			     <li class="subject layui-this">查看所有学员</li>
-  				 <li class="subject">科目一学员</li>
-  			 	 <li class="subject">科目二学员</li>
-   				 <li class="subject">科目三学员</li>
-   				 <li class="subject">科目四学员</li>   				 
+			     <li class="subject layui-this"><h3>查看所有学员</h3></li>
+  				 <li class="subject"><h3>科目一学员</h3></li>
+  			 	 <li class="subject"><h3>科目二学员</h3></li>
+   				 <li class="subject"><h3>科目三学员</h3></li>
+   				 <li class="subject"><h3>科目四学员</h3></li>   				 
  				 </ul>
  				 
-			</div> 
+				</div> 
             <!-- /.box-header -->
             <div class="box-body">
 							<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">

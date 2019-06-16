@@ -51,6 +51,11 @@
 		select * from tb_coach where coa_account = #{coaAccount};
 	</select>
 	
+	<!-- 根据驾校查询底下所有教练 -->
+ 	<select id="selseCoach" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+ 		select * from tb_coach where sch_id=#{schId}
+ 	</select>
+	
 	<!-- 查询驾校名下教练 -->
 	<resultMap id="school_coach_map" type="com.dsmp.pojo.TbCoach" >
     <id column="coa_id" property="coaId" jdbcType="INTEGER" />

@@ -41,7 +41,17 @@ $(function() {
 		"ajax" : path + "/plateform/countStudentByDate.action",
 		"autoWidth" : false,
 //		"dom": '<"top"l>rt<"bottom"ip><"clear">',
-		"columns" : [ {
+		"columns" : [ 
+			{
+	            sTitle: '序号',
+	            data: null,
+	            className: 'text-center whiteSpace',
+	            render:function(data,type,row,meta) {
+	                return meta.row + 1 +
+	                meta.settings._iDisplayStart;
+	            }
+	        },
+		{
 			"data" : "name"
 		}, {
 			"data" : "phone"

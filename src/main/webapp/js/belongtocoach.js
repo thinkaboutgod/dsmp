@@ -22,6 +22,7 @@
 //	});
 //});
 
+
 layui.use('element', function() {
 	var $ = layui.jquery,
 		element = layui.element;
@@ -31,6 +32,7 @@ layui.use(['layer', 'form'], function() {
 	var layer = layui.layer,
 		form = layui.form;
 });
+
 $(function() {
 	var a;
 	$.extend($.fn.dataTable.defaults, dataTableSeetings); // 公共初始化设置	
@@ -39,18 +41,21 @@ $(function() {
 
 	})
 	datatable_otherSet = {
-		"ajax": {
-			"url": "belongtocoach.action",
-			"type": "post"
-		},
-		"columns": [{
-				"data": "stuAccount",
-				"orderable": false
-			},
-			{
-				"data": "stuName"
 
-			},
+			"ajax" : {
+						"url": "coach/belongtocoach.action",
+						"type":"post"
+					},
+			"columns" : [
+					{
+						"data" : "stuAccount",
+						"orderable" : false
+					},
+					{
+						"data" : "stuName"
+						
+					},
+
 
 			{
 				"data": "stuSignuptime",
@@ -122,14 +127,17 @@ $(function() {
 
 	$(document).on("click", ".detail", function() {
 		var da = table.row($(this).parent().parent()).data();
-		var vv = da.stuId;
+
+		var vv=da.stuId;		
 
 		layer.open({
 			title: '学员详情',
 			type: 2,
 			area: ['700px', '500px'],
 			shadeClose: true, //点击遮罩关闭
-			content: ['tostudentparticulars.action?stuId=' + vv, 'no']
+
+			content: ['coach/tostudentparticulars.action?stuId='+vv,'no']
+
 		});
 		//		$.ajax({
 		//	    	  type: 'GET',

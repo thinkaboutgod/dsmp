@@ -14,6 +14,7 @@
 <link rel="stylesheet" href=<%=path+"/css/register/registration.css"%>>
 </head>
 <body>
+	<input type="hidden" id="path" value=<%=path %>>
 	<div class="nav-wrap">
 			<nav class="comment-header-nav">
 				<!-- 联系 -->
@@ -55,7 +56,7 @@
 				            <i></i>
 				        </div>
 				        <div class="div-wrap">
-				            <input type="password" name="password" class="register-pwd" placeholder="请输入密码 (字母、数字或者符号，最短8位)">
+				            <input type="password" name="password" class="register-pwd" placeholder="请输入密码 (字母、数字或者符号，最短6位)">
 				            <p class="iconfont icon-jinggao">
 				            </p>
 				            <i></i>

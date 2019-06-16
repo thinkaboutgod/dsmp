@@ -10,6 +10,7 @@ public class BelongtoCoachStudentMsg {
 	private String subName;
 	private Integer subTime;
 	private Integer strTime;
+
 	public Integer getStuId() {
 		return stuId;
 	}
