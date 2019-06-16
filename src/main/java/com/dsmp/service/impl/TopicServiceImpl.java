@@ -87,6 +87,7 @@ public class TopicServiceImpl implements TopicService {
 	 * @param exResultMap 学员提交一份模拟卷时候的map集合，key-题目id，value-该题学员做对了(yes)还是错了(no)
 	 *                    错了就往错题集表里插入记录，对了就看错题集里面是否有这条记录，有则删除。
 	 */
+	@Transactional
 	@Override
 	public void addOrDelMistakeCollection(Integer studentId, Map<String, String> exResultMap) {
 		Set<String> keySet = exResultMap.keySet();
@@ -149,6 +150,7 @@ public class TopicServiceImpl implements TopicService {
 	 * @param subId 科目id
 	 * @param topId 选对的题目id
 	 */
+	@Transactional
 	@Override
 	public void addMistakeCollection2exercise(Integer studentId, Integer subId, String topId) {
 		//先查看一下这条记录是否已经存在：
@@ -174,6 +176,7 @@ public class TopicServiceImpl implements TopicService {
 	 * @param subId 科目id
 	 * @param topId 选对的题目id
 	 */
+	@Transactional
 	@Override
 	public void delMistakeCollection2exercise(Integer studentId, Integer subId, String topId) {
 		//先查看一下这条记录是否已经存在：

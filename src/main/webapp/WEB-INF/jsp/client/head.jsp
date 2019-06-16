@@ -48,19 +48,21 @@
 					<a href="javascript:;">首页</a>
 				</h3>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
 					<a href=" javascript:;">模拟考试</a>
 				</h3>
 				<ul class="sub">
 
-					<li><a href="javascript:;">科目一</a></li>
+					<li><a target="_blank" href=<%=path+"/topic/findManyTopic.action?stu_id=2&sub_id=1"%>>科目一模拟</a></li>
+					<li><a target="_blank" href=<%=path+"/topic/findAllTopic.action?stu_id=2&sub_id=1"%>>科目一练习</a></li>
+					<li><a target="_blank" href=<%=path+"/topic/findMistakeTopic.action?stu_id=2&sub_id=1"%>>科目一错题集</a></li>
 
 					<li><a href="javascript:;">科目四</a></li>
 
 				</ul>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
 					<a href=" javascript:;">驾校</a>
 				</h3>
@@ -80,7 +82,7 @@
 
 				</ul>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
 					<a href=" javascript:;">教练</a>
 				</h3>
@@ -94,7 +96,7 @@
 
 				</ul>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
 					<a href=<%=path+"/student/apply.action?" %>>学员在线报名</a>
 				</h3>
@@ -102,7 +104,7 @@
 
 				</ul>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
 					<a href=" javascript:;">人才招聘</a>
 				</h3>
@@ -110,15 +112,20 @@
 
 				</ul>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
 					<a href=" javascript:;">个人中心</a>
 				</h3>
-				<ul>
+				<ul class="sub">
+
+					<li><a target="_blank" href=<%=path+"/personal/coachRating.action"%>>教练评价</a></li>
+					<li><a target="_blank" href=<%=path+"/personal/schoolRating.action"%>>驾校评价</a></li>
+					<li><a target="_blank" href=<%=path+"/personal/examSchedule.action"%>>考试安排</a></li>
+
 
 				</ul>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
 					<a href=" javascript:;">联系我们</a>
 				</h3>
