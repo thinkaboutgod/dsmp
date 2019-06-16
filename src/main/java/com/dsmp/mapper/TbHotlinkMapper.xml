@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbHotlinkMapper">
+	<resultMap id="BaseResultMap" type="com.dsmp.pojo.TbHotlink">
+		<id column="hol_id" property="holId" jdbcType="INTEGER" />
+		<result column="hol_path" property="holPath" jdbcType="VARCHAR" />
+		<result column="hol_imgPath" property="holImgpath"
+			jdbcType="VARCHAR" />
+		<result column="hol_title" property="holTitle"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		hol_id, hol_path, hol_imgPath, hol_title
+	</sql>
+	<!-- 查询所有 -->
+	<select id="searchAll" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tb_hotlink
+	</select>
+	<!-- 删除 -->
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from tb_hotlink
+		where hol_id = #{holId,jdbcType=INTEGER}
+	</delete>
+	<!-- 插入 -->
+	<insert id="insertSelective"
+		parameterType="com.dsmp.pojo.TbHotlink">
+		insert into tb_hotlink
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="holId != null">
+				hol_id,
+			</if>
+			<if test="holPath != null">
+				hol_path,
+			</if>
+			<if test="holImgpath != null">
+				hol_imgPath,
+			</if>
+			<if test="holTitle != null">
+				hol_title,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="holId != null">
+				#{holId,jdbcType=INTEGER},
+			</if>
+			<if test="holPath != null">
+				#{holPath,jdbcType=VARCHAR},
+			</if>
+			<if test="holImgpath != null">
+				#{holImgpath,jdbcType=VARCHAR},
+			</if>
+			<if test="holTitle != null">
+				#{holTitle,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<!-- 更新 -->
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.dsmp.pojo.TbHotlink">
+		update tb_hotlink
+		<set>
+			<if test="holPath != null">
+				hol_path = #{holPath,jdbcType=VARCHAR},
+			</if>
+			<if test="holImgpath != null">
+				hol_imgPath = #{holImgpath,jdbcType=VARCHAR},
+			</if>
+			<if test="holTitle != null">
+				hol_title = #{holTitle,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where hol_id = #{holId,jdbcType=INTEGER}
+	</update>
+</mapper>

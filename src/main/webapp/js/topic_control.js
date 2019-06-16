@@ -147,7 +147,7 @@ var table = $("#topicTable").DataTable(datatable_otherSet);//初始化
 				url : path + "/plateform/deleteTopic.action",
 				ansyc : true,
 				type : "POST",
-				data : {topId:topId}, // 为了控制类获取参数自动注入对象
+				data : {topId:topId}, 
 				dataType : "text",
 				success : function(data) {
 					var result = JSON.parse(data);

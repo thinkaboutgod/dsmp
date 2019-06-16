@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.lang.model.type.PrimitiveType;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dsmp.mapper.PlateformMapper;
 import com.dsmp.mapper.TbCapitalrecordMapper;
 import com.dsmp.mapper.TbOptionMapper;
+import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.mapper.TbStudentMapper;
 import com.dsmp.mapper.TbSubjectMapper;
@@ -29,6 +31,7 @@ import com.dsmp.pojo.PageResult;
 import com.dsmp.pojo.SearchBean;
 import com.dsmp.pojo.TbCapitalrecord;
 import com.dsmp.pojo.TbOption;
+import com.dsmp.pojo.TbParameter;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbSubject;
@@ -61,6 +64,9 @@ public class PlateformServiceImpl implements PlateformService {
 	private TbSubjectMapper tbSubjectMapper;
 	@Autowired
 	private TbCapitalrecordMapper tbCapitalrecordMapper;
+	
+	@Autowired
+	private TbParameterMapper tbParameterMapper;
 
 	@Override
 	public List<TbStudent> searchStudent(HttpServletRequest request) {// 查询已报名学员
@@ -323,6 +329,25 @@ public class PlateformServiceImpl implements PlateformService {
 		}
 		
 		return tbCapitalrecordMapper.searchMoneyRecord(capOrderNumber, stuName, schName, beginTime, endTime);
+	}
+
+	//查询所有参数
+	@Override
+	public List<TbParameter> searchParameter() {
+		
+		return tbParameterMapper.selectAllParameter();
+	}
+	//更新参数
+	@Transactional
+	@Override
+	public MyResult updataParmeter(TbParameter tbParameter) {
+		int res = tbParameterMapper.updataParmeter(tbParameter);
+		if (res>0) {
+			myResult.setMyresult("success");
+		}else {
+			myResult.setMyresult("failed");
+		}
+		return myResult;
 	}
 
 	
