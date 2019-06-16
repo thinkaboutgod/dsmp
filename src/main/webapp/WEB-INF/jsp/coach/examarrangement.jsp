@@ -40,8 +40,8 @@
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
-		<jsp:include page="header.jsp"></jsp:include>
-		<jsp:include page="sliderbar.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/back/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/back/sliderbar.jsp"></jsp:include>
 		<div class="content-wrapper">
 			<section class="content">
 				<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
@@ -115,7 +115,7 @@
 								<div id="haveappointment_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 									<div class="row">
 										<div class="col-sm-12">
-										<input type="button" id="test" value="测试"/>
+									
 											<table id="haveappointment" class="table table-bordered table-hover">
 												<thead>
 													<tr role="row">
@@ -138,7 +138,7 @@
 				</div>			
 			</section>
 		</div>
-		<jsp:include page="footer.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/jsp/back/footer.jsp"></jsp:include>
 	</div>
 </body>
 </html>

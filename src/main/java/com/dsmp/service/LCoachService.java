@@ -51,4 +51,8 @@ public interface LCoachService {
 	public MyResult endStudyJud (String stuId, String subId);//学员科目二三结束打卡判断
 	
 	public MyResult endStudyRecord (String stuId, String subId);//学员科目二三结束打卡更新记录
+
+	public TbExamschedule findBookingnumber(int exsid);//查找预约人数
+	
+	public void updateMaxBookingnum(int exsSignupnum,int exsId);//修改预约人数
 }

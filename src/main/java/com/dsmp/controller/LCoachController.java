@@ -39,6 +39,7 @@ public class LCoachController {
 	public ModelAndView gotoBookingbounced(HttpServletRequest request) {
 		System.out.println("预约弹框跳转");
 		stuId=Integer.valueOf(request.getParameter("stuId"));
+		
 		subName=request.getParameter("subName");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("coach/testappointment");
@@ -157,20 +158,32 @@ public class LCoachController {
 		String subName=request.getParameter("subName");
 		String result=null;
 		System.out.println(exsId);
-		System.out.println(subName);
+		
 		//查找教练各科下的报名人数
 		int count=lCoachServiceImpl.findNumberofsubjects(subName,1);
-		//生成座位号
+		//查找每场考试已报名学员数量
+		TbExamschedule tbExamschedule=lCoachServiceImpl.findBookingnumber(exsId);
+	
 		
+		//生成座位号
 		int seatNum=0;
+		int exsSignupnum=0;
 		if(lCoachServiceImpl.findSeatNum(exsId)!=null) {
 			seatNum=lCoachServiceImpl.findSeatNum(exsId)+1;
 		}else {
 			seatNum=1;
 		}
+		if(tbExamschedule.getExsSignupnum()!=null) {
+			exsSignupnum =tbExamschedule.getExsSignupnum()+1;
+			
+		}else {
+			exsSignupnum=1;
+		}
 		if(count<5) {
+			System.out.println("本场考试人员："+stuId);
 			lCoachServiceImpl.insertBooking(exsId, stuId, seatNum);
 			lCoachServiceImpl.updateBookingstate(stuId);
+			lCoachServiceImpl.updateMaxBookingnum(exsSignupnum, exsId);
 			result="success";
 		}else{
 			result="fail";

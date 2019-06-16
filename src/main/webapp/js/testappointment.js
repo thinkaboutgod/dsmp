@@ -51,6 +51,7 @@ $(function() {
 					],
 		}; 
 	var table = $("#testappointment").DataTable(datatable_booking);//初始化
+
 	$(document).on("click", ".yuyuecichang", function() { 
 		var da = table.row($(this).parent().parent()).data();
 		var exsid=da.exsId;
@@ -108,56 +109,8 @@ $(function() {
 						   });
 
 					parent.layer.close(index); //再执行关闭
-					//刷新数据
-//					$.each(result,function(i,val){
-//						
-//						
-//						var aaa=parent.$("#test").val("改变");					
-//						parent.$("#haveappointment").append(
-//								"<tr><td>"+val.stuName+"</td>"+
-//								"<td>"+val.tbSubject.subName+"</td>"+
-//								"<td>"+val.tbExamscheduleandstudent.easSeatnum+"</td>"+
-//								"<td>"+val.tbExamscheduleandstudent.tbExamschedule.exsAddress+"</td>"+
-//								"<td>"+val.tbExamscheduleandstudent.tbExamschedule.exsAddress+"</td></tr>"
-//						)												
-//					});
-					parent.$('#arrangethetest').DataTable({
-						   	"ajax" : {
-								"url": "coach/testappointment.action",
-								"type":"post"
-							},
-							"destroy": true,
-							"autoWidth" : false,
-							"columns" : [
-								{
-									"data" : "stuName",						
-									
-								},
-								{
-									"data" : "tbSubject.subName",
-									
-								},
-
-								{
-									"data" : "tbStudyrecord.strTime",
-									"orderable" : false
-								},
-								{
-									"data": "tbSubject.subTime",
-									"orderable" : false
-								},
-								{
-									"data": null,
-									"orderable" : false,
-									"render" : function(data) {
-										data = ' <button  class="yuyue btn btn-primary btn-sm" >预约考试</button>';
-									return data;}
-
-								
-								},	
-								],
-						
-					})
+					//刷新数据					
+					window.parent.refreshtable2();
 				}
 			}
 		});

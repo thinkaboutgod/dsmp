@@ -49,8 +49,8 @@
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-	<jsp:include page="header.jsp"></jsp:include>
-	<jsp:include page="sliderbar.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/back/header.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/jsp/back/sliderbar.jsp"></jsp:include>
 	<div class="content-wrapper">
 		<section class="content">
 			<div class="row">
@@ -116,7 +116,7 @@
 	  	 	</div>	
 		</section>
 	</div>
-	<jsp:include page="footer.jsp"></jsp:include>
+    <jsp:include page="/WEB-INF/jsp/back/footer.jsp"></jsp:include>
 </div>	
 </body>
 </html>
