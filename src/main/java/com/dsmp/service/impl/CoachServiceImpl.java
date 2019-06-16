@@ -16,8 +16,6 @@ import com.dsmp.service.CoachService;
 
 @Service
 public class CoachServiceImpl implements CoachService {
-
-	
 	
 	@Autowired private TbCoachMapper tbCoachMapper;
 
@@ -71,6 +69,21 @@ public class CoachServiceImpl implements CoachService {
 		if (res > 0) {
 			myResult.setMyresult("success");
 		} else {
+			myResult.setMyresult("failed");
+		}
+		return myResult;
+	}
+	
+	
+
+	@Override
+	public MyResult addCoach(HttpServletRequest request, MyResult myResult) {
+		TbCoach coach = new TbCoach();
+		
+		Integer res = tbCoachMapper.addCoach(coach);
+		if(res>0) {
+			myResult.setMyresult("success");
+		}else {
 			myResult.setMyresult("failed");
 		}
 		return myResult;

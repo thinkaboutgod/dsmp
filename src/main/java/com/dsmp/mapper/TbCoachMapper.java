@@ -14,5 +14,12 @@ public interface TbCoachMapper {
 
 	public Integer changeCoachState(Integer valueOf, String state);
 
+	/**
+	 * 	添加教练
+	 * @param coach
+	 * @return
+	 */
+	public Integer addCoach(TbCoach coach);
+
 
 }

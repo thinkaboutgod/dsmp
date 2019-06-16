@@ -8,13 +8,5 @@ import com.dsmp.pojo.TbStudent;
 
 
 public interface SchoolService {
-
-	public List<TbStudent> selectStus();
-	
-	public List<TbCoach> selectCoas();
-	
-	public List<TbCar> selectCars();
-	
-	
 	
 }

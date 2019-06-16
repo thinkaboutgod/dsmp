@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,7 +31,11 @@ public class CoachController {
 		return "back/school_coach";
 	}
 	
-	
+	/**
+	 * 	查询驾校名下的教练
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="selectCoasByCondition")
 	public @ResponseBody Map<String,List<TbCoach>> selectCoasByCondition(HttpServletRequest request) {
 		Map<String,List<TbCoach>> map = new HashMap<>();
@@ -39,10 +44,25 @@ public class CoachController {
 		return map;
 	}
 	
-	// 修改学员状态
-	@RequestMapping(value = "changeCoachState.action")
+	/**
+	 * 	修改教练状态
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "changeCoachState")
 	public @ResponseBody MyResult changeCoachState(HttpServletRequest request) {
 		myResult = coachService.changeCoachState(request, myResult);
+		return myResult;
+	}
+	
+	/**
+	 * 	添加教练
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "addCoach")
+	public MyResult addCoach(HttpServletRequest request,MyResult myResult) {
+		myResult = coachService.addCoach(request,myResult);
 		return myResult;
 	}
 	
