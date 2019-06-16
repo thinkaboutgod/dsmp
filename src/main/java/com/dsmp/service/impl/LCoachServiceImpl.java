@@ -1,11 +1,14 @@
 package com.dsmp.service.impl;
 
+import java.util.Date;
+
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+
 import java.util.List;
 import java.util.Map;
 
@@ -48,14 +51,15 @@ public class LCoachServiceImpl implements LCoachService {
 	private String beginTime;
 	private String endTime;
 	private String belongSubject;
-
-	@Autowired
-	private LCoachMapper lCoachMapper;
-
+	private Date date;
+	@Autowired private LCoachMapper lCoachMapper;
+	
+	//教练所属学生的普通信息
 	@Autowired
 	private TbStudentMapper tbStudentMapper;
 	@Autowired
 	private TbStudyrecordMapper tbStudyrecordMapper;
+
 
 	@Autowired
 	private TbParameterMapper tbParameterMapper;
@@ -138,14 +142,14 @@ public class LCoachServiceImpl implements LCoachService {
 		myResult.setSum(sum);
 		return myResult;
 	}
-
+	//教练名下的学生科目考试信息
 	@Override
 	public List<BelongtoCoachStudentMsg> selectStudentParticulars(int stuid) {
 		List<BelongtoCoachStudentMsg> studentmsg = lCoachMapper.selectStudentMsg(stuid);
 		System.out.println("学生信息");
 		return studentmsg;
 	}
-
+	//查找学生对教练的评价
 	@Override
 	public List<TbRating> selectStudentratingmsg(int coaId, String choose) {
 		if (choose.equals("所有评价")) {
@@ -307,5 +311,76 @@ public class LCoachServiceImpl implements LCoachService {
 		}
 		
 		return myResult;
+	}
+	//查找考试安排信息
+	@Override
+	public List<TbExamschedule> selectThetestmsg(int schId,String subname) {
+		date=new Date();
+		List<TbExamschedule> thetestmsg=lCoachMapper.selectTheTestMsg(date,schId, subname);
+		return thetestmsg;
+	}
+	//教练安排学生考试界面的表格信息
+	@Override
+	public List<TbStudent> findTestappointment(String subname, int coaid) {
+		Integer subid=1;
+		if(subname!=null&&subname.equals("科目一学员")) {
+			subid=1;
+		}
+		if(subname!=null&&subname.equals("科目二学员")) {
+			subid=2;
+		}
+		if(subname!=null&&subname.equals("科目三学员")) {
+			subid=3;
+		}
+		if(subname!=null&&subname.equals("科目四学员")) {
+			subid=4;
+		}
+		List<TbStudent> studenttestappointment=lCoachMapper.selectTestappointment(subid,coaid);
+		return studenttestappointment;
+	}
+
+	@Override
+	public List<TbStudent> findHaveappointment(int coaid,Integer stuid) {
+		 List<TbStudent> haveappointmentstudent=lCoachMapper.selectHaveappointment(coaid,stuid);
+		return haveappointmentstudent;
+	}
+
+	@Override
+	public Integer findNumberofsubjects(String subname, int coaid) {
+		int subid=0;
+		if(subname!=null&&subname.equals("科目一")) {
+			subid=1;
+		}
+		if(subname!=null&&subname.equals("科目二")) {
+			subid=2;
+		}
+		if(subname!=null&&subname.equals("科目三")) {
+			subid=3;
+		}
+		if(subname!=null&&subname.equals("科目四")) {
+			subid=4;
+		}
+		
+		Integer countNumberofsubjects=lCoachMapper.selectNumberofsubjects(subid,coaid);
+		System.out.println("统计教练预约的各科人数："+countNumberofsubjects);
+		
+		return countNumberofsubjects;
+	}
+
+	@Override
+	public Integer findSeatNum(int exsid) {
+		Integer seatNum=lCoachMapper.selecteasSeatNum(exsid);
+		return seatNum;
+	}
+
+	@Override
+	public void insertBooking(int exsid, int stuid, int seatNum) {
+		lCoachMapper.insertBooking(exsid, stuid, seatNum);
+		
+	}
+
+	@Override
+	public void updateBookingstate(int stuid) {
+		lCoachMapper.updateBookingstate(stuid);	
 	}
 }

@@ -45,9 +45,9 @@ public class StatisticsController {
 		return mav;
 	}
 	@RequestMapping(value="/findManyTopic.action")
-	public ModelAndView findManyTopic() {
+	public ModelAndView findManyTopic(Integer sub_id) {
 		ModelAndView mav = new ModelAndView();
-		List<TbTopic> topicList = topicService.findManyTopic(5);//topicList表示一张卷子题目集合；参数10表示一份卷子出10道题目
+		List<TbTopic> topicList = topicService.findManyTopic(5,sub_id);//topicList表示一张卷子题目集合；参数10表示一份卷子出10道题目
 		for (TbTopic tbTopic : topicList) {
 			System.out.println(":"+tbTopic.getTopTopic());
 			for (TbOption option : tbTopic.getOptions()) {

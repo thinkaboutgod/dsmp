@@ -30,6 +30,16 @@ public interface CoachService {
 	 * @return
 	 */
 	public MyResult changeCoachState(HttpServletRequest request, MyResult myResult);
+
+	/**
+	 * 	添加教练
+	 * @param myResult 
+	 * @param request
+	 * @return
+	 */
+	public MyResult addCoach(HttpServletRequest request, MyResult myResult);
+	
+	
 	
 }
 

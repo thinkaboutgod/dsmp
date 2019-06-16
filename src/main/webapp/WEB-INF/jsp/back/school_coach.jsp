@@ -122,42 +122,127 @@
 							<div class="form-group">
 								<label for="phoneDe" class="col-sm-2 control-label">电话：</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="phoneDe" type="text" >
+									<input class="form-control" id="phoneDe" type="text">
 								</div>
 							</div>
-								<div class="form-group">
+							<div class="form-group">
 								<label for="addressDe" class="col-sm-2 control-label">地址：</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="addressDe" type="text" >
-								</div>
-								</div>
-									<div class="form-group">
-								<label for="idCardDe" class="col-sm-2 control-label">身份证号：</label>
-								<div class="col-sm-10">
-									<input class="form-control" id="idCardDe" type="text" >
-								</div>
-								</div>
-										<div class="form-group">
-								<label for="carDe" class="col-sm-2 control-label">教练车：</label>
-								<div class="col-sm-10">
-									<input class="form-control" id="carDe" type="text" >
-								</div>
+									<input class="form-control" id="addressDe" type="text">
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<div class="center-block">
-							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-							<button type="button" class="btn btn-success">提交更改</button>
+							<div class="form-group">
+								<label for="idCardDe" class="col-sm-2 control-label">身份证号：</label>
+								<div class="col-sm-10">
+									<input class="form-control" id="idCardDe" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="carDe" class="col-sm-2 control-label">教练车：</label>
+								<div class="col-sm-10">
+									<input class="form-control" id="carDe" type="text">
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<!-- /.modal-content -->
+				<div class="modal-footer">
+					<div class="center-block">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" class="btn btn-success">提交更改</button>
+					</div>
+				</div>
 			</div>
-			<!-- /.modal-dialog -->
+			<!-- /.modal-content -->
 		</div>
-		<!-- 对应模态框 -->
+		<!-- /.modal-dialog -->
+		</div>
+		<!-- 对应查看详情模态框 -->
+		<!-- 模态框 -->
+		<div class="modal fade" id="addCoach" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">新增教练</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-horizontal">
+							<div class="form-group">
+								<label for="accountNew" class="col-sm-2 control-label">账号：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="accountNew" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="nameNew" class="col-sm-2 control-label">密码：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="nameNew" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="nameNew" class="col-sm-2 control-label">姓名：</label>
+								<div class="col-sm-10">
+									<input class="form-control" id="nameNew" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="sexNew" class="col-sm-2 control-label">性别：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="sexNew" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="birthdayNew" class="col-sm-2 control-label">生日：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="birthdayNew" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="idCardNew" class="col-sm-2 control-label">身份证号：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="idCardNew" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="phoneNew" class="col-sm-2 control-label">电话：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="phoneNew" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="addressNew" class="col-sm-2 control-label">地址：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="addressNew" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="introductionNew" class="col-sm-2 control-label">介绍：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="introductionNew" type="text">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="levelNew" class="col-sm-2 control-label">资质：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="levelNew" type="text">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="center-block">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" id="btn_add" class="btn btn-success">新增</button>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+		</div>
+		<!-- 对应新增教练模态框 -->
 	</body>
 	<script type="text/javascript" src=<%=request.getContextPath()+ "/js/jquery-3.3.1.js" %>
 		>

@@ -157,4 +157,48 @@ $(function() {
 		$("#coachDetail").modal("show");
 	})
 	
+	
+	// 添加教练
+	$(document).on("click", "#addCoach", function() { 
+		$("#addCoach").modal("show");
+	})
+	
+	// 添加教练
+	$(document).on("click", "#btn_add", function() { 
+		
+		//此处拿到选择行的数据中的id 
+		var id = table.row($(this).parent().parent()).data().coaId;  
+		
+		var button = $(this);
+		var preText = button.parent().prev().text();
+		var text = $(this).text();
+		var state;
+		
+		if ("启用" == text) {
+			state="start"
+		} else if ("禁用" == text) {
+			state="forbid"
+		};
+		$.ajax({
+			url : "../coach/addCoach.action",
+			async : true,
+			type : "POST",
+			data :  {coaId : id,state:state,preText:preText}  ,
+			dataType : "text",
+			success : function(data) {
+				var result = JSON.parse(data);
+				if (result.myresult=="success") {
+					layer.msg("添加教练成功");
+					
+				}else if (result.myresult=="failed") {
+					layer.msg("添加教练失败");
+				}
+			},
+			error : function() {
+				layer.msg("服务器繁忙");
+			}
+			
+		})
+	})
+	
 })

@@ -164,6 +164,7 @@
 					datatype:"json",
 					data:{"jsonData":exresMap2json,"studentId":stuId,"subId":subId},
 					success:function(data){
+// 						alert(data);
 						if(data==null||data=='') {
 // 							alert('您在线超24小时，有挂机嫌疑，本次学习时长不算数。');				
 						}else{
@@ -173,7 +174,7 @@
 // 							alert('totalTimeLength:'+data["totalTimeLength"]);//要求总时长
 							var currTotalTimeLength = data["currTotalTimeLength"];
 							var totalTimeLength = data["totalTimeLength"];
-							$("#studyTimeSpan").text(currTotalTimeLength+"/"+totalTimeLength);
+// 							$("#studyTimeSpan").text(currTotalTimeLength+"/"+totalTimeLength);
 // 							$("#percentageId").text((currTotalTimeLength/totalTimeLength)*100+"%");
 							var percent = getPercent(currTotalTimeLength, totalTimeLength);
 							$("#percentageId").text(percent);//上面写的方法
