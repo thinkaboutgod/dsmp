@@ -109,7 +109,7 @@ $(document).ready(function () {
 					var spwd = $(".register-pwd").val().trim();
 					var syzm = $(".register-yzm").val().trim();
 					$.ajax({
-						url:"/dsmp/student/studentLogin.action?",
+						url:path+"/student/studentLogin.action?",
 						async:true,
 						type:"POST",
 						data:{"account":saccount,"password":spwd,"yzm":syzm,"role":role},
@@ -117,7 +117,7 @@ $(document).ready(function () {
 						success:function(msg){
 							var msge = JSON.parse(msg);
 							if(msge.myresult == "success"){
-								alert("登录成功!");
+								layer.msg("登录成功!");	
 								switch(role){
 								case "5":
 									window.location.href = path+'/home/main.action';								
@@ -130,23 +130,23 @@ $(document).ready(function () {
 									break;
 								}														
 							}else if(msge.myresult == "failed"){
-								alert("登录失败，账号不存在!");
+								layer.msg("登录失败，账号不存在!");
 							}else if(msge.myresult == "codeFaild"){
-								alert("登录失败，验证码错误!");
+								layer.msg("登录失败，验证码错误!");
 							}else if(msge.myresult == "pwdError"){
-								alert("登录失败，密码错误！(输入三次错误账号将被锁定)还剩"+msge.errCount+"次机会");
+								layer.msg("登录失败，密码错误！(输入三次错误账号将被锁定)还剩"+msge.errCount+"次机会");
 							}else if(msge.myresult == "forbidden"){
-								alert("登录失败，您的账号已被禁用，请联系平台解除!");
+								layer.msg("登录失败，您的账号已被禁用，请联系平台解除!");
 							}else if(msge.myresult == "lock"){
-								alert("登录失败，您的账号已被锁定!");
+								layer.msg("登录失败，您的账号已被锁定!");
 							}else if(msge.myresult == "passErr"){
-								alert("登录失败，密码错误!");
+								layer.msg("登录失败，密码错误!");
 							}else if(msge.myresult == "stopOperatives"){
-								alert("登录失败，您的驾校已被暂停运营，请联系平台解除!");
+								layer.msg("登录失败，您的驾校已被暂停运营，请联系平台解除!");
 							}
 						},
 						error:function(){
-							alert("操作失败！");
+							layer.msg("操作失败!");
 						}
 					});
 				}else{
