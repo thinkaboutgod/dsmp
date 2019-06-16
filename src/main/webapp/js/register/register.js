@@ -139,9 +139,7 @@
 	                "mobile": phone,
 	            },
 	            success: function success(res) { 
-	            	alert(res.code); 
 	                if (res.code == 0) {
-	                	alert("发送成功了")
 	                    var n = 60;
 	                	$(".register-code-btn").attr("disabled","disabled");
 	                    $(".register-code-btn").css({

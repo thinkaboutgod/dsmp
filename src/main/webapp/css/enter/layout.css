@@ -1,0 +1,285 @@
+@charset "utf-8";
+
+.w960 {
+	width: 960px;
+	margin: 0 auto
+}
+
+.w330 {
+	width: 330px;
+	margin: 0 auto
+}
+
+.mt10 {
+	margin-top: 10px
+}
+
+.mt20 {
+	margin-top: 20px
+}
+
+.c7b {
+	color: #7b7b7b
+}
+
+.c46 {
+	color: #4677bd
+}
+
+.f16 {
+	font-size: 16px
+}
+
+#loginBar {
+	background-color: #2b2b2b;
+	line-height: 36px
+}
+
+#loginBar a {
+	color: #707070
+}
+
+.sp {
+	color: #707070;
+	margin: 0 2px
+}
+
+#headBox {
+	padding-top:15px;
+	text-align:center;
+	background-color: #525255;
+	height: 40px;
+}
+#headBox span{
+	
+	color: #FFFFFF;
+	font-size: 20px;
+}
+
+#navs a {
+	color: #ebebeb;
+	font-size: 18px;
+	line-height: 60px;
+	display: inline-block;
+	margin-left: 2em
+}
+
+#navs a.active,
+#navs a:hover {
+	text-decoration: none;
+	color: #96e443
+}
+
+.container {
+	border: 1px solid #c5c5c5;
+	border-radius: 2px;
+	-webkit-border-radius: 2px;
+	-moz-border-radius: 2px;
+	box-shadow: 0 0 3px #ccc;
+	-webkit-box-shadow: 0 0 3px #ccc
+}
+
+#processor {
+	background-color: #565656;
+	padding: 15px 70px;
+	position: relative
+}
+
+#step1 {
+	display: block
+}
+
+.processorBox li {
+	float: left;
+	width: 33.333%
+}
+
+.step_inner {
+	color: #fff;
+	text-align: center;
+	width: 100px;
+	margin: 0 auto
+}
+
+.step_line {
+	width: 720px;
+	background-color: #9e9f9f;
+	height: 6px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -18px auto auto -360px;
+	z-index: 1
+}
+
+.processorBox li .icon_step {
+	width: 36px;
+	height: 36px;
+	line-height: 36px;
+	display: inline-block;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	color: #fff;
+	font-size: 18px;
+	text-align: center;
+	background-color: #a4a4a4;
+	position: relative;
+	z-index: 2
+}
+
+.processorBox li.current .icon_step {
+	background-color: #64bd2e
+}
+
+.processorBox h4 {
+	color: #fff;
+	margin-top: 5px
+}
+
+.processorBox li.current h4 {
+	color: #64bd2e
+}
+
+.content {
+	background-color: #fff;
+	padding: 45px 50px
+}
+
+.frm_control_group {
+	padding-bottom: 25px
+}
+
+.frm_label {
+	width: 6em;
+	float: left;
+	margin-right: 1em;
+	line-height: 35px
+}
+
+.frm_controls {
+	display: table-cell;
+	float: none;
+	vertical-align: top;
+	width: auto
+}
+
+.frm_input,
+.frm_textarea {
+	width: 300px;
+	outline: 0;
+	border: 1px solid #c5c5c5;
+	height: 35px;
+	line-height: 35px;
+	vertical-align: middle;
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .06) inset;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .06) inset;
+	padding: 0 10px
+}
+
+.frm_input:focus,
+.frm_textarea:focus {
+	border: 1px solid #4677bd;
+	box-shadow: 0 0 2px #ddd;
+	-webkit-box-shadow: 0 0 3px #ddd
+}
+
+.frm_tips {
+	color: #c1c2c3;
+	padding-top: 4px;
+	width: 320px
+}
+
+.verifycode .frm_input {
+	width: 98px
+}
+
+.verifycode img {
+	height: 37px;
+	vertical-align: middle
+}
+
+.changeVerifyCode {
+	color: #4677bd;
+	margin-left: 3px
+}
+
+.toolBar {	
+	margin-top: 15px;
+	padding: 25px 0 0 98px;
+	box-shadow: 0 1px 0 #fbfbfb inset;
+	-webkit-box-shadow: 0 1px 0 #fbfbfb inset
+}
+
+.btn {
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 14px;
+	height: 35px;
+	line-height: 35px;
+	overflow: visible;
+	padding: 0 36px;
+	text-align: center;
+	text-decoration: none;
+	vertical-align: middle
+}
+
+.btn_primary {
+	background-color: #4aaf33;
+	color: #fff;
+	border: 1px solid #3eac27
+}
+
+.btn_default {
+	background-color: #f1f1f1;
+	color: #000;
+	border: 1px solid #d1d1d1
+}
+
+.btn:hover {
+	text-decoration: none
+}
+
+.phoneYzm {
+	width: 145px
+}
+
+#footer {
+	padding: 12px 0 30px;
+	color: #9e9f9f
+}
+
+.footNavs {
+	color: #9e9f9f
+}
+
+.enter-code-btn {
+	background-color: #4aaf33;
+	color: #fff;
+	border: 1px solid #3eac27
+}
+
+.up {
+	background-color: #4aaf33;
+	color: #fff;
+	border: 1px solid #3eac27
+}
+
+.next {
+	background-color: #4aaf33;
+	color: #fff;
+	border: 1px solid #3eac27
+}
+
+
+.upDown {
+	background-color: #4aaf33;
+	color: #fff;
+	border: 1px solid #3eac27
+}

@@ -21,9 +21,7 @@
     <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
     <result column="stu_signUpTime" property="stuSignuptime" jdbcType="TIMESTAMP" />
     <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
-  </resultMap>
-  
-  
+  </resultMap> 
   
   <resultMap id="searchStudent" type="com.dsmp.pojo.TbStudent" >
     <id column="stu_id" property="stuId" jdbcType="INTEGER" />
