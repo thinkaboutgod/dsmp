@@ -162,8 +162,9 @@ public class StudentController {
 	@RequestMapping("/apply")
 	public ModelAndView getApplyPage() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("client/apply");;
-		List<TbSchool> schList = tbMapper.selectAllSchool();
+		mav.setViewName("client/apply");
+		String signUpStatus = "允许报名";
+		List<TbSchool> schList = tbMapper.selectAllSchoolBySignUpStatus(signUpStatus);
 		mav.addObject("schList",schList);
 		return mav;
 	}

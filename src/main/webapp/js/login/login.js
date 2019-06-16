@@ -141,6 +141,8 @@ $(document).ready(function () {
 								alert("登录失败，您的账号已被锁定!");
 							}else if(msge.myresult == "passErr"){
 								alert("登录失败，密码错误!");
+							}else if(msge.myresult == "stopOperatives"){
+								alert("登录失败，您的驾校已被暂停运营，请联系平台解除!");
 							}
 						},
 						error:function(){

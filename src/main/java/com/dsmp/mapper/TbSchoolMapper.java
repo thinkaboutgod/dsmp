@@ -10,6 +10,8 @@ import com.dsmp.pojo.TbStudent;
 public interface TbSchoolMapper {
 	public List<TbSchool> selectAllSchool();
 	
+	public List<TbSchool> selectAllSchoolBySignUpStatus(String schSignupstatus);
+	
 	public List<TbStudent> selectStus();
 	
 	public List<TbCoach> selectCoas();

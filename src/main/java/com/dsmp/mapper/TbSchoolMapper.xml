@@ -31,6 +31,10 @@
   <select id="selectAllSchool" resultMap="BaseResultMap" >
     select * from tb_school
   </select>
+  <!-- 查询所有允许报名的驾校 -->
+  <select id="selectAllSchoolBySignUpStatus" resultMap="BaseResultMap" >
+    select * from tb_school where sch_signUpStatus = #{schSignupstatus};
+  </select>
   <!-- 驾校入驻信用代码验证 -->
   <select id="getSchoolByCreditcode"  resultMap="BaseResultMap">
 		select * from tb_school where sch_creditcode = #{schCreditcode};

@@ -170,12 +170,17 @@ public class StudentServiceImpl implements StudentService {
 		coach.setCoaAccount(account);
 		TbCoach tbCoach = tbCoachMapper.getCoach(coach);
 		if (tbCoach != null) {
-			if (tbCoach.getCoaPassword().equals(md5Password)) {
-				session.setAttribute("coach", tbCoach);
-				result.setMyresult("success");
-			} else {
-				result.setMyresult("passErr");
+			if(tbCoach.getCoaStatus().equals("启用")) {
+				if (tbCoach.getCoaPassword().equals(md5Password)) {
+					session.setAttribute("coach", tbCoach);
+					result.setMyresult("success");
+				} else {
+					result.setMyresult("passErr");
+				}
+			}else {
+				result.setMyresult("forbidden");
 			}
+			
 		} else {
 			result.setMyresult("failed");
 		}
@@ -191,12 +196,17 @@ public class StudentServiceImpl implements StudentService {
 		school.setSchAccount(account);
 		TbSchool tbSchool = tbSchoolMapper.getSchool(school);
 		if (tbSchool != null) {
-			if (tbSchool.getSchPassword().equals(md5Password)) {
-				session.setAttribute("school", tbSchool);
-				result.setMyresult("success");
-			} else {
-				result.setMyresult("passErr");
+			if(tbSchool.getSchOperativestatus().equals("允许运营")) {
+				if (tbSchool.getSchPassword().equals(md5Password)) {
+					session.setAttribute("school", tbSchool);
+					result.setMyresult("success");
+				} else {
+					result.setMyresult("passErr");
+				}
+			}else {
+				result.setMyresult("stopOperatives");
 			}
+			
 		} else {
 			result.setMyresult("failed");
 		}

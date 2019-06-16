@@ -20,7 +20,7 @@ public class SchoolServiceImpl implements SchoolService {
 	@Autowired private TbSchoolMapper tbSchoolMapper;
 
 
-
+	//驾校入驻
 	@Override
 	public MyResult insertSchoolInfo(String phone,String password,String sch_creditcode,String sch_name,
 			String sch_type,String sch_address,String sch_bossname,String sch_registerCapital,
