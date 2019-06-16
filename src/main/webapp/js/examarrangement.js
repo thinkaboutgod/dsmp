@@ -5,6 +5,7 @@ layui.use(['layer', 'form'], function(){
 	  var layer = layui.layer
 	  ,form = layui.form;
 });
+var table2;
 $(function() {
 
 	$.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置	
@@ -53,6 +54,7 @@ $(function() {
 	$(".subject").click(function() {
 		a=$(this).text();		
 	})
+
 	datatable_otherSet2 = {
 			"autoWidth" : false,
 			"ajax" : {
@@ -131,8 +133,11 @@ $(function() {
 					],
 		};	
 	var table = $("#thetestmsg").DataTable(datatable_otherSet);//初始化
-	var table2= $("#arrangethetest").DataTable(datatable_otherSet2);
+	table2= $("#arrangethetest").DataTable(datatable_otherSet2);
 	var table3= $("#haveappointment").DataTable(datatable_otherSet3);
+
+
+
 	$(".subject").on("click",function(){
 		table2.ajax.reload(null, true);// 刷新数据方法,false代表保持当前页,提交ajax
 	});	
@@ -159,3 +164,6 @@ $(function() {
 
 	});	
 })
+function refreshtable2() {
+	table2.ajax.reload(null, true);
+}

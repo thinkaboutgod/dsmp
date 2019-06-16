@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.dsmp.service.ExamScheduleService;
 import com.dsmp.service.RatingService;
 
 /**
@@ -21,6 +22,9 @@ public class PersonalController {
 	private HttpSession session;
 	@Autowired
 	private RatingService ratingService;
+	@Autowired
+	ExamScheduleService examScheduleService;
+	
 	/**
 	 * 返回到学员个人中心页面：教练评价，驾校评价，考试情况，科目学时查看
 	 */
@@ -104,9 +108,14 @@ public class PersonalController {
 		mav.setViewName("client/");
 		return mav;
 	}
+	/**
+	 * @return 返回到学员考试安排表（查看）
+	 */
 	@RequestMapping(value="/examSchedule.action")
 	public ModelAndView examSchedule() {
 		ModelAndView mav = new ModelAndView();
+		examScheduleService.findExamScheduleByStuId(1);
+		
 		
 		mav.addObject("sch_id", 1);
 		mav.addObject("stu_id", 2);

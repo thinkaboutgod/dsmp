@@ -383,4 +383,15 @@ public class LCoachServiceImpl implements LCoachService {
 	public void updateBookingstate(int stuid) {
 		lCoachMapper.updateBookingstate(stuid);	
 	}
+
+	@Override
+	public TbExamschedule findBookingnumber(int exsid) {
+		TbExamschedule tbExamschedule=lCoachMapper.seletBookingnumber(exsid);
+		return tbExamschedule;
+	}
+
+	@Override
+	public void updateMaxBookingnum(int exsSignupnum, int exsId) {		
+		lCoachMapper.updateMaxBookingnum(exsSignupnum, exsId);
+	}
 }

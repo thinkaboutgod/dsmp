@@ -79,7 +79,14 @@
 	<update id="updateBookingstate">
 		update tb_student set stu_bookingstate="已预约" where stu_id=#{param1}; 
 	</update>
-	
+	<!-- 预约人数 -->
+	<select id="seletBookingnumber"  resultType="com.dsmp.pojo.TbExamschedule" resultMap="thetestmsg">
+		select exs_signUpNum from tb_examschedule where exs_id=#{param1}
+	</select>
+	<!-- 预约成功后修改预约人数 -->
+	<update id="updateMaxBookingnum">		
+		update tb_examschedule set exs_signUpNum=#{param1} where exs_id=#{param2};
+	</update>
 	<resultMap type="INTEGER" id="maxseatNum">		
 		<result property="easseatNum" column="easseatNum" jdbcType="INTEGER" />		
 	</resultMap>

@@ -2,6 +2,7 @@ package com.dsmp.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dsmp.mapper.TbMistakeCollectionMapper;
 import com.dsmp.mapper.TbTopicMapper;
@@ -16,6 +17,7 @@ public class MistakeCollectionServiceImpl implements MistakeCollectionService {
 		
 		return tbMistakeCollectionMapper.findMistakeTopicBySidAndTopId(stuId,topId);
 	}
+	@Transactional
 	@Override
 	public boolean addMistakeTopic(Integer stuId, String topId) {
 		boolean delRes = false;
@@ -26,6 +28,7 @@ public class MistakeCollectionServiceImpl implements MistakeCollectionService {
 		}
 		return delRes;
 	}
+	@Transactional
 	@Override
 	public boolean delMistakeTopic(Integer stuId, String topId) {
 		boolean delRes = false;
