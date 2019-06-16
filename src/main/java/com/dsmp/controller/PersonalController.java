@@ -114,7 +114,7 @@ public class PersonalController {
 	@RequestMapping(value="/examSchedule.action")
 	public ModelAndView examSchedule() {
 		ModelAndView mav = new ModelAndView();
-		
+		examScheduleService.findExamScheduleByStuId(1);
 		
 		
 		mav.addObject("sch_id", 1);
