@@ -18,7 +18,6 @@
 					$.each(date,function(i,val){
 						if(val.ratType=="好评"){
 							haoping+=1;
-							
 						};
 						if(val.ratType=="中评"){
 							zhongping+=1;
@@ -32,7 +31,6 @@
 								"<dt>"+val.ratType+":"+time+"</dt><dd>"+val.ratContent+"</dd>"
 							);
 					});
-					
 					
 					  var bar_data = {
 						      data: [["好评", haoping], ["中评", zhongping], ["差评", chaping]],

@@ -328,8 +328,7 @@
 	</div>
 	<!--横幅-->
 	<div class="hf" aos="flip-left">
-		<a href="http://user.jxedt.com/registerNew/jx"
-			onclick="clickLog('from=JXEDT_HOME_DF_GG_RZJX')" target="_blank">
+		<a href=<%=path+"/school/schoolEnterPage.action" %>>
 			<img src=<%=path + "/images/home/jxrz_index.png"%> alt="" srcset="">
 		</a>
 

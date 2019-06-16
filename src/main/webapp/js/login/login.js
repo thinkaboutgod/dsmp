@@ -108,7 +108,6 @@ $(document).ready(function () {
 					var saccount = $(".register-phone").val().trim();
 					var spwd = $(".register-pwd").val().trim();
 					var syzm = $(".register-yzm").val().trim();
-					alert(role);
 					$.ajax({
 						url:"/dsmp/student/studentLogin.action?",
 						async:true,

@@ -9,6 +9,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.HttpRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ public class TopicController {
 	private HttpSession session;
 	@Autowired
 	private TopicService topicService;
-	@Autowired 
+	@Autowired
 	private StudyRecordService studyRecordService;
 	
 	@RequestMapping(value="/findTopic.action")
@@ -52,7 +53,8 @@ public class TopicController {
 				
 			
 
-		session.setAttribute("topic", topic);
+		mav.addObject("topic", topic);
+//		session.setAttribute("topic", topic);
 		mav.setViewName("");
 		
 		return mav;
@@ -101,7 +103,7 @@ public class TopicController {
 		ModelAndView mav = new ModelAndView();
 		addStudyBeginTime(stu_id, sub_id);//进入模拟卷就插入开始学习时间
 		Integer currTotalTimeLength = sumTimeLength(stu_id, sub_id);//计算总学时
-		List<TbTopic> topicList = topicService.findManyTopic(10);//topicList表示一张卷子题目集合；参数10表示一份卷子出10道题目
+		List<TbTopic> topicList = topicService.findManyTopic(10,sub_id);//topicList表示一张卷子题目集合；参数10表示一份卷子出10道题目
 		for (TbTopic tbTopic : topicList) {
 			System.out.println(":"+tbTopic.getTopTopic());
 			for (TbOption option : tbTopic.getOptions()) {
@@ -111,12 +113,19 @@ public class TopicController {
 			
 		}
 		
-		session.setAttribute("stu_id", stu_id);
+		mav.addObject("stu_id", stu_id);
+		mav.addObject("sub_id", sub_id);
+		mav.addObject("topicList", topicList);
+		mav.addObject("currTotalTimeLength", currTotalTimeLength);
+		mav.addObject("totalTimeLength", 10*60*60);
+		mav.addObject("percentage", getPercentage(currTotalTimeLength,10*60*60));
+		
+/*		session.setAttribute("stu_id", stu_id);
 		session.setAttribute("sub_id", sub_id);
 		session.setAttribute("topicList", topicList);
 		session.setAttribute("currTotalTimeLength", currTotalTimeLength);
 		session.setAttribute("totalTimeLength", 10*60*60);
-		session.setAttribute("percentage", getPercentage(currTotalTimeLength,10*60*60));
+		session.setAttribute("percentage", getPercentage(currTotalTimeLength,10*60*60));*/
 		mav.setViewName("client/examOfSubject1");
 		return mav;
 	}
@@ -124,9 +133,9 @@ public class TopicController {
 	 * @return 题库里所有题目（一题一题显示）
 	 */
 	@RequestMapping(value="/findAllTopic.action")
-	public ModelAndView findAllTopic() {
+	public ModelAndView findAllTopic(Integer stu_id,Integer sub_id) {
 		ModelAndView mav = new ModelAndView();
-		List<TbTopic> allTopicList = topicService.findAllTopic();//allTopicList表示查出题库里所有题目
+		List<TbTopic> allTopicList = topicService.findAllTopic(sub_id);//allTopicList表示查出题库里所有题目
 		for (TbTopic tbTopic : allTopicList) {
 			System.out.println(":"+tbTopic.getTopTopic());
 			for (TbOption option : tbTopic.getOptions()) {
@@ -134,18 +143,49 @@ public class TopicController {
 				System.out.println("选项对错："+option.getOptStatus());
 			}			
 		}
-		session.setAttribute("allTopicList", allTopicList);
+		mav.addObject("stu_id", stu_id);
+		mav.addObject("sub_id", sub_id);
+		mav.addObject("allTopicList", allTopicList);
+		
+/*		session.setAttribute("stu_id", stu_id);
+		session.setAttribute("sub_id", sub_id);
+		session.setAttribute("allTopicList", allTopicList);*/
 		mav.setViewName("client/exerciseOfSubject1");
 		return mav;
 		
 	}
 	@RequestMapping(value="/findAllTopicJs.action",method=RequestMethod.POST,produces="application/json;charset=utf-8")
-	public @ResponseBody List<TbTopic> findAllTopicJs(){
-		List<TbTopic> allTopicList = topicService.findAllTopic();//allTopicList表示查出题库里所有题目
+	public @ResponseBody List<TbTopic> findAllTopicJs(Integer sub_id){
+		List<TbTopic> allTopicList = topicService.findAllTopic(sub_id);//allTopicList表示查出题库里所有题目
 		return allTopicList;
 	}
-	
-	/**对学员做完一份试卷的错题集的整理，做错了插入错题集，做对了看一下错题集里面有没有，有则删除。
+	/**科目练习题（单题目类型）做错加入错题集
+	 * @param studentId 学时id
+	 * @param subId 科目id
+	 */
+	@RequestMapping(value="/addMistakeCollection2exercise.action")
+	@ResponseBody
+	public String addMistakeCollection2exercise(Integer studentId,Integer subId,String topId) {
+		System.out.println("addMistakeCollection2exercise-studentId:"+studentId+",subId:"+subId);
+		if(null!=studentId) {//只有有学员id（即学员登录状态下）才能有错题集功能。
+			topicService.addMistakeCollection2exercise(studentId,subId,topId);
+		}
+		return "success";
+	}
+	/**科目练习题（单题目类型）做对删除错题集记录
+	 * @param studentId 学时id
+	 * @param subId 科目id
+	 */
+	@RequestMapping(value="/delMistakeCollection2exercise.action")
+	@ResponseBody
+	public String delMistakeCollection2exercise(Integer studentId,Integer subId,String topId) {
+		System.out.println("delMistakeCollection2exercise-studentId:"+studentId+",subId:"+subId);
+		if(null!=studentId) {//只有有学员id（即学员登录状态下）才能有错题集功能。
+			topicService.delMistakeCollection2exercise(studentId,subId,topId);
+		}
+		return "success";
+	}
+	/**对学员做完一份试卷的错题集的整理，做错了插入错题集，做对了看一下错题集里面有没有，有则删除。（模拟卷类型）
 	 * @param map 传过来的包含学生做一份卷子的对错集合。主要传递了学员答题的题目id和本题的对错情况的map集合，但是要处理一下
 	 * @param studentId 哪个学员登录的，这边就是谁的stuId
 	 */
@@ -154,6 +194,7 @@ public class TopicController {
 	public Map<String,Integer> addOrDelMistakeCollection(@RequestParam Map<String,String> map,Integer studentId,Integer subId) {//点击了提交到这边来
 		System.out.println("进入把题目增加到错题集(或做对删除记录)的方法！");
 		System.out.println("studentId:"+map.get("studentId"));
+		System.out.println("subId:"+map.get("subId"));
 		Map<String,Integer> studyTimeResMap = null;
 		if(null!=studentId) {//只有有学员id（即学员登录状态下）才能有错题集功能。（还要插入学习结束时间点到学习记录表中）
 			//处理错题集相关
@@ -168,7 +209,7 @@ public class TopicController {
 			//处理插入学习结束时间点相关
 			studyTimeResMap = studyRecordService.addStudyEndTime(studentId, subId);
 
-			session.setAttribute("studyTimeResMap", studyTimeResMap);
+//			session.setAttribute("studyTimeResMap", studyTimeResMap);
 		}
 		return studyTimeResMap;
 		
@@ -184,7 +225,9 @@ public class TopicController {
 		
 		if(null==stu_id) {//只有有学员id（即学员登录状态下）才能有错题集功能。
 			
-			session.setAttribute("loginMessage", "请登录查看错题集！");
+			mav.addObject("loginMessage", "请登录查看错题集！");
+//			session.setAttribute("loginMessage", "请登录查看错题集！");
+			
 			mav.setViewName("client/mistakeCollectionOfSubject1");
 			return mav;//如果null==stu_id，则不会执行下面的代码了，这里就会停下
 		}
@@ -201,12 +244,21 @@ public class TopicController {
 			
 			
 		}
-		session.setAttribute("loginMessage", null);
+		mav.addObject("loginMessage", null);
+		mav.addObject("stu_id", stu_id);
+		mav.addObject("sub_id", sub_id);
+		mav.addObject("mistakeTopicList", mistakeTopicList);
+		mav.addObject("currTotalTimeLength", currTotalTimeLength);
+		mav.addObject("totalTimeLength", 10*60*60);
+		mav.addObject("percentage", getPercentage(currTotalTimeLength,10*60*60));
+		
+/*		session.setAttribute("loginMessage", null);
 		session.setAttribute("stu_id", stu_id);
+		session.setAttribute("sub_id", sub_id);
 		session.setAttribute("mistakeTopicList", mistakeTopicList);
 		session.setAttribute("currTotalTimeLength", currTotalTimeLength);
 		session.setAttribute("totalTimeLength", 10*60*60);
-		session.setAttribute("percentage", getPercentage(currTotalTimeLength,10*60*60));
+		session.setAttribute("percentage", getPercentage(currTotalTimeLength,10*60*60));*/
 		mav.setViewName("client/mistakeCollectionOfSubject1");
 		return mav;
 		
