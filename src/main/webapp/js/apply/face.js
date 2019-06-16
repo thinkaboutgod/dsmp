@@ -15,6 +15,7 @@ $(function(){
 	})
 	
 	$("#student_reg").click(function(){
+		closeVideo();
 		//获取浏览器页面的画布对象		
 		//以下开始编 数据
 		//将图像转换为base64数据	
@@ -41,7 +42,7 @@ $(function(){
 		fd.append("code",code);
 		fd.append("phone",phone);
 		if(name == "" || idCard=="" || address=="" || sex=="" || school=="" || code==""){
-
+			layer.msg("请填写信息完整");	
 		}else if(isCanvasBlank(canvas)){
 			layer.msg("请上传一张头像，用于刷脸打卡计时！");
 		}else{							

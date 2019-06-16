@@ -40,7 +40,7 @@
 					<hr class="one_line">
 					<dt>商品描述：</dt>
 					<dd>
-						<input id="WIDbody" style="border:0px;background:none;" name="WIDbody" />
+						<input id="WIDbody" value="学员报名驾校费用（不同驾校费用收取不同）" style="border:0px;background:none;" name="WIDbody" />
 					</dd>
 					<hr class="one_line">
 					<dt></dt>

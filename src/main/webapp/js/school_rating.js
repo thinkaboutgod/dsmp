@@ -7,13 +7,12 @@
 	var zongshu=0;	
 	$(document).ready( function () {
 		$.ajax({
-			url:"coach/studentratingmsg.action",
+			url:"selectSchoolRating.action",
 			async:true,
 			type:"POST",
 			data:"chooserating=所有评价",
 			dataType:"json",
 			success:function(date){
-				
 				if(date!==null){
 					$.each(date,function(i,val){
 						if(val.ratType=="好评"){
@@ -33,12 +32,12 @@
 					});
 					
 					  var bar_data = {
-						      data: [["好评", haoping], ["中评", zhongping], ["差评", chaping]],
-						      color: "#ff4500"
+						      data: [[],["好评", haoping], ["中评", zhongping], ["差评", chaping]],
+						      color: "blue"
 						    };
 						 $.plot("#bar-chart", [bar_data], {
 						      grid: {
-						        borderWidth: 1,
+//						        borderWidth: 2,
 						        borderColor: "#f3f3f3",
 						        tickColor: "#f3f3f3"
 						      },
@@ -47,7 +46,7 @@
 						          show: true,
 						          barWidth: 0.3,
 						          align: "center"
-						        } 
+						        }
 						      },
 						      xaxis: {
 						        mode: "categories",
@@ -59,9 +58,9 @@
 						 var zhong=zhongping/zongshu;
 						 var cha=chaping/zongshu;
 						    var donutData = [
-						      {label: "好评", data: hao, color: "#ff4500"},
-						      {label: "中评", data: zhong, color: "#597cc4"},
-						      {label: "差评", data: cha, color: "#00c0ef"}
+						      {label: "好评", data: hao, color: "green"},
+						      {label: "中评", data: zhong, color: "yellow"},
+						      {label: "差评", data: cha, color: "red"}
 						    ];
 						    $.plot("#donut-chart", donutData, {
 						      series: {
@@ -75,7 +74,6 @@
 						            formatter: labelFormatter,
 						            threshold: 0.1
 						          }
-
 						        }
 						      },
 						      legend: {
@@ -97,17 +95,17 @@
 		});
 	});
 	
-	
 	/*选择评价类型*/
 	$(function() {
 		$(".chooserating").click(function() {
 			var choose=$(this).text();
+			alert(choose)
+			var schId = $("#schId").val();
 			$.ajax({
-				url:"coach/studentratingmsg.action",
-				data:"chooserating="+choose,
+				url:"selectSchoolRating.action",
+				data:"chooserating="+choose+"&schId="+schId,
 				async:true,
 				type:"POST",
-				
 				dataType:"json",
 				success:function(date){
 					if(date!==null){

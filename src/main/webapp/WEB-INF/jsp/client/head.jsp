@@ -24,7 +24,7 @@
 					    onclick="clickLog('from=JXEDT_HEADER_SIGNIN')">注册</a>
 					</c:otherwise>
 				</c:choose>								
-					<a class="right-text" href="http://user.jxedt.com/registerNew/jx">驾校入驻</a>
+					<a class="right-text" href=<%=path+"/school/schoolEnterPage.action" %>>驾校入驻</a>
 					<a class="right-text" href=<%=path + "/admin/admin.action"%>>管理后台</a>
 				</div>
 			</div>

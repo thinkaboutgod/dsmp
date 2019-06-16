@@ -1,5 +1,9 @@
 package com.dsmp.service.impl;
 
+
+import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -7,10 +11,21 @@ import org.springframework.transaction.annotation.Transactional;
 import com.dsmp.mapper.TbRatingMapper;
 import com.dsmp.pojo.TbRating;
 import com.dsmp.service.RatingService;
+
 @Service
 public class RatingServiceImpl implements RatingService {
-	@Autowired
-	private TbRatingMapper tbRatingMapper;
+
+	@Autowired private TbRatingMapper tbRatingMapper;
+	
+
+	@Override
+	public List<TbRating> selectSchoolratingmsg(Integer schId, String choose) {
+		if (choose.equals("所有评价")) {
+			choose = null;
+		}
+		return tbRatingMapper.selectSchoolratingmsg(schId,choose);
+	}
+	
 	/**学员对教练的评价插入评价表中
 	 * @param coa_id 教练id
 	 * @param stu_id 学员id
@@ -31,6 +46,7 @@ public class RatingServiceImpl implements RatingService {
 		}
 		return false;
 	}
+	
 	/**根据几颗星算出评价等级ratType:4、5-好评；2、3-中评；0、1-差评
 	 * @param starNum 几颗星
 	 * @return 评价等级（好评，中评，差评）
@@ -60,6 +76,7 @@ public class RatingServiceImpl implements RatingService {
 			System.out.println("插入驾校评价表成功！");
 		}
 		return false;
+
 	}
 
 }

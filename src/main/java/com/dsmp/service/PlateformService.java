@@ -11,6 +11,7 @@ import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.PageResult;
 import com.dsmp.pojo.TbCapitalrecord;
 import com.dsmp.pojo.TbCoach;
+import com.dsmp.pojo.TbParameter;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbSubject;
@@ -46,5 +47,7 @@ public interface PlateformService {
 
 	public List<TbCapitalrecord> searchMoneyRecord(HttpServletRequest request);//查询资金记录
 	
+	public List<TbParameter> searchParameter();//查询参数记录
 	
+	public MyResult updataParmeter(TbParameter tbParameter);//更新参数表
 }

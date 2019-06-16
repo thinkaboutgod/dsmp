@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbParameterMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbParameter" >
+    <id column="par_id" property="parId" jdbcType="INTEGER" />
+    <result column="par_name" property="parName" jdbcType="VARCHAR" />
+    <result column="par_type" property="parType" jdbcType="VARCHAR" />
+    <result column="par_value" property="parValue" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    par_id, par_name, par_type, par_value
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_parameter
+    where par_id = #{parId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_parameter
+    where par_id = #{parId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dsmp.pojo.TbParameter" >
+    insert into tb_parameter (par_id, par_name, par_type, 
+      par_value)
+    values (#{parId,jdbcType=INTEGER}, #{parName,jdbcType=VARCHAR}, #{parType,jdbcType=VARCHAR}, 
+      #{parValue,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dsmp.pojo.TbParameter" >
+    insert into tb_parameter
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="parId != null" >
+        par_id,
+      </if>
+      <if test="parName != null" >
+        par_name,
+      </if>
+      <if test="parType != null" >
+        par_type,
+      </if>
+      <if test="parValue != null" >
+        par_value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="parId != null" >
+        #{parId,jdbcType=INTEGER},
+      </if>
+      <if test="parName != null" >
+        #{parName,jdbcType=VARCHAR},
+      </if>
+      <if test="parType != null" >
+        #{parType,jdbcType=VARCHAR},
+      </if>
+      <if test="parValue != null" >
+        #{parValue,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!-- 更新参数 -->
+  <update id="updataParmeter" parameterType="com.dsmp.pojo.TbParameter" >
+    update tb_parameter
+    <set >
+      <if test="parName != null" >
+        par_name = #{parName,jdbcType=VARCHAR},
+      </if>
+      <if test="parType != null" >
+        par_type = #{parType,jdbcType=VARCHAR},
+      </if>
+      <if test="parValue != null" >
+        par_value = #{parValue,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where par_id = #{parId,jdbcType=INTEGER}
+  </update>
+<!--   查询所有参数 -->
+  <select id="selectAllParameter" resultMap="BaseResultMap"  >
+    select *
+    from tb_parameter
+  </select>
+<!--   查询参数 -->
+  <select id="selectParamter" resultType="java.lang.String">
+  	select par_value
+    from tb_parameter where par_name=#{param1}
+  </select>
+  
+</mapper>

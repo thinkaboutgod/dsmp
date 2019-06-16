@@ -19,4 +19,8 @@ public interface TbSchoolMapper {
 	//驾校登录验证
 	public TbSchool getSchool(TbSchool tbSchool);
 	public TbSchool findSchoolBySchId(Integer schId);
+	
+	//驾校入驻信息录入
+	public int insertSchoolInfo(TbSchool tbSchool);
+	public TbSchool getSchoolByCreditcode(TbSchool tbSchool);
 }

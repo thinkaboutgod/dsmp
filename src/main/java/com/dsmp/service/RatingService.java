@@ -1,5 +1,11 @@
 package com.dsmp.service;
 
+import java.util.List;
+
+import com.dsmp.pojo.TbRating;
+
+
+
 /**
  * 评价业务层
  *
@@ -14,4 +20,13 @@ public interface RatingService {
 	 */
 	public boolean addCoachRating(Integer coa_id,Integer stu_id,Integer starNum,String ratingContent);
 	public boolean addSchoolRating(Integer sch_id,Integer stu_id,Integer starNum,String ratingContent);
+
+	/**
+	 * 	查询驾校评价
+	 * @param schId
+	 * @param choose
+	 * @return
+	 */
+	List<TbRating> selectSchoolratingmsg(Integer schId, String choose);
+
 }

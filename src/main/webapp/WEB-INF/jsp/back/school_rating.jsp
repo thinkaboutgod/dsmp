@@ -4,10 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>学生评价教练表</title>
+<title>学校评价表</title>
+
 <%
 	String path = request.getContextPath();
 %>
+
 <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 <script type="text/javascript" src=<%=request.getContextPath()+"/js/jquery-3.3.1.js" %>></script>
 <script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.min.js"%>></script>
@@ -30,7 +32,7 @@
 <script type="text/javascript" src=<%=path+"/adminlte/js/jquery.flot.categories.min.js"%> ></script>
 
 <script type="text/javascript" src=<%=path+"/js/Date.js" %>></script>
-<script type="text/javascript" src=<%=path+"/js/studentratingcoa.js" %>></script>
+<script type="text/javascript" src=<%=path+"/js/school_rating.js" %>></script>
     <link type="text/css" href="<%=path %>/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/font-awesome.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/ionicons.min.css" rel="stylesheet">
@@ -49,20 +51,20 @@
 </style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
-	<jsp:include page="/WEB-INF/jsp/back/header.jsp"></jsp:include>
-	<jsp:include page="/WEB-INF/jsp/back/sliderbar.jsp"></jsp:include>
+	<jsp:include page="header.jsp"></jsp:include>
+	<jsp:include page="sliderbar.jsp"></jsp:include>
 	<div class="content-wrapper">
 		<section class="content">
 			<div class="row">
 	  	 		<div class="col-md-12">
+	  	 			<input type="hidden" id="schId" value="${schId}">
 	  	 			<!-- 标题 -->
 	  	 			<div class="layui-tab layui-tab-brief">
  				 		<ul class="layui-tab-title">
-			   				<li class="chooserating layui-this"><h3>所有评价</h3></li>
-		  					<li class="chooserating"><h3>好评</h3></li>
-		  			 		<li class="chooserating"><h3>中评</h3></li>
- 		  					<li class="chooserating"><h3>差评</h3></li>
-  		 					   				 
+			   				<li class="chooserating layui-this">所有评价</li>
+		  					<li class="chooserating">好评</li>
+		  			 		<li class="chooserating">中评</li>
+ 		  					<li class="chooserating">差评</li>
  						</ul> 				 
 					</div> 
 					<!-- /标题 -->
@@ -116,7 +118,7 @@
 	  	 	</div>	
 		</section>
 	</div>
-    <jsp:include page="/WEB-INF/jsp/back/footer.jsp"></jsp:include>
+	<jsp:include page="footer.jsp"></jsp:include>
 </div>	
 </body>
 </html>

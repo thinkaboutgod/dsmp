@@ -16,8 +16,6 @@ import com.dsmp.service.CoachService;
 
 @Service
 public class CoachServiceImpl implements CoachService {
-
-	
 	
 	@Autowired private TbCoachMapper tbCoachMapper;
 
@@ -55,11 +53,14 @@ public class CoachServiceImpl implements CoachService {
 		return tbCoachMapper.selectCoasByCondition(sBean);
 	}
 
+	
 	@Override
 	public List<TbCoach> selectCoach(Integer schId) {
 		List<TbCoach> coaList = tbCoachMapper.selseCoach(schId);
 		return coaList;
 	}
+	
+	
 	public MyResult changeCoachState(HttpServletRequest request, MyResult myResult) {
 		String state = request.getParameter("state");
 		String coaId = request.getParameter("coaId");
@@ -79,5 +80,22 @@ public class CoachServiceImpl implements CoachService {
 		}
 		return myResult;
 	}
+
+	
+
+	@Override
+	public MyResult addCoach(HttpServletRequest request, MyResult myResult) {
+		TbCoach coach = new TbCoach();
+		
+		Integer res = tbCoachMapper.addCoach(coach);
+		if(res>0) {
+			myResult.setMyresult("success");
+		}else {
+			myResult.setMyresult("failed");
+		}
+		return myResult;
+	}
+
+
 	
 }

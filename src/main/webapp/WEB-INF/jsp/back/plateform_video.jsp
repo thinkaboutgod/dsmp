@@ -64,7 +64,7 @@
     <jsp:include page="footer.jsp"></jsp:include>
 </div><!-- 对应整个页面 -->
 <!-- 模态框 修改标题-->
-<div class="modal fade" id="forTitle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="forTitle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

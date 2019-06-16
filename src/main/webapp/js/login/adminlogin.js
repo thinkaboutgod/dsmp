@@ -2,7 +2,6 @@
 
 $(function() {
 	var path = $("#path").val();	
-	
 	$("#adminlogin").click(function(){
 		var account = $("#account").val().trim();
 		var password = $("#password").val().trim();
@@ -27,21 +26,11 @@ $(function() {
 					if(msge.myresult == "success"){
 						alert("登录成功!");
 						var role = msge.roleId;
-						alert(role);
 						if(role == "1"){
 							window.location.href = path+'/menu/toManageMain.action?role_id='+role;
 						}else if( role == "2"){
 							window.location.href = path+'/menu/toManageMain.action?role_id='+role;
-						}
-//						switch(role){
-//						case "1":
-//							alert("g");
-//							window.location.href = '/menu/toManageMain.action?role_id=1';
-//							break;
-//						case "2":
-//							
-//							break;						
-//						}												
+						}											
 					}else if(msge.myresult == "failed"){
 						alert("登录失败，账号不存在!");
 					}else if(msge.myresult == "codeFaild"){
