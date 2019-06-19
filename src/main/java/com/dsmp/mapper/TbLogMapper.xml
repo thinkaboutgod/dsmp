@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbLogMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbLog" >
+    <id column="log_id" property="logId" jdbcType="INTEGER" />
+    <result column="log_time" property="logTime" jdbcType="TIMESTAMP" />
+    <result column="log_event" property="logEvent" jdbcType="VARCHAR" />
+    <result column="log_operatorAccount" property="logOperatoraccount" jdbcType="VARCHAR" />
+    <result column="log_role" property="logRole" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    log_id, log_time, log_event, log_operatorAccount, log_role
+  </sql>
+  <!-- 查询所有日志 -->
+  <select id="searchAllLog" resultMap="BaseResultMap"  >
+    select * from tb_log
+    <where>
+		<if test="logOperatoraccount!=null">log_operatorAccount like "%"#{logOperatoraccount}"%"</if>
+		<if test="logRole!=null">and log_role = #{logRole}</if>
+		<if test="beginTime!=null">and log_time&gt;#{beginTime}</if><!-- 大于号 -->
+		<if test="endTime!=null">and log_time&lt;#{endTime}</if><!-- 小于号 -->
+	</where>
+  </select>
+  <insert id="insertSelective" parameterType="com.dsmp.pojo.TbLog" >
+    insert into tb_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="logTime != null" >
+        log_time,
+      </if>
+      <if test="logEvent != null" >
+        log_event,
+      </if>
+      <if test="logOperatoraccount != null" >
+        log_operatorAccount,
+      </if>
+      <if test="logRole != null" >
+        log_role,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=INTEGER},
+      </if>
+      <if test="logTime != null" >
+        #{logTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logEvent != null" >
+        #{logEvent,jdbcType=VARCHAR},
+      </if>
+      <if test="logOperatoraccount != null" >
+        #{logOperatoraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="logRole != null" >
+        #{logRole,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbLog" >
+    update tb_log
+    <set >
+      <if test="logTime != null" >
+        log_time = #{logTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logEvent != null" >
+        log_event = #{logEvent,jdbcType=VARCHAR},
+      </if>
+      <if test="logOperatoraccount != null" >
+        log_operatorAccount = #{logOperatoraccount,jdbcType=VARCHAR},
+      </if>
+      <if test="logRole != null" >
+        log_role = #{logRole,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dsmp.pojo.TbLog" >
+    update tb_log
+    set log_time = #{logTime,jdbcType=TIMESTAMP},
+      log_event = #{logEvent,jdbcType=VARCHAR},
+      log_operatorAccount = #{logOperatoraccount,jdbcType=VARCHAR},
+      log_role = #{logRole,jdbcType=VARCHAR}
+    where log_id = #{logId,jdbcType=INTEGER}
+  </update>
+</mapper>

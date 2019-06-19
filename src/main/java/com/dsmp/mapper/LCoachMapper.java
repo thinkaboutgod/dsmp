@@ -39,5 +39,7 @@ public interface LCoachMapper {
 
 	public List<TbExamschedule> selectTheTestMsg(int schId);
 	
-
+	public TbExamschedule seletBookingnumber(int exsid);//查询一场考试中已预约学生的数量
+	
+	public void updateMaxBookingnum(int exsSignupnum,int exsId);//修改预约人数
 }

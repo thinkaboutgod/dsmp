@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	String path = application.getContextPath();
 %>
@@ -26,22 +27,17 @@
 	src=<%=path + "/js/home/jquery1.42.min.js"%>></script>
 <script type="text/javascript"
 	src=<%=path + "/js/home/jquery.superslide.2.1.1.js"%>></script>
-
+<script type="text/javascript"
+	src=<%=path + "/js/school_ranking.js"%>></script>
+<script type="text/javascript"
+	src=<%=path + "/js/coach_ranking.js"%>></script>
+ <script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
+<script type="text/javascript"
+	src=<%=path + "/js/contactusmap.js"%>></script>
 </head>
 <body>
+<input type="hidden" id="path" value=<%=path %>>
 	<jsp:include page="head.jsp"></jsp:include>
-	<script type="text/javascript">
-		jQuery(".nav").slide({
-			type : "menu", //效果类型
-			titCell : ".m", // 鼠标触发对象
-			targetCell : ".sub", // 效果对象，必须被titCell包含
-			effect : "slideDown", //下拉效果
-			delayTime : 300, // 效果时间
-			triggerTime : 0, //鼠标延迟触发时间
-			returnDefault : true
-		//返回默认状态
-		});
-	</script>
 	<!-- banner -->
 	<div class="focusBox clear pulse animated">
 		<ul class="pic">
@@ -63,16 +59,14 @@
 			<div class="banner_process">
 				<ul>
 					<h3>学车流程</h3>
-					<li class="km1li"><a href="video.html" target="_blank"
-						onclick="clickLog('from=JXEDT_HOME_XCLC_KM1')">
+					<li class="km1li"><a href=<%=path+"/home/keyi.action" %> target="_blank">
 							<div class="km1"></div>
 							<div>
 								<p>科目一</p>
 								<p>真实模拟，通过率高</p>
 							</div>
 					</a></li>
-					<li class="km2li"><a href="keer.html" target="_blank"
-						onclick="clickLog('from=JXEDT_HOME_XCLC_KM2')">
+					<li class="km2li"><a href=<%=path+"/home/kemu.action?KeMuNum=2" %> target="_blank">				
 							<div class="km2"></div>
 							<div>
 								<p>科目二</p>
@@ -80,16 +74,14 @@
 							</div>
 					</a></li>
 					<li class="km3li"><a
-						href="http://tv.jxedt.com/?kemuType=kemu3" target="_blank"
-						onclick="clickLog('from=JXEDT_HOME_XCLC_KM3')">
+						href=<%=path+"/home/kemu.action?KeMuNum=3" %> target="_blank">
 							<div class="km3"></div>
 							<div>
 								<p>科目三</p>
 								<p>大路，知识及技巧</p>
 							</div>
 					</a></li>
-					<li class="km4li"><a href="http://mnks.jxedt.com/ckm4/"
-						target="_blank" onclick="clickLog('from=JXEDT_HOME_XCLC_KM4')">
+					<li class="km4li"><a href="" target="_blank" >
 							<div class="km4"></div>
 							<div>
 								<p>科目四</p>
@@ -126,7 +118,7 @@
 				<div class="bd">
 					<ul class="noticeList">
 						<c:forEach begin="0" step="1" items="${notList}" var="notice">
-							<li><a href=<%=path%>${notice.notPath}>${notice.notTitle}</a><span>${notice.notTime}</span></li>
+							<li><a href=<%=path%>${notice.notPath}>${notice.notTitle}</a><span><fmt:formatDate value="${notice.notTime}" pattern="YYYY-MM-dd" /></span></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -156,77 +148,26 @@
 		<div class="aboutbox fl" aos="fade-right">
 			<div class="aboutlm">
 				<span><em>驾校教练排行</em>&nbsp;&nbsp;<i>ABOUTUS</i></span><a
-					href="javascript:;" target="_blank">+&nbsp;更多/MORE</a>
+					href="javascript:;">+&nbsp;更多/MORE</a>
 			</div>
 			<div class="content p_t15">
 				<div class="jx_pl_rank">
 					<div class="rank_card_jx">
-						<div class="rank_card_header">驾校排行榜</div>
-						<!-- <div class="rank_card_body">
-					<div class="rank_first">
-					<div class="rank_data">
-					<div class="rank_first_jx">
-					<a href="http://jiaxiao.jxedt.com/1116249710575800322/" target="_blank">
-					<img src="%E5%8E%A6%E9%97%A8%E9%A9%BE%E6%A0%A1_%E5%8E%A6%E9%97%A8%E9%A9%BE%E6%A0%A1%E4%B8%80%E7%82%B9%E9%80%9A_%E5%8E%A6%E9%97%A8%E5%AD%A6%E8%BD%A6_%E5%8E%A6%E9%97%A8%E9%99%AA%E9%A9%BE_%E5%8E%A6%E9%97%A8%E9%99%AA%E7%BB%83_files/n_v2763ac63a14e443f1b88f8e51216ebdac.png" alt="">
-					</a>
-					</div>
-					<div class="info">
-					<div class="jx-info-name"><a href="http://jiaxiao.jxedt.com/1116249710575800322/" title="和胜驾校岛内分校" target="_blank">和胜驾校岛内分校</a></div>
-					<div>
-					<img src="%E5%8E%A6%E9%97%A8%E9%A9%BE%E6%A0%A1_%E5%8E%A6%E9%97%A8%E9%A9%BE%E6%A0%A1%E4%B8%80%E7%82%B9%E9%80%9A_%E5%8E%A6%E9%97%A8%E5%AD%A6%E8%BD%A6_%E5%8E%A6%E9%97%A8%E9%99%AA%E9%A9%BE_%E5%8E%A6%E9%97%A8%E9%99%AA%E7%BB%83_files/star5.png" alt="">
-					</div>
-					<div>
-					<span>41点评</span>
-					</div>
-					</div>
-					</div>
-					</div>
-					<ul class="rank_first_jx_ul">
-					<li>
-					    <a href="http://jiaxiao.jxedt.com/1079618949718528000/" title="鹭盈盛驾校集美分校" target="_blank"><div>鹭盈盛驾校集美分校</div><div>
-					<img src="%E5%8E%A6%E9%97%A8%E9%A9%BE%E6%A0%A1_%E5%8E%A6%E9%97%A8%E9%A9%BE%E6%A0%A1%E4%B8%80%E7%82%B9%E9%80%9A_%E5%8E%A6%E9%97%A8%E5%AD%A6%E8%BD%A6_%E5%8E%A6%E9%97%A8%E9%99%AA%E9%A9%BE_%E5%8E%A6%E9%97%A8%E9%99%AA%E7%BB%83_files/star5.png" alt=""></div>
-					<div>66点评</div>    </a>
-					</li>
-					</ul>
-					</div> -->
+					<div class="rank_card_header">驾校排行榜</div>
+ 					<div class="rank_card_body" id="rank_jx">					
+
+ 					</div>
 						<div class="rank_card_footer">
-							<a href="http://jiaxiao.jxedt.com/xiamen" target="_blank">查看更多</a>
+							<a href=<%=path+"/school/allSchoolPage.action" %> target="_blank">查看更多</a>
 						</div>
 					</div>
 					<div class="rank_card_jl">
 						<div class="rank_card_header">教练排行榜</div>
-						<!-- <div class="rank_card_body">
-					<div class="rank_first">
-					<div class="rank_data">
-					<div class="rank_first_jl">
-					<a href="http://jl.jxedt.com/1024269994067775488/" title="罗少华" target="_blank">
-					<img src="%E5%8E%A6%E9%97%A8%E9%A9%BE%E6%A0%A1_%E5%8E%A6%E9%97%A8%E9%A9%BE%E6%A0%A1%E4%B8%80%E7%82%B9%E9%80%9A_%E5%8E%A6%E9%97%A8%E5%AD%A6%E8%BD%A6_%E5%8E%A6%E9%97%A8%E9%99%AA%E9%A9%BE_%E5%8E%A6%E9%97%A8%E9%99%AA%E7%BB%83_files/n_v25639b3f253d04c3e9ff3140aa97d7388_0806078df64b9c19.jpg" alt="">
-					</a>
-					</div>
-					<div class="info">
-					<div>
-					<div class="info-name"><a href="http://jl.jxedt.com/1024269994067775488/" title="罗少华" target="_blank">罗少华</a></div>
-					<div class="info-old">7年驾龄</div>
-					</div>
-					<div>
-					<span>所属驾校：勋联鸿驾校</span>
-					</div>
-					<div>
-					<img src="%E5%8E%A6%E9%97%A8%E9%A9%BE%E6%A0%A1_%E5%8E%A6%E9%97%A8%E9%A9%BE%E6%A0%A1%E4%B8%80%E7%82%B9%E9%80%9A_%E5%8E%A6%E9%97%A8%E5%AD%A6%E8%BD%A6_%E5%8E%A6%E9%97%A8%E9%99%AA%E9%A9%BE_%E5%8E%A6%E9%97%A8%E9%99%AA%E7%BB%83_files/star5.png" alt="">
-					</div>
-					</div>
-					</div>
-					</div>
-					<ul class="rank_first_jl_ul">
-					<li>
-					<a href="http://jl.jxedt.com/3173204679622066258/" title="石金泉" target="_blank"><div>石金泉</div><div>
-					<img src="%E5%8E%A6%E9%97%A8%E9%A9%BE%E6%A0%A1_%E5%8E%A6%E9%97%A8%E9%A9%BE%E6%A0%A1%E4%B8%80%E7%82%B9%E9%80%9A_%E5%8E%A6%E9%97%A8%E5%AD%A6%E8%BD%A6_%E5%8E%A6%E9%97%A8%E9%99%AA%E9%A9%BE_%E5%8E%A6%E9%97%A8%E9%99%AA%E7%BB%83_files/star5.png" alt=""></div>
-					</a>
-					</li>
-					</ul>
-					</div> -->
+				    <div class="rank_card_body" id="rank_jl">
+		
+					</div> 
 						<div class="rank_card_footer">
-							<a href="http://jl.jxedt.com/xiamen" target="_blank">查看更多</a>
+							<a href=<%=path+"/coach/allCoachPage.action" %> target="_blank">查看更多</a>
 						</div>
 					</div>
 				</div>
@@ -266,108 +207,12 @@
 		</div>
 
 	</div>
-
-	<!--产品展示-->
-	<div class="productshow">
-		<h1>产品中心&nbsp;/&nbsp;PRDUCTS DISPLAY</h1>
-	</div>
-	<div class="productbox m_m p_t20">
-		<div class="prod_left fl" aos="fade-right">
-			<span>产品分类</span>
-			<ul>
-
-				<li><a href="javascript:;">第一系列</a></li>
-
-				<li><a href="javascript:;">第二系列</a></li>
-
-				<li><a href="javascript:;">第三系列</a></li>
-
-				<li><a href="javascript:;">第四系列</a></li>
-
-				<li><a href="javascript:;">第五系列</a></li>
-
-				<li><a href="javascript:;">第六系列</a></li>
-
-			</ul>
-			<a href="javascript:;" target="_blank" class="classmore">+&nbsp;查看更多</a>
-		</div>
-		<div class="showcp fr zoomimg" aos="fade-left">
-			<ul>
-				<li><a href="javascript:;" target="_blank"><img
-						src="images/1-1P52Q05Z20-L.jpg" alt="产品名称六" /></a>
-					<p>
-						<a href="javascript:;" target="_blank">产品名称六</a>
-					</p></li>
-				<li><a href="javascript:;" target="_blank"><img
-						src="images/1-1P52Q05S70-L.jpg" alt="产品名称五" /></a>
-					<p>
-						<a href="javascript:;" target="_blank">产品名称五</a>
-					</p></li>
-				<li><a href="javascript:;" target="_blank"><img
-						src="images/1-1P52Q05Q60-L.jpg" alt="产品名称四" /></a>
-					<p>
-						<a href="javascript:;" target="_blank">产品名称四</a>
-					</p></li>
-				<li><a href="javascript:;" target="_blank"><img
-						src="images/1-1P52Q05K30-L.jpg" alt="产品名称三" /></a>
-					<p>
-						<a href="javascript:;" target="_blank">产品名称三</a>
-					</p></li>
-				<li><a href="javascript:;" target="_blank"><img
-						src="images/1-1P52Q05I10-L.jpg" alt="产品名称二" /></a>
-					<p>
-						<a href="javascript:;" target="_blank">产品名称二</a>
-					</p></li>
-				<li><a href="javascript:;" target="_blank"><img
-						src="images/1-1P52Q055470-L.jpg" alt="产品名称一" /></a>
-					<p>
-						<a href="javascript:;" target="_blank">产品名称一</a>
-					</p></li>
-			</ul>
-		</div>
-	</div>
-	<!--横幅-->
+		<!--横幅-->
 	<div class="hf" aos="flip-left">
-		<a href="http://user.jxedt.com/registerNew/jx"
-			onclick="clickLog('from=JXEDT_HOME_DF_GG_RZJX')" target="_blank">
+		<a href=<%=path+"/school/schoolEnterPage.action" %>>
 			<img src=<%=path + "/images/home/jxrz_index.png"%> alt="" srcset="">
 		</a>
 
-	</div>
-	<!--case-->
-	<div class="caseshow">
-		<h1>
-			客户案例<i>&nbsp;/&nbsp;CASE</i>
-		</h1>
-	</div>
-	<div class="casebox m_m zoomimg" aos="flip-up" aos-delay="200">
-		<ul>
-			<li><a href="javascript:;" target="_blank"><img
-					src=<%=path + "/images/home/1-1P52Q105160-L.jpg"%> alt="案例展示八" /></a>
-				<p>案例展示八</p> <a href="javascript:;" target="_blank" id="casemore">+&nbsp;查看详情</a>
-			</li>
-			<li><a href="javascript:;" target="_blank"><img
-					src="<%=path + "/images/home/1-1P52Q104550-L.jpg"%>" alt="案例展示七" /></a>
-				<p>案例展示七</p> <a href="javascript:;" target="_blank" id="casemore">+&nbsp;查看详情</a>
-			</li>
-			<li><a href="javascript:;" target="_blank"><img
-					src="images/1-1P52Q104330-L.jpg" alt="案例展示六" /></a>
-				<p>案例展示六</p> <a href="javascript:;" target="_blank" id="casemore">+&nbsp;查看详情</a>
-			</li>
-			<li><a href="javascript:;" target="_blank"><img
-					src="images/1-1P52Q104130-L.jpg" alt="案例展示五" /></a>
-				<p>案例展示五</p> <a href="javascript:;" target="_blank" id="casemore">+&nbsp;查看详情</a>
-			</li>
-			<li><a href="javascript:;" target="_blank"><img
-					src="images/1-1P52Q103560-L.jpg" alt="案例展示四" /></a>
-				<p>案例展示四</p> <a href="javascript:;" target="_blank" id="casemore">+&nbsp;查看详情</a>
-			</li>
-			<li><a href="javascript:;" target="_blank"><img
-					src="images/1-1P52Q103350-L.jpg" alt="案例展示三" /></a>
-				<p>案例展示三</p> <a href="javascript:;" target="_blank" id="casemore">+&nbsp;查看详情</a>
-			</li>
-
-		</ul>
 	</div>
 	<!--文字栏-->
 	<div class="wordbox">
@@ -446,28 +291,17 @@
 			</dl>
 		</div>
 	</div>
-	<!--foot-->
-	<section class="fadeInUp animated">
-		<!--友情链接-->
-		<div class="linkbox">
-			<div class="linknr m_m">
-				<span>友情链接：</span>
-				<p>
-					<c:forEach begin="0" step="1" items="${hotList}" var="hot">
-						<a href='${hot.holPath}' target='_blank'>${hot.holTitle}</a>						
-					</c:forEach>
-				</p>
-			</div>
-		</div>
-		<div class="footend">
-			<p class="m_m">
-				版权所有：Copyright ? 2006-2014 dmakucms.com <a href="javascript:;"
-					target="_blank">Power by dmakuCms</a>&nbsp;&nbsp;&nbsp;&nbsp;技术支持：<a
-					href="http://www.cymooc.org/" target="_blank">传一科技</a>&nbsp;&nbsp;&nbsp;&nbsp;<a
-					href="javascript:;" target="_blank">闽ICP备8734688834号</a>
-			</p>
-		</div>
-	</section>
+	<!--产品展示-->
+	<div class="productshow">
+		<h1>联系我们&nbsp;/&nbsp;CONTACT US</h1>
+	</div>
+	<div class="productbox m_m p_t20">
+		<input type="hidden" id="cityName" value="厦门传一信息科技有限公司" />
+    <div id="container" style="width: 100%;height: 600px;"></div>
+      		
+	</div>
+	
+	<jsp:include page="tail.jsp"></jsp:include>
 	<script type="text/javascript" src=<%=path + "/js/home/aos.js"%>></script>
 	<script type="text/javascript">
 		AOS.init({

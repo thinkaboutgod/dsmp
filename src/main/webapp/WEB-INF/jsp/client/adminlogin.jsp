@@ -13,6 +13,7 @@
 <script type="text/javascript" src=<%=path+"/js/jquery-3.3.1.js"%>></script>
 <script type="text/javascript" src=<%=path+"/js/login/adminlogin.js"%>></script>
 <script src=<%=path+"/js/login/imgCode.js"%> charset="utf-8"></script>
+<script type="text/javascript" src=<%=path + "/layer/layer.js"%>></script>
 </head>
 <body>
 <input type="hidden" id="path" value=<%=path%>>

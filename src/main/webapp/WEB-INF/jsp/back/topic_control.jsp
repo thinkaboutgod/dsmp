@@ -29,9 +29,11 @@
 					<div class="box-header">
 		              	<h3 class="box-title"><strong>题库管理</strong></h3>
 		           	 </div>
+                   <div class="box"><br>
            			<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                     <div class="row">
                       <div class="col-sm-12">
+                        <div class="box-header">
                      		 <div class = "input-group col-sm-1">
                                <label for="topicType" class=" control-label">题目类型：</label>
                            </div>
@@ -45,8 +47,9 @@
 							<div class = "input-group">
                                <button  class="button btn-info btn-sm "  id="addTopic">增加题目</button>
                            </div>
-                          
-                          <hr style="height:1px;border:none;border-top:1px solid #555555;" />
+                           </div>
+<!--                           <hr style="height:1px;border:none;border-top:1px solid #555555;" /> -->
+                          <div class="box-body">
                           <table id="topicTable" class="table table-bordered table-hover">
 		                      <thead>
 		                        <tr role="row">
@@ -58,7 +61,9 @@
 		                      <tbody></tbody>
                         </table>
                       </div>
+                      </div>
                     </div>
+                  </div>
                   </div>
 	  	 		</div>  <!-- /.box-body -->
 	  	 	</div>
@@ -170,7 +175,7 @@
 							<input  id="addnewImg" name="addnewImg" class="button btn-info btn-sm " type="file" value="更换图片"><br>
 							<input  id="deleteaddnewImg" class="button btn-info btn-sm " type="button" value="删除选定图片">
 							</div>
-							
+
 						</div>
 					</div>
 				</div>

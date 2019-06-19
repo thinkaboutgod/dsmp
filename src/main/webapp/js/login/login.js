@@ -9,7 +9,13 @@ $(document).ready(function () {
         	codePhoneReg();
         }
     });
-
+    
+    $("body").keydown(function(event) {
+		if (event.keyCode == "13") {// keyCode=13是回车键
+			$("#sub").click();
+		}
+	});
+   
     /**
      * 验证码登陆手机号码验证
      */
@@ -93,7 +99,12 @@ $(document).ready(function () {
         }
         return true;
     }
-    
+    //回车登录
+    $("body").keydown(function(event) {
+		if (event.keyCode == "13") {// keyCode=13是回车键
+			$("#role").click();
+		}
+	});
     /**
      * 登陆手机号码验证
      */
@@ -108,9 +119,8 @@ $(document).ready(function () {
 					var saccount = $(".register-phone").val().trim();
 					var spwd = $(".register-pwd").val().trim();
 					var syzm = $(".register-yzm").val().trim();
-					alert(role);
 					$.ajax({
-						url:"/dsmp/student/studentLogin.action?",
+						url:path+"/student/studentLogin.action?",
 						async:true,
 						type:"POST",
 						data:{"account":saccount,"password":spwd,"yzm":syzm,"role":role},
@@ -118,34 +128,45 @@ $(document).ready(function () {
 						success:function(msg){
 							var msge = JSON.parse(msg);
 							if(msge.myresult == "success"){
-								alert("登录成功!");
+								layer.msg("登录成功,正在前往...");	
 								switch(role){
 								case "5":
-									window.location.href = path+'/home/main.action';								
+									setTimeout(function () {
+										window.location.href = path+'/home/main.action';
+				                    }, 2000);																	
 									break;
 								case "4":
-									window.location.href = path+'/menu/toManageMain.action?role_id='+role;
+									setTimeout(function () {
+										window.location.href = path+'/menu/toManageMain.action?role_id='+role;
+				                    }, 2000);								
 									break;
 								case "3":
-									window.location.href = path+'/menu/toManageMain.action?role_id='+role;
+									if(msge.stauts == "stopSignUp"){
+										layer.msg("您存在违规操作，已被禁止学员报名，如有疑问请前往申诉中心进行申诉。");	
+									}
+									setTimeout(function () {
+										window.location.href = path+'/menu/toManageMain.action?role_id='+role;
+				                    }, 3000);						
 									break;
 								}														
 							}else if(msge.myresult == "failed"){
-								alert("登录失败，账号不存在!");
+								layer.msg("登录失败，账号不存在!");
 							}else if(msge.myresult == "codeFaild"){
-								alert("登录失败，验证码错误!");
+								layer.msg("登录失败，验证码错误!");
 							}else if(msge.myresult == "pwdError"){
-								alert("登录失败，密码错误！(输入三次错误账号将被锁定)还剩"+msge.errCount+"次机会");
+								layer.msg("登录失败，密码错误！(输入三次错误账号将被锁定)还剩"+msge.errCount+"次机会");
 							}else if(msge.myresult == "forbidden"){
-								alert("登录失败，您的账号已被禁用，请联系平台解除!");
+								layer.msg("登录失败，您的账号已被禁用，请联系平台解除!");
 							}else if(msge.myresult == "lock"){
-								alert("登录失败，您的账号已被锁定!");
+								layer.msg("登录失败，您的账号已被锁定!");
 							}else if(msge.myresult == "passErr"){
-								alert("登录失败，密码错误!");
+								layer.msg("登录失败，密码错误!");
+							}else if(msge.myresult == "stopOperatives"){
+								layer.msg("登录失败，您的驾校已被暂停运营，请联系平台解除!");
 							}
 						},
 						error:function(){
-							alert("操作失败！");
+							layer.msg("操作失败!");
 						}
 					});
 				}else{

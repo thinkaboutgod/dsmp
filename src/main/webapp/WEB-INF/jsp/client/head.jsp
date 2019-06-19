@@ -15,7 +15,8 @@
 				<div class="comment-header-right">
 				<c:choose>
 					<c:when test="${student != null}">
-						<a class="right-text" href=""><span>欢迎：${student.stuName}</span></a>						
+						<a class="right-text" href=""><span>欢迎：${student.stuName}</span></a>	
+						<a class="right-text" href=<%=path+"/home/logout.action" %>><span>注销</span></a>						
 					</c:when>
 					<c:otherwise>
 						<a class="right-text" href=<%=path + "/student/login.action"%>					
@@ -24,7 +25,7 @@
 					    onclick="clickLog('from=JXEDT_HEADER_SIGNIN')">注册</a>
 					</c:otherwise>
 				</c:choose>								
-					<a class="right-text" href="http://user.jxedt.com/registerNew/jx">驾校入驻</a>
+					<a class="right-text" href=<%=path+"/school/schoolEnterPage.action" %>>驾校入驻</a>
 					<a class="right-text" href=<%=path + "/admin/admin.action"%>>管理后台</a>
 				</div>
 			</div>
@@ -45,24 +46,25 @@
 		<ul class="nav clearfix m_m">
 			<li class="m cur">
 				<h3>
-					<a href="javascript:;">首页</a>
+					<a href=<%=path+"/home/main.action?"%>>首页</a>
 				</h3>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
 					<a href=" javascript:;">模拟考试</a>
 				</h3>
 				<ul class="sub">
 
-					<li><a href="javascript:;">科目一</a></li>
-
+					<li><a target="_blank" href=<%=path+"/topic/findManyTopic.action?stu_id=2&sub_id=1"%>>科目一模拟</a></li>
+					<li><a target="_blank" href=<%=path+"/topic/findAllTopic.action?stu_id=2&sub_id=1"%>>科目一练习</a></li>
+					<li><a target="_blank" href=<%=path+"/topic/findMistakeTopic.action?stu_id=2&sub_id=1"%>>科目一错题集</a></li>
 					<li><a href="javascript:;">科目四</a></li>
 
 				</ul>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
-					<a href=" javascript:;">驾校</a>
+					<a href=<%=path+"/school/allSchoolPage.action" %> target="_blank">驾校</a>
 				</h3>
 				<ul class="sub">
 
@@ -80,9 +82,9 @@
 
 				</ul>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
-					<a href=" javascript:;">教练</a>
+					<a href=<%=path+"/coach/allCoachPage.action" %>>教练</a>
 				</h3>
 				<ul class="sub">
 
@@ -94,7 +96,7 @@
 
 				</ul>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
 					<a href=<%=path+"/student/apply.action?" %>>学员在线报名</a>
 				</h3>
@@ -102,7 +104,7 @@
 
 				</ul>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
 					<a href=" javascript:;">人才招聘</a>
 				</h3>
@@ -110,15 +112,20 @@
 
 				</ul>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
 					<a href=" javascript:;">个人中心</a>
 				</h3>
-				<ul>
+				<ul class="sub">
+
+					<li><a target="_blank" href=<%=path+"/personal/coachRating.action"%>>教练评价</a></li>
+					<li><a target="_blank" href=<%=path+"/personal/schoolRating.action"%>>驾校评价</a></li>
+					<li><a target="_blank" href=<%=path+"/personal/examSchedule.action"%>>考试安排</a></li>
+
 
 				</ul>
 			</li>
-			<li class="m "">
+			<li class="m ">
 				<h3>
 					<a href=" javascript:;">联系我们</a>
 				</h3>
@@ -128,3 +135,16 @@
 			</li>
 		</ul>
 	</div>
+	
+	<script type="text/javascript">
+		jQuery(".nav").slide({
+			type : "menu", //效果类型
+			titCell : ".m", // 鼠标触发对象
+			targetCell : ".sub", // 效果对象，必须被titCell包含
+			effect : "slideDown", //下拉效果
+			delayTime : 300, // 效果时间
+			triggerTime : 0, //鼠标延迟触发时间
+			returnDefault : true
+		//返回默认状态
+		});
+	</script>

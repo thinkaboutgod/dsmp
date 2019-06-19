@@ -21,14 +21,20 @@ import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.PageResult;
 import com.dsmp.pojo.TbCapitalrecord;
+import com.dsmp.pojo.TbHotlink;
+import com.dsmp.pojo.TbLog;
 import com.dsmp.pojo.TbOption;
+import com.dsmp.pojo.TbParameter;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbSubject;
 import com.dsmp.pojo.TbTopic;
 import com.dsmp.pojo.TbVideo;
+import com.dsmp.service.BlogrollService;
+import com.dsmp.service.LogService;
 import com.dsmp.service.PlateformService;
 import com.dsmp.service.TopicService;
+import com.dsmp.service.impl.LogServiceImpl;
 import com.dsmp.utils.GsonUtils;
 
 @Controller
@@ -38,6 +44,10 @@ public class PlateformController {
 	private PlateformService plateformService;
 	@Autowired
 	private TopicService topicService;
+	@Autowired
+	private BlogrollService blogrollService;
+	@Autowired
+	private LogService logServiceImpl;
 	@Autowired
 	private MyResult myResult;
 
@@ -107,13 +117,25 @@ public class PlateformController {
 		return cList;
 	}
 
-	// 按照驾校统计近半年报名学员人数
+	// 按照驾校查询某一个月有人报名的驾校的报名人数
 	@RequestMapping(value = "countStudentByDate.action")
 	public @ResponseBody Map<String, List<Count>> countStudentByDate(String month) {
 		List<Count> cList = plateformService.countStudentByDate(month);
 		Map<String, List<Count>> map = new HashMap<>();
 		map.put("data", cList);
 		return map;
+	}
+
+	// 按照驾校查询某一个月有人报名的驾校的报名人数
+	@RequestMapping(value = "countAllStudentByDate.action")
+	public @ResponseBody List<Count> countAllStudentByDate(String month) {
+		List<Count> cList = plateformService.countAllStudentByDate(month);
+		for (int i = 0; i < cList.size(); i++) {
+			if (cList.get(i).getData() == null) {
+				cList.get(i).setData("0");
+			}
+		}
+		return cList;
 	}
 
 	// 按科目查询学习视频
@@ -191,9 +213,84 @@ public class PlateformController {
 	// 查询资金记录
 	@RequestMapping(value = "searchMoneyRecord.action")
 	public @ResponseBody Map<String, List<TbCapitalrecord>> searchMoneyRecord(HttpServletRequest request) {
-		Map< String,  List<TbCapitalrecord>> map = new HashMap<>();
+		Map<String, List<TbCapitalrecord>> map = new HashMap<>();
 		List<TbCapitalrecord> recordList = plateformService.searchMoneyRecord(request);
 		map.put("data", recordList);
 		return map;
+	}
+
+	// 发送参数管理界面
+	@RequestMapping(value = "toParameterController.action")
+	public String toParameter() {
+		return "back/plateform_parameter";
+	}
+
+	// 查询参数记录
+	@RequestMapping(value = "searchParameter.action")
+	public @ResponseBody Map<String, List<TbParameter>> searchParameter() {
+		Map<String, List<TbParameter>> map = new HashMap<>();
+		List<TbParameter> parList = plateformService.searchAllParameter();
+		map.put("data", parList);
+		return map;
+	}
+
+	// 修改参数表的参数
+	@RequestMapping(value = "changeParameter.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
+	public @ResponseBody MyResult changeParameter(@RequestBody TbParameter tbParameter) {
+		return plateformService.updataParmeter(tbParameter);
+	}
+
+	// 发送友情链接管理界面
+	@RequestMapping(value = "toblogRollController.action")
+	public String toblogRollControl() {
+		return "back/plateform_blogroll";
+	}
+
+	// 查询友情链接
+	@RequestMapping(value = "searchAllBlogRoll.action")
+	public @ResponseBody Map<String, List<TbHotlink>> searchAllBlogRoll() {
+		Map<String, List<TbHotlink>> map = new HashMap<>();
+		List<TbHotlink> bloList = blogrollService.searchAllBlogRoll();
+		map.put("data", bloList);
+		return map;
+	}
+
+	// 修改友情链接
+	@RequestMapping(value = "changeBlogroll.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
+	public @ResponseBody MyResult changeBlogroll(@RequestBody TbHotlink tbHotlink) {
+		return blogrollService.updateBlogroll(tbHotlink);
+	}
+
+	// 删除友情链接
+	@RequestMapping(value = "deleteBlogroll.action")
+	public @ResponseBody MyResult deleteBlogroll(String holId) {
+		return blogrollService.deleteBlogroll(holId);
+	}
+
+	// 新增友情链接
+	@RequestMapping(value = "addBlogroll.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
+	public @ResponseBody MyResult addBlogroll(@RequestBody TbHotlink tbHotlink) {
+		return blogrollService.insertBlogroll(tbHotlink);
+	}
+
+	// 发送日志查看界面
+	@RequestMapping(value = "searchLogController.action")
+	public String searchLogController() {
+		return "back/plateform_log";
+	}
+
+	// 查询友情链接
+	@RequestMapping(value = "searchLog.action")
+	public @ResponseBody Map<String, List<TbLog>> searchLog(HttpServletRequest request) {
+		Map<String, List<TbLog>> map = new HashMap<>();
+		List<TbLog> logList = logServiceImpl.searchLog(request);
+		map.put("data", logList);
+		return map;
+	}
+
+	// 发送系统文件路径
+	@RequestMapping(value = "searchFilePath.action")
+	public @ResponseBody String searchFilePath() {
+		return plateformService.searchFilePathParameter();
 	}
 }

@@ -7,7 +7,7 @@ public class demo {
 
 	public static void main(String[] args) {
 			
-        Period period = Period.between(LocalDate.parse("2019-02-02"), LocalDate.parse("2019-03-01"));
+        Period period = Period.between(LocalDate.parse("2019-02-02"), LocalDate.parse("2020-03-01"));
         StringBuffer sb = new StringBuffer();
         sb.append(period.getYears()).append("年")
                 .append(period.getMonths()).append("月")

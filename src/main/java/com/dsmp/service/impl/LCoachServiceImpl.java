@@ -1,7 +1,7 @@
 package com.dsmp.service.impl;
 
 import java.util.Date;
-
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.alipay.api.domain.Data;
 import com.dsmp.mapper.LCoachMapper;
+import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.mapper.TbStudentMapper;
 import com.dsmp.mapper.TbStudyrecordMapper;
 import com.dsmp.pojo.BelongtoCoachStudentMsg;
@@ -59,6 +60,10 @@ public class LCoachServiceImpl implements LCoachService {
 	@Autowired
 	private TbStudyrecordMapper tbStudyrecordMapper;
 
+
+	@Autowired
+	private TbParameterMapper tbParameterMapper;
+	
 	@Override
 	public List<TbStudent> belongtococh(int stuid, HttpServletRequest request) {
 		account = request.getParameter("account");
@@ -160,8 +165,8 @@ public class LCoachServiceImpl implements LCoachService {
 	public MyResult beginStudyJud(String stuId, String subId) {
 		SimpleDateFormat df = new SimpleDateFormat("HH");// 设置日期格式
 		int nowTime = Integer.valueOf(df.format(new Date()));// 获取当前时间点
-		int beginTime = 0;
-		int endTime = 19;
+		int beginTime =Integer.valueOf(tbParameterMapper.selectParamter("科目二三每天起始打卡时间").split(":")[0]) ;
+		int endTime = Integer.valueOf(tbParameterMapper.selectParamter("科目二三每天结束打卡时间").split(":")[0]) ;
 		if (nowTime < beginTime || nowTime > endTime) {// 不在打卡时间内
 			myResult.setMyresult("outOfTime");
 			myResult.setData(beginTime + "_" + endTime);
@@ -210,11 +215,18 @@ public class LCoachServiceImpl implements LCoachService {
 	// 学员人脸识别打卡
 	@Override
 	public MyResult makeClock(HttpServletRequest request, String base, String stuId, String subId) {
+		myResult = new MyResult();
 		// 请求url
 		String url = "https://aip.baidubce.com/rest/2.0/face/v3/match";
 		try {
-			String photoPath = tbStudentMapper.findStudentImgByStuId(Integer.valueOf(stuId));//获取学员照片
-			String path = request.getServletContext().getRealPath("images/student/"+photoPath);
+			String photoPath = tbStudentMapper.findStudentImgByStuId(Integer.valueOf(stuId));//获取学员照片名称（路径）
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");//获取系统文件储存路径
+			String path = filePath+"/images/student/"+photoPath;
+			File file = new File(path);
+			if (!file.exists()) {
+				myResult.setData("noPhoto");
+				return myResult;
+			}
 			byte[] bytes1 = FileUtil.readFileByBytes(path);
 //					byte[] bytes2 = FileUtil.readFileByBytes("【本地文件2地址】");
 			String image1 = Base64Util.encode(bytes1);
@@ -249,9 +261,9 @@ public class LCoachServiceImpl implements LCoachService {
 			myResult.setMyresult(result);
 
 		} catch (Exception e) {
-			System.out.println("报错");
 			e.printStackTrace();
-			myResult.setData("failed");
+			System.out.println("这里发送错误");
+			myResult.setData("fail");
 		}
 		return myResult;
 	}
@@ -279,7 +291,7 @@ public class LCoachServiceImpl implements LCoachService {
 		Date startTime = recordList.get(0).getStrBegintime();
 		long nowTime = System.currentTimeMillis();
 		double minTime = 0.1;//最小学习时长
-		double maxTime = 4;//最长学习时长每天
+		double maxTime = Integer.valueOf(tbParameterMapper.selectParamter("科目二三每天打卡时长限制").split(":")[0]) ;//最长学习时长每天
 		if (nowTime-startTime.getTime()<1000*60*minTime*60) {//小于5分钟
 			tbStudyrecordMapper.updatefalse(recordList.get(0).getStrId());//添加无效学习记录
 			myResult.setMyresult("timeTOShort");
@@ -377,5 +389,16 @@ public class LCoachServiceImpl implements LCoachService {
 	@Override
 	public void updateBookingstate(int stuid) {
 		lCoachMapper.updateBookingstate(stuid);	
+	}
+
+	@Override
+	public TbExamschedule findBookingnumber(int exsid) {
+		TbExamschedule tbExamschedule=lCoachMapper.seletBookingnumber(exsid);
+		return tbExamschedule;
+	}
+
+	@Override
+	public void updateMaxBookingnum(int exsSignupnum, int exsId) {		
+		lCoachMapper.updateMaxBookingnum(exsSignupnum, exsId);
 	}
 }

@@ -11,6 +11,7 @@ import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.PageResult;
 import com.dsmp.pojo.TbCapitalrecord;
 import com.dsmp.pojo.TbCoach;
+import com.dsmp.pojo.TbParameter;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbSubject;
@@ -32,7 +33,9 @@ public interface PlateformService {
 
 	public List<Count> countStudent(String schId, String dateId);// 查询各驾校近六个月报名人数
 
-	public List<Count> countStudentByDate(String month);// 查询各驾校某个月报名人数
+	public List<Count> countStudentByDate(String month);//查询某一个月有人报名的驾校的人数
+	
+	public List<Count> countAllStudentByDate(String month);//查询某一个月所有驾校报名人数，没有的置零
 
 	public PageResult searchVideoBySubect(String subject, String page);// 根据科目查询学习视频
 
@@ -46,5 +49,9 @@ public interface PlateformService {
 
 	public List<TbCapitalrecord> searchMoneyRecord(HttpServletRequest request);//查询资金记录
 	
+	public List<TbParameter> searchAllParameter();//查询参数记录
 	
+	public MyResult updataParmeter(TbParameter tbParameter);//更新参数表
+	
+	public String searchFilePathParameter();//查询参数记录
 }

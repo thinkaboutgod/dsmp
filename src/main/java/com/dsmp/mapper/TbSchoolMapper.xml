@@ -10,7 +10,7 @@
     <result column="sch_address" property="schAddress" jdbcType="VARCHAR" />
     <result column="sch_introduction" property="schIntroduction" jdbcType="VARCHAR" />
     <result column="sch_bossName" property="schBossname" jdbcType="VARCHAR" />
-    <result column="sch_registerCapital" property="schRegistercapital" jdbcType="INTEGER" />
+    <result column="sch_registerCapital" property="schRegistercapital" jdbcType="VARCHAR" />
     <result column="sch_creditcode" property="schCreditcode" jdbcType="VARCHAR" />
     <result column="sch_type" property="schType" jdbcType="VARCHAR" />
     <result column="sch_signUpStatus" property="schSignupstatus" jdbcType="VARCHAR" />
@@ -31,6 +31,34 @@
   <select id="selectAllSchool" resultMap="BaseResultMap" >
     select * from tb_school
   </select>
+  <!-- 查询所有允许报名的驾校 -->
+  <select id="selectAllSchoolBySignUpStatus" resultMap="BaseResultMap" >
+    select * from tb_school where sch_signUpStatus = #{schSignupstatus};
+  </select>
+  <!-- 驾校入驻信用代码验证 -->
+  <select id="getSchoolByCreditcode"  resultMap="BaseResultMap">
+		select * from tb_school where sch_creditcode = #{schCreditcode};
+  </select>
+  <!-- 驾校入驻 -->
+  <insert id="insertSchoolInfo" parameterType="com.dsmp.pojo.TbSchool" >
+    insert into tb_school(rol_id,sch_name,sch_account,sch_password,sch_address,sch_introduction,sch_bossName,
+    sch_registerCapital,sch_creditcode,sch_type,sch_headimg,sch_charge) values(#{rolId},#{schName},
+    #{schAccount}, #{schPassword}, #{schAddress}, #{schIntroduction}, #{schBossname}, #{schRegistercapital},
+    #{schCreditcode}, #{schType}, #{schHeadimg}, #{schCharge});
+  </insert>
+  
+  
+  <!-- 查询驾校排行 -->
+  <select id="getSchoolRanking" resultMap="schoolRankingMap">
+  	SELECT s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as starnum,AVG(r.rat_star) as staravg FROM 
+ tb_school s,tb_rating r where  r.sch_id = s.sch_id GROUP BY r.sch_id ORDER BY staravg DESC;
+  </select>
+  <resultMap id="schoolRankingMap" type="com.dsmp.pojo.Count" >
+  	<result column="sch_name" property="name" jdbcType="VARCHAR" />
+    <result column="commentnum" property="data" jdbcType="VARCHAR" />
+    <result column="starnum" property="phone" jdbcType="VARCHAR" />
+    <result column="staravg" property="starAvg" jdbcType="DOUBLE" />
+  </resultMap>
   
   
   

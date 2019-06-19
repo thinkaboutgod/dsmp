@@ -11,9 +11,8 @@ $(function(){
                 "mobile": phone,
             },
             success: function success(res) { 
-            	alert(res.code); 
                 if (res.code == 0) {
-                	alert("发送成功了")
+                	layer.msg("发送成功，请注意查收。");	
                     var n = 60;
                 	$("#sendmsg").attr("disabled","disabled");
                     $("#sendmsg").css({

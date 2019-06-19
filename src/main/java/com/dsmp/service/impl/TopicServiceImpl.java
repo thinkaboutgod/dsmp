@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dsmp.mapper.TbOptionMapper;
+import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.mapper.TbTopicMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbMistakeCollection;
@@ -37,6 +38,9 @@ public class TopicServiceImpl implements TopicService {
 	@Autowired
 	private TbOptionMapper tbOptionMapper;
 
+	@Autowired
+	private TbParameterMapper tbParameterMapper;
+	
 	@Override
 	public TbTopic findTopic(Integer topId) {
 
@@ -87,6 +91,7 @@ public class TopicServiceImpl implements TopicService {
 	 * @param exResultMap 学员提交一份模拟卷时候的map集合，key-题目id，value-该题学员做对了(yes)还是错了(no)
 	 *                    错了就往错题集表里插入记录，对了就看错题集里面是否有这条记录，有则删除。
 	 */
+	@Transactional
 	@Override
 	public void addOrDelMistakeCollection(Integer studentId, Map<String, String> exResultMap) {
 		Set<String> keySet = exResultMap.keySet();
@@ -149,6 +154,7 @@ public class TopicServiceImpl implements TopicService {
 	 * @param subId 科目id
 	 * @param topId 选对的题目id
 	 */
+	@Transactional
 	@Override
 	public void addMistakeCollection2exercise(Integer studentId, Integer subId, String topId) {
 		//先查看一下这条记录是否已经存在：
@@ -174,6 +180,7 @@ public class TopicServiceImpl implements TopicService {
 	 * @param subId 科目id
 	 * @param topId 选对的题目id
 	 */
+	@Transactional
 	@Override
 	public void delMistakeCollection2exercise(Integer studentId, Integer subId, String topId) {
 		//先查看一下这条记录是否已经存在：
@@ -306,7 +313,8 @@ public class TopicServiceImpl implements TopicService {
 		} else {// 有更新图片
 			String fileName = System.currentTimeMillis() + "_" + newImg.getOriginalFilename();
 			tbTopic.setTopImg(fileName);
-			String path = request.getServletContext().getRealPath("/images/topic/");
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");//获取系统文件储存路径
+			String path = filePath+"/images/topic/";
 			File file = new File(path);
 			if (!file.exists()) {
 				file.mkdirs();

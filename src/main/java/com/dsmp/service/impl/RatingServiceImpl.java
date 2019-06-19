@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dsmp.mapper.TbRatingMapper;
 import com.dsmp.pojo.TbRating;
@@ -32,6 +33,7 @@ public class RatingServiceImpl implements RatingService {
 	 * @param ratingContent(评价内容)
 	 * @return
 	 */
+	@Transactional
 	@Override
 	public boolean addCoachRating(Integer coa_id, Integer stu_id, Integer starNum, String ratingContent) {
 		boolean flag = false;
@@ -62,7 +64,7 @@ public class RatingServiceImpl implements RatingService {
 		
 		return ratType;
 	}
-	
+	@Transactional
 	@Override
 	public boolean addSchoolRating(Integer sch_id, Integer stu_id, Integer starNum, String ratingContent) {
 		boolean flag = false;

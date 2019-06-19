@@ -21,7 +21,7 @@ public class TbSchool {
 
     private String schBossname;
 
-    private Integer schRegistercapital;
+    private String schRegistercapital;
 
     private String schCreditcode;
 
@@ -37,7 +37,15 @@ public class TbSchool {
 
     private TbRole tbRole;
     
-    //驾校拥有的学员集合
+    public String getSchRegistercapital() {
+		return schRegistercapital;
+	}
+
+	public void setSchRegistercapital(String schRegistercapital) {
+		this.schRegistercapital = schRegistercapital;
+	}
+
+	//驾校拥有的学员集合
     private List<TbStudent> stuList = new ArrayList<>();
     //驾校拥有的教练集合
     private List<TbCoach> coaList = new ArrayList<>();
@@ -108,13 +116,6 @@ public class TbSchool {
         this.schBossname = schBossname == null ? null : schBossname.trim();
     }
 
-    public Integer getSchRegistercapital() {
-        return schRegistercapital;
-    }
-
-    public void setSchRegistercapital(Integer schRegistercapital) {
-        this.schRegistercapital = schRegistercapital;
-    }
 
     public String getSchCreditcode() {
         return schCreditcode;
