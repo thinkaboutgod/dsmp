@@ -2,6 +2,8 @@ package com.dsmp.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,14 +42,14 @@ public class HomeInfoController {
 	
 	//广告数
 	@RequestMapping("/main")
-	public ModelAndView getHomeInfo() {
+	public ModelAndView getHomeInfo(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView();
 		List<TbAdvertisement> advList = homeInfoService.getAdvertisement();
 		List<TbNotice> notList = homeInfoService.getNotice();
 		List<TbHotlink> hotList = homeInfoService.getHotlink();
+		request.getSession().setAttribute("hotList", hotList);
 		mav.addObject("advList", advList);
 		mav.addObject("notList", notList);
-		mav.addObject("hotList", hotList);
 		mav.setViewName("client/home");
 		return mav;
 	}	

@@ -19,7 +19,7 @@ $(function(){
         autoViewport: true,  
         selectFirstResult: true
       } ,onInfoHtmlSet:function(poi,html){//标注气泡内容创建后的回调函数，有了这个，可以简单的改一下返回的html内容了。
-        // alert(html.innerHTML)
+         html.innerHTML = '<table style="overflow:hidden;table-layout:fixed;width:100%;font:12px arial,simsun,sans-serif" cellspacing="0"><tbody><tr><td style="vertical-align:top;width:38px;white-space:nowrap;word-break:keep-all">地址：&nbsp;</td><td style="line-height:16px">福建省厦门市思明区软件园二期观日路56号1楼1&nbsp;</td></tr><tr><td style="vertical-align:top;width:38px;white-space:nowrap;word-break:keep-all">电话：&nbsp;</td><td style="line-height:16px">0592-8888888&nbsp;</td></tr></tbody></table>';                 
       }//这一段可以不要，只不过是为学习更深层次应用而加入的。
     });
     function setCity(){

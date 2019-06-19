@@ -15,7 +15,8 @@
 				<div class="comment-header-right">
 				<c:choose>
 					<c:when test="${student != null}">
-						<a class="right-text" href=""><span>欢迎：${student.stuName}</span></a>						
+						<a class="right-text" href=""><span>欢迎：${student.stuName}</span></a>	
+						<a class="right-text" href=<%=path+"/home/logout.action" %>><span>注销</span></a>						
 					</c:when>
 					<c:otherwise>
 						<a class="right-text" href=<%=path + "/student/login.action"%>					
