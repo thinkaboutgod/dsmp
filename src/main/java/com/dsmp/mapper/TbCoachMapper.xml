@@ -100,5 +100,11 @@
 	<update id="changeCoachState" >
 		update tb_coach set coa_status=#{param2} where coa_id=#{param1}
 	</update>
+	
+	<!-- 添加新的教练 -->
+	<insert id="addCoach" parameterType="com.dsmp.pojo.TbCoach">
+		INSERT INTO tb_coach (sch_id,coa_name,coa_account,coa_password,coa_sex,coa_birthday,coa_idcard,coa_address,coa_introduction,coa_level) VALUES
+		(#{schId},#{coaName},#{coaAccount},#{coaPassword},#{coaSex},#{coaBirthday},#{coaIdcard},#{coaAddress},#{coaIntroduction},#{coaLevel});
+	</insert>
   
 </mapper>

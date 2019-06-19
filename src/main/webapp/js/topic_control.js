@@ -304,7 +304,6 @@ var table = $("#topicTable").DataTable(datatable_otherSet);//初始化
 						});
 						break;
 					}
-					
 					$("#forTopic").modal("hide");
 				}
 			},

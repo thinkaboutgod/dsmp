@@ -44,6 +44,7 @@ public class TbStudent {
 	
 	private String stuBookingstate;
 	
+	
 	private TbSubject tbSubject;
 
 	private TbCoach tbCoach;
@@ -254,5 +255,7 @@ public class TbStudent {
 	public void setTbSchool(TbSchool tbSchool) {
 		this.tbSchool = tbSchool;
 	}
+
+	
 
 }

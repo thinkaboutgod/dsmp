@@ -23,8 +23,6 @@
     <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
   </resultMap>
   
-  
-  
   <resultMap id="searchStudent" type="com.dsmp.pojo.TbStudent" >
     <id column="stu_id" property="stuId" jdbcType="INTEGER" />
     <result column="coa_id" property="coaId" jdbcType="INTEGER" />
@@ -72,13 +70,14 @@
   </resultMap>
 
   <select id="searchAllstudent" resultMap="searchStudent">
-		select s.*,sc.*,c.*,su.* from tb_student s,tb_school sc,tb_coach c,tb_subject su
+		select s.*,sc.*,c.*,su.* from tb_student s left join tb_school sc on s.sch_id=sc.sch_id 
+		left join tb_coach c on s.coa_id= c.coa_id left join tb_subject su on s.sub_id=su.sub_id 
 		<where>
 			<if test="name!=null">stu_name like "%"#{name}"%"</if>
 			<if test="account!=null">and stu_account like "%"#{account}"%"</if>
 			<if test="beginTime!=null">and stu_signUpTime&gt;#{beginTime}</if><!-- 大于号 -->
 			<if test="endTime!=null">and stu_signUpTime&lt;#{endTime}</if><!-- 小于号 -->
-			and s.sch_id=sc.sch_id and s.coa_id= c.coa_id and s.sub_id=su.sub_id and s.sch_id=#{schId}
+			and s.sch_id=#{schId}
 		</where>
 	</select>
   
@@ -154,7 +153,21 @@
   </update>
 
 	<!-- 修改学员状态 -->
-	<update id="changeStudentState" >
+	<update id="changeStudentState">
 		update tb_student set stu_status=#{param2} where stu_id=#{param1}
 	</update>
+	
+	<!-- 添加学员 -->
+	<insert id="addStudent" parameterType="TbStudent" >
+		INSERT INTO tb_student(coa_id,sch_id,sub_id,stu_name,stu_account,stu_password,stu_sex,stu_birthday,stu_idcard,stu_img,stu_address,stu_status,stu_signUpTime,stu_verifyStatus,stu_bookingstate) 
+		VALUES(#{coaId},#{schId},1,#{stuName},#{stuAccount},#{stuPassword},#{stuSex},#{stuBirthday},#{stuIdcard},#{stuImg},#{stuAddress},#{stuStatus},NOW(),#{stuVerifystatus},#{stuBookingstate});
+	</insert>
+	
+	<!-- 审核学员 -->
+	<update id="checkStudent" parameterType="TbStudent">
+		update tb_student set stu_verifyStatus=#{stuVerifystatus} 
+		<if test="coaId!=null">,coa_id = #{coaId}</if>
+		where stu_id=#{stuId}
+	</update>
+	
 </mapper>

@@ -28,15 +28,38 @@ public interface TbStudentMapper {
 	public int updateStudentPwd(TbStudent tbStudent);
 	//学员报名驾校信息录入
 	public int updateStudentInfo(TbStudent tbStudent);
+	
+	public int changeStudentStateLock(int stuId,String state);
+	public String findStudentImgByStuId(int stuId);//根据id查学员照片路径
+	
 	/**
 	 * 	查询驾校名下的所有学员
 	 * @param sBean
 	 * @return
 	 */
 	public List<TbStudent> searchAllstudent(SearchBean sBean);
-	public int changeStudentState(int stuId,String state);//修改学员账号状态
-	public int changeStudentStateLock(int stuId,String state);
 	
-	public String findStudentImgByStuId(int stuId);//根据id查学员照片路径
+	/**
+	 * 	修改学员状态
+	 * @param stuId
+	 * @param state
+	 * @return
+	 */
+	public int changeStudentState(int stuId,String state);//修改学员账号状态
+	
+	/**
+	 * 	驾校添加学员
+	 * @param student
+	 * @return
+	 */
+	public int addStudent(TbStudent student);
+	
+	/**
+	 *	 审核学员
+	 * @param student
+	 * @return
+	 */
+	public int checkStudent(TbStudent student);
+	
 	
 }

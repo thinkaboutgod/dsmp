@@ -60,7 +60,7 @@ public class InfoRecognitionController {
 			
 			 map = getHashMapByJson(result);
 			System.out.println("身份证名字："+map.get("name"));
-			
+		
 //			myResult = GsonUtils.toJson(map);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -81,8 +81,6 @@ public class InfoRecognitionController {
 		}
 
 	}
-	
-	
 	
 	
 	//将身份信息转成map集合

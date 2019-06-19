@@ -72,7 +72,6 @@
 						<div class="row clearfix" >
 							<div class="col-md-12 column" >
 								<dl id="rating">
-
 								</dl>
 							</div>
 						</div>

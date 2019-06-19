@@ -15,6 +15,7 @@ import com.dsmp.service.SchoolService;
 public class SchoolController {
 
 	@Autowired private SchoolService schoolService;		
+	
 	@Autowired private CoachService coachService;
 
 	@RequestMapping("/selectCoach")

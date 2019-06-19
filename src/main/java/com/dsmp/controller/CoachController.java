@@ -61,10 +61,11 @@ public class CoachController {
 	 * @return
 	 */
 	@RequestMapping(value = "addCoach")
-	public MyResult addCoach(HttpServletRequest request,MyResult myResult) {
+	public @ResponseBody MyResult addCoach(HttpServletRequest request,MyResult myResult) {
 		myResult = coachService.addCoach(request,myResult);
 		return myResult;
 	}
+	
 	
 	
 	
