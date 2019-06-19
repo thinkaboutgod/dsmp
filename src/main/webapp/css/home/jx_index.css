@@ -230,7 +230,7 @@ body {
   float: left;
   margin: 10px;
   width: 378px;
-  height: 410px;
+  height: 400px;
   border-radius: 5px;
   border: 1px solid lightgray;
   background: #ffffff;
@@ -437,7 +437,7 @@ body {
 .jx_pl_rank .rank_card_body .rank_first_jl_ul li div img,
 .jx_pl_rank .rank_card_body .rank_first_pl_ul li div img {
   width: 100px;
-  margin-top: 11px;
+
 }
 .jx_pl_rank .rank_card_body .rank_first_jx_ul li div:first-child,
 .jx_pl_rank .rank_card_body .rank_first_jl_ul li div:first-child,

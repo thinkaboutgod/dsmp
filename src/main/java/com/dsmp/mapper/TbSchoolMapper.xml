@@ -31,6 +31,10 @@
   <select id="selectAllSchool" resultMap="BaseResultMap" >
     select * from tb_school
   </select>
+  <!-- 查询所有允许报名的驾校 -->
+  <select id="selectAllSchoolBySignUpStatus" resultMap="BaseResultMap" >
+    select * from tb_school where sch_signUpStatus = #{schSignupstatus};
+  </select>
   <!-- 驾校入驻信用代码验证 -->
   <select id="getSchoolByCreditcode"  resultMap="BaseResultMap">
 		select * from tb_school where sch_creditcode = #{schCreditcode};
@@ -42,6 +46,20 @@
     #{schAccount}, #{schPassword}, #{schAddress}, #{schIntroduction}, #{schBossname}, #{schRegistercapital},
     #{schCreditcode}, #{schType}, #{schHeadimg}, #{schCharge});
   </insert>
+  
+  
+  <!-- 查询驾校排行 -->
+  <select id="getSchoolRanking" resultMap="schoolRankingMap">
+  	SELECT s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as starnum,AVG(r.rat_star) as staravg FROM 
+ tb_school s,tb_rating r where  r.sch_id = s.sch_id GROUP BY r.sch_id ORDER BY staravg DESC;
+  </select>
+  <resultMap id="schoolRankingMap" type="com.dsmp.pojo.Count" >
+  	<result column="sch_name" property="name" jdbcType="VARCHAR" />
+    <result column="commentnum" property="data" jdbcType="VARCHAR" />
+    <result column="starnum" property="phone" jdbcType="VARCHAR" />
+    <result column="staravg" property="starAvg" jdbcType="DOUBLE" />
+  </resultMap>
+  
   
   
   <sql id="Example_Where_Clause" >

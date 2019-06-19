@@ -167,8 +167,9 @@ public class StudentController {
 	@RequestMapping("/apply")
 	public ModelAndView getApplyPage() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("client/apply");;
-		List<TbSchool> schList = tbMapper.selectAllSchool();
+		mav.setViewName("client/apply");
+		String signUpStatus = "允许报名";
+		List<TbSchool> schList = tbMapper.selectAllSchoolBySignUpStatus(signUpStatus);
 		mav.addObject("schList",schList);
 		return mav;
 	}
@@ -213,6 +214,7 @@ public class StudentController {
 			result = studentService.schoolLogin(session, account, password, role);
 			break;
 		}
+		System.out.println("登录最终结果："+result.getStauts());
 		return result;
 	}
 	

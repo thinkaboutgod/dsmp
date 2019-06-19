@@ -23,8 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dsmp.mapper.TbParameterMapper;
+import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCoach;
+import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.service.CoachService;
 import com.dsmp.service.CoachService;
@@ -39,6 +41,7 @@ public class SchoolController {
 	@Autowired private CoachService coachService;
 	@Autowired
 	private TbParameterMapper tbParameterMapper;
+	@Autowired private TbSchoolMapper tbSchoolMapper;
 	@RequestMapping("/selectCoach")
 	public @ResponseBody List<TbCoach> selectCoach(Integer selectSchool){
 		System.out.println(selectSchool);
@@ -51,12 +54,24 @@ public class SchoolController {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("client/schoolenter");
 		return mav;
-	}	
+	}
+	//主页跳转驾校驻页面
+	@RequestMapping("/allSchoolPage")
+	public ModelAndView getAllCoachPage() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("client/allschool");
+		return mav;
+	}
+	//获取驾校集合
+	@RequestMapping("/selectAllSchool")
+	public @ResponseBody List<TbSchool> getSchoolByStauts(){
+		System.out.println("进来找集合");
+		List<TbSchool> schList = tbSchoolMapper.selectAllSchoolBySignUpStatus("允许报名");
+		return schList;
+	}
 	//驾校入驻手机验证码验证
 	@RequestMapping("/verifyCode")
 	public @ResponseBody MyResult getVerifyCode(HttpServletRequest request,String phone,String verifyCode) {
-		System.out.println("入驻输入手机号：" + phone);
-		System.out.println("入驻输入的验证码：" + verifyCode);
 		MyResult result = new MyResult();
 		Map<String, String> map = (Map<String, String>) request.getSession().getAttribute("verifyCode");
 		if (map == null) {
@@ -90,7 +105,6 @@ public class SchoolController {
 			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");//获取系统文件储存路径
 			// 上传文件路径
 			String path = filePath+"/images/school/";
-			System.out.println(path);
 			// 上传文件名
 			String filename = file.getOriginalFilename();
 			String fileTyle=filename.substring(filename.lastIndexOf("."),filename.length());

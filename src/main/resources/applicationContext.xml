@@ -96,5 +96,4 @@
  			<bean class="com.dsmp.interceptor.CoachSessionInterceptor" />
  		</mvc:interceptor>
  	</mvc:interceptors>
- 	
 </beans>
