@@ -1,6 +1,14 @@
 
 
 $(function() {
+	
+    //回车登录
+    $("body").keydown(function(event) {
+		if (event.keyCode == "13") {// keyCode=13是回车键
+			$("#adminlogin").click();
+		}
+	});
+	
 	var path = $("#path").val();	
 	$("#adminlogin").click(function(){
 		var account = $("#account").val().trim();

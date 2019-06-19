@@ -209,6 +209,7 @@ public class StudentController {
 			result = studentService.schoolLogin(session, account, password, role);
 			break;
 		}
+		System.out.println("登录最终结果："+result.getStauts());
 		return result;
 	}
 	

@@ -11,6 +11,17 @@ public class Count {
 	private String name;
 	private String data;
 	private String phone;
+	private double starAvg;
+	
+	
+	
+	public double getStarAvg() {
+		return starAvg;
+	}
+
+	public void setStarAvg(double startAvg) {
+		this.starAvg = startAvg;
+	}
 
 	public String getName() {
 		return name;

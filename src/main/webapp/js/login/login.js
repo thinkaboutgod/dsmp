@@ -9,7 +9,13 @@ $(document).ready(function () {
         	codePhoneReg();
         }
     });
-
+    
+    $("body").keydown(function(event) {
+		if (event.keyCode == "13") {// keyCode=13是回车键
+			$("#sub").click();
+		}
+	});
+   
     /**
      * 验证码登陆手机号码验证
      */
@@ -93,7 +99,12 @@ $(document).ready(function () {
         }
         return true;
     }
-    
+    //回车登录
+    $("body").keydown(function(event) {
+		if (event.keyCode == "13") {// keyCode=13是回车键
+			$("#role").click();
+		}
+	});
     /**
      * 登陆手机号码验证
      */
@@ -117,16 +128,25 @@ $(document).ready(function () {
 						success:function(msg){
 							var msge = JSON.parse(msg);
 							if(msge.myresult == "success"){
-								layer.msg("登录成功!");	
+								layer.msg("登录成功,正在前往...");	
 								switch(role){
 								case "5":
-									window.location.href = path+'/home/main.action';								
+									setTimeout(function () {
+										window.location.href = path+'/home/main.action';
+				                    }, 2000);																	
 									break;
 								case "4":
-									window.location.href = path+'/menu/toManageMain.action?role_id='+role;
+									setTimeout(function () {
+										window.location.href = path+'/menu/toManageMain.action?role_id='+role;
+				                    }, 2000);								
 									break;
 								case "3":
-									window.location.href = path+'/menu/toManageMain.action?role_id='+role;
+									if(msge.stauts == "stopSignUp"){
+										layer.msg("您存在违规操作，已被禁止学员报名，如有疑问请前往申诉中心进行申诉。");	
+									}
+									setTimeout(function () {
+										window.location.href = path+'/menu/toManageMain.action?role_id='+role;
+				                    }, 3000);						
 									break;
 								}														
 							}else if(msge.myresult == "failed"){

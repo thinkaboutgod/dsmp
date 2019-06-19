@@ -2,6 +2,7 @@ package com.dsmp.mapper;
 
 import java.util.List;
 
+import com.dsmp.pojo.Count;
 import com.dsmp.pojo.TbCar;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbSchool;
@@ -25,4 +26,7 @@ public interface TbSchoolMapper {
 	//驾校入驻信息录入
 	public int insertSchoolInfo(TbSchool tbSchool);
 	public TbSchool getSchoolByCreditcode(TbSchool tbSchool);
+	
+	//驾校排行
+	public List<Count> getSchoolRanking();
 }

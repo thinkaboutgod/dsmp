@@ -198,8 +198,11 @@ public class StudentServiceImpl implements StudentService {
 		if (tbSchool != null) {
 			if(tbSchool.getSchOperativestatus().equals("允许运营")) {
 				if (tbSchool.getSchPassword().equals(md5Password)) {
+					if(!tbSchool.getSchSignupstatus().equals("允许报名")) {
+						result.setStauts("stopSignUp");	
+					}
 					session.setAttribute("school", tbSchool);
-					result.setMyresult("success");
+					result.setMyresult("success");					
 				} else {
 					result.setMyresult("passErr");
 				}

@@ -25,7 +25,6 @@ public class SchoolServiceImpl implements SchoolService {
 	public MyResult insertSchoolInfo(String phone,String password,String sch_creditcode,String sch_name,
 			String sch_type,String sch_address,String sch_bossname,String sch_registerCapital,
 			String sch_introduce,Double sch_charge,String fileName) {
-		System.out.println("入驻账号"+phone);
 		String md5Password = Md5Tools.getMd5(password);
 		MyResult result = new MyResult();
 		TbSchool school = new TbSchool();

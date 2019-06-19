@@ -48,6 +48,20 @@
   </insert>
   
   
+  <!-- 查询驾校排行 -->
+  <select id="getSchoolRanking" resultMap="schoolRankingMap">
+  	SELECT s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as starnum,AVG(r.rat_star) as staravg FROM 
+ tb_school s,tb_rating r where  r.sch_id = s.sch_id GROUP BY r.sch_id ORDER BY staravg DESC;
+  </select>
+  <resultMap id="schoolRankingMap" type="com.dsmp.pojo.Count" >
+  	<result column="sch_name" property="name" jdbcType="VARCHAR" />
+    <result column="commentnum" property="data" jdbcType="VARCHAR" />
+    <result column="starnum" property="phone" jdbcType="VARCHAR" />
+    <result column="staravg" property="starAvg" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  
+  
   <sql id="Example_Where_Clause" >
     <where >
       <foreach collection="oredCriteria" item="criteria" separator="or" >
