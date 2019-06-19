@@ -23,10 +23,10 @@ function videoDiv(result) {
 	var len = result.list.length
 	for (var i = 0; i < len; i++) {
 		di = '<div class="Product">'
-		+'<a target="_blank" href="'+path+'/video/toSearchVideo.action?vidImgpath='+result.list[i].vidImgpath
-		+'&vidPath='+result.list[i].vidPath+'&suject='+ result.list[i].subId+'&vidTitle='+ result.list[i].vidTitle+'&subName='+ result.list[i].tbSubject.subName+'">'	
-		+'<img class="myImg" style="width:280px;height:180px;" src="'+path+ result.list[i].vidImgpath+'" alt=""><br>'
-		+'<input  id="vidPath" type="hidden" val="'+path+ result.list[i].vidPath+'" >'
+		+'<a target="_blank" href="'+path+'/video/toSearchVideo.action?vidImgpath='+result.data+result.list[i].vidImgpath
+		+'&vidPath='+result.data+result.list[i].vidPath+'&suject='+ result.list[i].subId+'&vidTitle='+ result.list[i].vidTitle+'&subName='+ result.list[i].tbSubject.subName+'">'	
+		+'<img class="myImg" style="width:280px;height:180px;" src="'+result.data+ result.list[i].vidImgpath+'" alt=""><br>'
+		+'<input  id="vidPath" type="hidden" val="'+result.data+ result.list[i].vidPath+'" >'
 		+'<laber>'+ result.list[i].vidTitle+ '</laber>'
 		+'</a>'
 		+ '</div>';

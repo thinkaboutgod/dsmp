@@ -7,7 +7,7 @@ public class PageResult {
 	private int pageIndex;
 	private int totalPage;
 	private List<Object> list = new ArrayList<>();
-
+	private String data;
 	public PageResult() {
 		super();
 	}
@@ -41,6 +41,14 @@ public class PageResult {
 
 	public void setList(List<Object> list) {
 		this.list = list;
+	}
+
+	public String getData() {
+		return data;
+	}
+
+	public void setData(String data) {
+		this.data = data;
 	}
 
 }

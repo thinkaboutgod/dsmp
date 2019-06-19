@@ -17,10 +17,7 @@ public class HomeInfoServiceImp implements HomeInfoService{
 	
 	@Override
 	public List<TbAdvertisement> getAdvertisement() {
-		List<TbAdvertisement> list = new ArrayList<>();
-		list = homeInfoMapper.getAdvertisement();
-		System.out.println("广告数："+list.size());
-		return list;
+		return homeInfoMapper.getAdvertisement();
 	}
 
 	@Override

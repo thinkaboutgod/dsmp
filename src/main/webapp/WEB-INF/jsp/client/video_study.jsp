@@ -27,8 +27,8 @@ video{cursor: pointer}
 	</p>
 	<div class="video-play-detail">
 		<div class="detail-video">
-		<video id="my-video" class="video-js" controls  width="800" height="500" poster=<%=path%>${vidImgpath }>
-		<source id="my-sourse"  src=<%=path%>${vidPath} type="video/mp4" >
+		<video id="my-video" class="video-js" controls  width="800" height="500" poster="${vidImgpath }">
+		<source id="my-sourse"  src="${vidPath}" type="video/mp4" >
 		</video>
 		</div>
 		<div class="detail-content">
@@ -38,8 +38,8 @@ video{cursor: pointer}
   			<c:forEach items="${videoList }" begin="0" step="1" var="i">
   				<li>
 <!--   					<div class="circle"></div> -->
-  					<input type="hidden"  value="${i.vidImgpath}">
-           		    <input type="hidden"  value="${i.vidPath}">
+  					<input type="hidden"  value="${mainPath}${i.vidImgpath}">
+           		    <input type="hidden"  value="${mainPath}${i.vidPath}">
   					<a class="changeVideo" href="javascript:void(0);">${i.vidTitle}</a>
   				</li>
   			</c:forEach>

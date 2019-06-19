@@ -99,13 +99,22 @@
 	(SELECT @lastDay := date_add(curdate(),interval -7 month) from tb_student  limit 6) a
   </select>
   
-  <!-- 查询某一个月所有驾校报名人数 -->
+  <!-- 查询某一个月有人报名的驾校的人数 -->
   <select id="countStudentByDate" resultMap="CountStudentMap"  >
 	select a.sch_name name,a.sch_account, count(a.sch_name) as num from (
 	select sc.sch_name as sch_name,sc.sch_account as sch_account from tb_student st,tb_school sc 
 	where st.sch_id= sc.sch_id and DATE_FORMAT(st.stu_signUpTime , '%Y-%m' )=#{param1} ) a GROUP BY a.sch_name
   </select>
   
+ <!--  查询某一个月所有的驾校的报名人数，没有人的置零 -->
+ <select id="countAllStudentByDate" resultMap="CountStudentMap">
+ 	select c.sch_name name,b.num from tb_school c left join 
+(select  count(a.sch_id) as num,a.sch_id from (
+	select sc.sch_id, sc.sch_name as sch_name,sc.sch_account as sch_account from tb_student st,tb_school sc 
+	where st.sch_id= sc.sch_id and DATE_FORMAT(st.stu_signUpTime , '%Y-%m' )=#{param1}) a GROUP BY a.sch_name) b
+on c.sch_id=b.sch_id
+ </select>
+ 
   <!-- 查询某近30天某个驾校驾校报名人数 -->
   <select id="countStudentByMonth" resultMap="CountStudentMap"  >
 	select a.day as name,t.num from

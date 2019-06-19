@@ -5,7 +5,7 @@ $(function() {
 		layer.msg("加载数据出现异常");
 	};
 	var path = $("#path").val();
-	//柱状图按驾校搜索
+	//折线图按驾校搜索
 	$("#search").click(function() {
 		var schId = $("#schoolSelect").val();
 		var dateId = $("#dateSelect").val(); 
@@ -29,17 +29,48 @@ $(function() {
 			dataType : "text",
 			success : function(msg) {
 				var data = JSON.parse(msg);
-				forBar(data);
+				forArea(data);
 			},
 			error : function() {
 				layer.msg("服务器繁忙");
 			}
 		})
 	})
+	
+	//柱状图按月份搜索
+	$("#searchByMonth").click(function() {
+		var month = $("#monthSelectForSchool").val(); 
+		if (month == "0") {
+			layer.msg("请选择月份");
+			return;
+		}
+//		$("#schoolName").text("当前数据所属驾校("+$("#schoolSelect").find("option:selected").text()+")");
+		$.ajax({
+			url : path + "/plateform/countAllStudentByDate.action",
+			async : true,
+			type : "POST",
+			data : {
+				month : month,
+			},
+			dataType : "text",
+			success : function(msg) {
+				
+				var data = JSON.parse(msg);
+				var text = "当前显示的月份为("+$("#monthSelectForSchool").find("option:selected").text()+")";
+				forBar(msg,text);//柱状图
+				forPercent(msg,text);//圆饼百分比图
+			},
+			error : function() {
+				layer.msg("服务器繁忙");
+			}
+		})
+	})
+	
 	//表格设置
 	datatable_otherSet = {
 		"ajax" : path + "/plateform/countStudentByDate.action",
 		"autoWidth" : false,
+		"scrollY": "",
 //		"dom": '<"top"l>rt<"bottom"ip><"clear">',
 		"columns" : [ 
 			{
@@ -86,13 +117,15 @@ $(function() {
 		$("#datelName").text("当前显示的月份为("+$("#monthSelect").find("option:selected").text()+")");
 		table.ajax.reload(null, false);// 刷新数据方法,false代表保持当前页
 	})
+	
+	
 })
-//统计图表
-function forBar(msg) {
-	$("#bar-chart").empty();//清空用于重绘
+//统计图表，折线图
+function forArea(msg) {
+	$("#area-chart").empty();//清空用于重绘
 	// BAR CHART
 	var bar = new Morris.Area({
-		element : 'bar-chart',
+		element : 'area-chart',
 		resize : true,
 		data : msg,
 		barColors : [ '#00a65a' ],
@@ -101,4 +134,116 @@ function forBar(msg) {
 		labels : [ '报名人数' ],
 		hideHover : 'auto'
 	});
+}
+//统计图表，柱状图
+function forBar(msg,text) {
+	var list = JSON.parse(msg);
+	var arrName = new Array();
+	var arrValue = new Array();
+	for (var i = 0; i < list.length; i++) {
+		arrName[i] = list[i].name;
+		arrValue[i] = list[i].data;
+	}
+	var myChart = echarts.init(document.getElementById('bar-chart'));
+	option = {
+		    color: ['#3398DB'],
+		    title : {
+		        text: text,
+		        subtext: '',
+		        x:'center'
+		    },
+		    tooltip : {
+		        trigger: 'axis',
+		        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+		            type : 'line'        // 默认为直线，可选为：'line' | 'shadow'
+		        }
+		    },
+		    grid: {
+		        left: '3%',
+		        right: '4%',
+		        bottom: '3%',
+		        containLabel: true
+		    },
+		    xAxis : [
+		        {
+		            type : 'category',
+		            data : arrName,
+		            axisTick: {
+		                alignWithLabel: true
+		            }
+		        }
+		    ],
+		    yAxis : [
+		        {
+		            type : 'value'
+		        }
+		    ],
+		    series : [
+		        {
+		            name:'报名人数',
+		            type:'bar',
+		            barWidth: '30',
+		            data:arrValue
+		        }
+		    ]
+		};
+	myChart.setOption(option);//渲染数据
+}
+////统计图表，柱状图
+//function forBar(msg) {
+//	$("#bar-chart").empty();//清空用于重绘
+//	// BAR CHART
+//	var bar = new Morris.Bar({
+//		element : 'bar-chart',
+//		resize : true,
+//		data : msg,
+//		barColors : [ '#00a65a' ],
+//		xkey : "name",
+//		ykeys : [ "data" ],
+//		labels : [ '报名人数' ],
+//		hideHover : 'auto'
+//	});
+//}
+
+function forPercent(data,text) {
+	var newData = data.replace(/data/g,"value");
+	var list = JSON.parse(newData);
+	var arrName = new Array();
+	for (var i = 0; i < list.length; i++) {
+		arrName[i] = list[i].name;
+	}
+	 var myChart = echarts.init(document.getElementById('percent-chart'));
+	option = {
+		    title : {
+		        text: text,
+		        subtext: '',
+		        x:'center'
+		    },
+		    tooltip : {
+		        trigger: 'item',
+		        formatter: "{a} <br/>{b} : {c} ({d}%)"
+		    },
+		    legend: {
+		        orient: 'vertical',
+		        left: 'left',
+		        data: arrName
+		    },
+		    series : [
+		        {
+		            name: '报名人数',
+		            type: 'pie',
+		            radius : '55%',
+		            center: ['50%', '60%'],
+		            data:list,
+		            itemStyle: {
+		                emphasis: {
+		                    shadowBlur: 10,
+		                    shadowOffsetX: 0,
+		                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+		                }
+		            }
+		        }
+		    ]
+		};
+    myChart.setOption(option);//渲染数据
 }

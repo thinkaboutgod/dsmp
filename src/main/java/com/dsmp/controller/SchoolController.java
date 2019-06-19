@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbStudent;
@@ -35,7 +37,8 @@ public class SchoolController {
 
 	@Autowired private SchoolService schoolService;		
 	@Autowired private CoachService coachService;
-
+	@Autowired
+	private TbParameterMapper tbParameterMapper;
 	@RequestMapping("/selectCoach")
 	public @ResponseBody List<TbCoach> selectCoach(Integer selectSchool){
 		System.out.println(selectSchool);
@@ -84,8 +87,9 @@ public class SchoolController {
 			String sch_introduce,Double sch_charge) throws IllegalStateException, IOException{
 		MyResult result = null;
 		if (!file.isEmpty()) {
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");//获取系统文件储存路径
 			// 上传文件路径
-			String path = request.getServletContext().getRealPath("/images/school/");
+			String path = filePath+"/images/school/";
 			System.out.println(path);
 			// 上传文件名
 			String filename = file.getOriginalFilename();

@@ -27,8 +27,6 @@ public class HomeInfoController {
 		mav.addObject("advList", advList);
 		mav.addObject("notList", notList);
 		mav.addObject("hotList", hotList);
-		System.out.println(advList.get(0).getTbSchool().getSchName());
-		System.out.println(notList.get(0).getNotTitle());
 		mav.setViewName("client/home");
 		return mav;
 	}	

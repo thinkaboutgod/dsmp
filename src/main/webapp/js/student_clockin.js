@@ -171,10 +171,19 @@ $("#submit").on("click",function(){
 		dataType : "text",
 		success:function(data){
 			var result = JSON.parse(data);
-			if (result.data=="failed") {
+			alert(data);
+			console.log(data);
+			if (result.data=="fail") {
 				layer.msg("打卡失败，请检查网络连接，若网络连接无问题，请联系管理员",
-						{time: 5000, //3s后自动关闭
-						btn: [ '知道了']})
+						{time: 3000, //3s后自动关闭
+						btn: [ '知道了']});
+				layer.close(index);
+				return;
+			}else if (result.data=="noPhoto") {
+				layer.msg("暂未上传改学员照片，请先上传该学员照片",
+						{time: 3000, //3s后自动关闭
+						btn: [ '知道了']});
+				layer.close(index);
 				return;
 			}
 			result = JSON.parse(result.myresult);

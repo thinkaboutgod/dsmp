@@ -154,8 +154,8 @@ $(function() {
 		var len = result.list.length
 		for (var i = 0; i < len; i++) {
 			di = '<div class="Product">'+ 
-			'<video width="280" height="180" controls="controls" poster="'+ path+ result.list[i].vidImgpath+ '">'+ 
-			'<source src="'+ path+ result.list[i].vidPath+ '"  type="video/mp4">'+ 
+			'<video width="280" height="180" controls="controls" poster="'+result.data+ result.list[i].vidImgpath+'">'+ 
+			'<source src="'+result.data+ result.list[i].vidPath+ '"  type="video/mp4">'+ 
 			'</video><br>'+ 
 			'<laber>'+ result.list[i].vidTitle+ '</laber><br>'+ 
 			'<button type="button" class="btn btn-info btn-xs change"id="'+ result.list[i].vidId+ '" >修改标题</button>'
@@ -166,6 +166,8 @@ $(function() {
 		return div;
 	}
 
+// result.data+
+// result.data+
 //文件上传
 function initFileInput(ctrlName, uploadUrl,type) {
 	var control = $('#' + ctrlName);

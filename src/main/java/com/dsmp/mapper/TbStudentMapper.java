@@ -13,7 +13,8 @@ public interface TbStudentMapper {
 
 	public List<Count> countStudentBySchool(String schId);//根据驾校查询近半年报名人数
 	public List<Count> searchDate();//查询近六个月日期
-	public List<Count> countStudentByDate(String month);//查询某一个月所有驾校报名人数
+	public List<Count> countStudentByDate(String month);//查询某一个月有人报名的驾校的人数
+	public List<Count> countAllStudentByDate(String month);//查询某一个月所有驾校报名人数，没有的置零
 	public List<Count> countStudentByMonth(String schId);//查询驾校近30天报名人数
 
 	public List<TbStudent> selectStudentByCoachIdAndSubject(String coaId);//查询教练底下的科目二三学员

@@ -6,4 +6,6 @@ import com.alipay.api.domain.Video;
 
 public interface VideoService {
 	public List<Video> searchVideoBySubId(String subId);
+	
+	
 }
