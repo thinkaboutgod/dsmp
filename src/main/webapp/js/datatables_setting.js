@@ -8,6 +8,7 @@ dataTableSeetings={
 			"ordering" : true,
 			"info" : true,
 			"autoWidth" : true,
+			"scrollY": "270px",
 			"language" : {
 				"sProcessing" : "加载中...",
 				"sLengthMenu" : "每页显示 _MENU_ 条记录",

@@ -1,4 +1,5 @@
 var path = $("#path").val();
+var filePath;
 var type;
 var Aans;
 var Bans;
@@ -12,6 +13,7 @@ var topTopic;
 var topAnswerDetail;
 var doType;//修改还是增加
 $(function() {
+	
 	$.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 	
 	datatable_otherSet = {
@@ -57,7 +59,24 @@ $(function() {
 		};
 	
 var table = $("#topicTable").DataTable(datatable_otherSet);//初始化
-	
+//查询文件资源访问路径	
+$.ajax({
+	url : path + "/plateform/searchFilePath.action",
+	ansyc : true,
+	type : "POST",
+	data : "", 
+	dataType : "text",
+	success : function(data) {
+		filePath = data;
+	},
+	error : function() {
+		layer.msg("服务器繁忙");
+	}
+})
+
+
+
+
 	// 选择行
 	$('tbody').on('click', 'tr', function() {
 		if ($(this).hasClass('selected')) {
@@ -101,7 +120,7 @@ var table = $("#topicTable").DataTable(datatable_otherSet);//初始化
 		}
 		if(dataRow.topImg!=""){
 			$("#imgDiv").css("display","block");
-			$("img").attr("src",path+"/images/topic/"+dataRow.topImg);
+			$("img").attr("src",filePath+"/images/topic/"+dataRow.topImg);
 		};
 		if (options.length == 4 && dataRow.topImg=="") {//4个选项，没有图片
 			type = 1;

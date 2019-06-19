@@ -29,12 +29,14 @@
 					<div class="box-header">
 		              	<h3 class="box-title"><strong>参数管理</strong></h3>
 		           	 </div><br>
+                 <div class="box"><br>
+                   <div class="box-body">
            			<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                     <div class="row">
                       <div class="col-sm-12">
 
-                          <hr style="height:1px;border:none;border-top:1px solid #555555;" />
-                         
+                          <%-- <hr style="height:1px;border:none;border-top:1px solid #555555;" /> --%>
+
                           <table id="parTable" class="table table-bordered table-hover">
 		                      <thead>
 		                        <tr role="row">
@@ -50,6 +52,8 @@
                       </div>
                     </div>
                   </div>
+                </div>
+                </div>
 	  	 		</div>  <!-- /.box-body -->
 	  	 	</div>
 	  	</section>

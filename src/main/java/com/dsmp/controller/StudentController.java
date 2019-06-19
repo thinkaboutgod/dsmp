@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,7 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.config.AlipayConfig;
 import com.dsmp.mapper.TbCapitalrecordMapper;
+import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.mapper.TbStudentMapper;
 import com.dsmp.pojo.MyResult;
@@ -50,6 +52,8 @@ public class StudentController {
 	private TbStudentMapper tbStudentMapper;
 	@Autowired
 	private TbCapitalrecordMapper tbCapitalrecordMapper;	
+	@Autowired
+	private TbParameterMapper tbParameterMapper;
 	@Autowired private MyResult myResult;
 	//主页跳登录页
 	@RequestMapping("/login")
@@ -77,6 +81,7 @@ public class StudentController {
 		return mav;
 	}	
 	//付款成功跳回主页
+	@Transactional
 	@RequestMapping("/main")
 	public ModelAndView getMainPage(HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
 		System.out.println("付款成功了");
@@ -264,8 +269,9 @@ public class StudentController {
 		System.out.println("驾校ID"+school);
 		MyResult result = null;
 		if (!file.isEmpty()) {
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");//获取系统文件储存路径
 			// 上传文件路径
-			String path = request.getServletContext().getRealPath("/images/student/");
+			String path = filePath+"/images/student/";
 			System.out.println(path);
 			// 上传文件名
 //			String filename = file.getOriginalFilename();

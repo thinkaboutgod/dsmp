@@ -55,6 +55,8 @@ $.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 				}
 				);
 			},
+			
+			
 
 		};
 	

@@ -29,9 +29,11 @@
 					<div class="box-header">
 		              	<h3 class="box-title"><strong>资金记录</strong></h3>
 		           	 </div><br>
+                  <div class="box"><br>
            			<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                     <div class="row">
                       <div class="col-sm-12">
+                        <div class="box-header">
                      				<div class = "input-group">
                                        <input type = "text" class=" form-control"  id="capOrderNumber" placeholder="订单编号" maxlength="100">
                                    </div>
@@ -58,9 +60,9 @@
                            <div class = "input-group">
                                         <button  class="button btn-primary btn-sm "  id="buttonsearch">搜索</button>
                                    </div>
-
-                          <hr style="height:1px;border:none;border-top:1px solid #555555;" />
-                         
+                               </div>
+                          <%-- <hr style="height:1px;border:none;border-top:1px solid #555555;" /> --%>
+                        <div class="box-body">
                           <table id="moneyTable" class="table table-bordered table-hover">
 		                      <thead>
 		                        <tr role="row">
@@ -76,7 +78,9 @@
 		                      <tbody></tbody>
                         </table>
                       </div>
+                      </div>
                     </div>
+                  </div>
                   </div>
 	  	 		</div>  <!-- /.box-body -->
 	  	 	</div>
