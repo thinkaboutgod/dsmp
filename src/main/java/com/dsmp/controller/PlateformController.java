@@ -20,6 +20,7 @@ import com.alipay.api.domain.Topic;
 import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.PageResult;
+import com.dsmp.pojo.TbAdvertisement;
 import com.dsmp.pojo.TbCapitalrecord;
 import com.dsmp.pojo.TbHotlink;
 import com.dsmp.pojo.TbLog;
@@ -30,9 +31,11 @@ import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbSubject;
 import com.dsmp.pojo.TbTopic;
 import com.dsmp.pojo.TbVideo;
+import com.dsmp.service.AdvertisementService;
 import com.dsmp.service.BlogrollService;
 import com.dsmp.service.LogService;
 import com.dsmp.service.PlateformService;
+import com.dsmp.service.SchoolService;
 import com.dsmp.service.TopicService;
 import com.dsmp.service.impl.LogServiceImpl;
 import com.dsmp.utils.GsonUtils;
@@ -50,7 +53,11 @@ public class PlateformController {
 	private LogService logServiceImpl;
 	@Autowired
 	private MyResult myResult;
-
+	@Autowired
+	private AdvertisementService advertisementService;
+	
+	@Autowired
+	private SchoolService schoolService;
 	// 学员查看页面
 	@RequestMapping(value = "toStudentController.action")
 	public String toStudentController() {
@@ -293,4 +300,29 @@ public class PlateformController {
 	public @ResponseBody String searchFilePath() {
 		return plateformService.searchFilePathParameter();
 	}
+	//发送广告管理界面
+	@RequestMapping(value="advertiseController.action")
+	public ModelAndView advertiseController() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("levelList", advertisementService.searchAdvLevel());
+		mav.addObject("schoolList", schoolService.selectAllSchoolForAdvertise());//所有允许报名和运营的驾校
+		mav.setViewName("back/plateform_advertise");
+		return mav;
+	}
+	//查询广告，分页，可查所有，可根据广告等级
+	@RequestMapping(value="searchAdvertise.action")
+	public @ResponseBody PageResult searchAdvertise(HttpServletRequest request){
+		return advertisementService.searchAdvertise(request);
+	}
+	
+	// 广告修改或者增加
+	@RequestMapping(value = "forAdvertise.action")
+	public @ResponseBody String advertiseChange_add(HttpServletRequest request, MultipartFile newImg) {
+		return advertisementService.advertiseChange_add(request, newImg);
+	}
+	// 广告修改或者增加
+		@RequestMapping(value = "deleteAdvertise.action")
+		public @ResponseBody MyResult deleteAdvertise(String advId) {
+			return advertisementService.deleteAdvertise(advId);
+		}
 }

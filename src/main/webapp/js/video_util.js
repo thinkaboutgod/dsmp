@@ -25,6 +25,7 @@ function searchVideo(subject,videoPath) {//视频分页
 				bootstrapMajorVersion : 3,
 				currentPage : currentPage,
 				totalPages : totalPages,
+				
 				numberOfPages : totalPages,
 				itemContainerClass : function(type,
 						page, current) {

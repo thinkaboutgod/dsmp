@@ -12,10 +12,21 @@ public interface TbCoachMapper {
 	//教练登陆
 	public TbCoach getCoach(TbCoach coach);
 
+	/**
+	 * 查询教练
+	 * @param sBean
+	 * @return
+	 */
 	public List<TbCoach> selectCoasByCondition(SearchBean sBean); 
 	
 	public List<TbCoach> selseCoach(Integer schId);
 
+	/**
+	 * 	修改教练状态
+	 * @param valueOf
+	 * @param state
+	 * @return
+	 */
 	public Integer changeCoachState(Integer valueOf, String state);
 	//查询所有教练
 	public List<TbCoach> selectAllCoach();

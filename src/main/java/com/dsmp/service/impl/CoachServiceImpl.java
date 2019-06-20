@@ -7,12 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dsmp.mapper.TbCoachMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.SearchBean;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.service.CoachService;
+import com.dsmp.utils.Md5Tools;
 
 @Service
 public class CoachServiceImpl implements CoachService {
@@ -60,7 +62,7 @@ public class CoachServiceImpl implements CoachService {
 		return coaList;
 	}
 	
-	
+	@Override
 	public MyResult changeCoachState(HttpServletRequest request, MyResult myResult) {
 		String state = request.getParameter("state");
 		String coaId = request.getParameter("coaId");
@@ -81,11 +83,20 @@ public class CoachServiceImpl implements CoachService {
 		return myResult;
 	}
 
-	
-
 	@Override
+	@Transactional
 	public MyResult addCoach(HttpServletRequest request, MyResult myResult) {
 		TbCoach coach = new TbCoach();
+		coach.setSchId(Integer.parseInt(request.getParameter("schId")));
+		coach.setCoaAccount(request.getParameter("account"));
+		coach.setCoaPassword(Md5Tools.getMd5(request.getParameter("passward")));
+		coach.setCoaName(request.getParameter("name"));
+		coach.setCoaSex(request.getParameter("sex"));
+		coach.setCoaBirthday(request.getParameter("birthday"));
+		coach.setCoaIdcard(request.getParameter("idCard"));
+		coach.setCoaLevel(request.getParameter("level"));
+		coach.setCoaAddress(request.getParameter("address"));
+		coach.setCoaIntroduction(request.getParameter("introduction"));
 		
 		Integer res = tbCoachMapper.addCoach(coach);
 		if(res>0) {

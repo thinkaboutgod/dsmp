@@ -25,6 +25,18 @@
 </head>
 <body>
 <jsp:include page="head.jsp"></jsp:include>
+<script type="text/javascript">
+		jQuery(".nav").slide({
+			type : "menu", //效果类型
+			titCell : ".m", // 鼠标触发对象
+			targetCell : ".sub", // 效果对象，必须被titCell包含
+			effect : "slideDown", //下拉效果
+			delayTime : 300, // 效果时间
+			triggerTime : 0, //鼠标延迟触发时间
+			returnDefault : true
+		//返回默认状态
+		});
+	</script>
 	<div class="main">
 			<div class="ks-right pull-right">
 				<div class="ks-right-main">
@@ -40,7 +52,7 @@
 						<div class="ks-right-main-links clear">
 							<div class="item">
 								<div class="item-logo">
-									<a class="fill-color fill-yellow" href="">
+									<a class="fill-color fill-yellow" href=<%=path+"/topic/findAllTopic.action?stu_id=2&sub_id=1"%>>
 										<div class="lg"></div>
 									</a>
 								</div>
@@ -60,7 +72,7 @@
 							</div>
 							<div class="item">
 								<div class="item-logo">
-									<a class="fill-color fill-green" href="">
+									<a class="fill-color fill-green" href=<%=path+"/topic/findMistakeTopic.action"%>><!-- ?stu_id=2&sub_id=1 -->
 										<div class="lg"></div>
 									</a>
 								</div>
@@ -91,7 +103,7 @@
 							</div>
 							<div class="item">
 								<div class="item-logo">
-									<a class="fill-color fill-pink" href="">
+									<a class="fill-color fill-pink" href=<%=path+"/topic/findManyTopic.action"%>><!-- ?stu_id=2&sub_id=1 -->
 										<div class="lg"></div>
 									</a>
 								</div>
@@ -102,13 +114,14 @@
 							
 						</div>
 						<div class="ks-right-vip-link clear">
-							<a class="ks-right-vip-btn" href="" target="blank">进入模拟仿真考场</a>
+							<a class="ks-right-vip-btn" href=<%=path+"/topic/trueFindManyTopic.action"%> target="blank">进入模拟仿真考场</a>
 						</div>
 					</div>
 					<div class="clear"></div>
 				</div>
 			</div>
 		</div>
-<jsp:include page="tail.jsp"></jsp:include>
+ <jsp:include page="tail.jsp"></jsp:include> 
+
 </body>
 </html>

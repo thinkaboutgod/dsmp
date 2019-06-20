@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbExamscheduleandstudentMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbExamscheduleandstudent" >
+    <id column="eas_id" property="easId" jdbcType="INTEGER" />
+    <result column="exs_id" property="exsId" jdbcType="INTEGER" />
+    <result column="stu_id" property="stuId" jdbcType="INTEGER" />
+    <result column="eas_seatNum" property="easSeatnum" jdbcType="INTEGER" />
+    <association property="tbStudent" javaType="com.dsmp.pojo.TbStudent"><!--  column="stu_id" -->
+    	<id column="stu_id" property="stuId" jdbcType="INTEGER" />
+	    <result column="coa_id" property="coaId" jdbcType="INTEGER" />
+	    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+	    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+	    <result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+	    <result column="stu_account" property="stuAccount" jdbcType="VARCHAR" />
+	    <result column="stu_password" property="stuPassword" jdbcType="VARCHAR" />
+	    <result column="stu_sex" property="stuSex" jdbcType="VARCHAR" />
+	    <result column="stu_birthday" property="stuBirthday" jdbcType="VARCHAR" />
+	    <result column="stu_idcard" property="stuIdcard" jdbcType="VARCHAR" />
+	    <result column="stu_img" property="stuImg" jdbcType="VARCHAR" />
+	    <result column="stu_headimg" property="stuHeadimg" jdbcType="VARCHAR" />
+	    <result column="stu_address" property="stuAddress" jdbcType="VARCHAR" />
+	    <result column="stu_registertime" property="stuRegistertime" jdbcType="TIMESTAMP" />
+	    <result column="stu_errCount" property="stuErrcount" jdbcType="INTEGER" />
+	    <result column="stu_errTime" property="stuErrtime" jdbcType="TIMESTAMP" />
+	    <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
+	    <result column="stu_signUpTime" property="stuSignuptime" jdbcType="TIMESTAMP" />
+	    <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
+	     <result column="stu_bookingstate" property="stuBookingstate" jdbcType="VARCHAR" />
+    </association>
+    <association property="tbExamschedule" javaType="com.dsmp.pojo.TbExamschedule">
+	    <id column="exs_id" property="exsId" jdbcType="INTEGER" />
+	    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+	    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+	    <result column="exs_time" property="exsTime" jdbcType="TIMESTAMP" />
+	    <result column="exs_address" property="exsAddress" jdbcType="VARCHAR" />
+	    <result column="exs_signUpNum" property="exsSignupnum" jdbcType="INTEGER" />
+	    <result column="exs_endTime" property="exsEndtime" jdbcType="TIMESTAMP" />
+	    <result column="exs_totalNum" property="exsTotalnum" jdbcType="INTEGER" />
+	    <association property="tbSubject" javaType="com.dsmp.pojo.TbSubject">    	  
+		    <id column="sub_id" property="subId" jdbcType="INTEGER" />
+		    <result column="sub_name" property="subName" jdbcType="VARCHAR" />
+		    <result column="sub_time" property="subTime" jdbcType="DOUBLE" />
+	    </association>
+	    <association property="tbSchool" javaType="com.dsmp.pojo.TbSchool">    	  
+		    <id column="sch_id" property="schId" jdbcType="INTEGER" />
+		    <result column="rol_id" property="rolId" jdbcType="INTEGER" />
+		    <result column="sch_name" property="schName" jdbcType="VARCHAR" />
+		    <result column="sch_account" property="schAccount" jdbcType="VARCHAR" />
+		    <result column="sch_password" property="schPassword" jdbcType="VARCHAR" />
+		    <result column="sch_address" property="schAddress" jdbcType="VARCHAR" />
+		    <result column="sch_introduction" property="schIntroduction" jdbcType="VARCHAR" />
+		    <result column="sch_bossName" property="schBossname" jdbcType="VARCHAR" />
+		    <result column="sch_registerCapital" property="schRegistercapital" jdbcType="VARCHAR" />
+		    <result column="sch_creditcode" property="schCreditcode" jdbcType="VARCHAR" />
+		    <result column="sch_type" property="schType" jdbcType="VARCHAR" />
+		    <result column="sch_signUpStatus" property="schSignupstatus" jdbcType="VARCHAR" />
+		    <result column="sch_headimg" property="schHeadimg" jdbcType="VARCHAR" />
+		    <result column="sch_operativeStatus" property="schOperativestatus" jdbcType="VARCHAR" />
+		    <result column="sch_charge" property="schCharge" jdbcType="DOUBLE" />
+	    </association>
+    </association>
+  </resultMap>
+ 	<select id="findExamScheduleByStuIdAndSubId" resultMap="BaseResultMap">
+ 		select stu.*,exs.eas_seatNum,exs.eas_id,exs.stu_id,ex.*,sub.*,sch.* from tb_student stu, tb_examScheduleAndStudent exs,tb_examSchedule ex,tb_subject sub,tb_school sch where stu.stu_id=exs.stu_id and exs.exs_id=ex.exs_id and sub.sub_id=ex.sub_id and sch.sch_id=ex.sch_id and exs.stu_id=#{param1} and ex.sub_id=#{param2} and ex.exs_time=(select MAX(exs_time) from tb_examSchedule)
+ 	</select>
+</mapper>

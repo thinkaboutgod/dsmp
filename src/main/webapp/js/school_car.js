@@ -1,135 +1,136 @@
 $(function() {
-	
-	$.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
-	
+
+	$.extend($.fn.dataTable.defaults, dataTableSeetings); // 公共初始化设置
+
 	datatable_otherSet = {
-			"ajax" : "../car/selectCarsByCondition.action",
-			"columns" : [
-					{
-						"data" : "carPlatenum"
-					},
-					{
-						"data" : "carStyle"
-					},
-					{
-						"data" : "carColor"
-					},
-					{
-						"data" : "tbCoach.coaName",
-						"orderable" : false, // 禁用排序
-					},
-					{
-						"data" : "carUsedTime",
-					},
-//					{
-//						"data" : "tbCoach.coaName",
-//						"orderable" : false, // 禁用排序
-//					},
-//					{
-//						"data" : "tbSubject.subName",
-//						"orderable" : false, // 禁用排序
-//					},
-					{
-						"data" : "carStatus",
-						"orderable" : false, // 禁用排序
-					},
-					{
-						"data" : "carUsedTime",
-						"orderable" : false, // 禁用排序
-						"sDefaultContent" : '',
-						"sWidth" : "",
-						"render" : function(data, type, full, meta) {
-							usedtime = data;
-							data="";
-							var year = parseInt(usedtime.split("年")[0])
-							if (year >= 10) {
-								data = '<button  class="btn btn-danger btn-sm bt_scrap" >报废</button>';
-							} 
-							data = data + ' <button  class="detail btn btn-primary btn-sm " >查看信息</button>';
-							return data;
-						}
-					},  ],
-					
-				
-			"fnServerParams" : function(aoData) {//设置参数
-				aoData._rand = Math.random();
-				aoData.push({
-					"name" : "carPlateNum",
-					"value" : $("#carPlateNum").val()
+		"ajax": "../car/selectCarsByCondition.action",
+		"columns": [{
+				"data": "carPlatenum"
+			},
+			{
+				"data": "carStyle"
+			},
+			{
+				"data": "carColor"
+			},
+			{
+				"data": "tbCoach.coaName",
+				"orderable": false, // 禁用排序
+			},
+			{
+				"data": "carUsedTime",
+			},
+			//					{
+			//						"data" : "tbCoach.coaName",
+			//						"orderable" : false, // 禁用排序
+			//					},
+			//					{
+			//						"data" : "tbSubject.subName",
+			//						"orderable" : false, // 禁用排序
+			//					},
+			{
+				"data": "carStatus",
+				"orderable": false, // 禁用排序
+			},
+			{
+				"data": "carUsedTime",
+				"orderable": false, // 禁用排序
+				"sDefaultContent": '',
+				"sWidth": "",
+				"render": function(data, type, full, meta) {
+					usedtime = data;
+					data = "";
+					var year = parseInt(usedtime.split("年")[0])
+					if(year >= 10) {
+						data = '<button  class="btn btn-danger btn-sm bt_scrap" >报废</button> &nbsp;';
+					}
+					data = data + ' <button  class="detail btn btn-primary btn-sm " >查看信息</button>';
+					return data;
+				}
+			},
+		],
+
+		"fnServerParams": function(aoData) { //设置参数
+			aoData._rand = Math.random();
+			aoData.push({
+					"name": "carPlateNum",
+					"value": $("#carPlateNum").val()
 				}, {
-					"name" : "coachName",
-					"value" : $("#coachName").val()
+					"name": "coachName",
+					"value": $("#coachName").val()
 				}, {
-					"name" : "schId",
-					"value" : $("#schId").val()
-				},{
-					"name" : "beginTime",
-					"value" : $("#begintime").val()
+					"name": "schId",
+					"value": $("#schId").val()
 				}, {
-					"name" : "endTime",
-					"value" : $("#endtime").val()
+					"name": "beginTime",
+					"value": $("#begintime").val()
+				}, {
+					"name": "endTime",
+					"value": $("#endtime").val()
 				}
 
-				);
-			},
+			);
+		},
 
-		};
-	
-	var table = $("#studentTable").DataTable(datatable_otherSet);//初始化
-	
+	};
+
+	var table = $("#studentTable").DataTable(datatable_otherSet); //初始化
+
 	// 选择行,两个表格公用
 	$('tbody').on('click', 'tr', function() {
-		if ($(this).hasClass('selected')) {
+		if($(this).hasClass('selected')) {
 			$(this).removeClass('selected');
 		} else {
 			table.$('tr.selected').removeClass('selected');
 			$(this).addClass('selected');
 		}
 	});
-	
-	
+
 	//自定义搜索
 	$("#buttonsearch").on("click", function() {
-		table.ajax.reload(null, false);// 刷新数据方法,false代表保持当前页
+		table.ajax.reload(null, false); // 刷新数据方法,false代表保持当前页
 	})
-	
-	
+
 	// 车辆报废
-	$(document).on("click", ".bt_scrap", function() { 
+	$(document).on("click", ".bt_scrap", function() {
 		//此处拿到选择行的数据中的id 
-		var id = table.row($(this).parent().parent()).data().carId;  
-		
+		var id = table.row($(this).parent().parent()).data().carId;
+
 		var button = $(this);
 		var preText = button.parent().prev().text();
 		var text = $(this).text();
 		var state;
-		if ("报废" == text) {
-			state="已报废";
-		}; 
+		if("报废" == text) {
+			state = "已报废";
+		};
 		$.ajax({
-			url : "../car/scrapCar.action",
-			async : true,
-			type : "POST",
-			data :  {carId : id,state:state,preText:preText}  ,
-			dataType : "text",
-			success : function(data) {
+			url: "../car/scrapCar.action",
+			async: true,
+			type: "POST",
+			data: {
+				carId: id,
+				state: state,
+				preText: preText
+			},
+			dataType: "text",
+			success: function(data) {
 				var result = JSON.parse(data);
-				if (result.myresult=="success") {
+				if(result.myresult == "success") {
 					layer.msg("修改成功");
 					button.parent().prev().text("已报废");
-					
-				}else if (result.myresult=="failed") {
+
+				} else if(result.myresult == "failed") {
 					layer.msg("修改失败");
 				}
 			},
-			error : function() {
+			error: function() {
 				layer.msg("服务器繁忙");
 			}
 		})
 	})
-	
+
 	// 查看详细信息
-	$(document).on("click", ".detail", function() { 
+	$(document).on("click", ".detail", function() {
 		//此处拿到选择行的数据中的id 
 		var da = table.row($(this).parent().parent()).data();
 		$("#carPlateNumDe").val(da.carPlatenum);
@@ -140,5 +141,82 @@ $(function() {
 		$("#carUsedTimeDe").val(da.carUsedTime);
 		$("#carDetail").modal("show");
 	})
+
+	// 打开添加车辆模态框
+	$(document).on("click", "#btn_addCar", function() {
+		$("#addCar").modal("show");
+	})
+
+	// 提交添加教练车
+	$(document).on("click", "#btn_add", function() {
+		alert("点击提交")
+		var schId = $("#schId").val();
+		var carPlateNum = $.trim($("#carPlateNumNew").val());
+		var carStyle = $.trim($("#carStyleNew").val());
+		var carColor = $.trim($("#carColorNew").val());
+
+		if(carPlateNum == "" || carPlateNum == $("#carPlateNumNew").attr("placeholder")) {
+			layer.msg("请输入车牌号");
+			return false;
+		}
+
+		if(carStyle == "" || carStyle == $("#carStyleNew").attr("placeholder")) {
+			layer.msg("请选择车型");
+			return false;
+		}
+
+		if(carColor == "" || carColor == $("#carColorNew").attr("placeholder")) {
+			layer.msg("请输入颜色");
+			return false;
+		}
+
+		//判断图片类型
+		var fileName = $("#carImgNew").val(); 
+		if(fileName != "") {
+			var suffixIndex = fileName.lastIndexOf(".");  
+			var suffix = fileName.substring(suffixIndex + 1).toUpperCase();  
+			if(suffix != "BMP" && suffix != "JPG" && suffix != "JPEG" && suffix != "PNG" && suffix != "GIF") {    
+				layer.msg("图片格式只能为：BMP、JPG、JPEG、PNG、GIF）!");  
+			} 
+		}
+
+		//ajaxFileUpload上传带的参数只能为键值对字符串，不能为json对象
+		$.ajaxFileUpload({
+			url: "../car/addCar.action",
+			type: "POST",
+			secureuri: false, // 一般设置为false
+			fileElementId: "carImgNew", // 上传文件的id、name属性名
+			dataType: "text",
+			data: {
+				schId: schId,
+				carPlateNum: carPlateNum,
+				carStyle: carStyle,
+				carColor: carColor,
+			},
+			
+			success: function(data) {
+				if(data == "success") {
+					layer.msg('添加成功', {
+						time: 2000
+					});
+					$(".add").val("");
+					$("#carImgNew").val("");
+				} else {
+					layer.msg('添加失败,请重试', {
+						time: 2000
+					});
+				}
+
+			},
+			error: function() {
+				layer.msg("服务器繁忙");
+			}
+		})
+	})
 	
+	//去除所选的图片
+	$("#deleteCarImg").click(function() {
+		$("#carImgNew").val("");
+	})
+
 })

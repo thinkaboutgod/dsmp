@@ -1,6 +1,8 @@
 package com.dsmp.service;
 
 
+import java.util.List;
+
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCar;
 import com.dsmp.pojo.TbCoach;
@@ -17,4 +19,7 @@ public interface SchoolService {
 			String sch_type,String sch_address,String sch_bossname,String sch_registerCapital,
 			String sch_introduce,Double sch_charge,String fileName);
 
+	//查询允许报名和运营的所有驾校
+	public List<TbSchool> selectAllSchoolForAdvertise();
+	
 }

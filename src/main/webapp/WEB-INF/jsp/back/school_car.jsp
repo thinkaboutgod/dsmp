@@ -8,7 +8,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>驾校管理</title>
-		<%
+<%
 	String path = request.getContextPath();
 %>
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -20,7 +20,7 @@
 		<link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
 	</head>
 
-	<body class="hold-transition skin-blue sidebar-mini">
+	<body class="hold-transition skin-red sidebar-mini">
 		<div class="wrapper">
 			<jsp:include page="header.jsp"></jsp:include>
 			<jsp:include page="sliderbar.jsp"></jsp:include>
@@ -32,7 +32,6 @@
 								<h3 class="box-title"><strong>车辆管理</strong></h3>
 							</div>
 							<div class="box-body">
-
 								<div class="tabbable" id="tabs-643545">
 									<div class="tab-content">
 										<div class="tab-pane active" id="panel-139674">
@@ -96,6 +95,57 @@
 		</div>
 		<!-- 对应整个页面 -->
 		<!-- 模态框 -->
+		<div class="modal fade" id="addCar" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+						<h4 class="modal-title" id="myModalLabel">新增教练车</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-horizontal">
+							<div class="form-group">
+								<label for="carPlateNumNew" class="col-sm-2 control-label">车牌号：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="carPlateNumNew" type="text" placeholder="请输入车牌号">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="carStyleNew" class="col-sm-2 control-label">车型：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="carStyleNew" type="text" placeholder="请输入车型">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="carColorNew" class="col-sm-2 control-label">颜色：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="carColorNew" type="text" placeholder="请输入颜色">
+								</div>
+							</div>
+							<div class="form-group" >
+								<label for="carImgNew" class="col-sm-2 control-label">选择图片：</label>
+								<div class="col-sm-4">
+									<input id="carImgNew" name="carImgNew" class="button btn-sm " type="file" value="更换图片">
+									<input id="deleteCarImg" class="button btn-sm " type="button" value="删除选定图片">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div class="center-block">
+						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+						<button type="button" id="btn_add" class="btn btn-success">新增</button>
+					</div>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+		</div>
+		<!-- 对应新增教练车模态框 -->
+
+		<!-- 模态框 -->
 		<div class="modal fade" id="carDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
 				<div class="modal-content">
@@ -148,19 +198,20 @@
 							</div>
 						</div>
 					</div>
-					<!-- /.modal-content -->
 				</div>
-				<!-- /.modal-dialog -->
+				<!-- /.modal-content -->
 			</div>
-			<!-- 对应模态框 -->
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- 对应模态框 -->
 	</body>
+
 	<script type="text/javascript" src=<%=path+ "/js/jquery-3.3.1.js" %>
 		>
 	</script>
 	<script type="text/javascript" src=<%=path+ "/bootstrap-3.3.7-dist/js/bootstrap.min.js"%>
 		>
 	</script>
-
 	<script type="text/javascript" src=<%=path+ "/bootstrap-datatable/js/jquery.dataTables.min.js"%>
 		>
 	</script>
@@ -176,7 +227,6 @@
 		>
 	</script>
 	<!-- AdminLTE for demo purposes -->
-
 	<script type="text/javascript" src=<%=path+ "/adminlte/js/fastclick.js"%>
 		>
 	</script>
@@ -192,10 +242,13 @@
 	<script type="text/javascript" src=<%=path+ "/js/datatables_setting.js" %>
 		>
 	</script>
-	<script type="text/javascript" src=<%=path+ "/js/school_car.js" %>
+	<script type="text/javascript" src=<%=path+ "/js/ajaxfileupload.js"%>
 		>
 	</script>
 	<script type="text/javascript" src=<%=path+ "/js/Date.js" %>
+		>
+	</script>
+	<script type="text/javascript" src=<%=path+ "/js/school_car.js" %>
 		>
 	</script>
 

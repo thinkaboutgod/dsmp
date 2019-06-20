@@ -38,10 +38,14 @@ import com.dsmp.utils.Md5Tools;
 public class SchoolController {
 
 	@Autowired private SchoolService schoolService;		
+
 	@Autowired private CoachService coachService;
+	
 	@Autowired
 	private TbParameterMapper tbParameterMapper;
+
 	@Autowired private TbSchoolMapper tbSchoolMapper;
+
 	@RequestMapping("/selectCoach")
 	public @ResponseBody List<TbCoach> selectCoach(Integer selectSchool){
 		System.out.println(selectSchool);

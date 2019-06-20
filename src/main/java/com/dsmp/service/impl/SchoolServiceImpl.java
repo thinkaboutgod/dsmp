@@ -1,5 +1,7 @@
 package com.dsmp.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +61,13 @@ public class SchoolServiceImpl implements SchoolService {
 		System.out.println(result);
 		return result;
 	}
+
+//查询所有允许报名和运营的驾校
+	@Override
+	public List<TbSchool> selectAllSchoolForAdvertise() {
+		// TODO Auto-generated method stub
+		return tbSchoolMapper.selectAllSchoolForAdvertise();
+	}
+	
 	
 }

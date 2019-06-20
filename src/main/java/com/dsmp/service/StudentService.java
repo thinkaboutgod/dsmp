@@ -30,6 +30,7 @@ public interface StudentService {
 			String code,String phone);
 	//学员忘记密码
 	public MyResult changePwd(HttpServletRequest request,String newPassword,String phone,String code);
+	
 	/**
 	 * 	查询所有学员
 	 * @param request
@@ -45,5 +46,37 @@ public interface StudentService {
 	 */
 	public MyResult changeStudentState(HttpServletRequest request, MyResult myResult);
 	
+	/**更改学员当前科目状态
+	 * @param stuId 学员id
+	 * @param status （学员当前科目的状态）字段要更改成的状态
+	 * @return
+	 */
+	public boolean updateSubjectStatus(Integer stuId,String status);
+	/**科目一正式考试通过，把学员的科目预约状态由"已预约"改成"未预约",科目1改成2
+	 * @param stuId 学员id
+	 * @param subId 科目id
+	 * @return
+	 */
+	public boolean updateSubjectStatusAndSubId(Integer stuId,String status,Integer subId);
+	/**
+	 *	 驾校添加学生
+	 * @param request
+	 * @return
+	 */
+	public MyResult addStudent(HttpServletRequest request);
 	
+	/**
+	 * 	驾校审核学生
+	 * @param request
+	 * @param myResult
+	 * @return
+	 */
+	public MyResult checkStudent(HttpServletRequest request, MyResult myResult);
+	
+	
+	/**根据学员id查学员
+	 * @param stuId 学员id
+	 * @return
+	 */
+	public TbStudent findStuById(Integer stuId);
 }

@@ -25,4 +25,10 @@ public interface TbStudyrecordMapper {
     public int updatefalse(int str_id);//更新学习记录,无效的
     
     public int updateNormal(int str_id,double str_time);//更新学习记录,有效
+	/** 通过学员id和科目名称查询科目所有的学习记录
+	 * @param stuId 学员id
+	 * @param subName 科目名称
+	 * @return 该科目所有的学习记录
+	 */
+	public List<TbStudyrecord> findStudyRecord(Integer stuId,String subName);
 }

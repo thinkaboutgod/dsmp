@@ -38,7 +38,7 @@
 <style>
 
 </style>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 	<div class="wrapper">
 	<jsp:include page="/WEB-INF/jsp/back/header.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/jsp/back/sliderbar.jsp"></jsp:include>
