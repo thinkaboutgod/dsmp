@@ -46,7 +46,10 @@
     #{schAccount}, #{schPassword}, #{schAddress}, #{schIntroduction}, #{schBossname}, #{schRegistercapital},
     #{schCreditcode}, #{schType}, #{schHeadimg}, #{schCharge});
   </insert>
-  
+  <!-- 搜索驾校 -->
+  <select id="selectSchoolByName" resultMap="BaseResultMap" >
+    select * from tb_school where sch_name like "%"#{schName}"%";
+  </select>
   
   <!-- 查询驾校排行 -->
   <select id="getSchoolRanking" resultMap="schoolRankingMap">

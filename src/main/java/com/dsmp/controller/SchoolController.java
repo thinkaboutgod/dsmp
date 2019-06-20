@@ -55,7 +55,7 @@ public class SchoolController {
 		mav.setViewName("client/schoolenter");
 		return mav;
 	}
-	//主页跳转驾校驻页面
+	//主页跳转驾校页面
 	@RequestMapping("/allSchoolPage")
 	public ModelAndView getAllCoachPage() {
 		ModelAndView mav = new ModelAndView();
@@ -65,10 +65,24 @@ public class SchoolController {
 	//获取驾校集合
 	@RequestMapping("/selectAllSchool")
 	public @ResponseBody List<TbSchool> getSchoolByStauts(){
-		System.out.println("进来找集合");
 		List<TbSchool> schList = tbSchoolMapper.selectAllSchoolBySignUpStatus("允许报名");
 		return schList;
 	}
+	
+	//搜索驾校
+	@RequestMapping("/selectSchoolByNamePage")
+	public ModelAndView getSchoolByNamePage(String q) {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("schName",q);
+		mav.setViewName("client/school");
+		return mav;
+	}	
+	//获取搜索结果集合
+	@RequestMapping("/selectSchoolByName")
+	public @ResponseBody List<TbSchool> getSchoolByName(String schName){
+		List<TbSchool> schList = tbSchoolMapper.selectSchoolByName(schName);
+		return schList;
+	}	
 	//驾校入驻手机验证码验证
 	@RequestMapping("/verifyCode")
 	public @ResponseBody MyResult getVerifyCode(HttpServletRequest request,String phone,String verifyCode) {

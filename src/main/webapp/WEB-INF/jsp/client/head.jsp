@@ -19,13 +19,13 @@
 						<a class="right-text" href=<%=path+"/home/logout.action" %>><span>注销</span></a>						
 					</c:when>
 					<c:otherwise>
-						<a class="right-text" href=<%=path + "/student/login.action"%>					
+						<a class="right-text" href=<%=path+"/student/login.action"%>					
 						onclick="clickLog('from=JXEDT_HEADER_LOGIN')">登录</a> <a
 						class="right-text" href=<%=path + "/student/register.action"%>
 					    onclick="clickLog('from=JXEDT_HEADER_SIGNIN')">注册</a>
 					</c:otherwise>
 				</c:choose>								
-					<a class="right-text" href=<%=path+"/school/schoolEnterPage.action" %>>驾校入驻</a>
+					<a class="right-text" href=<%=path+"/school/schoolEnterPage.action" %>  target="_blank">驾校入驻</a>
 					<a class="right-text" href=<%=path + "/admin/admin.action"%>>管理后台</a>
 				</div>
 			</div>
@@ -66,43 +66,16 @@
 				<h3>
 					<a href=<%=path+"/school/allSchoolPage.action" %> target="_blank">驾校</a>
 				</h3>
-				<ul class="sub">
-
-					<li><a href="javascript:;">第一系列</a></li>
-
-					<li><a href="javascript:;">第二系列</a></li>
-
-					<li><a href="javascript:;">第三系列</a></li>
-
-					<li><a href="javascript:;">第四系列</a></li>
-
-					<li><a href="javascript:;">第五系列</a></li>
-
-					<li><a href="javascript:;">第六系列</a></li>
-
-				</ul>
 			</li>
 			<li class="m ">
 				<h3>
-					<a href=<%=path+"/coach/allCoachPage.action" %>>教练</a>
+					<a href=<%=path+"/tbcoach/allCoachPage.action" %>  target="_blank">教练</a>
 				</h3>
-				<ul class="sub">
-
-					<li><a href="javascript:;">公司动态</a></li>
-
-					<li><a href="javascript:;">行业新闻</a></li>
-
-					<li><a href="javascript:;">常见问题</a></li>
-
-				</ul>
 			</li>
 			<li class="m ">
 				<h3>
 					<a href=<%=path+"/student/apply.action?" %>>学员在线报名</a>
 				</h3>
-				<ul>
-
-				</ul>
 			</li>
 			<li class="m ">
 				<h3>

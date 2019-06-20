@@ -134,9 +134,6 @@
 							</div>
 						</div>
 					</div>
-					<span class="layui-layer-setwin"><a
-						class="layui-layer-ico layui-layer-close layui-layer-close1"
-						href="javascript:;"></a></span>
 				</div>
 				<div class="d2">
 				<h1>拍照上传头像</h1>

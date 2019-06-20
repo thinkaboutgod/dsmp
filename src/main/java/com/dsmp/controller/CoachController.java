@@ -21,7 +21,7 @@ import com.dsmp.pojo.TbSchool;
 import com.dsmp.service.CoachService;
 
 @Controller
-@RequestMapping("coach")
+@RequestMapping("tbcoach")
 public class CoachController {
 
 	@Autowired private CoachService coachService;
@@ -70,14 +70,14 @@ public class CoachController {
 		return myResult;
 	}
 	
-	//主页跳转驾校入驻页面
+	//主页跳转教练页面
 	@RequestMapping("/allCoachPage")
 	public ModelAndView getAllCoachPage() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("client/allcoach");
 		return mav;
 	}		
-	//获取驾校集合
+	//获取教练集合
 	@RequestMapping("/selectAllCoach")
 	public @ResponseBody List<TbCoach> getSchoolByStauts(){
 		System.out.println("进来找集合");

@@ -5,7 +5,7 @@ layui.use(['laypage', 'layer'], function(){
   ,layer = layui.layer; 
   var path = document.getElementById('path').value;  
   $.ajax({
-		url:path+"/coach/selectAllCoach.action?",
+		url:path+"/tbcoach/selectAllCoach.action?",
 		async:true,
 		type:"POST",
 		data:{},
@@ -37,8 +37,7 @@ layui.use(['laypage', 'layer'], function(){
 			        			  '</div>\n'+
 			        			  '</div>\n'+
 			        			  '<div class="list-prize">\n'+
-			        			  '<div class="prize-money">¥6500</div>\n'+
-			        			  '<div class="prize-ans" href="">免费咨询</div>\n'+
+			        			  '<div class="prize-money">报名费用￥'+item.tbSchool.schCharge+'</div>\n'+
 			        			  '</div>\n'+
 			        			  '</div>';
 			        	arr.push(str);

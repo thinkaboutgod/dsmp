@@ -38,13 +38,9 @@
 					<!--<img class="comment-header-vip-img" src="" alt="">-->
 					<span class="comment-header-phone-describe">您好，欢迎来到厦门机动车驾培公众服务平台！</span>
 				</div>
-				<div class="comment-header-right">
-					<a class="right-text" href="login.html"
-						onclick="clickLog('from=JXEDT_HEADER_LOGIN')">登录</a> <a
-						class="right-text" href="register.html"
-						onclick="clickLog('from=JXEDT_HEADER_SIGNIN')">注册</a> <a
-						class="right-text" href="http://user.jxedt.com/registerNew/jx">驾校入驻</a>
-					<a class="right-text" target="_blank" href="jiaxiao.html">管理后台</a>
+				<div class="comment-header-right" style="padding-right: 200px;">
+					<a class="right-text" href=<%=path+"/home/main.action?"%>>首页</a>
+				    <a class="right-text" href=<%=path + "/student/register.action"%>>注册</a> 
 				</div>
 			</div>
 		</nav>

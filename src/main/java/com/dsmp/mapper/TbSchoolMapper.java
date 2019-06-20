@@ -11,7 +11,11 @@ import com.dsmp.pojo.TbStudent;
 public interface TbSchoolMapper {
 	public List<TbSchool> selectAllSchool();
 	
+	//所有驾校页面集合
 	public List<TbSchool> selectAllSchoolBySignUpStatus(String schSignupstatus);
+	
+	//搜索驾校页面结果集合
+	public List<TbSchool> selectSchoolByName(String schName);
 	
 	public List<TbStudent> selectStus();
 	

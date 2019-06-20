@@ -4,11 +4,12 @@ layui.use(['laypage', 'layer'], function(){
   var laypage = layui.laypage
   ,layer = layui.layer; 
   var path = document.getElementById('path').value;  
+  var schName = document.getElementById('schName').value;  
   $.ajax({
-		url:path+"/school/selectAllSchool.action?",
+		url:path+"/school/selectSchoolByName.action?",
 		async:true,
 		type:"POST",
-		data:{},
+		data:{"schName":schName},
 		dataType:"json",
 		success:function(data){
 			 //调用分页
@@ -35,7 +36,7 @@ layui.use(['laypage', 'layer'], function(){
 			        			  '<p class="jx-list-address" style="margin-top:10px;"><span>车型：</span><span>C1/C2</span></p>\n'+
 			        			  '</div>\n'+
 			        			  '<div class="col-md-2 jx-distance">\n'+
-			        			  '<p class="jx-list-money">报名费用￥'+item.schCharge+'</p>\n'+
+			        			  '<p class="jx-list-money">￥'+item.schCharge+'</p>\n'+
 			        			  '</div>\n'+
 			        			  '</div>';
 			        	arr.push(str);

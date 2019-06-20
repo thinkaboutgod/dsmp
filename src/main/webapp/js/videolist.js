@@ -1,5 +1,5 @@
 var path = $("#path").val();
-var videoPath = path+ "/plateform/searchVideoBySubect.action";
+var videoPath = path+ "/home/searchVideoBySubect.action";
 $(function() {
 	var KeMuNum = $("#KeMuNum").val();
 	$(".subject").click(function() {

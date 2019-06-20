@@ -5,6 +5,8 @@ public class TbAdvertisement {
     private Integer advId;
 
     private Integer schId;
+    
+    private Integer adlId;
 
     private String advPath;
 
@@ -14,7 +16,18 @@ public class TbAdvertisement {
     
     private TbSchool tbSchool;
     
-    public TbSchool getTbSchool() {
+    
+    
+    
+    public Integer getAdlId() {
+		return adlId;
+	}
+
+	public void setAdlId(Integer adlId) {
+		this.adlId = adlId;
+	}
+
+	public TbSchool getTbSchool() {
 		return tbSchool;
 	}
 

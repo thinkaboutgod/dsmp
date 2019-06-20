@@ -118,7 +118,7 @@
 				<div class="bd">
 					<ul class="noticeList">
 						<c:forEach begin="0" step="1" items="${notList}" var="notice">
-							<li><a href=<%=path%>${notice.notPath}>${notice.notTitle}</a><span><fmt:formatDate value="${notice.notTime}" pattern="YYYY-MM-dd" /></span></li>
+							<li><a href=<%=path%>${notice.notPath}${notice.notId}>${notice.notTitle}</a><span><fmt:formatDate value="${notice.notTime}" pattern="YYYY-MM-dd" /></span></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -133,9 +133,9 @@
 				});
 			</script>
 			<div class="search fr">
-				<form name="formsearch" method="get" action="/so.php">
+				<form name="formsearch" method="get" action=<%=path+"/school/selectSchoolByNamePage.action" %>  target="_blank">
 					<input type="hidden" name="kwtype" value="0" /> <input
-						class="search-input" id="q" name="q" ng-model="keyword"
+						class="search-input" id="q" name="q"
 						placeholder="搜索驾校" type="text" style="color: gray">
 					<button class="btn-search" type="submit"></button>
 				</form>
@@ -180,11 +180,11 @@
 			<h2>驾校推荐</h2>
 			<div class="hotshow zoomimg">
 				<ul>
-					<c:forEach begin="0" step="1" items="${advList}" var="adv">
+					<c:forEach begin="0" end="5" step="1" items="${advList}" var="adv">
 						<li>
 							<div class="pic">
 								<a href=<%=path%>${adv.advPath} target="_blank"><img
-									src=<%=path%>${adv.advImgpath} alt="${adv.tbSchool.schName}" title='${adv.advDescribe}'/></a>
+									src="${systemFilePath}${adv.advImgpath}" alt="${adv.tbSchool.schName}" title='${adv.advDescribe}'/></a>
 							</div>
 							<div class="title">
 								<a href="javascript:;" target="_blank">${adv.tbSchool.schName}</a>
@@ -207,12 +207,14 @@
 		</div>
 
 	</div>
-		<!--横幅-->
-	<div class="hf" aos="flip-left">
-		<a href=<%=path+"/school/schoolEnterPage.action" %>>
+	<!--横幅-->
+	<div class="row" style="margin-top:50px;">
+	<div class="col-md-12" aos="flip-left" >
+		<a href=<%=path+"/school/schoolEnterPage.action" %> target="_blank">
 			<img src=<%=path + "/images/home/jxrz_index.png"%> alt="" srcset="">
 		</a>
 
+	</div>
 	</div>
 	<!--文字栏-->
 	<div class="wordbox">
