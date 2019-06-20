@@ -117,10 +117,12 @@
 					<a href=" javascript:;">个人中心</a>
 				</h3>
 				<ul class="sub">
-
-					<li><a target="_blank" href=<%=path+"/personal/coachRating.action"%>>教练评价</a></li>
-					<li><a target="_blank" href=<%=path+"/personal/schoolRating.action"%>>驾校评价</a></li>
-					<li><a target="_blank" href=<%=path+"/personal/examSchedule.action"%>>考试安排</a></li>
+					
+					<li><a target="_blank" href=<%=path+"/personal/toStuPersonal.action"%>>个人中心</a></li>
+					
+<%-- 					<li><a target="_blank" href=<%=path+"/personal/coachRating.action"%>>教练评价</a></li> --%>
+<%-- 					<li><a target="_blank" href=<%=path+"/personal/schoolRating.action"%>>驾校评价</a></li> --%>
+<%-- 					<li><a target="_blank" href=<%=path+"/personal/examSchedule.action"%>>考试安排</a></li> --%>
 
 
 				</ul>

@@ -63,7 +63,7 @@
 			<div class="banner_process">
 				<ul>
 					<h3>学车流程</h3>
-					<li class="km1li"><a href="video.html" target="_blank"
+					<li class="km1li"><a href=<%=path+"/home/keyi.action" %> target="_blank"
 						onclick="clickLog('from=JXEDT_HOME_XCLC_KM1')">
 							<div class="km1"></div>
 							<div>

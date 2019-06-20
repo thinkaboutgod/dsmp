@@ -42,7 +42,7 @@ public class TbStudent {
 
 	private String stuVerifystatus;
 	
-	private String stuBookingstate;
+	private String stuBookingstate;//学员当前科目的状态（未预约-不能考（默认）；可预约-有了考试资格（如科一学时，分数都够）；已预约-学员可以考）
 	
 	private TbSubject tbSubject;
 
@@ -53,6 +53,8 @@ public class TbStudent {
 	private TbStudyrecord tbStudyrecord;
 	
 	private TbExamscheduleandstudent tbExamscheduleandstudent;
+	
+//	private String stuSubjectstatus;//学员当前科目的状态（lock-不能考（默认）；canApply-有了考试资格（如科一学时，分数都够）；apply-学员在申请；unlock-申请通过，学员可以考）
 	
 	public TbExamscheduleandstudent getTbExamscheduleandstudent() {
 		return tbExamscheduleandstudent;
@@ -254,5 +256,6 @@ public class TbStudent {
 	public void setTbSchool(TbSchool tbSchool) {
 		this.tbSchool = tbSchool;
 	}
+
 
 }

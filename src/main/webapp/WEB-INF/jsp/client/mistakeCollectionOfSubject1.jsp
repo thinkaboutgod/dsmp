@@ -11,6 +11,9 @@
 	String path = request.getContextPath();
 %>
 <link rel="stylesheet" type="text/css" href=<%=path+"/bootstrap-3.3.7-dist/css/bootstrap.css" %>>
+    <link href=<%=path+"/css/exam/main.css" %> rel="stylesheet" type="text/css" />
+    <link href=<%=path+"/css/exam/iconfont.css" %> rel="stylesheet" type="text/css" />
+    <link href=<%=path+"/css/exam/test.css" %> rel="stylesheet" type="text/css" />
 <style type="text/css">
 		*{
 			margin: 0;
@@ -20,6 +23,16 @@
 			  /*border: 1px solid black;*/
 			  box-sizing: border-box;
 			}
+				input[type='button']{
+		margin:10px 60%;
+		width: 55px;
+ 		height: 25px;
+ 		color:white;
+		background-color: green;
+	}
+	.progress{
+		width: 70%;
+	}
 	.optionClass{
 		list-style:none;
 	}
@@ -34,7 +47,7 @@
 		float: right;
 	    width: 30%;
 /* 	    height: 600px; */
-/* 	    background-color: #CCFF9A; */
+ 	    background-color: #CCFF9A; 
 	    box-sizing: border-box;
 	    border: 2px solid gray;
 	}
@@ -58,6 +71,12 @@
  		#countTime{
  			color: red;
  		}
+ 		
+ 		 #leftDiv > ol > li {
+		    width: 100%;
+		    border-bottom: 5px solid #efefef;
+		    padding-top: 10px;
+		}
 </style>
 <script type="text/javascript" src=<%=path+"/js/jquery-3.3.1.js" %>></script>
 <script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.js" %>></script>
@@ -148,7 +167,7 @@
 			        }  
 			    }); 
 // 				alert('得分：'+totalScore);
-				$("#resultDiv").append("<p>得分："+totalScore+"</p>");
+				$("#resultDiv").append("<h4 style='color:red'>答对题数："+totalScore+"</h4>");
 				leftDateLong=0;//剩余时间设置成0
 				$("#countTime").html("已交卷");
 				$("input[type='radio']").attr("disabled","disabled");//提交完不能再点击选项
@@ -211,37 +230,81 @@
 				});
 			}
 		});
+		//按钮特效：
+		//给提交按钮添加鼠标经过变颜色的事件
+		$("input[type='button']").on({
+			"mouseover":function(){
+				$(this).css({
+					"color":"black",
+					"background-color":"#68DFFF",
+				});
+			},
+			"mouseout":function(){
+				$(this).css({
+					"color":"white",
+					"background-color":"green",
+				});
+			},
+		});
 		
 	});
 </script>
 </head>
 <body>
-		<h4>错题集</h4>
+		
+	<div class="main">
+		<div class="test_main">
+			<div class="nr_left">
+				<div class="test">
 		<form action="" method="post">
 			<input id="stuId" type="hidden" name="stuId" value="${stu_id}"/>
 			<input id="subId" type="hidden" name="subId" value="${sub_id}"/>
 			<h1>${loginMessage}</h1>	
 			<c:if test="${loginMessage==null}">		
-			<div id="leftDiv">
+			<div id="leftDiv" class="test_content_nr">
+			
+						<div class="test_content">
+                            <div class="test_content_title">
+                                <h2>错题集</h2>
+                                <p>
+                                    <span>共</span><i class="content_lit">${fn:length(mistakeTopicList)}</i><span>题，答对移除</span>
+                                </p>
+                            </div>
+                        </div>
+                        
 						<ol type="1" class="topicClass">
 							<c:forEach begin="0" step="1" items="${mistakeTopicList}" var="i" varStatus="topicStatus">				
-									<li>
-									<span>${topicStatus.count}.</span>${i.topTopic }<!-- ${topicStatus.count}是为了拿到题目序号（页面显示的） -->
+									<li id="qu_0_0">
+									<div class="test_content_nr_tt">
+										<i>${topicStatus.count}</i><font>${i.topTopic }</font><!-- ${topicStatus.count}是为了拿到题目序号（页面显示的） -->
+									</div>
 									</li>
-									<li>
+									<div class="test_content_nr_main">
+<!-- 									<li> -->
 <%-- 									<img alt="" src=<%=path+"/images/hai.jpg" %>> --%>
 										<c:if test="${i.topImg!=null&&''!=i.topImg}">
 											<img alt="" src=<%=path%>${i.topImg}>																		
 										</c:if>								
-									</li>
+<!-- 									</li> -->
 								<ol class="optionClass">
-									<c:forEach begin="0" step="1" items="${i.options}" var="j">
-										<li><input id="${j.optId }" class="${topicStatus.count}" type="radio" name="${i.topId }" value="${j.optStatus }">${j.optOption }</li>
+									<c:forEach begin="0" step="1" items="${i.options}" var="j" varStatus="status">
+										<li class="option">
+											<input id="${j.optId }" class="${topicStatus.count}" type="radio" name="${i.topId }" value="${j.optStatus }">
+											<label for="${j.optId }">
+													<c:if test="${status.index==0}">A.</c:if>
+													<c:if test="${status.index==1}">B.</c:if>
+													<c:if test="${status.index==2}">C.</c:if>
+													<c:if test="${status.index==3}">D.</c:if>
+                                                    
+                                                    <b class="ue" style="display: inline;">${j.optOption }</b>
+                                             </label>
+										</li>
 										
 									</c:forEach>
 										
 								</ol>
-								<input class="answerClass" type="hidden" value="答案：${i.topAnswer}.${i.topAnswerDetail}" disabled></input>					
+								<input class="answerClass" type="hidden" value="答案：${i.topAnswer}.${i.topAnswerDetail}" disabled></input>	
+								</div>				
 							</c:forEach>
 						</ol>
 			</div>
@@ -280,14 +343,18 @@
 					</tr> -->
 				</table>
 				
-				
-			</div>
 			<div id="resultDiv">
 			<input id="submitBtn" type="button" value="提交"></input>
 <!-- 			<input id="updateExamBtn" type="button" value="重新出题"></input> -->
 			
 			</div>
+				
+			</div>
 			</c:if>
 		</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

@@ -52,7 +52,7 @@ public class MenuController {
 			break;
 		case "4":
 			session.setAttribute("title", "教练门户");
-			session.setAttribute("the_name", ((TbCoach) session.getAttribute("caoch")).getCoaName());
+			session.setAttribute("the_name", ((TbCoach) session.getAttribute("coach")).getCoaName());
 			session.setAttribute("rol_Id", 4);
 			break;
 		}

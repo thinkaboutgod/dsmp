@@ -20,6 +20,8 @@ public class TbStudyrecord {
     private TbSubject tbSubject;
     
     private TbSubjectscore tbsubjectScore;
+    
+    private TbStudent tbStudent;
 
     public Integer getStrId() {
         return strId;
@@ -93,6 +95,14 @@ public class TbStudyrecord {
 
 	public void setTbsubjectScore(TbSubjectscore tbsubjectScore) {
 		this.tbsubjectScore = tbsubjectScore;
+	}
+
+	public TbStudent getTbStudent() {
+		return tbStudent;
+	}
+
+	public void setTbStudent(TbStudent tbStudent) {
+		this.tbStudent = tbStudent;
 	}
     
 }

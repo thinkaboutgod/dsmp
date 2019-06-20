@@ -19,8 +19,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dsmp.pojo.TbOption;
+import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbTopic;
+import com.dsmp.service.StudentService;
 import com.dsmp.service.StudyRecordService;
+import com.dsmp.service.SubjectScoreService;
 import com.dsmp.service.TopicService;
 import com.google.gson.Gson;
 
@@ -33,13 +36,16 @@ public class TopicController {
 	private TopicService topicService;
 	@Autowired
 	private StudyRecordService studyRecordService;
-	
+	@Autowired
+	private StudentService studentService;
+	@Autowired
+	private SubjectScoreService subjectScoreService;
 	@RequestMapping(value="/findTopic.action")
 	public ModelAndView findTopic(Integer top_id) {
 		System.out.println("top_id："+top_id);
 		ModelAndView mav = new ModelAndView();
 		TbTopic topic = topicService.findTopic(2);
-
+		
 			System.out.println("题目："+topic.getTopTopic());
 			System.out.println("选项："+topic.getOptions().toString());
 			if(null!=topic.getOptions()) {
@@ -99,10 +105,35 @@ public class TopicController {
 	 * @return 随机出一张卷子(题目集合)
 	 */
 	@RequestMapping(value="/findManyTopic.action")
-	public ModelAndView findManyTopic(Integer stu_id,Integer sub_id) {
+	public ModelAndView findManyTopic() {
+		Integer stu_id = null;//不用传值直接从session里面取（student）
+		Integer sub_id = null;
 		ModelAndView mav = new ModelAndView();
-		addStudyBeginTime(stu_id, sub_id);//进入模拟卷就插入开始学习时间
-		Integer currTotalTimeLength = sumTimeLength(stu_id, sub_id);//计算总学时
+		TbStudent student =  (TbStudent) session.getAttribute("student");//取到session里面存的登录后的session
+		System.out.println("sessionStudeng:"+student);
+		if(null!=student) {
+			System.out.println("sessionStuId:"+student.getStuId());
+			System.out.println("sessionSubId:"+student.getSubId());
+			System.out.println("sessionCoaId:"+student.getCoaId());
+			student =  studentService.findStuById(student.getStuId());//这个student是登录时存入session里的，可能登录后交流已经修改了预约状态或则科目，所以这里有必要去数据库查询一下
+			session.setAttribute("student", student);//覆盖掉原先的，现在是数据库中最新的数据
+			stu_id = student.getStuId();
+			sub_id = student.getSubId();
+			if(null!=student.getSubId()&&student.getSubId()==1) {//只有在科目一（未登录或其他科目都不执行）时，才插入学习时间
+				addStudyBeginTime(stu_id, sub_id);//进入模拟卷就插入开始学习时间
+				Integer currTotalTimeLength = sumTimeLength(stu_id, sub_id);//计算当前总学时
+				mav.addObject("currTotalTimeLength", currTotalTimeLength);
+				//查询出科目一需要的总学时：
+				
+				mav.addObject("percentage", getPercentage(currTotalTimeLength,10*60*60));//计算进度百分比
+				mav.addObject("totalTimeLength", 10*60*60);//需要的总学时
+			}
+		}
+			
+		if(sub_id==null||sub_id!=1) {//如果是未登录或非科目一，也让试卷出来
+			sub_id=1;
+		}
+		
 		List<TbTopic> topicList = topicService.findManyTopic(10,sub_id);//topicList表示一张卷子题目集合；参数10表示一份卷子出10道题目
 		for (TbTopic tbTopic : topicList) {
 			System.out.println(":"+tbTopic.getTopTopic());
@@ -116,9 +147,9 @@ public class TopicController {
 		mav.addObject("stu_id", stu_id);
 		mav.addObject("sub_id", sub_id);
 		mav.addObject("topicList", topicList);
-		mav.addObject("currTotalTimeLength", currTotalTimeLength);
-		mav.addObject("totalTimeLength", 10*60*60);
-		mav.addObject("percentage", getPercentage(currTotalTimeLength,10*60*60));
+		
+		
+		
 		
 /*		session.setAttribute("stu_id", stu_id);
 		session.setAttribute("sub_id", sub_id);
@@ -220,17 +251,30 @@ public class TopicController {
 	 * @return mistakeTopicList是该学员的错题集，到错题集页面
 	 */
 	@RequestMapping(value="/findMistakeTopic.action")
-	public ModelAndView findMistakeTopic(Integer stu_id,Integer sub_id) {
-		ModelAndView mav = new ModelAndView();
+	public ModelAndView findMistakeTopic() {
+		Integer stu_id = null;
+		Integer sub_id = null;
+ 		ModelAndView mav = new ModelAndView();
+		TbStudent student =  (TbStudent) session.getAttribute("student");//取到session里面存的登录后的session
 		
-		if(null==stu_id) {//只有有学员id（即学员登录状态下）才能有错题集功能。
+		if(null==student) {//只有有学员id（即学员登录状态下）才能有错题集功能。
 			
 			mav.addObject("loginMessage", "请登录查看错题集！");
 //			session.setAttribute("loginMessage", "请登录查看错题集！");
 			
 			mav.setViewName("client/mistakeCollectionOfSubject1");
-			return mav;//如果null==stu_id，则不会执行下面的代码了，这里就会停下
+			return mav;//如果满足，则不会执行下面的代码了，这里就会停下
+		}else if(student.getSubId()==null) {
+			mav.addObject("loginMessage", "需是报名账户才能查看错题集！");
+			mav.setViewName("client/mistakeCollectionOfSubject1");
+			return mav;
+		}else if(student.getSubId()!=1) {
+			mav.addObject("loginMessage", "您科目一已过，无科目一错题集！");
+			mav.setViewName("client/mistakeCollectionOfSubject1");
+			return mav;
 		}
+		stu_id = student.getStuId();
+		sub_id = student.getSubId();
 		addStudyBeginTime(stu_id, sub_id);//进入模拟卷就插入开始学习时间
 		Integer currTotalTimeLength = sumTimeLength(stu_id, sub_id);//计算总学时
 		List<TbTopic> mistakeTopicList = topicService.findMistakeTopic(stu_id);//allTopicList表示查出题库里所有题目
@@ -263,4 +307,137 @@ public class TopicController {
 		return mav;
 		
 	}
+
+	/**修改状态：当科目一的当前学时大于等于科目一要求学时时，并且分数大于90，修改成"可预约"(js已经判断好了，才过来执行这边的)
+	 * @param stuId 学员id
+	 * @return
+	 */
+		@RequestMapping(value="/updateSubjectStatus.action")
+	@ResponseBody
+	public String updateSubjectStatus(Integer stuId) {
+		String result = null;
+		TbStudent student =  (TbStudent) session.getAttribute("student");//取到session里面存的登录后的session
+		if(null!=student) {
+			System.out.println("StuBookingstate:"+student.getStuBookingstate());
+		}
+		
+		System.out.println("进入updateSubjectStatus:stuId-"+stuId);
+		if(null!=stuId&&null!=student&&null!=student.getStuBookingstate()&&"未预约".equals(student.getStuBookingstate())) {//科目状态为"未预约"的时候，才有必要执行update语句：变成"可预约"-有了被教练安排考试资格
+			boolean res = studentService.updateSubjectStatus(stuId,"可预约");
+			if(res) {//更改成功！
+//				student.setStuBookingstate("可预约");//把session中的student的StuSubjectstatus由lock改成canApply,学员便可以去申请考科目一了
+//				System.out.println("更改成功，现在session中的subStatus:"+((TbStudent) session.getAttribute("student")).getStuSubjectstatus());
+				result = "canApply";
+			}
+		}else if(null!=student&&null!=student.getStuBookingstate()&&"可预约".equals(student.getStuBookingstate())) {
+			result = "canApply";
+		}
+		return result;
+	}
+		/**
+		 * @return 随机出一张卷子(题目集合)(正式考试出卷：要插入分数到数据库的，判断有没有过)
+		 */
+		@RequestMapping(value="/trueFindManyTopic.action")
+		public ModelAndView trueFindManyTopic(Integer stu_id,Integer sub_id) {
+			ModelAndView mav = new ModelAndView();
+			TbStudent student =  (TbStudent) session.getAttribute("student");//取到session里面存的登录后的session
+			List<TbTopic> topicList = null;
+			System.out.println("sessionStudeng:"+student);
+			if(null!=student) {
+				System.out.println("sessionStuId:"+student.getStuId());
+				System.out.println("sessionSubId:"+student.getSubId());
+				System.out.println("sessionCoaId:"+student.getCoaId());
+				System.out.println("Bookingstate:"+student.getStuBookingstate());//这个student是登录时存入session里的，可能登录后交流已经修改了预约状态，所以这里有必要去数据库查询一下
+				student =  studentService.findStuById(student.getStuId());//这个student是登录时存入session里的，可能登录后交流已经修改了预约状态，所以这里有必要去数据库查询一下
+				session.setAttribute("student", student);//覆盖掉原先的，现在是数据库中最新的数据
+				stu_id = student.getStuId();
+				sub_id = student.getSubId();
+				//只有在科目状态为申请通过("已预约")，才允许考试
+				if(null!=student.getSubId()&&null!=student.getStuBookingstate()&&"已预约".equals(student.getStuBookingstate())) {
+					topicList = topicService.findManyTopic(10,sub_id);//topicList表示一张卷子题目集合；参数10表示一份卷子出10道题目
+					for (TbTopic tbTopic : topicList) {
+						System.out.println(":"+tbTopic.getTopTopic());
+						for (TbOption option : tbTopic.getOptions()) {
+							System.out.println("选项："+option.getOptOption());
+							System.out.println("选项对错："+option.getOptStatus());
+						}			
+						
+					}
+					
+				}
+			}				
+			
+			mav.addObject("topicList", topicList);
+			mav.addObject("stu_id", stu_id);
+			mav.addObject("sub_id", sub_id);
+			
+
+			mav.setViewName("client/trueExamOfSubject1");
+			return mav;
+		}
+		/**正式考试插入分数到数据库
+		 * @param stuId 学员id
+		 * @param subId 科目id
+		 * @param totalScore 考卷总分
+		 * @return
+		 */
+		@RequestMapping(value="/addSubject1Score.action")
+		@ResponseBody
+		public String addSubject1Score(Integer stuId,Integer subId,Integer totalScore) {
+			String result = null;
+			System.out.println("进入addSubject1Score:stuId-"+stuId+",subId-"+subId+",totalScore-"+totalScore);
+			if(null!=stuId&&null!=subId&&null!=totalScore) {//超过90分的才插入成绩
+				boolean addres = subjectScoreService.addSubject1Score(stuId,subId,totalScore);
+				if(addres) {//插入成绩成功！
+					System.out.println("插入成绩成功！");
+					result = "addSuccess";
+				}
+			}
+			return result;
+		}
+		/**科目一正式考试没有通过，把科目预约状态由"已预约"改成"可预约",等教练再次给他预约考试
+		 * @param stuId 学员id
+		 * @param subId 科目id
+		 * @return
+		 */
+		@RequestMapping(value="/noPass.action")
+		@ResponseBody
+		public String noPass(Integer stuId,Integer subId) {
+			String result = null;
+			TbStudent student =  (TbStudent) session.getAttribute("student");//取到session里面存的登录后的session
+			System.out.println("进入noPass:stuId-"+stuId+",subId-"+subId);
+			if(null!=stuId&&null!=subId) {
+				boolean res = studentService.updateSubjectStatus(stuId,"可预约");
+				
+				if(res) {//修改成功！
+					System.out.println("修改成功！");
+					student.setStuBookingstate("可预约");//把session中的student的科目预约状态由"已预约"改成"可预约",等教练再次给他预约考试
+					result = "success";
+				}
+			}
+			return result;
+		}
+		/**科目一正式考试通过，把学员的科目预约状态由"已预约"改成"未预约",科目1改成2
+		 * @param stuId 学员id
+		 * @param subId 科目id
+		 * @return
+		 */
+		@RequestMapping(value="/pass.action")
+		@ResponseBody
+		public String pass(Integer stuId,Integer subId) {
+			String result = null;
+			TbStudent student =  (TbStudent) session.getAttribute("student");//取到session里面存的登录后的session
+			System.out.println("进入noPass:stuId-"+stuId+",subId-"+subId);
+			if(null!=stuId&&null!=subId) {
+				boolean res = studentService.updateSubjectStatusAndSubId(stuId,"未预约",2);
+				
+				if(res) {//修改成功！
+					System.out.println("修改成功！");
+					student.setStuBookingstate("未预约");//把session中的student的科目预约状态由"已预约"改成"可预约",等教练再次给他预约考试
+					result = "success";
+				}
+			}
+			return result;
+		}
+		
 }

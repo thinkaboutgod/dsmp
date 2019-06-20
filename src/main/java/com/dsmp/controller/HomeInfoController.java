@@ -16,7 +16,14 @@ import com.dsmp.service.HomeInfoService;
 @RequestMapping("/home")
 public class HomeInfoController {
 	@Autowired private HomeInfoService homeInfoService;
-
+	
+	//主页科目一跳转相应界面
+	@RequestMapping("/keyi")
+	public ModelAndView getLoginPage() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("client/keyi");
+		return mav;
+	}
 	//广告数
 	@RequestMapping("/main")
 	public ModelAndView getHomeInfo() {

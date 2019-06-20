@@ -72,7 +72,7 @@ public class StudentServiceImpl implements StudentService {
 			}
 			if (tbStudent.getStuPassword().equals(md5Password)) {
 				if (tbStudent.getStuStatus().equals("启用")) {
-					session.setAttribute("student", tbStudent);
+					session.setAttribute("student", tbStudent);//登录成功后把student存入session，方便后面功能使用（如其id等）
 					tbStudent.setStuErrcount(0);
 					tbStudent.setStuErrtime(null);
 					tbStudent.setStuStatus("启用");
@@ -344,6 +344,34 @@ public class StudentServiceImpl implements StudentService {
 			myResult.setMyresult("failed");
 		}
 		return myResult;
+	}
+	/**更改学员当前科目状态
+	 * @param stuId 学员id
+	 * @param status stu_subjectStatus（学员当前科目的状态）字段要更改成的状态
+	 * @return
+	 */
+	@Override
+	public boolean updateSubjectStatus(Integer stuId, String status) {
+		boolean flag = false;
+		int res = tbStudentMapper.updateSubjectStatus(stuId,status);
+		if(res==1) {
+			flag = true;
+		}
+		return flag;
+	}
+	@Override
+	public boolean updateSubjectStatusAndSubId(Integer stuId, String status, Integer subId) {
+		boolean flag = false;
+		int res = tbStudentMapper.updateSubjectStatusAndSubId(stuId,status,subId);
+		if(res==1) {
+			flag = true;
+		}
+		return flag;
+	}
+	@Override
+	public TbStudent findStuById(Integer stuId) {
+		
+		return tbStudentMapper.findStuById(stuId);
 	}
 
 }
