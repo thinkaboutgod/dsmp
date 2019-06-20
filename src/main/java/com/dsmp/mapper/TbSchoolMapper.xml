@@ -46,11 +46,18 @@
     #{schAccount}, #{schPassword}, #{schAddress}, #{schIntroduction}, #{schBossname}, #{schRegistercapital},
     #{schCreditcode}, #{schType}, #{schHeadimg}, #{schCharge});
   </insert>
+
+  <!-- 搜索驾校 -->
+  <select id="selectSchoolByName" resultMap="BaseResultMap" >
+    select * from tb_school where sch_name like "%"#{schName}"%";
+  </select>
+
   
   <!-- 查询所有驾校，允许报名和运营的 -->
   <select id="selectAllSchoolForAdvertise" resultMap="BaseResultMap" >
     select sch_id,sch_name,sch_bossName from tb_school where sch_signUpStatus='允许报名' and sch_operativeStatus='允许运营'
   </select>
+
   <!-- 查询驾校排行 -->
   <select id="getSchoolRanking" resultMap="schoolRankingMap">
   	SELECT s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as starnum,AVG(r.rat_star) as staravg FROM 

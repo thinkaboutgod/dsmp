@@ -7,6 +7,9 @@ $(function(){
          data: '',
          success: function success(res) { 
         	var msge = JSON.parse(res);
+        	if(msge.length == 0){
+        		return false;
+        	} 
         	for(var i=0;i<5;i++){ 
         		if(i == 0){
         			var str = '<div class="rank_first">\n'+

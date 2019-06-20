@@ -112,9 +112,9 @@ layui.use(['upload','form'], function(){
       }
       //上传成功
       if(res.myresult == "success"){
-    	  layer.msg('提交成功,请等待后台审核,2秒后跳转到登录界面，请稍等...');
+    	  layer.msg('提交成功,请等待后台审核,2秒后跳转到首页，请稍等...');
     	  setTimeout(function () {
-				window.open(path+'/student/login.action?');
+				window.open(path+'/home/main.action?');
           }, 2000);
       }else if(res.myresult == "failed"){
     	  layer.msg('信息有误，请重新填写信息提交');

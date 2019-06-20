@@ -40,11 +40,12 @@ public class RatingServiceImpl implements RatingService {
 		String ratType = starJudge(starNum);
 		TbRating tbRating = new TbRating(null, coa_id, null, stu_id, ratingContent, null, starNum, ratType);
 		int res = tbRatingMapper.addCoachRating(tbRating);
+		System.out.println("res:"+res);
 		if(1==res) {
 			flag = true;
 			System.out.println("插入教练评价表成功！");
 		}
-		return false;
+		return flag;
 	}
 	
 	/**根据几颗星算出评价等级ratType:4、5-好评；2、3-中评；0、1-差评
@@ -75,7 +76,7 @@ public class RatingServiceImpl implements RatingService {
 			flag = true;
 			System.out.println("插入驾校评价表成功！");
 		}
-		return false;
+		return flag;
 
 	}
 

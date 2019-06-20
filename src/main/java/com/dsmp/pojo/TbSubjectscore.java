@@ -8,6 +8,11 @@ public class TbSubjectscore {
     private Integer stuId;
 
     private Integer susScore;
+    
+    private TbSubject tbSubject;
+    
+    private TbStudent tbStudent;
+    
 
     public Integer getSusId() {
         return susId;
@@ -40,4 +45,21 @@ public class TbSubjectscore {
     public void setSusScore(Integer susScore) {
         this.susScore = susScore;
     }
+
+	public TbSubject getTbSubject() {
+		return tbSubject;
+	}
+
+	public void setTbSubject(TbSubject tbSubject) {
+		this.tbSubject = tbSubject;
+	}
+
+	public TbStudent getTbStudent() {
+		return tbStudent;
+	}
+
+	public void setTbStudent(TbStudent tbStudent) {
+		this.tbStudent = tbStudent;
+	}
+    
 }

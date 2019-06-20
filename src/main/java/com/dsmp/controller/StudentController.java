@@ -210,7 +210,7 @@ public class StudentController {
 		MyResult result = null;
 		switch(role){
 		case "5":
-			result = studentService.studentLogin(session, account, password,role);	
+			result = studentService.studentLogin(session, account, password,role);
 			break;
 		case "4":
 			result = studentService.coachLogin(session, account, password, role);

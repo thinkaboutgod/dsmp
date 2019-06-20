@@ -9,6 +9,33 @@
     <result column="str_beginTime" property="strBegintime" jdbcType="TIMESTAMP" />
     <result column="str_endTime" property="strEndtime" jdbcType="TIMESTAMP" />
     <result column="str_state" property="strState" jdbcType="VARCHAR" />
+    <association property="tbStudent" javaType="com.dsmp.pojo.TbStudent"><!--  column="stu_id" -->
+    	<id column="stu_id" property="stuId" jdbcType="INTEGER" />
+	    <result column="coa_id" property="coaId" jdbcType="INTEGER" />
+	    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+	    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+	    <result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+	    <result column="stu_account" property="stuAccount" jdbcType="VARCHAR" />
+	    <result column="stu_password" property="stuPassword" jdbcType="VARCHAR" />
+	    <result column="stu_sex" property="stuSex" jdbcType="VARCHAR" />
+	    <result column="stu_birthday" property="stuBirthday" jdbcType="VARCHAR" />
+	    <result column="stu_idcard" property="stuIdcard" jdbcType="VARCHAR" />
+	    <result column="stu_img" property="stuImg" jdbcType="VARCHAR" />
+	    <result column="stu_headimg" property="stuHeadimg" jdbcType="VARCHAR" />
+	    <result column="stu_address" property="stuAddress" jdbcType="VARCHAR" />
+	    <result column="stu_registertime" property="stuRegistertime" jdbcType="TIMESTAMP" />
+	    <result column="stu_errCount" property="stuErrcount" jdbcType="INTEGER" />
+	    <result column="stu_errTime" property="stuErrtime" jdbcType="TIMESTAMP" />
+	    <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
+	    <result column="stu_signUpTime" property="stuSignuptime" jdbcType="TIMESTAMP" />
+	    <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
+	     <result column="stu_bookingstate" property="stuBookingstate" jdbcType="VARCHAR" />
+    </association>
+	<association property="tbSubject" javaType="com.dsmp.pojo.TbSubject">    	  
+		    <id column="sub_id" property="subId" jdbcType="INTEGER" />
+		    <result column="sub_name" property="subName" jdbcType="VARCHAR" />
+		    <result column="sub_time" property="subTime" jdbcType="DOUBLE" />
+	</association>
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -211,6 +238,9 @@
   <select id="sumTimeLength" resultType="java.lang.Integer">
   		select sum(str_time) from tb_studyrecord where stu_id=#{stuId} and sub_id=#{subId}
   </select>
+  <select id="findStudyRecord" resultMap="BaseResultMap">
+  		select * from tb_studyRecord str,tb_student stu,tb_subject sub where stu.stu_id=str.stu_id and sub.sub_id=str.sub_id and stu.stu_id=#{param1} and sub.sub_name=#{param2}
+  </select>
     <!-- 插入开始学习时间 -->
   <insert id="addStudyBeginTime">
   	insert into tb_studyRecord(stu_id,sub_id,str_time,str_beginTime) values(#{stuId},#{subId},0,now())
@@ -223,5 +253,6 @@
   <update id="addTimeLength">
   	update tb_studyRecord set str_time=#{studyLength} where stu_id=#{stuId} and sub_id=#{subId} and str_beginTime=(select t.str_beginTime from (select max(str_beginTime) as str_beginTime from tb_studyRecord where stu_id=#{stuId} and sub_id=#{subId})t)
   </update> 
+  
    <!-- ren end -->
 </mapper>
