@@ -29,4 +29,7 @@ public interface TbSchoolMapper {
 	
 	//驾校排行
 	public List<Count> getSchoolRanking();
+	
+	//查询允许报名和运营的所有驾校
+	public List<TbSchool> selectAllSchoolForAdvertise();
 }

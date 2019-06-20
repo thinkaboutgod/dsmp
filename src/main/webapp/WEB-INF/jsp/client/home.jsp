@@ -208,11 +208,13 @@
 
 	</div>
 		<!--横幅-->
-	<div class="hf" aos="flip-left">
+	<div class="row">	
+	<div class="hf col-md-12" aos="flip-left">
 		<a href=<%=path+"/school/schoolEnterPage.action" %>>
 			<img src=<%=path + "/images/home/jxrz_index.png"%> alt="" srcset="">
 		</a>
 
+	</div>
 	</div>
 	<!--文字栏-->
 	<div class="wordbox">

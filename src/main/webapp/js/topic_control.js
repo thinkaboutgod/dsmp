@@ -245,6 +245,7 @@ $.ajax({
 		   var suffix=fileName.substring(suffixIndex+1).toUpperCase();  
 		   if(suffix!="BMP"&&suffix!="JPG"&&suffix!="JPEG"&&suffix!="PNG"&&suffix!="GIF"){  
 		     layer.msg( "图片格式只能为：BMP、JPG、JPEG、PNG、GIF）!");  
+		  	return;
 		   } 
 		}
 		//上传携带信息
