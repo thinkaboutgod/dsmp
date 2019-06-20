@@ -3,53 +3,60 @@ package com.dsmp.pojo;
 import java.util.Date;
 
 public class TbLog {
-    private Integer logId;
+	private Integer logId;
 
-    private Date logTime;
+	private Date logTime;
 
-    private String logEvent;
+	private String logEvent;
 
-    private String logOperatoraccount;
+	private String logOperatoraccount;
 
-    private String logRole;
+	private String logRole;
 
-    public Integer getLogId() {
-        return logId;
-    }
+	public TbLog(String logEvent, String logOperatoraccount, String logRole) {
+		super();
+		this.logEvent = logEvent;
+		this.logOperatoraccount = logOperatoraccount;
+		this.logRole = logRole;
+	}
 
-    public void setLogId(Integer logId) {
-        this.logId = logId;
-    }
+	public Integer getLogId() {
+		return logId;
+	}
 
-    public Date getLogTime() {
-        return logTime;
-    }
+	public void setLogId(Integer logId) {
+		this.logId = logId;
+	}
 
-    public void setLogTime(Date logTime) {
-        this.logTime = logTime;
-    }
+	public Date getLogTime() {
+		return logTime;
+	}
 
-    public String getLogEvent() {
-        return logEvent;
-    }
+	public void setLogTime(Date logTime) {
+		this.logTime = logTime;
+	}
 
-    public void setLogEvent(String logEvent) {
-        this.logEvent = logEvent == null ? null : logEvent.trim();
-    }
+	public String getLogEvent() {
+		return logEvent;
+	}
 
-    public String getLogOperatoraccount() {
-        return logOperatoraccount;
-    }
+	public void setLogEvent(String logEvent) {
+		this.logEvent = logEvent == null ? null : logEvent.trim();
+	}
 
-    public void setLogOperatoraccount(String logOperatoraccount) {
-        this.logOperatoraccount = logOperatoraccount == null ? null : logOperatoraccount.trim();
-    }
+	public String getLogOperatoraccount() {
+		return logOperatoraccount;
+	}
 
-    public String getLogRole() {
-        return logRole;
-    }
+	public void setLogOperatoraccount(String logOperatoraccount) {
+		this.logOperatoraccount = logOperatoraccount == null ? null : logOperatoraccount.trim();
+	}
 
-    public void setLogRole(String logRole) {
-        this.logRole = logRole == null ? null : logRole.trim();
-    }
+	public String getLogRole() {
+		return logRole;
+	}
+
+	public void setLogRole(String logRole) {
+		this.logRole = logRole == null ? null : logRole.trim();
+	}
 }

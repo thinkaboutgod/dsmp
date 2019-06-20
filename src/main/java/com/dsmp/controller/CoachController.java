@@ -12,9 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.dsmp.mapper.TbCoachMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCoach;
+import com.dsmp.pojo.TbSchool;
 import com.dsmp.service.CoachService;
 
 @Controller
@@ -25,6 +28,7 @@ public class CoachController {
 	
 	@Autowired private MyResult myResult;
 	
+	@Autowired private TbCoachMapper tbCoachMapper;
 	@RequestMapping(value="toschool_coach")
 	public String toSchoolCoach(HttpSession session) {
 		session.setAttribute("schId", 1);
@@ -61,11 +65,25 @@ public class CoachController {
 	 * @return
 	 */
 	@RequestMapping(value = "addCoach")
-	public MyResult addCoach(HttpServletRequest request,MyResult myResult) {
+	public @ResponseBody MyResult addCoach(HttpServletRequest request,MyResult myResult) {
 		myResult = coachService.addCoach(request,myResult);
 		return myResult;
 	}
 	
+	//主页跳转驾校入驻页面
+	@RequestMapping("/allCoachPage")
+	public ModelAndView getAllCoachPage() {
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("client/allcoach");
+		return mav;
+	}		
+	//获取驾校集合
+	@RequestMapping("/selectAllCoach")
+	public @ResponseBody List<TbCoach> getSchoolByStauts(){
+		System.out.println("进来找集合");
+		List<TbCoach> coaList = tbCoachMapper.selectAllCoach();
+		return coaList;
+	}	
 	
 	
 //	@RequestMapping("/selectStusByCoaId.action")

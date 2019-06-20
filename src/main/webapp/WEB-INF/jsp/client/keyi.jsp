@@ -121,6 +121,7 @@
 				</div>
 			</div>
 		</div>
-<%-- <jsp:include page="tail.jsp"></jsp:include> --%>
+ <jsp:include page="tail.jsp"></jsp:include> 
+
 </body>
 </html>

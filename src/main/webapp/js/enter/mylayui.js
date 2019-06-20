@@ -112,7 +112,7 @@ layui.use(['upload','form'], function(){
       }
       //上传成功
       if(res.myresult == "success"){
-    	  layer.msg('入驻成功,2秒后跳转到登录界面，请稍等...');
+    	  layer.msg('提交成功,请等待后台审核,2秒后跳转到登录界面，请稍等...');
     	  setTimeout(function () {
 				window.open(path+'/student/login.action?');
           }, 2000);

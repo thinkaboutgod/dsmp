@@ -73,11 +73,16 @@ $(document).on("click",".change",function(){
 	$("#parId").val(data.parId);
 	$("#parName").val(data.parName);
 	$("#parType").val(data.parType);
-	$("#parValue").val(data.parValue);
+	if (data.parType=="时间") {
+		$("#parValue").val(data.parValue.split(":")[0]);
+	}else {
+		$("#parValue").val(data.parValues);
+	}
+	
 	$("#changePar").modal("show");
 	
 })
-
+//确认修改
 $("#change").click(function() {
 	var parValue = $("#parValue").val();
 	if (type=="时间") {

@@ -8,7 +8,7 @@ public class MyResult {
 	private int roleId;
 	private String myresult;
 	private String data;
-	
+	private String stauts;
 	private int errCount;
 	private Double sum;
 
@@ -21,13 +21,22 @@ public class MyResult {
 		this.myresult = myresult;
 	}
 
-	public MyResult(int code,int roleId, String myresult, String data,int errCount) {
+	public MyResult(int code,int roleId, String myresult, String data,int errCount,String stauts) {
 		super();
 		this.code = code;
 		this.myresult = myresult;
 		this.data = data;
 		this.errCount = errCount;
 		this.roleId = roleId;
+		this.stauts = stauts;
+	}
+
+	public String getStauts() {
+		return stauts;
+	}
+
+	public void setStauts(String stauts) {
+		this.stauts = stauts;
 	}
 
 	public int getRoleId() {

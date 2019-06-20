@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dsmp.mapper.TbOptionMapper;
+import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.mapper.TbTopicMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbMistakeCollection;
@@ -37,6 +38,9 @@ public class TopicServiceImpl implements TopicService {
 	@Autowired
 	private TbOptionMapper tbOptionMapper;
 
+	@Autowired
+	private TbParameterMapper tbParameterMapper;
+	
 	@Override
 	public TbTopic findTopic(Integer topId) {
 
@@ -309,7 +313,8 @@ public class TopicServiceImpl implements TopicService {
 		} else {// 有更新图片
 			String fileName = System.currentTimeMillis() + "_" + newImg.getOriginalFilename();
 			tbTopic.setTopImg(fileName);
-			String path = request.getServletContext().getRealPath("/images/topic/");
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");//获取系统文件储存路径
+			String path = filePath+"/images/topic/";
 			File file = new File(path);
 			if (!file.exists()) {
 				file.mkdirs();

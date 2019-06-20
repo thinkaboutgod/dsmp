@@ -17,9 +17,11 @@
     <link type="text/css" href="<%=path %>/bootstrap-datatable/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/adminlte.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
+
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
-<div class="wrapper">
+<body class="hold-transition skin-red sidebar-mini">
+<input type="hidden" id="path" value=<%=path%>>
+<div class="wrapper  ">
 	<jsp:include page="header.jsp"></jsp:include>
 	<jsp:include page="sliderbar.jsp"></jsp:include>
 	<div class="content-wrapper">
@@ -29,7 +31,7 @@
            			 <div class="box-header">
 		              	<h3 class="box-title"><strong>学员管理</strong></h3>
 		           	 </div>
-		           	 <div class="box-body">
+		           	 <%-- <div class="box-body"> --%>
 
 		           	 	<div class="tabbable" id="tabs-643545">
 							<ul class="nav nav-tabs">
@@ -38,10 +40,12 @@
 							</ul><br>
 							<div class="tab-content">
 								<div class="tab-pane active" id="panel-139674">
+                  <div class="box"><br>
                   <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                     <div class="row">
                       <div class="col-sm-12">
-                               <div class = "input-group" >
+                           <div class="box-header">
+                              	   <div class = "input-group" >
                                        <input type = "text" class=" form-control"  id="sname" placeholder="用户姓名">
                                    </div>
                                    <div class = "input-group">
@@ -67,7 +71,9 @@
                            <div class = "input-group">
                                         <button  class="button btn-primary btn-sm "  id="buttonsearch">搜索</button>
                                    </div>
-                                   <table id="studentTable" class="table table-bordered table-hover">
+                                </div>
+                                <div class="box-body">
+                                   <table id="studentTable"  class="table row-border table-bordered table-hover ">
                           <thead>
                             <tr role="row">
                             <th >序号</th>
@@ -85,13 +91,18 @@
 
                         </table>
                       </div>
+                      </div>
                     </div>
                   </div>
+                    </div>
+
 								</div>
 								<div class="tab-pane " id="panel-185679">
+                  <div class="box"><br>
                   <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                   <div class="row">
                     <div class="col-sm-12">
+                      <div class="box-header">
                          <div class = "input-group" >
                              <input type = "text" class=" form-control"  id="sname2" placeholder="用户姓名">
                          </div>
@@ -115,12 +126,13 @@
                          <div class = "input-group">
                              <button  class="button btn-primary btn-sm "  id="buttonsearch2">搜索</button>
                          </div>
-                        <table id="studentTable2" class="table table-bordered table-hover">
+                         </div>
+                        <div class="box-body">
+                        <table id="studentTable2"  class="table table-bordered table-hover">
                         <thead>
                           <tr role="row">
                           <th >序号</th>
                           <th >账号</th>
-                          <th >姓名</th>
                           <th >注册时间</th>
                           <th >账号状态</th>
                           <th >操作</th>
@@ -130,14 +142,16 @@
 
                       </table>
                     </div>
+                    </div>
                   </div>
-
                   </div>
 								</div>
+              </div>
+
 							</div>
 						</div>
 
-					</div>
+					<%-- </div> --%>
 	  	 		</div>
             <!-- /.box-body -->
           </div>
@@ -180,6 +194,12 @@
 							<label for="ed_phone" class="col-sm-2 control-label">教练姓名：</label>
 							<div class="col-sm-10">
 								<input class="form-control" id="coachName" type="text" readonly="readonly">
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="ed_phone" class="col-sm-2 control-label">当前学习科目：</label>
+							<div class="col-sm-10">
+								<input class="form-control" id="subName" type="text" readonly="readonly">
 							</div>
 						</div>
 					</div>

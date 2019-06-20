@@ -1,5 +1,7 @@
 package com.dsmp.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,12 +22,11 @@ public class SchoolServiceImpl implements SchoolService {
 	@Autowired private TbSchoolMapper tbSchoolMapper;
 
 
-
+	//驾校入驻
 	@Override
 	public MyResult insertSchoolInfo(String phone,String password,String sch_creditcode,String sch_name,
 			String sch_type,String sch_address,String sch_bossname,String sch_registerCapital,
 			String sch_introduce,Double sch_charge,String fileName) {
-		System.out.println("入驻账号"+phone);
 		String md5Password = Md5Tools.getMd5(password);
 		MyResult result = new MyResult();
 		TbSchool school = new TbSchool();
@@ -60,5 +61,13 @@ public class SchoolServiceImpl implements SchoolService {
 		System.out.println(result);
 		return result;
 	}
+
+//查询所有允许报名和运营的驾校
+	@Override
+	public List<TbSchool> selectAllSchoolForAdvertise() {
+		// TODO Auto-generated method stub
+		return tbSchoolMapper.selectAllSchoolForAdvertise();
+	}
+	
 	
 }

@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,7 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.config.AlipayConfig;
 import com.dsmp.mapper.TbCapitalrecordMapper;
+import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.mapper.TbStudentMapper;
 import com.dsmp.pojo.MyResult;
@@ -50,6 +52,8 @@ public class StudentController {
 	private TbStudentMapper tbStudentMapper;
 	@Autowired
 	private TbCapitalrecordMapper tbCapitalrecordMapper;	
+	@Autowired
+	private TbParameterMapper tbParameterMapper;
 	@Autowired private MyResult myResult;
 	//主页跳登录页
 	@RequestMapping("/login")
@@ -77,6 +81,7 @@ public class StudentController {
 		return mav;
 	}	
 	//付款成功跳回主页
+	@Transactional
 	@RequestMapping("/main")
 	public ModelAndView getMainPage(HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
 		System.out.println("付款成功了");
@@ -162,15 +167,21 @@ public class StudentController {
 	@RequestMapping("/apply")
 	public ModelAndView getApplyPage() {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("client/apply");;
-		List<TbSchool> schList = tbMapper.selectAllSchool();
+		mav.setViewName("client/apply");
+		String signUpStatus = "允许报名";
+		List<TbSchool> schList = tbMapper.selectAllSchoolBySignUpStatus(signUpStatus);
 		mav.addObject("schList",schList);
 		return mav;
 	}
 	
 	
+	/**
+	 * 	跳转到驾校的学员管理页面
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="toschool_student")
-	public String toSchoolCoach(HttpSession session) {
+	public String toSchoolStudent(HttpSession session) {
 		session.setAttribute("schId", 1);
 		return "back/school_student";
 	}
@@ -208,6 +219,7 @@ public class StudentController {
 			result = studentService.schoolLogin(session, account, password, role);
 			break;
 		}
+		System.out.println("登录最终结果："+result.getStauts());
 		return result;
 	}
 	
@@ -262,8 +274,9 @@ public class StudentController {
 		System.out.println("驾校ID"+school);
 		MyResult result = null;
 		if (!file.isEmpty()) {
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");//获取系统文件储存路径
 			// 上传文件路径
-			String path = request.getServletContext().getRealPath("/images/student/");
+			String path = filePath+"/images/student/";
 			System.out.println(path);
 			// 上传文件名
 //			String filename = file.getOriginalFilename();
@@ -292,10 +305,58 @@ public class StudentController {
 		return result;
 	}
 	
-	@RequestMapping(value = "changeStudentState.action")
+	/**
+	 * 	修改学员状态
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "changeStudentState")
 	public @ResponseBody MyResult changeStudentState(HttpServletRequest request) {
 		myResult = studentService.changeStudentState(request, myResult);
 		return myResult;
 	}
 	
+	/**
+	 * 	驾校添加学员
+	 * @param request
+	 * @param file
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	@RequestMapping(value="addStudent")
+	public @ResponseBody MyResult addStudent(HttpServletRequest request,MultipartFile file) throws IllegalStateException, IOException {
+		if (!file.isEmpty()) {
+			// 上传文件路径
+			String path = request.getServletContext().getRealPath("/images/student/");
+			System.out.println(path);
+			// 上传文件名
+			String filename = request.getParameter("filename");
+			File filepath = new File(path, filename);
+			// 判断路径是否存在，如果不存在就创建一个
+			if (!filepath.getParentFile().exists()) {
+				filepath.getParentFile().mkdirs();
+			}
+			// 将上传文件保存到一个目标文件当中
+			file.transferTo(new File(path + File.separator + filename));
+			// 输出文件上传最终的路径 测试查看
+			System.out.println(path + File.separator + filename);
+			myResult = studentService.addStudent(request);
+		} else {
+			myResult.setMyresult("failed");
+		}
+		System.out.println("最终返回的结果："+myResult);
+		return myResult;
+	}
+	
+	/**
+	 *	 审核学生
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="checkStudent")
+	public @ResponseBody MyResult checkStudent(HttpServletRequest request) {
+		myResult = studentService.checkStudent(request, myResult);
+		return myResult;
+	}
 }

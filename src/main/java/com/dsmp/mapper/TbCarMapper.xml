@@ -57,4 +57,12 @@
 		update tb_car set car_status=#{param2} where car_id=#{param1}
 	</update>
 	
+	<!-- 增加车辆 -->
+	<insert id="addCar" parameterType="TbCar">
+		INSERT INTO tb_car (sch_id,car_plateNum,car_style,car_img,car_color) 
+		VALUES (#{schId},#{carPlatenum},#{carStyle},#{carImg},#{carColor});
+	</insert>
+	
+	
+	
 </mapper>

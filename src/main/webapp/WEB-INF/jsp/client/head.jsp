@@ -15,7 +15,8 @@
 				<div class="comment-header-right">
 				<c:choose>
 					<c:when test="${student != null}">
-						<a class="right-text" href=""><span>欢迎：${student.stuName}</span></a>						
+						<a class="right-text" href=""><span>欢迎：${student.stuName}</span></a>	
+						<a class="right-text" href=<%=path+"/home/logout.action" %>><span>注销</span></a>						
 					</c:when>
 					<c:otherwise>
 						<a class="right-text" href=<%=path + "/student/login.action"%>					
@@ -45,7 +46,7 @@
 		<ul class="nav clearfix m_m">
 			<li class="m cur">
 				<h3>
-					<a href="javascript:;">首页</a>
+					<a href=<%=path+"/home/main.action?"%>>首页</a>
 				</h3>
 			</li>
 			<li class="m ">
@@ -57,14 +58,13 @@
 					<li><a target="_blank" href=<%=path+"/topic/findManyTopic.action?stu_id=2&sub_id=1"%>>科目一模拟</a></li>
 					<li><a target="_blank" href=<%=path+"/topic/findAllTopic.action?stu_id=2&sub_id=1"%>>科目一练习</a></li>
 					<li><a target="_blank" href=<%=path+"/topic/findMistakeTopic.action?stu_id=2&sub_id=1"%>>科目一错题集</a></li>
-
 					<li><a href="javascript:;">科目四</a></li>
 
 				</ul>
 			</li>
 			<li class="m ">
 				<h3>
-					<a href=" javascript:;">驾校</a>
+					<a href=<%=path+"/school/allSchoolPage.action" %> target="_blank">驾校</a>
 				</h3>
 				<ul class="sub">
 
@@ -84,7 +84,7 @@
 			</li>
 			<li class="m ">
 				<h3>
-					<a href=" javascript:;">教练</a>
+					<a href=<%=path+"/coach/allCoachPage.action" %>>教练</a>
 				</h3>
 				<ul class="sub">
 
@@ -137,3 +137,16 @@
 			</li>
 		</ul>
 	</div>
+	
+	<script type="text/javascript">
+		jQuery(".nav").slide({
+			type : "menu", //效果类型
+			titCell : ".m", // 鼠标触发对象
+			targetCell : ".sub", // 效果对象，必须被titCell包含
+			effect : "slideDown", //下拉效果
+			delayTime : 300, // 效果时间
+			triggerTime : 0, //鼠标延迟触发时间
+			returnDefault : true
+		//返回默认状态
+		});
+	</script>

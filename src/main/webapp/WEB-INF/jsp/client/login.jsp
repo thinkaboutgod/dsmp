@@ -18,12 +18,14 @@
 <link rel="stylesheet" href=<%=path+"/css/login/login.css"%>>
 <link rel='stylesheet' href=<%=path+"/layui/css/layui.css" %> media="all">	
 <script src=<%=path+"/layui/layui.js" %> charset="utf-8"></script>
+
 <script src=<%=path+"/js/jquery-3.3.1.js"%> charset="utf-8"></script>
 <script src=<%=path+"/js/loginlayui.js"%> charset="utf-8"></script>
 <script src=<%=path+"/js/login/imgCode.js"%> charset="utf-8"></script>
 <script src=<%=path+"/js/login/login.js"%> charset="utf-8"></script>
 <script src=<%=path+"/js/login/load.js"%> charset="utf-8"></script>
 <script src=<%=path+"/js/login/isd_captcha.js"%> charset="utf-8"></script>
+<script type="text/javascript" src=<%=path + "/layer/layer.js"%>></script>
 </head>
 <body>
 <input type="hidden" id="path" value=<%=path %>>

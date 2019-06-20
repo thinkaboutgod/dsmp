@@ -17,7 +17,7 @@
     <link type="text/css" href="<%=path %>/adminlte/css/adminlte.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 <input type="hidden" id="path" value=<%=path%>>
 <div class="wrapper">
 	<jsp:include page="header.jsp"></jsp:include>
@@ -28,11 +28,14 @@
 	  	 		<div class="col-md-12">
 					<div class="box-header">
 		              	<h3 class="box-title"><strong>友情链接管理</strong></h3>
+
 		           	 </div><br>
+                 <div class="box"><br>
            			<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                     <div class="row">
                       <div class="col-sm-12">
-							<div class = "input-group">
+                        <div class="box-header">
+							              <div class = "input-group">
                                  <button  class = "button btn-info btn-sm"   id="change">修改</button>
                             </div>
                             <div class = "input-group">
@@ -41,9 +44,9 @@
                             <div class = "input-group">
                                  <button  class = "button btn-success btn-sm"   id="add">新增</button>
                             </div>
-                          <hr style="height:1px;border:none;border-top:1px solid #555555;" />
-                         
-                          <table id="blogrollTable" class="table table-bordered table-hover">
+                          <%-- <hr style="height:1px;border:none;border-top:1px solid #555555;" /> --%>
+                          <div class="box-body">
+                          <table id="blogrollTable" class=" table table-bordered cell-border table-hover ">
 		                      <thead>
 		                        <tr role="row">
 		                        <th >序号</th>
@@ -54,7 +57,10 @@
 		                      <tbody></tbody>
                         </table>
                       </div>
+                      </div>
+                      </div>
                     </div>
+                  </div>
                   </div>
 	  	 		</div>  <!-- /.box-body -->
 	  	 	</div>

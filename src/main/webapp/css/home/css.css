@@ -823,8 +823,10 @@ body {
 
 /*product show*/
 .productbox {
-	height: 565px;
+	width:100%;
+	height: 640px;
 	overflow: hidden;
+
 }
 
 .prod_left {
@@ -1656,10 +1658,9 @@ body {
 
 .info {
 	height: 30px;
-	line-height: 28px;
 	border-bottom: dashed #BDBDBD 1px;
 	margin: 3px 0px;
-	text-align: center;
+
 	font-size: 14px;
 	color: #6A6A6A;
 }

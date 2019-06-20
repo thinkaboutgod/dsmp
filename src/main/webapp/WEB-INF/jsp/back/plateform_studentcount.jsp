@@ -19,7 +19,7 @@
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
 	<link type="text/css" href="<%=path %>/adminlte/css/morris.css" rel="stylesheet">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 <input type="hidden" id="path" value=<%=path%>>
 <div class="wrapper">
 	<jsp:include page="header.jsp"></jsp:include>
@@ -35,13 +35,14 @@
 
 		           	 	<div class="tabbable" id="tabs-643545">
 							<ul class="nav nav-tabs">
-								<li  class="active"><a href="#panel-139674" data-toggle="tab">报名人数统计</a></li>
+								<li  class="active"><a href="#panel-139674" data-toggle="tab">报名人数统计（按驾校）</a></li>
+                <li><a href="#panel-133284" data-toggle="tab">报名人数统计（按时间）</a></li>
 								<li><a href="#panel-185679" data-toggle="tab">驾校费用统计</a></li>
 							</ul><br>
 							<div class="tab-content">
 								<div class="tab-pane active" id="panel-139674">
-                  <!-- BAR CHART表 -->
-                <div class="box box-success" style="width:1000px;">
+                  <!-- AREA CHART表 -->
+                <div class="box box-primary" style="width:1000px;">
                   <div class="box-header with-border">
                     <h3 class="box-title">各驾校报名人数统计</h3>
 
@@ -63,8 +64,8 @@
                     <div class="col-xs-4" >
                     <select class="form-control " id="dateSelect">
                       <option value="0">--查询时间--</option>
-                      <option value="1">近半年</option> 
-                      <option value="2">近30天</option> 
+                      <option value="1">近半年</option>
+                      <option value="2">近30天</option>
                     </select>
                     </div>
                     <div class="col-xs-3" >
@@ -75,11 +76,62 @@
                  	</div>
                   </div>
                   <div class="box-body chart-responsive">
-                    <div class="chart" id="bar-chart" style=" height: 300px;"></div>
+                    <div class="chart" id="area-chart" style=" height: 300px;"></div>
                   </div>
-                </div><!-- BAR CHART表 -->
+                </div><!-- AREA CHART表 -->
 
 								</div>
+                <div class="tab-pane " id="panel-133284">
+                  <div class="row " >
+                    <div class="col-xs-3" >
+                      <select class="form-control " id="monthSelectForSchool">
+                      <option value="0">--请选择月份--</option>
+                       <c:forEach items="${dateList}" begin="0" step="1" var="i">
+                           <option value="${i.name}">${i.name}</option>
+                       </c:forEach>
+                      </select>
+                    </div>
+                    <div class="col-xs-2" >
+                    <button class="btn btn-info" type="button" id="searchByMonth" name="button">确定</button>
+                  </div>
+                  
+                  </div><br>
+                  <div class="row " >
+                      <!-- BAR CHART表 -->
+                    <div class="box box-info" style="width:1000px;">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">月度报名人数统计</h3>
+
+                        <div class="box-tools pull-right">
+                          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                          </button>
+                 <!--          <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->
+                        </div>
+                      </div>
+
+                      <div class="box-body chart-responsive">
+                        <div class="chart" id="bar-chart" style=" height: 350px;"></div>
+                      </div>
+                    </div><!-- BAR CHART表 -->
+                    </div>
+                      <div class="row " >
+                      <!-- DONUT CHART -->
+                    <div class="box box-danger" style="width:1000px;">
+                      <div class="box-header with-border">
+                        <h3 class="box-title">月度百分比统计</h3>
+
+                        <div class="box-tools pull-right">
+                          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button>
+                        </div>
+                      </div>
+                      <div class="box-body chart-responsive">
+                        <div class="chart" id="percent-chart" style="height: 400px; "></div>
+                      </div>
+                      <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                    </div>
+                </div>
 								<div class="tab-pane " id="panel-185679">
                   <div id="example2_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                   <div class="row">
@@ -152,4 +204,5 @@
 <!-- Morris.js charts -->
 <script type="text/javascript" src=<%=path+"/adminlte/js/raphael-min.js"%> ></script>
 <script type="text/javascript" src=<%=path+"/adminlte/js/morris.js"%> ></script>
+<script type="text/javascript" src=<%=path+"/js/echarts.js"%> ></script>
 </html>

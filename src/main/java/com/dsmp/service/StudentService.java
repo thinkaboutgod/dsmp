@@ -30,6 +30,7 @@ public interface StudentService {
 			String code,String phone);
 	//学员忘记密码
 	public MyResult changePwd(HttpServletRequest request,String newPassword,String phone,String code);
+	
 	/**
 	 * 	查询所有学员
 	 * @param request
@@ -57,6 +58,21 @@ public interface StudentService {
 	 * @return
 	 */
 	public boolean updateSubjectStatusAndSubId(Integer stuId,String status,Integer subId);
+	/**
+	 *	 驾校添加学生
+	 * @param request
+	 * @return
+	 */
+	public MyResult addStudent(HttpServletRequest request);
+	
+	/**
+	 * 	驾校审核学生
+	 * @param request
+	 * @param myResult
+	 * @return
+	 */
+	public MyResult checkStudent(HttpServletRequest request, MyResult myResult);
+	
 	
 	/**根据学员id查学员
 	 * @param stuId 学员id

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCar;
@@ -30,7 +31,11 @@ public class CarController {
 		return "back/school_car";
 	}
 	
-	
+	/**
+	 * 查询教练车
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value="selectCarsByCondition")
 	public @ResponseBody Map<String,List<TbCar>> selectCarsByCondition(HttpServletRequest request) {
 		Map<String,List<TbCar>> map = new HashMap<>();
@@ -39,11 +44,24 @@ public class CarController {
 		return map;
 	}
 	
-	@RequestMapping(value = "scrapCar.action")
+	/**
+	 * 报废车辆
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "scrapCar")
 	public @ResponseBody MyResult scrapCar(HttpServletRequest request) {
-		myResult = carService.scrapCar(request, myResult);
-		return myResult;
+		return carService.scrapCar(request, myResult);
 	}
 	
 	
+	/**
+	 *	 新增教练车
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "addCar")
+	public @ResponseBody String addCar(HttpServletRequest request,MultipartFile carImgNew) {
+		return carService.addCar(request, carImgNew);
+	}
 }

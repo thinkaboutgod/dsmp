@@ -44,6 +44,7 @@ public class TbStudent {
 	
 	private String stuBookingstate;//学员当前科目的状态（未预约-不能考（默认）；可预约-有了考试资格（如科一学时，分数都够）；已预约-学员可以考）
 	
+	
 	private TbSubject tbSubject;
 
 	private TbCoach tbCoach;
