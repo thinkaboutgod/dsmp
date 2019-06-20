@@ -24,6 +24,7 @@ import com.dsmp.pojo.TbAdvertisement;
 import com.dsmp.pojo.TbCapitalrecord;
 import com.dsmp.pojo.TbHotlink;
 import com.dsmp.pojo.TbLog;
+import com.dsmp.pojo.TbNotice;
 import com.dsmp.pojo.TbOption;
 import com.dsmp.pojo.TbParameter;
 import com.dsmp.pojo.TbSchool;
@@ -34,6 +35,7 @@ import com.dsmp.pojo.TbVideo;
 import com.dsmp.service.AdvertisementService;
 import com.dsmp.service.BlogrollService;
 import com.dsmp.service.LogService;
+import com.dsmp.service.NoticeService;
 import com.dsmp.service.PlateformService;
 import com.dsmp.service.SchoolService;
 import com.dsmp.service.TopicService;
@@ -55,9 +57,12 @@ public class PlateformController {
 	private MyResult myResult;
 	@Autowired
 	private AdvertisementService advertisementService;
-	
+	@Autowired
+	private NoticeService noticeService;
+
 	@Autowired
 	private SchoolService schoolService;
+
 	// 学员查看页面
 	@RequestMapping(value = "toStudentController.action")
 	public String toStudentController() {
@@ -300,29 +305,69 @@ public class PlateformController {
 	public @ResponseBody String searchFilePath() {
 		return plateformService.searchFilePathParameter();
 	}
-	//发送广告管理界面
-	@RequestMapping(value="advertiseController.action")
+
+	// 发送广告管理界面
+	@RequestMapping(value = "advertiseController.action")
 	public ModelAndView advertiseController() {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("levelList", advertisementService.searchAdvLevel());
-		mav.addObject("schoolList", schoolService.selectAllSchoolForAdvertise());//所有允许报名和运营的驾校
+		mav.addObject("schoolList", schoolService.selectAllSchoolForAdvertise());// 所有允许报名和运营的驾校
 		mav.setViewName("back/plateform_advertise");
 		return mav;
 	}
-	//查询广告，分页，可查所有，可根据广告等级
-	@RequestMapping(value="searchAdvertise.action")
-	public @ResponseBody PageResult searchAdvertise(HttpServletRequest request){
+
+	// 查询广告，分页，可查所有，可根据广告等级
+	@RequestMapping(value = "searchAdvertise.action")
+	public @ResponseBody PageResult searchAdvertise(HttpServletRequest request) {
 		return advertisementService.searchAdvertise(request);
 	}
-	
+
 	// 广告修改或者增加
 	@RequestMapping(value = "forAdvertise.action")
 	public @ResponseBody String advertiseChange_add(HttpServletRequest request, MultipartFile newImg) {
 		return advertisementService.advertiseChange_add(request, newImg);
 	}
-	// 广告修改或者增加
-		@RequestMapping(value = "deleteAdvertise.action")
-		public @ResponseBody MyResult deleteAdvertise(String advId) {
-			return advertisementService.deleteAdvertise(advId);
-		}
+
+	// 广告删除
+	@RequestMapping(value = "deleteAdvertise.action")
+	public @ResponseBody MyResult deleteAdvertise(String advId) {
+		return advertisementService.deleteAdvertise(advId);
+	}
+
+	// 发送公告管理界面
+	@RequestMapping(value = "noticeController.action")
+	public ModelAndView noticeController() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("typelList", noticeService.selectAllType());
+		mav.setViewName("back/plateform_notice");
+		return mav;
+	}
+
+	// 发送所有公告
+	@RequestMapping(value = "searchAllNotice.action")
+	public @ResponseBody Map<String, List<TbNotice>> searchAllNotice() {
+		Map<String, List<TbNotice>> map = new HashMap<>();
+		map.put("data", noticeService.selectAllNotice());
+		return map;
+	}
+
+	// 新增公告动态
+	@RequestMapping(value = "addNotice.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
+	public @ResponseBody MyResult addNotice(@RequestBody TbNotice tbNotice) {
+
+		return noticeService.insertNotice(tbNotice);
+	}
+
+	// 修改公告动态
+	@RequestMapping(value = "changeNotice.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
+	public @ResponseBody MyResult changeNotice(@RequestBody TbNotice tbNotice) {
+		System.out.println(tbNotice.getNotId());
+		return noticeService.changeNotice(tbNotice);
+	}
+
+	// 删除公告动态
+	@RequestMapping(value = "deleteNotice.action")
+	public @ResponseBody MyResult deleteNotice(String notId) {
+		return noticeService.deleteNoticeById(Integer.valueOf(notId));
+	}
 }

@@ -1,11 +1,12 @@
 var path = $("#path").val();
-var rowData=-1;//用于判断有无选中数据
+var rowData=-1;////用于判断有无选中数据
 var type;//用于区分修改还是新增
 $(document).ready(function() {
+	
 	$.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 	
 	datatable_otherSet = {
-			"ajax" : path+"/plateform/searchAllBlogRoll.action",
+			"ajax" : path+"/plateform/searchAllNotice.action",
 			"searching":true,
 			"columns" : [
 					{
@@ -17,17 +18,19 @@ $(document).ready(function() {
 			                meta.settings._iDisplayStart;
 			            }
 			        },{
-						"data" : "holTitle",
+						"data" : "notTitle",
 						"orderable" : false,
 							
-					},{
-						"data" : "holPath",
+					},
+					{
+						"data" : "notPath",
 						"orderable" : false, 
 					},
+					{
+						"data" : "tbNoticeType.ntyName",
+						"orderable" : false, 
+					}
 //					{
-//						"data" : "parValue",
-//						"orderable" : false, 
-//					},{
 //						"data" : "capId",
 //						"orderable" : false, 
 //						"render" : function(data, type, full, meta) {
@@ -50,8 +53,7 @@ $(document).ready(function() {
 
 		};
 	
-var table = $("#blogrollTable").DataTable(datatable_otherSet);//初始化
-
+var table = $("#notTable").DataTable(datatable_otherSet);//初始化
 //选择行
 $('tbody').on('click', 'tr', function() {
 	if ($(this).hasClass('selected')) {
@@ -67,17 +69,9 @@ $('tbody').on('click', 'tr', function() {
 		rowData = table.row($(this)).data();//拿到本行数据
 	}
 });
-//修改数据
-$("#change").click(function() {
-	if (rowData == -1) {
-		layer.msg("请选中需要修改的数据");
-		return;
-	}
-	$("#holTitle").val(rowData.holTitle);
-	$("#holPath").val(rowData.holPath);
-	$("#modalA").modal("show");
-	type = "change";
-})
+
+
+
 //删除数据
 $("#delete").click(function() {
 	if (rowData == -1) {
@@ -89,11 +83,11 @@ $("#delete").click(function() {
 	// 按钮
 	}, function(index) {
 		$.ajax({
-			url : path + "/plateform/deleteBlogroll.action",
+			url : path + "/plateform/deleteNotice.action",
 			ansyc : true,
 			type : "POST",
 			data : {
-				holId : rowData.holId,
+				notId : rowData.notId,
 			},
 			dataType : "text",
 			success : function(data) {
@@ -116,30 +110,59 @@ $("#delete").click(function() {
 $("#add").click(function() {
 	clear();
 	type = "add";
+	$("#myModalLabel").text("添加");
 	$("#modalA").modal("show");
 })
 
-//提交
+//修改数据
+$("#change").click(function() {
+	
+	$("#myModalLabel").text("新增");
+	if (rowData == -1) {
+		layer.msg("请选中需要修改的数据");
+		return;
+	}
+	$("#title").val(rowData.notTitle);
+	$("#typeId").val(rowData.tbNoticeType.ntyId);
+	$("#describe").val(rowData.notContent);
+	$("#Path").val(rowData.notPath);
+	$("#modalA").modal("show");
+	type = "change";
+})
+
+function clear(){
+	$("#title").val("");
+	$("#typeId").val("0");
+	$("#describe").val("");
+	$("#Path").val("");
+}
+//点击提交
 $("#sub").click(function() {
 	var url = "";
-	var holTitle = $("#holTitle").val();
-	var holPath = $("#holPath").val();
-	if ($.trim(holTitle)==""||$.trim(holPath) == "") {
-		layer.msg("输入不得为空");
+	var notTitle = $("#title").val();
+	var ntyId = $("#typeId").val();
+	var notContent = $("#describe").val();
+	var notPath = $("#Path").val();
+	if ($.trim(notTitle)==""||$.trim(notPath) == ""||ntyId == "0") {
+		layer.msg("请将信息填写完整");
 		return;
 	}
 	if (type=="change") {
-		url = path + "/plateform/changeBlogroll.action"
+		url = path + "/plateform/changeNotice.action"
 		data={
-			holId:rowData.holId,
-			holTitle : holTitle,
-			holPath :holPath
+			notId:rowData.notId,
+			notTitle : notTitle,
+			ntyId :ntyId,
+			notContent :notContent,
+			notPath :notPath,
 		}
 	}else if (type=="add") {
-		url = path + "/plateform/addBlogroll.action"
+		url = path + "/plateform/addNotice.action"
 		data={
-				holTitle : holTitle,
-				holPath :holPath
+				notTitle : notTitle,
+				ntyId :ntyId,
+				notContent :notContent,
+				notPath :notPath,
 			}
 	}
 	$.ajax({
@@ -161,7 +184,7 @@ $("#sub").click(function() {
 					layer.msg("添加成功");
 					break;
 				}
-				table.ajax.reload(null,false);// 删除某一行数据
+				table.ajax.reload(null,false);// 重新加载
 				$("#modalA").modal("hide");
 			}else if (result.myresult == "fialed"){
 				layer.msg("删除失败");
@@ -172,11 +195,4 @@ $("#sub").click(function() {
 		}
 	})
 })
-
-//清空模态框数据
-function clear() {
-	$("#holTitle").val("");
-	$("#holPath").val("");
-}
-
 })

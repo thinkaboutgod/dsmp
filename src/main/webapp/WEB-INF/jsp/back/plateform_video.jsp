@@ -50,7 +50,7 @@
                  	</div><br>
                  	<hr style="height:1px;border:none;border-top:1px solid #555555;" />
                  	<label id="info">当前选择科目为：（暂未选择）</label>
-           			<div id="videoDiv" style="width: 1000px;float: left;">
+           			<div id="videoDiv" style="width: 1000px;height:460px;float: left;">
 	  	 			</div>
 	  	 			<div style="text-align:center;clear:both;">
    			 			<ul id="pageoption"></ul>
