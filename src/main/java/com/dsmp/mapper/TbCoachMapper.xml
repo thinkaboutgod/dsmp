@@ -104,6 +104,14 @@
 		update tb_coach set coa_status=#{param2} where coa_id=#{param1}
 	</update>
 	
+
+	<!-- 添加新的教练 -->
+	<insert id="addCoach" parameterType="com.dsmp.pojo.TbCoach">
+		INSERT INTO tb_coach (sch_id,coa_name,coa_account,coa_password,coa_sex,coa_birthday,coa_idcard,coa_address,coa_introduction,coa_level) VALUES
+		(#{schId},#{coaName},#{coaAccount},#{coaPassword},#{coaSex},#{coaBirthday},#{coaIdcard},#{coaAddress},#{coaIntroduction},#{coaLevel});
+	</insert>
+  
+
    <!-- 查询教练排行 -->
   <select id="getCoachRanking" resultMap="coachRankingMap">
   	SELECT c.coa_name,s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as starnum,AVG(r.rat_star) as staravg FROM tb_coach c,
@@ -115,4 +123,5 @@
     <result column="sch_name" property="phone" jdbcType="VARCHAR" />
     <result column="staravg" property="starAvg" jdbcType="DOUBLE" />
   </resultMap>
+
 </mapper>

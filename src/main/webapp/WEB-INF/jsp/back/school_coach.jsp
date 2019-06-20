@@ -110,54 +110,73 @@
 							<div class="form-group">
 								<label for="accountDe" class="col-sm-2 control-label">账号：</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="accountDe" type="text">
+									<input class="form-control" id="accountDe" type="text" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="nameDe" class="col-sm-2 control-label">姓名：</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="nameDe" type="text">
+									<input class="form-control" id="nameDe" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="sexDe" class="col-sm-2 control-label">姓名：</label>
+								<div class="col-sm-10">
+									<input class="form-control" id="sexDe" type="text" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="phoneDe" class="col-sm-2 control-label">电话：</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="phoneDe" type="text">
+									<input class="form-control" id="phoneDe" type="text" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="addressDe" class="col-sm-2 control-label">地址：</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="addressDe" type="text">
+									<input class="form-control" id="addressDe" type="text" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="idCardDe" class="col-sm-2 control-label">身份证号：</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="idCardDe" type="text">
+									<input class="form-control" id="idCardDe" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="levelDe" class="col-sm-2 control-label">资质：</label>
+								<div class="col-sm-10">
+									<input class="form-control" id="levelDe" type="text" readonly="readonly">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="carDe" class="col-sm-2 control-label">教练车：</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="carDe" type="text">
+									<input class="form-control" id="carDe" type="text" readonly="readonly">
 								</div>
+							</div>
+							<div class="form-group">
+								<label for="introductionDe" class="col-sm-2 control-label">简介：</label>
+								<div class="col-sm-10">
+									<input class="form-control" id="introductionDe" type="text" readonly="readonly">
+								</div>
+							</div>
+						</div>
+
+						<div class="modal-footer">
+							<div class="center-block">
+								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+								<button type="button" class="btn btn-success">提交更改</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<div class="center-block">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" class="btn btn-success">提交更改</button>
-					</div>
-				</div>
+				<!-- /.modal-content -->
 			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
+			<!-- /.modal-dialog -->
 		</div>
 		<!-- 对应查看详情模态框 -->
+
 		<!-- 模态框 -->
 		<div class="modal fade" id="addCoach" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 			<div class="modal-dialog">
@@ -171,76 +190,75 @@
 							<div class="form-group">
 								<label for="accountNew" class="col-sm-2 control-label">账号：</label>
 								<div class="col-sm-10">
-									<input class="form-control add" id="accountNew" type="text">
+									<input class="form-control add" id="accountNew" type="text" placeholder="请输入手机号">
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="nameNew" class="col-sm-2 control-label">密码：</label>
+								<label for="pwdNew" class="col-sm-2 control-label">密码：</label>
 								<div class="col-sm-10">
-									<input class="form-control add" id="nameNew" type="text">
+									<input class="form-control add" id="pwdNew" type="text" placeholder="请输入密码">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="nameNew" class="col-sm-2 control-label">姓名：</label>
 								<div class="col-sm-10">
-									<input class="form-control" id="nameNew" type="text">
+									<input class="form-control add" id="nameNew" type="text" placeholder="请输入姓名">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="sexNew" class="col-sm-2 control-label">性别：</label>
 								<div class="col-sm-10">
-									<input class="form-control add" id="sexNew" type="text">
+									<input id="sexNew1" name="sex" type="radio" value="男">男&nbsp;&nbsp;&nbsp;
+									<input id="sexNew2" name="sex" type="radio" value="女">女
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="birthdayNew" class="col-sm-2 control-label">生日：</label>
+								<label for="birthdayNew" class="col-sm-2 control-label">出生日期：</label>
 								<div class="col-sm-10">
-									<input class="form-control add" id="birthdayNew" type="text">
+									<input class="form-control add" id="birthdayNew" type="date" placeholder="请输入出生日期">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="idCardNew" class="col-sm-2 control-label">身份证号：</label>
 								<div class="col-sm-10">
-									<input class="form-control add" id="idCardNew" type="text">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="phoneNew" class="col-sm-2 control-label">电话：</label>
-								<div class="col-sm-10">
-									<input class="form-control add" id="phoneNew" type="text">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="addressNew" class="col-sm-2 control-label">地址：</label>
-								<div class="col-sm-10">
-									<input class="form-control add" id="addressNew" type="text">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="introductionNew" class="col-sm-2 control-label">介绍：</label>
-								<div class="col-sm-10">
-									<input class="form-control add" id="introductionNew" type="text">
+									<input class="form-control add" id="idCardNew" type="text" placeholder="请输入身份证号">
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="levelNew" class="col-sm-2 control-label">资质：</label>
 								<div class="col-sm-10">
-									<input class="form-control add" id="levelNew" type="text">
+									<!--<input class="form-control add" id="levelNew" type="text">-->
+									<select class="form-control add" id="levelNew">
+										<option value="0">--请选择资质--</option>
+										<option value="C1">C1</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="addressNew" class="col-sm-2 control-label">地址：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="addressNew" type="text" placeholder="请输入地址">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="introductionNew" class="col-sm-2 control-label">介绍：</label>
+								<div class="col-sm-10">
+									<input class="form-control add" id="introductionNew" type="text" placeholder="请输入个人简介">
 								</div>
 							</div>
 						</div>
+
+					</div>
+					<div class="modal-footer">
+						<div class="center-block">
+							<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="button" id="btn_add" class="btn btn-success">新增</button>
+						</div>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<div class="center-block">
-						<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-						<button type="button" id="btn_add" class="btn btn-success">新增</button>
-					</div>
-				</div>
+				<!-- /.modal-content -->
 			</div>
-			<!-- /.modal-content -->
-		</div>
-		<!-- /.modal-dialog -->
+			<!-- /.modal-dialog -->
 		</div>
 		<!-- 对应新增教练模态框 -->
 	</body>
@@ -275,12 +293,7 @@
 	<script type="text/javascript" src=<%=path + "/layer/layer.js"%>
 		>
 	</script>
-	<script type="text/javascript" src=<%=path+ "/adminlte/js/menucontrol.js"%>
-		>
-	</script>
-	<script type="text/javascript" src=<%=path+ "/js/school_coach.js" %>
-		>
-	</script>
+
 	<script type="text/javascript" src=<%=path+ "/js/datatables_setting.js" %>
 		>
 	</script>
@@ -289,6 +302,12 @@
 		>
 	</script>
 	<script type="text/javascript" src=<%=path+ "/adminlte/js/morris.js"%>
+		>
+	</script>
+	<script type="text/javascript" src=<%=path+ "/adminlte/js/menucontrol.js"%>
+		>
+	</script>
+	<script type="text/javascript" src=<%=path+ "/js/school_coach.js" %>
 		>
 	</script>
 

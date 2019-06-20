@@ -324,7 +324,6 @@ $.ajax({
 						});
 						break;
 					}
-					
 					$("#forTopic").modal("hide");
 				}
 			},
