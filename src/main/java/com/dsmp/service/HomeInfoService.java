@@ -15,4 +15,5 @@ public interface HomeInfoService {
 	public TbNotice getNoticeByNotId(Integer notId);
 	//友情链接service
 	public List<TbHotlink> getHotlink();
+
 }

@@ -38,7 +38,7 @@
 		</div>
 		<div class="phone fr slideInDown animated">
 			<em>服务热线&nbsp;Service Hotline</em>
-			<p>0896-8734688834&nbsp;/&nbsp;8734688834</p>
+			<p>0592-8888888&nbsp;/&nbsp;8888888</p>
 		</div>
 	</div>
 	<!--nav-->
@@ -59,23 +59,31 @@
 					<li><a target="_blank" href=<%=path+"/topic/findAllTopic.action?stu_id=2&sub_id=1"%>>科目一练习</a></li>
 					<li><a target="_blank" href=<%=path+"/topic/findMistakeTopic.action?stu_id=2&sub_id=1"%>>科目一错题集</a></li>
 					<li><a href="javascript:;">科目四</a></li>
-
 				</ul>
 			</li>
 			<li class="m ">
 				<h3>
-					<a href=<%=path+"/school/allSchoolPage.action" %> target="_blank">驾校</a>
+					<a href=" javascript:;">驾校</a>
 				</h3>
+				<ul class="sub">
+					<li><a target="_blank" href=<%=path+"/school/allSchoolPage.action" %>>所有驾校</a></li>					
+				</ul>
 			</li>
 			<li class="m ">
 				<h3>
-					<a href=<%=path+"/tbcoach/allCoachPage.action" %>  target="_blank">教练</a>
+					<a href=" javascript:;">教练</a>
 				</h3>
+				<ul class="sub">
+					<li><a target="_blank" href=<%=path+"/tbcoach/allCoachPage.action" %>>所有教练</a></li>					
+				</ul>
 			</li>
 			<li class="m ">
 				<h3>
-					<a href=<%=path+"/student/apply.action?" %>>学员在线报名</a>
+					<a href=" javascript:;">学员在线报名</a>
 				</h3>
+				<ul class="sub">
+					<li><a href=<%=path+"/student/apply.action?" %>>报考驾校</a></li>					
+				</ul>
 			</li>
 			<li class="m ">
 				<h3>

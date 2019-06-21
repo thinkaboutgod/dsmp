@@ -51,11 +51,17 @@ public class HomeInfoController {
 		ModelAndView mav = new ModelAndView();
 		List<TbAdvertisement> advList = homeInfoService.getAdvertisement(1);
 		List<TbNotice> notList = homeInfoService.getNotice(1);
+		List<TbNotice> dynList = homeInfoService.getNotice(2);
+		List<TbNotice> newsList = homeInfoService.getNotice(3);
+		List<TbNotice> lawsList = homeInfoService.getNotice(4);
 		List<TbHotlink> hotList = homeInfoService.getHotlink();
 		String systemFilePath = plateformService.searchFilePathParameter();
 		request.getSession().setAttribute("hotList", hotList);
 		mav.addObject("advList", advList);
 		mav.addObject("notList", notList);
+		mav.addObject("newsList", newsList);
+		mav.addObject("lawsList", lawsList);
+		mav.addObject("dynList", dynList);
 		mav.addObject("systemFilePath",systemFilePath);
 		mav.setViewName("client/home");
 		return mav;
@@ -104,5 +110,5 @@ public class HomeInfoController {
 		mav.addObject("notice",tbNotice);
 		mav.setViewName("client/guide");
 		return mav;
-	}	
+	}		
 }

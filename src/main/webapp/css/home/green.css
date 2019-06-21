@@ -49,7 +49,7 @@ a:hover {
 /*menu*/
 .navBar {
 	width: 100%;
-	background: #029762;
+	background: url(../../images/nav_bg.jpg) repeat-x;
 	position: absolute;
 	z-index: 999;
 	color: #fff;
@@ -58,11 +58,10 @@ a:hover {
 
 .nav .cur h3 a {
 	height: 50px;
-	background-color: #03ac70;
 }
 
 .nav .sub li a:hover {
-	background: #029762;
+	background: #86BFFB;
 	color: #fff;
 }
 
@@ -104,7 +103,7 @@ a:hover {
 	width: 100%;
 	height: 70px;
 	text-align: center;
-	background-color: #029762;
+	background: url(../../images/nav_bg.jpg) repeat-x;
 	margin-top: 30px;
 }
 
@@ -201,7 +200,7 @@ a:hover {
 	height: 50px;
 	line-height: 50px;
 	color: #FFF;
-	background-color: #03b173;
+	background-color: #86BFFB;
 }
 
 .linknr p a {
@@ -217,7 +216,7 @@ a:hover {
 	height: 60px;
 	line-height: 60px;
 	color: #FFF;
-	background-color: #029762;
+	background-color: #4DA7FD;
 }
 
 .footend p {
