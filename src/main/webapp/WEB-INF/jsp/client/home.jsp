@@ -23,6 +23,9 @@
 	type="text/css">
 <link href=<%=path + "/css/home/green.css"%> title="" rel="stylesheet"
 	type="text/css" />
+<link href=<%=path + "/css/home/footer.css"%> title="" rel="stylesheet"
+	type="text/css" />
+	
 <script type="text/javascript"
 	src=<%=path + "/js/home/jquery1.42.min.js"%>></script>
 <script type="text/javascript"
@@ -34,6 +37,8 @@
  <script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
 <script type="text/javascript"
 	src=<%=path + "/js/contactusmap.js"%>></script>
+<script type="text/javascript"
+	src=<%=path + "/js/home/common_footer.js"%>></script>
 </head>
 <body>
 <input type="hidden" id="path" value=<%=path %>>
@@ -269,7 +274,17 @@
     <div id="container" style="width: 100%;height: 615px;"></div>
       		
 	</div>
-	
+	<ul class="right-nav-common" style="display: none;">
+				
+				<li class="service">
+					<div class="service-icon"></div>
+					<div class="service-alert"><span>0592-8888888</span></div>
+				</li>
+				<li class="gotop">
+					<div class="gotop-icon"></div>
+					<div class="gotop-alert"><span>回到顶部</span></div>
+				</li>
+			</ul>
 	<jsp:include page="tail.jsp"></jsp:include>
 	<script type="text/javascript" src=<%=path + "/js/home/aos.js"%>></script>
 	<script type="text/javascript">
@@ -278,6 +293,6 @@
 			duration : 1000
 		});
 	</script>
-
+	
 </body>
 </html>
