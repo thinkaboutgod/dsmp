@@ -100,9 +100,10 @@
 		                    </div>	
 						</div>
 						<div class="form-group">
-							<label for="describe" class="col-sm-2 control-label">广告描述：</label>
+							<label for="describe" class="col-sm-2 control-label">内容：</label>
 							<div class="col-sm-10">
-								<textarea class="form-control"  id="describe" rows="6" cols="60" style="resize: none" placeholder="最长输入300个汉字" maxlength="200"></textarea>
+<!-- 								<textarea class="form-control"  id="describe" rows="6" cols="60" style="resize: none" placeholder="最长输入300个汉字" maxlength="200"></textarea> -->
+								 <script id="editor" type="text/plain"></script>
 							</div>	
 						</div>
 						<div class="form-group">
@@ -139,5 +140,10 @@
 <script type="text/javascript" src=<%=path + "/layer/layer.js"%>></script>
 <script type="text/javascript" src=<%=path+"/adminlte/js/menucontrol.js"%> ></script>
 <script type="text/javascript" src=<%=path+"/js/datatables_setting.js" %>></script>
+
+<!-- umeditor编辑器 -->
+<script type="text/javascript" src=<%=path+"/utf8-jsp/ueditor.config.js"%> ></script>
+<script type="text/javascript" src=<%=path+"/utf8-jsp/ueditor.all.min.js"%> ></script>
+
 <script type="text/javascript" src=<%=path+"/js/plateform_notice.js"%> ></script>
 </html>

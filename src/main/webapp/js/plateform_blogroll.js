@@ -100,7 +100,7 @@ $("#delete").click(function() {
 				var result = JSON.parse(data);
 				if (result.myresult == "success") {
 					layer.msg("删除成功");
-					table.row('.selected').remove().draw(false);// 删除某一行数据
+					table.ajax.reload(null,false);// 重新加载
 				}else if (result.myresult == "fialed"){
 					layer.msg("删除失败");
 				}

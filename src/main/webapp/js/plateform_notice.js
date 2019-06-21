@@ -54,6 +54,38 @@ $(document).ready(function() {
 		};
 	
 var table = $("#notTable").DataTable(datatable_otherSet);//初始化
+//编辑器初始化
+var ue = UE.getEditor( 'editor',{
+    autoHeightEnabled: true,
+
+    autoFloatEnabled: true,
+    toolbars: [
+        ['indent',
+        	'italic', //斜体 ,
+        	'source', //源代码
+        	'undo', //撤销
+        	'redo', //重做
+        	'bold',//加粗
+        	'underline', //下划线
+        	'time', //时间
+            'date', //日期
+            'paragraph', //段落格式
+            'justifyleft', //居左对齐
+            'justifyright', //居右对齐
+            'justifycenter', //居中对齐
+            'justifyjustify', //两端对齐
+            'forecolor', //字体颜色
+            'inserttable', //插入表格
+            'preview', //预览
+            'map', //Baidu地图
+            'charts', // 图表
+        	]
+    ],
+//    initialFrameWidth: 690,
+//
+    initialFrameHeight:250
+    
+});
 //选择行
 $('tbody').on('click', 'tr', function() {
 	if ($(this).hasClass('selected')) {
@@ -94,7 +126,7 @@ $("#delete").click(function() {
 				var result = JSON.parse(data);
 				if (result.myresult == "success") {
 					layer.msg("删除成功");
-					table.row('.selected').remove().draw(false);// 删除某一行数据
+					table.ajax.reload(null,false);// 重新加载
 				}else if (result.myresult == "fialed"){
 					layer.msg("删除失败");
 				}
@@ -124,24 +156,25 @@ $("#change").click(function() {
 	}
 	$("#title").val(rowData.notTitle);
 	$("#typeId").val(rowData.tbNoticeType.ntyId);
-	$("#describe").val(rowData.notContent);
 	$("#Path").val(rowData.notPath);
 	$("#modalA").modal("show");
 	type = "change";
+	ue.setContent(rowData.notContent);//设置文本框内容，供修改
 })
-
+//清空
 function clear(){
 	$("#title").val("");
 	$("#typeId").val("0");
 	$("#describe").val("");
 	$("#Path").val("");
+	ue.setContent("");
 }
 //点击提交
 $("#sub").click(function() {
 	var url = "";
 	var notTitle = $("#title").val();
 	var ntyId = $("#typeId").val();
-	var notContent = $("#describe").val();
+	var notContent = ue.getContent();
 	var notPath = $("#Path").val();
 	if ($.trim(notTitle)==""||$.trim(notPath) == ""||ntyId == "0") {
 		layer.msg("请将信息填写完整");
