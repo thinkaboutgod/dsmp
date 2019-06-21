@@ -1,5 +1,5 @@
 var path = $("#path").val();
-var rowData=-1;//用于判断有无数
+var rowData=-1;//用于判断有无选中数据
 var type;//用于区分修改还是新增
 $(document).ready(function() {
 	$.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
@@ -100,7 +100,7 @@ $("#delete").click(function() {
 				var result = JSON.parse(data);
 				if (result.myresult == "success") {
 					layer.msg("删除成功");
-					table.row('.selected').remove().draw(false);// 删除某一行数据
+					table.ajax.reload(null,false);// 重新加载
 				}else if (result.myresult == "fialed"){
 					layer.msg("删除失败");
 				}
