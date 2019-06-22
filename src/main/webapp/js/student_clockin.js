@@ -171,7 +171,6 @@ $("#submit").on("click",function(){
 		dataType : "text",
 		success:function(data){
 			var result = JSON.parse(data);
-			alert(data);
 			console.log(data);
 			if (result.data=="fail") {
 				layer.msg("打卡失败，请检查网络连接，若网络连接无问题，请联系管理员",

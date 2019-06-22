@@ -17,6 +17,7 @@
     <result column="sch_headimg" property="schHeadimg" jdbcType="VARCHAR" />
     <result column="sch_operativeStatus" property="schOperativestatus" jdbcType="VARCHAR" />
     <result column="sch_charge" property="schCharge" jdbcType="DOUBLE" />
+    <result column="sch_audit" property="schAudit" jdbcType="VARCHAR" />
   </resultMap>
   
   <!-- 驾校登录验证 -->

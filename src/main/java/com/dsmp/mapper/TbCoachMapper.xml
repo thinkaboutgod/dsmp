@@ -50,7 +50,10 @@
 	<select id="getCoach" resultType="com.dsmp.pojo.TbCoach" resultMap="BaseResultMap">
 		select * from tb_coach where coa_account = #{coaAccount};
 	</select>
-	
+	 <!-- 教练信息查询 -->
+	<select id="selectCoachById" resultType="com.dsmp.pojo.TbCoach" resultMap="BaseResultMap">
+		select * from tb_coach where coa_id = #{coaId};
+	</select>
 	<!-- 根据驾校查询底下所有教练 -->
  	<select id="selseCoach" parameterType="java.lang.Integer" resultMap="BaseResultMap">
  		select * from tb_coach where sch_id=#{schId}

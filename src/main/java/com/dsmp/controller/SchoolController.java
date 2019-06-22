@@ -143,5 +143,17 @@ public class SchoolController {
 		System.out.println("最终返回的结果："+result.getMyresult());
 		return result;
 	}
+	
+	//驾校信息页
+	@RequestMapping("/schoolInfo")
+	public ModelAndView getSchoolInfoPage(Integer schId) {
+		ModelAndView mav = new ModelAndView();		
+		TbSchool tbSchool = tbSchoolMapper.findSchoolBySchId(schId);
+		List<TbCoach> coaList = coachService.selectCoach(schId);
+		mav.addObject("tbSchool",tbSchool);
+		mav.addObject("coaList",coaList);
+		mav.setViewName("client/school_info");
+		return mav;
+	}	
 }
 

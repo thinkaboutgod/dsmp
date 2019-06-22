@@ -83,7 +83,6 @@ layui.use(['upload','form'], function(){
     	    return $('#sch_address').val();
     	},
     	sch_bossname: function(){
-    		alert($('#sch_bossname').val());
     	    return $('#sch_bossname').val();
     	},
     	sch_registerCapital: function(){

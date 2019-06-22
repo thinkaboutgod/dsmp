@@ -34,6 +34,8 @@ public class TbSchool {
     private String schOperativestatus;
 
     private Double schCharge;
+    
+    private String schAudit;
 
     private TbRole tbRole;
     
@@ -52,7 +54,17 @@ public class TbSchool {
     //车集合
     private List<TbCar> carList = new ArrayList<>();
     
-    public Integer getSchId() {
+    
+    
+    public String getSchAudit() {
+		return schAudit;
+	}
+
+	public void setSchAudit(String schAudit) {
+		this.schAudit = schAudit;
+	}
+
+	public Integer getSchId() {
         return schId;
     }
 

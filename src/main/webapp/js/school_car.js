@@ -149,7 +149,6 @@ $(function() {
 
 	// 提交添加教练车
 	$(document).on("click", "#btn_add", function() {
-		alert("点击提交")
 		var schId = $("#schId").val();
 		var carPlateNum = $.trim($("#carPlateNumNew").val());
 		var carStyle = $.trim($("#carStyleNew").val());

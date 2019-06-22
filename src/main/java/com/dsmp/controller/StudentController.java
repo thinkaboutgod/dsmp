@@ -34,8 +34,10 @@ import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.mapper.TbStudentMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCapitalrecord;
+import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
+import com.dsmp.service.CoachService;
 import com.dsmp.service.StudentService;
 import com.dsmp.utils.GsonUtils;
 import com.zhenzi.sms.ZhenziSmsClient;
@@ -55,6 +57,7 @@ public class StudentController {
 	@Autowired
 	private TbParameterMapper tbParameterMapper;
 	@Autowired private MyResult myResult;
+	@Autowired private CoachService coachService;
 	//主页跳登录页
 	@RequestMapping("/login")
 	public ModelAndView getLoginPage() {
@@ -155,12 +158,18 @@ public class StudentController {
 	}
 	//主页跳到注册页
 	@RequestMapping("/apply")
-	public ModelAndView getApplyPage() {
+	public ModelAndView getApplyPage(Integer schId) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("client/apply");
+		if(schId != null) {
+			TbSchool tbSchool = tbMapper.findSchoolBySchId(schId);
+			List<TbCoach> coaList = coachService.selectCoach(schId);
+			mav.addObject("coaList",coaList);
+			mav.addObject("tbSchool",tbSchool);
+		}		
 		String signUpStatus = "允许报名";
 		List<TbSchool> schList = tbMapper.selectAllSchoolBySignUpStatus(signUpStatus);
 		mav.addObject("schList",schList);
+		mav.setViewName("client/apply");
 		return mav;
 	}
 	

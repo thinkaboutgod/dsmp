@@ -163,6 +163,8 @@ $(document).ready(function () {
 								layer.msg("登录失败，密码错误!");
 							}else if(msge.myresult == "stopOperatives"){
 								layer.msg("登录失败，您的驾校已被暂停运营，请联系平台解除!");
+							}else if(msge.myresult == "unreviewed"){
+								layer.msg("登录失败，请等待审核通过!");
 							}
 						},
 						error:function(){

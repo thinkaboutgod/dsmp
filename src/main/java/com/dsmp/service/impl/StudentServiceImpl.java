@@ -166,7 +166,6 @@ public class StudentServiceImpl implements StudentService {
 	public MyResult coachLogin(HttpSession session, String account, String password, String role) {
 		MyResult result = new MyResult();
 		String md5Password = Md5Tools.getMd5(password);
-		System.out.println("MD5加密后的密码：" + md5Password);
 		TbCoach coach = new TbCoach();
 		coach.setCoaAccount(account);
 		TbCoach tbCoach = tbCoachMapper.getCoach(coach);
@@ -193,25 +192,27 @@ public class StudentServiceImpl implements StudentService {
 	public MyResult schoolLogin(HttpSession session, String account, String password, String role) {
 		MyResult result = new MyResult();
 		String md5Password = Md5Tools.getMd5(password);
-		System.out.println("MD5加密后的密码：" + md5Password);
 		TbSchool school = new TbSchool();
 		school.setSchAccount(account);
 		TbSchool tbSchool = tbSchoolMapper.getSchool(school);
 		if (tbSchool != null) {
-			if(tbSchool.getSchOperativestatus().equals("允许运营")) {
-				if (tbSchool.getSchPassword().equals(md5Password)) {
-					if(!tbSchool.getSchSignupstatus().equals("允许报名")) {
-						result.setStauts("stopSignUp");	
-					}
-					session.setAttribute("school", tbSchool);
-					result.setMyresult("success");					
-				} else {
-					result.setMyresult("passErr");
-				}
+			if(tbSchool.getSchAudit().equals("未审核")) {
+				result.setMyresult("unreviewed");
 			}else {
-				result.setMyresult("stopOperatives");
-			}
-			
+				if(tbSchool.getSchOperativestatus().equals("允许运营")) {
+					if (tbSchool.getSchPassword().equals(md5Password)) {
+						if(!tbSchool.getSchSignupstatus().equals("允许报名")) {
+							result.setStauts("stopSignUp");	
+						}
+						session.setAttribute("school", tbSchool);
+						result.setMyresult("success");					
+					} else {
+						result.setMyresult("passErr");
+					}
+				}else {
+					result.setMyresult("stopOperatives");
+				}
+			}			
 		} else {
 			result.setMyresult("failed");
 		}

@@ -6,7 +6,6 @@ $(function() {
 			form = layui.form;
 
 		var schId = $("#schId").val();
-		alert(schId);
 		$.ajax({
 			url: "../school/selectCoach.action?",
 			async: true,
@@ -232,7 +231,6 @@ $(function() {
 		$("#addressCheck").val(da.stuAddress);
 		$("#coachNameCheck").val(da.tbCoach.coaName);
 		var schId = $("#schId").val();
-		alert(schId);
 		$.ajax({
 			url: "../school/selectCoach.action?",
 			async: true,
@@ -241,7 +239,6 @@ $(function() {
 			},
 			dataType: "text",
 			success: function(res) {
-				alert("获取教练")
 				var arr = JSON.parse(res);
 				$("#coachs").append("<option value='0'>请选择教练</option>");
 				for(var i = 0; i < arr.length; i++) {
@@ -255,7 +252,6 @@ $(function() {
 		})
 		$("#studentCheck").modal("show");
 		$("#btn_check_yes").click(function() {
-			alert("审核通过")
 			var stuId = $("#stuId").val();
 			var coaId = $("#coachs").val();
 			if($("#coachNameCheck").val() != null) {
@@ -317,7 +313,6 @@ $(function() {
 		})
 
 		$("#btn_check_no").click(function() {
-			alert("审核失败")
 			var stuId = $("#stuId").val();
 			var coaId = 0;
 			$.ajax({
@@ -372,7 +367,6 @@ $(function() {
 	})
 
 	$("#photograph").click(function() {
-		alert("拍照了");
 		getFace(context);
 	})
 
@@ -380,7 +374,6 @@ $(function() {
 		// 获取浏览器页面的画布对象
 		// 以下开始编 数据
 		// 将图像转换为base64数据
-		alert("点击添加学员")
 		var imageBase64 = canvas.toDataURL();
 		var blob = dataURItoBlob(imageBase64);
 		var name = $("#real_name").val();

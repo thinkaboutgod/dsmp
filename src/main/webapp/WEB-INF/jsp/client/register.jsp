@@ -12,6 +12,7 @@
 <link rel="stylesheet" href=<%=path+"/css/home/comm_style.css"%>>
 <link rel="stylesheet" href=<%=path+"/css/register/reset.css"%>>
 <link rel="stylesheet" href=<%=path+"/css/register/registration.css"%>>
+<script type="text/javascript" src=<%=path + "/layer/layer.js"%>></script>
 </head>
 <body>
 	<input type="hidden" id="path" value=<%=path %>>
