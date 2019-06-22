@@ -21,16 +21,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
+import com.dsmp.pojo.MyResult;
+import com.dsmp.pojo.TbAppeal;
+import com.dsmp.pojo.TbCoach;
 import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.pojo.MyResult;
-import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.service.CoachService;
+import com.dsmp.service.PlateformService;
 import com.dsmp.service.CoachService;
 import com.dsmp.service.SchoolService;
+import com.dsmp.utils.GsonUtils;
 import com.dsmp.utils.Md5Tools;
 
 @Controller
@@ -40,7 +43,9 @@ public class SchoolController {
 	@Autowired private SchoolService schoolService;		
 
 	@Autowired private CoachService coachService;
-	
+
+	@Autowired private PlateformService plateformServiceImpl;
+
 	@Autowired
 	private TbParameterMapper tbParameterMapper;
 
@@ -143,5 +148,44 @@ public class SchoolController {
 		System.out.println("最终返回的结果："+result.getMyresult());
 		return result;
 	}
-}
+	//申诉渠道界面
+	@RequestMapping("/schoolThecomplaint.action")
+	public ModelAndView getThecomplaintinterface(HttpServletRequest request) {
+//		String schId=(String) request.getSession().getAttribute("schId");
+		TbSchool schoolmsg=schoolService.selectSchoolByid(1);
+		String schSignupstatus=schoolmsg.getSchSignupstatus();
+		if(schSignupstatus.equals("允许报名")) {
+			schSignupstatus="正常运营";
+		}else if(schSignupstatus.equals("禁止报名")) {
+			schSignupstatus="学员报名被禁";
+		}
+		request.setAttribute("schAccount",schoolmsg.getSchAccount());
+		request.setAttribute("schName", schoolmsg.getSchName());
+		request.setAttribute("schBossname", schoolmsg.getSchBossname());
+		request.setAttribute("schSignupstatus", schSignupstatus);
+		request.setAttribute("schHeadimg", schoolmsg.getSchHeadimg());
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("back/school_complaint");
+		return mav;
+	}
+	@RequestMapping(value="/school/thecomplaintcontent",method = RequestMethod.POST)
+	public @ResponseBody String theComplaintcontent(HttpServletRequest request) {
+		int insertrusult=schoolService.insertThecomplaintcontent(request);
+		String res="";
+		if(insertrusult==1) {
+			res="success";
+		}else {
+			res="fail";
+		}
+		String result=GsonUtils.toJson(res);
+		return result;		
+	}
+	@RequestMapping(value="/school/activistreply",method = RequestMethod.POST)
+	public @ResponseBody Map<String,List<TbAppeal>> getActivistreply(HttpServletRequest request){
+		List<TbAppeal> appeallist=schoolService.selectReply(request);
+		Map<String,List<TbAppeal>> appealmap=new HashMap<>();
+		appealmap.put("data", appeallist);		
+		return appealmap;		
+	}
+ }
 

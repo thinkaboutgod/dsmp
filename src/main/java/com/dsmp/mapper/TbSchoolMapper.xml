@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dsmp.mapper.TbSchoolMapper" >
+
+<mapper namespace="com.dsmp.mapper.TbSchoolMapper" >    
   <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbSchool" >
     <id column="sch_id" property="schId" jdbcType="INTEGER" />
     <result column="rol_id" property="rolId" jdbcType="INTEGER" />
@@ -17,7 +18,16 @@
     <result column="sch_headimg" property="schHeadimg" jdbcType="VARCHAR" />
     <result column="sch_operativeStatus" property="schOperativestatus" jdbcType="VARCHAR" />
     <result column="sch_charge" property="schCharge" jdbcType="DOUBLE" />
+    <result column="sch_audit" property="schAudit" jdbcType="VARCHAR"/>
   </resultMap>
+   <resultMap id="theappeal" type="com.dsmp.pojo.TbAppeal" >
+    <id column="app_id" property="appId" jdbcType="INTEGER" />
+    <result column="app_time" property="appTime" jdbcType="TIMESTAMP" />
+    <result column="app_content" property="appContent" jdbcType="VARCHAR" />
+    <result column="sch_id" property="schId" jdbcType="INTEGER" />
+    <result column="app_reply" property="appReply" jdbcType="VARCHAR" />
+  </resultMap>
+  
   
   <!-- 驾校登录验证 -->
   <select id="getSchool"  resultMap="BaseResultMap">
@@ -31,13 +41,13 @@
   <select id="selectAllSchool" resultMap="BaseResultMap" >
     select * from tb_school
   </select>
-  <!-- 查询所有允许报名的驾校 -->
-  <select id="selectAllSchoolBySignUpStatus" resultMap="BaseResultMap" >
-    select * from tb_school where sch_signUpStatus = #{schSignupstatus};
-  </select>
   <!-- 驾校入驻信用代码验证 -->
   <select id="getSchoolByCreditcode"  resultMap="BaseResultMap">
 		select * from tb_school where sch_creditcode = #{schCreditcode};
+  </select>
+  <!-- 查询所有允许报名的驾校 -->
+  <select id="selectAllSchoolBySignUpStatus" resultMap="BaseResultMap" >
+    select * from tb_school where sch_signUpStatus = #{schSignupstatus};
   </select>
   <!-- 驾校入驻 -->
   <insert id="insertSchoolInfo" parameterType="com.dsmp.pojo.TbSchool" >
@@ -46,6 +56,48 @@
     #{schAccount}, #{schPassword}, #{schAddress}, #{schIntroduction}, #{schBossname}, #{schRegistercapital},
     #{schCreditcode}, #{schType}, #{schHeadimg}, #{schCharge});
   </insert>
+  <!-- 黄锟龙 -->
+   <!-- 按条件查找驾校 -->
+  <select id="selectSchool" resultMap="BaseResultMap" >
+  	select * from tb_school 
+	<where>
+		<if test="param1!=null">
+			and sch_name like "%"#{param1}"%"
+		</if>
+		<if test="param2!=null"> 
+			and sch_account=#{param2}
+		</if>
+		<if test="param3!=null">
+			and sch_bossName like "%"#{param3}"%"
+		</if>
+		and sch_audit="已审核"		
+	</where>   
+  </select >
+  <!-- 查找未审核驾校 -->	
+  <select id="selectNotauditSchool" resultMap="BaseResultMap" >
+  		select * from tb_school where sch_audit="未审核"
+  </select>
+  <!-- 后台管理禁止、恢复学员预约 -->
+  <update id="updateSignupstatus">
+  		update tb_school set sch_signUpStatus=#{param1} where sch_id=#{param2}
+  </update>
+  <!-- 禁止，恢复运营状态 -->
+  <update id="updateOperativestatus">
+  		update tb_school set sch_operativeStatus=#{param1} where sch_id=#{param2};
+  </update>
+  <!-- 修该驾校审核状态 -->
+  <update id="updateAudit">
+  		update tb_school set sch_audit="已审核" where sch_id=#{param1}
+  </update>
+  <!-- 插入申诉内容 -->
+  <insert id="insertThecomplaintcontent">
+  	insert into tb_appeal (sch_id,app_content,app_time) values(#{param1},#{param2},#{param3}); 
+  </insert>
+  <!-- 查看申诉内容 -->
+  <select id="selectReply" resultMap="theappeal" parameterType="java.lang.Integer">
+  	select * from tb_appeal where sch_id=#{param1}
+  </select>
+  <!-- /黄锟龙 -->
 
   <!-- 搜索驾校 -->
   <select id="selectSchoolByName" resultMap="BaseResultMap" >

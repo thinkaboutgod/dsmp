@@ -9,6 +9,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.PageResult;
+import com.dsmp.pojo.SearchBean;
+import com.dsmp.pojo.TbAppeal;
 import com.dsmp.pojo.TbCapitalrecord;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbParameter;
@@ -53,5 +55,11 @@ public interface PlateformService {
 	
 	public MyResult updataParmeter(TbParameter tbParameter);//更新参数表
 	
+
+	public List<TbAppeal> findThecomplaint(HttpServletRequest request);//查询申诉记录
+
+	public int insertReply(HttpServletRequest request);//申诉回复
+
 	public String searchFilePathParameter();//查询参数记录
+
 }

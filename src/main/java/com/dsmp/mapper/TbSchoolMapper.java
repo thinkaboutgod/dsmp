@@ -1,7 +1,9 @@
 package com.dsmp.mapper;
 
+import java.util.Date;
 import java.util.List;
 
+import com.dsmp.pojo.TbAppeal;
 import com.dsmp.pojo.Count;
 import com.dsmp.pojo.TbCar;
 import com.dsmp.pojo.TbCoach;
@@ -31,6 +33,20 @@ public interface TbSchoolMapper {
 	public int insertSchoolInfo(TbSchool tbSchool);
 	public TbSchool getSchoolByCreditcode(TbSchool tbSchool);
 	
+	//驾校按条件查找
+	public List<TbSchool> selectSchool(String schName,String schAccount,String schBossname);
+	//禁止、恢复学员预约 
+	public void updateSignupstatus(String schSignupstatus,String schId);
+	//禁止，恢复驾校运营状态
+	public void updateOperativestatus(String schOperativestatus,String schId);
+	//查找未审核驾校
+	public List<TbSchool> selectNotauditSchool();
+	//更改驾校审核状态
+	public void updateAudit(String schid);
+	//驾校申诉内容插入
+	public int insertThecomplaintcontent(String schid,String content,Date appTime);
+	//查询申诉内容
+	public List<TbAppeal> selectReply(Integer schid);
 	//驾校排行
 	public List<Count> getSchoolRanking();
 	
