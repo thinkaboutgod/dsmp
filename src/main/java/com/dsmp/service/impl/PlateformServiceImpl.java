@@ -25,6 +25,7 @@ import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.PageResult;
 import com.dsmp.pojo.SearchBean;
+import com.dsmp.pojo.TbAppeal;
 import com.dsmp.pojo.TbCapitalrecord;
 import com.dsmp.pojo.TbParameter;
 import com.dsmp.pojo.TbSchool;
@@ -357,11 +358,59 @@ public class PlateformServiceImpl implements PlateformService {
 		return myResult;
 	}
 
+
+	@Override
+	public List<TbAppeal> findThecomplaint(HttpServletRequest request) {
+		String account = request.getParameter("account");
+		String name = request.getParameter("name");
+		String beginTime = request.getParameter("beginTime");
+		String endTime = request.getParameter("endTime");
+		if (account.trim().equals("")) {
+			account = null;
+		}
+		if (name.trim().equals("")) {
+			name = null;
+		}
+		if (beginTime.trim().equals("")) {
+			beginTime = null;
+		}
+		if (endTime.trim().equals("")) {
+			endTime = null;
+		} else {
+			endTime = endTime + " 23:59:59";
+		}
+		SearchBean serchBean = new SearchBean();
+		serchBean.setName(name);
+		serchBean.setAccount(account);
+		serchBean.setBeginTime(beginTime);
+		serchBean.setEndTime(endTime);
+		List<TbAppeal> thecomplaintlist=plateformMapper.selectThecomplaint(serchBean);
+		return thecomplaintlist;
+	}
+
+	@Override
+	public int insertReply(HttpServletRequest request) {
+		String appId=request.getParameter("appId");
+		String appReply=request.getParameter("appReply");
+		int result=0;
+		if (appReply.trim().equals("")) {
+			appReply = null;
+		}
+		if(appReply!=null) {
+			result=plateformMapper.insertReply(appReply,appId);
+		}		
+		return result;
+	}
+
+	
+	
+	
+	
+
 	// 查询文件访问路径
 	@Override
 	public String searchFilePathParameter() {
 		// TODO Auto-generated method stub
 		return tbParameterMapper.selectParamter("系统文件访问路径");
 	}
-
 }

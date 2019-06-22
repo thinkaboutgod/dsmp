@@ -159,7 +159,7 @@ $(function() {
 				content: ['coach/gotobookingbounced.action?stuId='+stuid+"&subName="+subName,'no']
 			});
 		}else{
-			alert("学时未满，不能预约！");
+			layer.msg("学时未满，不能预约！");
 		}
 
 	});	

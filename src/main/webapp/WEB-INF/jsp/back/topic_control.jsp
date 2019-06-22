@@ -44,10 +44,14 @@
 									<option value="1">4选项类型</option>
 								</select>
                             </div>
-							<div class = "input-group">
+							<div class = "input-group col-sm-5">
                                <button  class="button btn-info btn-sm "  id="addTopic">增加题目</button>
                            </div>
+                           
+                           <div class = "input-group col-sm-3">
+                               <button  class="button btn-info btn-sm "  id="getTopic">从互联网获取题目</button>
                            </div>
+                         </div>
 <!--                           <hr style="height:1px;border:none;border-top:1px solid #555555;" /> -->
                           <div class="box-body">
                           <table id="topicTable" class="table table-bordered table-hover">

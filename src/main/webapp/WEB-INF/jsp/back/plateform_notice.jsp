@@ -106,7 +106,7 @@
 								 <script id="editor" type="text/plain"></script>
 							</div>	
 						</div>
-						<div class="form-group">
+						<div class="form-group" id="pathInput">
 							<label for="Path" class="col-sm-2 control-label">路径：</label>
 							<div class="col-sm-10">
 								<input class="form-control" id="Path" type="text">

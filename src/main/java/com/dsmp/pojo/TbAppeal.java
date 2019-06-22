@@ -10,8 +10,28 @@ public class TbAppeal {
     private String appContent;
 
     private Date appTime;
+    
+    private String appReply;
+    
+    private TbSchool tbSchool;
 
-    public Integer getAppId() {
+    public TbSchool getTbSchool() {
+		return tbSchool;
+	}
+
+	public void setTbSchool(TbSchool tbSchool) {
+		this.tbSchool = tbSchool;
+	}
+
+	public String getAppReply() {
+		return appReply;
+	}
+
+	public void setAppReply(String appReply) {
+		this.appReply = appReply;
+	}
+
+	public Integer getAppId() {
         return appId;
     }
 
@@ -42,4 +62,5 @@ public class TbAppeal {
     public void setAppTime(Date appTime) {
         this.appTime = appTime;
     }
+    
 }

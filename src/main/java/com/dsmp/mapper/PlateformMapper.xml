@@ -63,6 +63,21 @@
     <result column="stu_signUpTime" property="stuSignuptime" jdbcType="VARCHAR" />
     <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
 	</resultMap>
+	
+	<resultMap id="theAppeal" type="com.dsmp.pojo.TbAppeal" >
+		<id column="app_id" property="appId" jdbcType="INTEGER" />
+		<result column="sch_id" property="schId" jdbcType="INTEGER" />
+		<result column="app_content" property="appContent" jdbcType="VARCHAR" />
+		<result column="app_time" property="appTime" jdbcType="TIMESTAMP" />
+		<result column="app_reply" property="appReply" jdbcType="VARCHAR" />
+
+	    <association property="tbSchool" column="sch_id" javaType="TbSchool">
+	    	<id column="sch_id" property="schId" jdbcType="INTEGER" />
+	    	<result column="sch_name" property="schName" jdbcType="VARCHAR" />
+	    	<result column="sch_bossName" property="schBossname" jdbcType="VARCHAR" />
+	   	 	<result column="sch_account" property="schAccount" jdbcType="VARCHAR" />	    
+		</association>
+	</resultMap>
 	<select id="searchAllstudent" resultMap="searchStudent">
 		select s.*,sc.*,c.*,su.* from tb_student s,tb_school sc,tb_coach c,tb_subject su
 		<where>
@@ -74,7 +89,6 @@
 			and s.sch_id=sc.sch_id and s.coa_id= c.coa_id and s.sub_id=su.sub_id
 		</where>
 	</select>
-	
 	<select id="searchAllstudent2" resultMap="searchStudent2">
 		select * from (
 		select * from tb_student where stu_id not in (
@@ -95,5 +109,19 @@
 	<update id="changeStudentStateLock">
 		update tb_student set stu_status=#{param2},stu_errCount=0 where stu_id=#{param1}
 	</update>
-	
+	<!-- 搜索驾校申诉记录 -->
+	<select id="selectThecomplaint" resultType="com.dsmp.pojo.TbSchool" resultMap="theAppeal">
+		select a.sch_name,a.sch_account,a.sch_bossName,b.* from tb_school a, tb_appeal b
+		<where>
+			<if test="name!=null">and a.sch_name like "%"#{name}"%"</if>
+			<if test="account!=null">and a.sch_account like "%"#{account}"%"</if>
+			<if test="beginTime!=null">and b.app_time&gt;#{beginTime}</if><!-- 大于号 -->
+			<if test="endTime!=null">and b.app_time&lt;#{endTime}</if><!-- 小于号 -->
+			and a.sch_id=b.sch_id
+		</where>
+	</select>
+	<!-- 申诉回复 -->
+	<update id="insertReply">
+		update tb_appeal set app_reply=#{param1} where app_id=#{param2}
+	</update>
 </mapper>

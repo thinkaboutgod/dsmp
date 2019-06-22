@@ -16,6 +16,8 @@
     <link type="text/css" href="<%=path %>/bootstrap-datatable/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/adminlte.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
+    
+	<link type="text/css" href="<%=path %>/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 </head>
 <body class="hold-transition skin-red sidebar-mini">
 <input type="hidden" id="path" value=<%=path%>>
@@ -44,18 +46,18 @@
                                        <input type = "text" class = "form-control"  placeholder="所报名驾校"  id="schname" maxlength="20">
                                    </div>
                                    <div class = "input-group" >
-                         <span>订单时间：</span>
+                         <span>记录时间：</span>
                                    </div>
                                    <div class = "input-group" >
-                                       <input type = "date" class=" form-control" name="dno"
-                                        id="begintime" placeholder="起始时间">
+                                       <input type = "text" class=" form-control" name="dno"
+                                        id="begintime" placeholder="起始时间" readonly="readonly">
                                    </div>
                                    <div class = "input-group" >
                          <span>至</span>
                                    </div>
                                    <div class = "input-group" >
-                                       <input type = "date" class=" form-control" name="dno"
-                                          id="endtime" placeholder="终止时间">
+                                       <input type = "text" class=" form-control" name="dno"
+                                          id="endtime" placeholder="终止时间" readonly="readonly">
                                    </div>
                            <div class = "input-group">
                                         <button  class="button btn-primary btn-sm "  id="buttonsearch">搜索</button>
@@ -70,7 +72,7 @@
 		                        <th >订单编号</th>
 		                        <th >报名学员姓名</th>
 		                        <th >所报名驾校</th>
-		                        <th >订单时间</th>
+		                        <th >记录时间</th>
 		                        <th >金额</th>
 		                        <th >类型</th>
 		                        </tr>
@@ -108,6 +110,9 @@
 <script type="text/javascript" src=<%=path + "/layer/layer.js"%>></script>
 <script type="text/javascript" src=<%=path+"/adminlte/js/menucontrol.js"%> ></script>
 <script type="text/javascript" src=<%=path+"/js/datatables_setting.js" %>></script>
+
+<script type="text/javascript" src=<%=path+"/jquery-ui/jquery.ui.datepicker-zh-CN.js" %>></script>
+<script type="text/javascript" src=<%=path+"/jquery-ui/jquery-ui.min.js" %>></script>
 <!-- 日期格式 -->
 <script type="text/javascript" src=<%=path+"/js/Date.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/plateform_money.js"%> ></script>
