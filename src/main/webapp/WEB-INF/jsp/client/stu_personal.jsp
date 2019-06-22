@@ -41,6 +41,7 @@
 	
 			           	 	<div class="tabbable" id="tabs-643545">
 								<ul class="nav nav-tabs">
+									<li><a href="#panel-185684" data-toggle="tab">基本信息</a></li>
 									<li  class="active"><a href="#panel-139674" data-toggle="tab">教练评价</a></li>
 									<li><a href="#panel-185679" data-toggle="tab">驾校评价</a></li>
 									
@@ -51,6 +52,10 @@
 								
 								</ul><br>
 								<div class="tab-content">
+									<div class="tab-pane " id="panel-185684">
+											<jsp:include page="studentBaseInfo.jsp"></jsp:include>
+										
+									</div>
 									<div class="tab-pane active" id="panel-139674">
 	<%-- 									<jsp:include page="coachRating.jsp"></jsp:include> --%>
 												<div class="container">

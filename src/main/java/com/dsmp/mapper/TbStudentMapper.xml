@@ -181,9 +181,15 @@ on c.sch_id=b.sch_id
 		update tb_student set stu_bookingstate=#{param2},sub_id=#{param3} where stu_id=#{param1}
 	</update>
 	
+	<!-- 通过id查询学员  -->
 	<select id="findStuById" resultMap="BaseResultMap">
-		select * from tb_student where stu_id=#{param};
+		select * from tb_student where stu_id=#{param1};
 	</select>
+	<!-- 通过id查询学员  (包括驾校，科目，教练等详细信息) -->
+	<select id="findStuDetailById" resultMap="searchStudent">
+		select * from tb_student stu,tb_coach coa,tb_school sch,tb_subject sub where coa.coa_id=stu.coa_id and sch.sch_id=stu.sch_id and sub.sub_id=stu.sub_id and stu_id=#{param1};
+	</select>
+	
 	<!-- ren end -->
 	
 	<!-- 添加学员 -->
@@ -194,7 +200,7 @@ on c.sch_id=b.sch_id
 	
 	<!-- 审核学员 -->
 	<update id="checkStudent" parameterType="TbStudent">
-		update tb_student set stu_verifyStatus=#{stuVerifystatus} 
+		update tb_student set stu_verifyStatus=#{stuVerifystatus}
 		<if test="coaId!=null">,coa_id = #{coaId}</if>
 		where stu_id=#{stuId}
 	</update>

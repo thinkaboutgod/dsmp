@@ -86,11 +86,12 @@
 <script type="text/javascript" src=<%=path+"/js/jquery-3.3.1.js" %>></script>
 <script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/map.js" %>></script>
+<script type="text/javascript" src=<%=path+"/layer/layer.js" %>></script>
+
 <script type="text/javascript">
 		
 	$(function(){
 		//倒计时：
-		
 		var leftDateLong = 45*60*1000;//考试时间设置成45min=45*60*1000
 		function countTime(){
 			if(leftDateLong>0){
@@ -157,9 +158,10 @@
 				}
 // 				alert('点击时间间隔:'+timeLenth);//点击的时间间隔超过30分钟就视为挂机(单位：毫秒)
 				if(timeLenth>timeLengthLimit){//点击的时间间隔超过30分钟就视为挂机(单位：毫秒)
-					alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+timeLenth+'s');
-					alert('重新出卷');
-					window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
+// 					alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+timeLenth+'s');
+					take('答题时间间隔超20分钟，有挂机嫌疑，计时无效！重新出卷'+timeLenth+'s',"findManyTopic.action");
+// 					alert('重新出卷');
+// 					window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
 					return;
 				}
 				
@@ -188,30 +190,37 @@
 			},
 		});
 		function submitClick(){
-			alert('提交试卷');
+// 			alert('提交试卷');
+			layer.msg('提交试卷', function(){
+			//关闭后的操作
+
+			});
 			//提交试卷的时候跟上一次选择的时候是否间隔过久(挂机嫌疑)？
 			var commitTime = new Date();
 //				alert(arr.length);
 			if(arr.length==1){//说明没有点击过选项
 				if(commitTime-arr[0]>timeLengthLimit){
-					alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+(commitTime-arr[0])+'ms');
-					alert('重新出卷');
-					window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
+// 					alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+(commitTime-arr[0])+'ms');
+					take('答题时间间隔超20分钟，有挂机嫌疑，计时无效！重新出卷'+(commitTime-arr[0])+'s',"findManyTopic.action");
+// 					alert('重新出卷');
+// 					window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
 					return;
 				}
 			}else if(arr.length==2){
 				if(arr[1]>arr[0]){
 					if(commitTime-arr[1]>timeLengthLimit){
-						alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+(commitTime-arr[1])+'s');
-						alert('重新出卷');
-						window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
+// 						alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+(commitTime-arr[1])+'s');
+						take('答题时间间隔超20分钟，有挂机嫌疑，计时无效！重新出卷'+(commitTime-arr[1])+'s',"findManyTopic.action");
+// 						alert('重新出卷');
+// 						window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
 						return;
 					}
 				}else{
 					if(commitTime-arr[0]>timeLengthLimit){
-						alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+(commitTime-arr[0])+'s');
-						alert('重新出卷');
-						window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
+// 						alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+(commitTime-arr[0])+'s');
+						take('答题时间间隔超20分钟，有挂机嫌疑，计时无效！重新出卷'+(commitTime-arr[0])+'s',"findManyTopic.action");
+// 						alert('重新出卷');
+// 						window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
 						return;
 					}
 				}
@@ -267,7 +276,10 @@
 // 							alert('您在线超24小时，有挂机嫌疑，本次学习时长不算数。');				
 						}else{
 	// 						var json2map=JSON.parse(data);
-							alert('本次学习合规，计入时长！');				
+// 							alert('本次学习合规，计入时长！');		
+							layer.msg('本次学习合规，计入时长！', function(){
+								//关闭后的操作
+								});
 // 							alert('currTotalTimeLength:'+data["currTotalTimeLength"]);//当前总时长
 // 							alert('totalTimeLength:'+data["totalTimeLength"]);//要求总时长
 							var currTotalTimeLength = data["currTotalTimeLength"];
@@ -295,7 +307,10 @@
 												return;
 											}
 											if(res=="canApply"){//可预约
-												alert('恭喜，学时已满,成绩【'+totalScore+'】分，获得科目一的资格，等待教练给你安排考试！');
+// 												alert('恭喜，学时已满,成绩【'+totalScore+'】分，获得科目一的资格，等待教练给你安排考试！');
+												layer.msg('恭喜，学时已满,成绩【'+totalScore+'】分，获得科目一的资格，等待教练给你安排考试！', function(){
+													//关闭后的操作
+													});
 											}
 											
 											
@@ -307,7 +322,10 @@
 										
 									});
 								}else{
-									alert('学时已满,但成绩【'+totalScore+'】分，低于90分，暂无被安排考试资格！');
+// 									alert('学时已满,但成绩【'+totalScore+'】分，低于90分，暂无被安排考试资格！');
+									layer.msg('学时已满,但成绩【'+totalScore+'】分，低于90分，暂无被安排考试资格！', function(){
+										//关闭后的操作
+										});
 								}
 							}
 							
@@ -321,6 +339,14 @@
 				
 			}
 		}
+		//跳动弹框
+		function take(info,url){
+			//信息框-例5
+			layer.msg(info, function(){
+			//关闭后的操作
+				window.location.href=url;
+			});
+		}
 		//点击了提交试卷按钮，统计一下选对了几道题，计分
 		$("#submitBtn").on({
 			"click":function(){
@@ -331,9 +357,13 @@
 		//点击了重新出卷按钮，到从新出卷的控制类方法那边去
 		$("#updateExamBtn").on({
 			"click":function(){
-				alert('重新出卷');
+// 				alert('重新出卷');
+				layer.msg('重新出卷', function(){
+					//关闭后的操作
+					window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
+						
+					});
 // 				alert('subId:'+subId);
-				window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
 			}
 		});
 		//图片缩放
@@ -402,9 +432,10 @@
 									</li>
 									<div class="test_content_nr_main">
 <!-- 									<li> -->
-									<img alt="" src=<%=path+"/images/hai.jpg" %>>									
+<%-- 									<img alt="" src=<%=path+"/images/hai.jpg" %>>									 --%>
 									<c:if test="${i.topImg!=null&&''!=i.topImg}">
-										<img alt="" src=<%=path%>${i.topImg}>									
+<%-- 										<img alt="" src=<%=path%>${i.topImg}>									 --%>
+										<img alt="" src=${topicImgFilePath }${i.topImg}>									
 									
 									</c:if>
 <!-- 									</li> -->

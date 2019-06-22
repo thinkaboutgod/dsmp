@@ -21,9 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dsmp.pojo.TbOption;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbTopic;
+import com.dsmp.service.PlateformService;
 import com.dsmp.service.StudentService;
 import com.dsmp.service.StudyRecordService;
 import com.dsmp.service.SubjectScoreService;
+import com.dsmp.service.SubjectService;
 import com.dsmp.service.TopicService;
 import com.google.gson.Gson;
 
@@ -40,6 +42,22 @@ public class TopicController {
 	private StudentService studentService;
 	@Autowired
 	private SubjectScoreService subjectScoreService;
+	@Autowired
+	private SubjectService subjectService;
+	@Autowired
+	private PlateformService plateformService;
+	
+	/**查询出题库里图片存放的路径
+	 * @return 
+	 */
+	public String findTopicImgPath() {
+		String filePath = plateformService.searchFilePathParameter();
+		//查询出题库里图片存放的路径
+		String topicImgFilePath = filePath+"/images/topic/";//得出：http://localhost:8080/images/topic/(依据：Servers/Tomcat v8.5 Server at localhost-config/server.xml/最后的docBase="C:\dsmpfile"--相当于"C:/dsmpfile/images/topic/")
+//		System.out.println("filePath:"+filePath);
+		System.out.println("topicImgFilePath:"+topicImgFilePath);
+		return topicImgFilePath;
+	}
 	@RequestMapping(value="/findTopic.action")
 	public ModelAndView findTopic(Integer top_id) {
 		System.out.println("top_id："+top_id);
@@ -106,6 +124,8 @@ public class TopicController {
 	 */
 	@RequestMapping(value="/findManyTopic.action")
 	public ModelAndView findManyTopic() {
+		
+		
 		Integer stu_id = null;//不用传值直接从session里面取（student）
 		Integer sub_id = null;
 		ModelAndView mav = new ModelAndView();
@@ -124,9 +144,11 @@ public class TopicController {
 				Integer currTotalTimeLength = sumTimeLength(stu_id, sub_id);//计算当前总学时
 				mav.addObject("currTotalTimeLength", currTotalTimeLength);
 				//查询出科目一需要的总学时：
+				Integer needStudyTime = subjectService.findNeedStudyTime(1);
+				System.out.println("needStudyTime:"+needStudyTime);
 				
-				mav.addObject("percentage", getPercentage(currTotalTimeLength,10*60*60));//计算进度百分比
-				mav.addObject("totalTimeLength", 10*60*60);//需要的总学时
+				mav.addObject("percentage", getPercentage(currTotalTimeLength,needStudyTime));//计算进度百分比
+				mav.addObject("totalTimeLength", needStudyTime);//需要的总学时
 			}
 		}
 			
@@ -143,7 +165,10 @@ public class TopicController {
 			}			
 			
 		}
+		//得到题库里存放图片的文件夹的路径
+		String topicImgFilePath = findTopicImgPath();
 		
+		mav.addObject("topicImgFilePath", topicImgFilePath);
 		mav.addObject("stu_id", stu_id);
 		mav.addObject("sub_id", sub_id);
 		mav.addObject("topicList", topicList);
@@ -174,6 +199,11 @@ public class TopicController {
 				System.out.println("选项对错："+option.getOptStatus());
 			}			
 		}
+		//得到题库里存放图片的文件夹的路径
+		String topicImgFilePath = findTopicImgPath();
+		
+		mav.addObject("topicImgFilePath", topicImgFilePath);
+		
 		mav.addObject("stu_id", stu_id);
 		mav.addObject("sub_id", sub_id);
 		mav.addObject("allTopicList", allTopicList);
@@ -288,13 +318,20 @@ public class TopicController {
 			
 			
 		}
+		//查询出科目一需要的总学时：
+		Integer needStudyTime = subjectService.findNeedStudyTime(1);
+		//得到题库里存放图片的文件夹的路径
+		String topicImgFilePath = findTopicImgPath();
+		
+		mav.addObject("topicImgFilePath", topicImgFilePath);
 		mav.addObject("loginMessage", null);
 		mav.addObject("stu_id", stu_id);
 		mav.addObject("sub_id", sub_id);
 		mav.addObject("mistakeTopicList", mistakeTopicList);
 		mav.addObject("currTotalTimeLength", currTotalTimeLength);
-		mav.addObject("totalTimeLength", 10*60*60);
-		mav.addObject("percentage", getPercentage(currTotalTimeLength,10*60*60));
+//		mav.addObject("totalTimeLength", 10*60*60);
+		mav.addObject("totalTimeLength", needStudyTime);
+		mav.addObject("percentage", getPercentage(currTotalTimeLength,needStudyTime));
 		
 /*		session.setAttribute("loginMessage", null);
 		session.setAttribute("stu_id", stu_id);
@@ -366,7 +403,11 @@ public class TopicController {
 					
 				}
 			}				
+			//得到题库里存放图片的文件夹的路径
+			String topicImgFilePath = findTopicImgPath();
 			
+			mav.addObject("topicImgFilePath", topicImgFilePath);
+			mav.addObject("student", student);
 			mav.addObject("topicList", topicList);
 			mav.addObject("stu_id", stu_id);
 			mav.addObject("sub_id", sub_id);
@@ -438,6 +479,20 @@ public class TopicController {
 				}
 			}
 			return result;
+		}
+		/**查出数据库当前最新的student（查出来的student把登录时存入session的student覆盖掉）
+		 * @param stuId 学员id
+		 * @return
+		 */
+		@RequestMapping(value="/findNewStudent.action")
+		@ResponseBody
+		public TbStudent findNewStudent() {
+			TbStudent student =  (TbStudent) session.getAttribute("student");//取到session里面存的登录后的session
+			if(null!=student) {
+				student =  studentService.findStuById(student.getStuId());//这个student是登录时存入session里的，可能登录后交流已经修改了预约状态，所以这里有必要去数据库查询一下
+				session.setAttribute("student", student);//覆盖掉原先的，现在是数据库中最新的数据
+			}
+			return student;
 		}
 		
 }

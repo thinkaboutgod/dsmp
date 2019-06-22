@@ -450,5 +450,15 @@ public class StudentServiceImpl implements StudentService {
 		
 		return tbStudentMapper.findStuById(stuId);
 	}
+	
+	/**根据学员id查学员(包括驾校，科目，教练等详细信息)
+	 * @param stuId 学员id
+	 * @return
+	 */
+	@Override
+	public TbStudent findStuDetailById(Integer stuId) {
+		
+		return tbStudentMapper.findStuDetailById(stuId);
+	}
 
 }

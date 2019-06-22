@@ -17,6 +17,7 @@ import com.dsmp.pojo.TbStudyrecord;
 import com.dsmp.pojo.TbSubjectscore;
 import com.dsmp.service.ExamScheduleService;
 import com.dsmp.service.RatingService;
+import com.dsmp.service.StudentService;
 import com.dsmp.service.StudyRecordService;
 import com.dsmp.service.SubjectScoreService;
 
@@ -37,6 +38,8 @@ public class PersonalController {
 	private SubjectScoreService subjectScoreService;
 	@Autowired
 	private StudyRecordService studyRecordService;
+	@Autowired
+	private StudentService studentService;
 	/**
 	 * 返回到学员个人中心页面：教练评价，驾校评价，考试情况，科目学时查看
 	 */
@@ -79,6 +82,11 @@ public class PersonalController {
 //					System.out.println("studyRecord3List-subName:"+studyRecord3List.get(0).getTbSubject().getSubName());
 					mav.addObject("studyRecord3List", studyRecord3List);
 				}
+				//5.基本信息
+				TbStudent stuDetail = studentService.findStuDetailById(student.getStuId());
+				System.out.println("stuDetail-subName:"+stuDetail.getTbSubject().getSubName());
+				System.out.println("stuDetail-bookingstate:"+stuDetail.getStuBookingstate());
+				System.out.println("stuDetail-coaName:"+stuDetail.getTbCoach().getCoaName());
 				
 			}else {//进入个人中心需是已报名
 				visitRes = "needRegister";

@@ -81,6 +81,7 @@
 <script type="text/javascript" src=<%=path+"/js/jquery-3.3.1.js" %>></script>
 <script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/map.js" %>></script>
+<script type="text/javascript" src=<%=path+"/layer/layer.js" %>></script>
 <script type="text/javascript">
 		//倒计时：
 /* 		setInterval("countTime()",1000);//1秒执行一次
@@ -147,7 +148,7 @@
 		//点击了提交试卷按钮，统计一下选对了几道题，计分
 		$("#submitBtn").on({
 			"click":function(){
-				alert('提交试卷');
+// 				alert('提交试卷');
 			    	var totalScore="0";
 			    	totalScore=parseInt(totalScore);
 			    examResultMap.each(function(key,value,index){//key表示数据库题目表的topId，value表示学员所选答案是'yes'还是'no'  
@@ -188,7 +189,10 @@
 // 							alert('您在线超24小时，有挂机嫌疑，本次学习时长不算数。');				
 						}else{
 	// 						var json2map=JSON.parse(data);
-							alert('本次学习合规，计入时长！');				
+// 							alert('本次学习合规，计入时长！');		
+							layer.msg('本次学习合规，计入时长！', function(){
+								//关闭后的操作
+								});
 // 							alert('currTotalTimeLength:'+data["currTotalTimeLength"]);//当前总时长
 // 							alert('totalTimeLength:'+data["totalTimeLength"]);//要求总时长
 							var currTotalTimeLength = data["currTotalTimeLength"];
@@ -210,12 +214,12 @@
 			}
 		});
 		//点击了重新出卷按钮，到从新出卷的控制类方法那边去
-		$("#updateExamBtn").on({
-			"click":function(){
-				alert('重新出卷');
-				window.location.href="findManyTopic.action?stu_id="+stuId;
-			}
-		});
+// 		$("#updateExamBtn").on({
+// 			"click":function(){
+// 				alert('重新出卷');
+// 				window.location.href="findManyTopic.action?stu_id="+stuId;
+// 			}
+// 		});
 		$("img").on({
 			"click":function(){
 				$(this).css({
@@ -283,7 +287,8 @@
 <!-- 									<li> -->
 <%-- 									<img alt="" src=<%=path+"/images/hai.jpg" %>> --%>
 										<c:if test="${i.topImg!=null&&''!=i.topImg}">
-											<img alt="" src=<%=path%>${i.topImg}>																		
+<%-- 											<img alt="" src=<%=path%>${i.topImg}>																		 --%>
+											<img alt="" src=${topicImgFilePath }${i.topImg}>																		
 										</c:if>								
 <!-- 									</li> -->
 								<ol class="optionClass">
