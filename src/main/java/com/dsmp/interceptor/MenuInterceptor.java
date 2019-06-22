@@ -35,7 +35,7 @@ public class MenuInterceptor implements HandlerInterceptor{
 			if (null!=tbSchool) {
 				return true;
 			}else {
-				//管理员的session过期
+				//驾校的session过期
 				request.getRequestDispatcher("/WEB-INF/jsp/client/login.jsp").forward(request, response);
 				
 			}

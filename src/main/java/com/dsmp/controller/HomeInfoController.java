@@ -44,9 +44,10 @@ public class HomeInfoController {
 		return mav;
 	}
 	
-	//广告数
+	//去前台主页
 	@RequestMapping("/main")
 	public ModelAndView getHomeInfo(HttpServletRequest request) {
+		System.out.println("进入方法");
 		request.getSession().setMaxInactiveInterval(120*60);
 		ModelAndView mav = new ModelAndView();
 		List<TbAdvertisement> advList = homeInfoService.getAdvertisement(1);
@@ -64,6 +65,7 @@ public class HomeInfoController {
 		mav.addObject("dynList", dynList);
 		mav.addObject("systemFilePath",systemFilePath);
 		mav.setViewName("client/home");
+		System.out.println("结束方法");
 		return mav;
 	}	
 	

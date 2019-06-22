@@ -62,9 +62,9 @@ public class PlateformController {
 
 	@Autowired
 	private SchoolService schoolService;
-
+//toStudentController
 	// 学员查看页面
-	@RequestMapping(value = "toStudentController.action")
+	@RequestMapping(value = "a.action")
 	public String toStudentController() {
 		return "back/plateform_student";
 	}

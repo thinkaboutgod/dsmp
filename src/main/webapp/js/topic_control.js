@@ -74,9 +74,6 @@ $.ajax({
 	}
 })
 
-
-
-
 	// 选择行
 	$('tbody').on('click', 'tr', function() {
 		if ($(this).hasClass('selected')) {
@@ -90,6 +87,33 @@ $.ajax({
 	function reload() {
 		table.ajax.reload(null, false);// 刷新数据方法,false代表保持当前页
 	}
+	
+	
+	//点击爬虫获取题目
+	$("#getTopic").click(function() {
+		//loading层
+		var index = layer.load(1, {
+		  shade: [0.1,'#fff'] //0.1透明度的白色背景
+		});
+		$.ajax({
+		url : path + "/crawler/startSpider.action",
+		ansyc : true,
+		type : "POST",
+		data : "", 
+		dataType : "text",
+		success : function(data) {
+			if (data == "success") {
+				layui.close(index);
+				layer.msg("获取成功");
+				
+			}
+		},
+		error : function() {
+			layer.msg("服务器繁忙");
+		}
+	})
+	})
+	
 	//点击修改
 	$(document).on("click",".change",function(){
 		clearInput();
@@ -195,7 +219,7 @@ $.ajax({
 		$("#C").val("");
 		$("#D").val("");
 		$("#topAnswerDetail").val("");
-		$("#cDiv").css("display","none");
+		$("#cDiv").css("display","none");//修改
 		$("#dDiv").css("display","none");
 		$("#imgDiv").css("display","none");
 		$("#addimgDiv").css("display","none");
@@ -249,12 +273,12 @@ $.ajax({
 		   } 
 		}
 		//上传携带信息
-		var topic = {
+		var topic = {//题目
 				"topId":$("#topId").val(),
 				"topTopic" : topTopic,
 				"topAnswerDetail":topAnswerDetail,
 		}
-		var optionA = {
+		var optionA = {//选项
 				"optId": $("#aoptId").val(),
 				"optOption" : $("#A").val(),
 				"optStatus" : $("#Aans").val()

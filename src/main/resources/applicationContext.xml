@@ -73,13 +73,22 @@
  			<bean class="com.dsmp.interceptor.LoginInterceptor" />
  		</mvc:interceptor>
  		
- 		<!-- 平台是否登录拦截 -->
+ 		<!-- 平台管理端是否登录拦截 -->
  		<mvc:interceptor>
  			<!-- 进行拦截：/**表示拦截所有controller -->
  			<mvc:mapping path="/plateform/**" />
  			<!-- 加载相应的拦截器类 -->
  			<bean class="com.dsmp.interceptor.PlateformSessionInterceptor" />
  		</mvc:interceptor>
+ 		
+ 		<!-- 平台管理端，运管，驾校，教练，用同一个后台，拦截两个登录界面，有登陆过，直接跳转 -->
+ 		<mvc:interceptor>
+ 			<mvc:mapping path="/admin/admin.action" />
+ 			<mvc:mapping path="/student/login.action" />
+ 			<!-- 加载相应的拦截器类 -->
+ 			<bean class="com.dsmp.interceptor.BackLoginInterceptor" />
+ 		</mvc:interceptor>
+ 		
  		<!-- 获取菜单拦截 -->
  		<mvc:interceptor>
  			<!-- 进行拦截：/**表示拦截所有controller -->

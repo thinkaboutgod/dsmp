@@ -141,6 +141,7 @@ $("#delete").click(function() {
 //增加链接
 $("#add").click(function() {
 	clear();
+	$("#Path").val("/home/noticePage.action?noticeId=");
 	type = "add";
 	$("#myModalLabel").text("添加");
 	$("#modalA").modal("show");
@@ -148,8 +149,8 @@ $("#add").click(function() {
 
 //修改数据
 $("#change").click(function() {
-	
-	$("#myModalLabel").text("新增");
+//	$("#pathInput").css("display","none");
+	$("#myModalLabel").text("修改");
 	if (rowData == -1) {
 		layer.msg("请选中需要修改的数据");
 		return;
