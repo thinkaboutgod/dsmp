@@ -1,7 +1,27 @@
 var path = $("#path").val();
 $(document).ready(function() {
 $.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
-	
+$( "#beginTime,#endTime" ).datepicker({//日期输入框设置
+	dateFormat: "yy-mm-dd",
+	 changeYear: true,
+	 changeMonth: true,
+	 showButtonPanel: true,
+      beforeShow: function( input ) {
+        setTimeout(function() {
+          var buttonPane = $( input )
+            .datepicker( "widget" )
+            .find( ".ui-datepicker-buttonpane" );
+          
+          $( "<button>", {
+            text: "清空",
+            click: function() {
+              $.datepicker._clearDate( input );
+            }
+          }).appendTo( buttonPane );
+        }, 1 );
+      }
+	 
+	});
 	datatable_otherSet = {
 			"ajax" : path+"/plateform/searchLog.action",
 //			"autoWidth" : false,

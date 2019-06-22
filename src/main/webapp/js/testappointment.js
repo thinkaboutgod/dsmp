@@ -69,10 +69,10 @@ $(function() {
 				var index = parent.layer.getFrameIndex(window.name); 
 				alert(result);
 				if(result=="fail"){
-					alert("每科目预约人数最多只能五个");
+					layer.msg("每科目预约人数最多只能五个");
 					parent.layer.close(index); //再执行关闭
 				}else if(result=="success"){
-					alert("预约成功");
+					layer.msg("预约成功");
 					parent.$('#haveappointment').DataTable({
 						    "ajax" : {
 							"url": "coach/haveappointment.action",

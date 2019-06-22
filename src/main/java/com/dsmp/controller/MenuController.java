@@ -45,7 +45,9 @@ public class MenuController {
 			break;
 		case "3":
 			session.setAttribute("title", "驾校管理端");
-			session.setAttribute("the_name", ((TbSchool) session.getAttribute("school")).getSchName());
+//			session.setAttribute("the_name", ((TbSchool) session.getAttribute("school")).getSchName());
+//			session.setAttribute("schId", ((TbSchool) session.getAttribute("school")).getSchId());
+			session.setAttribute("schId", 1);
 			session.setAttribute("rol_Id", 3);
 			break;
 		case "4":
@@ -65,11 +67,11 @@ public class MenuController {
 		int rol_Id = (int) session.getAttribute("rol_Id");
 		switch (rol_Id) {
 		case 1:
-			session.removeAttribute("manage");
+			session.removeAttribute("manager");
 			mav.setViewName("client/adminlogin");
 			break;
 		case 2:
-			session.removeAttribute("manage");
+			session.removeAttribute("manager");
 			mav.setViewName("client/adminlogin");
 			break;
 		case 3:

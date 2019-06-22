@@ -17,7 +17,6 @@ public class TbAdvertisement {
 	private TbSchool tbSchool;
 	
 	
-
 	public TbAdvertisement() {
 		super();
 	}
@@ -41,6 +40,7 @@ public class TbAdvertisement {
 		this.advDescribe = advDescribe;
 		this.adlId = adlId;
 	}
+
 
 	public TbSchool getTbSchool() {
 		return tbSchool;

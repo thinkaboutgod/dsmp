@@ -176,7 +176,7 @@ $(function() {
 		console.log(result);
 		for (var i = 0; i < len; i++) {
 			di = '<div class="Product">'+ 
-			'<img style="width:260px;height:160px;" src='+result.data+result.list[i].advImgpath+' alt="图片不存在">'+
+			'<img style="width:260px;height:160px;" src="'+result.data+result.list[i].advImgpath+'" >'+
 			'<br><laber>所属驾校：'+ result.list[i].tbSchool.schName+ '</laber><br>'+ 
 			'<input type="hidden" value="'+result.list[i].schId+'">'+
 			'<input type="hidden" value="'+result.list[i].advPath+'">'+

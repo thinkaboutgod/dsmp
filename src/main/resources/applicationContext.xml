@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?> 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:p="http://www.springframework.org/schema/p"
@@ -73,20 +73,29 @@
  			<bean class="com.dsmp.interceptor.LoginInterceptor" />
  		</mvc:interceptor>
  		
- 		<!-- 平台是否登录拦截 -->
+ 		<!-- 平台管理端是否登录拦截 -->
  		<mvc:interceptor>
  			<!-- 进行拦截：/**表示拦截所有controller -->
  			<mvc:mapping path="/plateform/**" />
  			<!-- 加载相应的拦截器类 -->
  			<bean class="com.dsmp.interceptor.PlateformSessionInterceptor" />
  		</mvc:interceptor>
- 		<!-- 获取菜单拦截 -->
+ 		
+ 		<!-- 平台管理端，运管，驾校，教练，用同一个后台，拦截两个登录界面，有登陆过，直接跳转 -->
  		<mvc:interceptor>
- 			<!-- 进行拦截：/**表示拦截所有controller -->
- 			<mvc:mapping path="/menu/toManageMain.action" />
+ 			<mvc:mapping path="/admin/admin.action" />
+ 			<mvc:mapping path="/student/login.action" />
  			<!-- 加载相应的拦截器类 -->
- 			<bean class="com.dsmp.interceptor.MenuInterceptor" />
+ 			<bean class="com.dsmp.interceptor.BackLoginInterceptor" />
  		</mvc:interceptor>
+ 		
+ 		<!-- 获取菜单拦截 -->
+ 		<!-- <mvc:interceptor> -->
+ 			<!-- 进行拦截：/**表示拦截所有controller -->
+ 			<!-- <mvc:mapping path="/menu/toManageMain.action" /> -->
+ 			<!-- 加载相应的拦截器类 -->
+ 			<!-- <bean class="com.dsmp.interceptor.MenuInterceptor" /> -->
+ 		<!-- </mvc:interceptor> -->
  		
  		<!-- 教练端是否登录拦截 -->
  		<mvc:interceptor>
@@ -104,6 +113,14 @@
 <!--  			<mvc:mapping path="/topic/trueFindManyTopic.action"/> -->
  			<!-- 加载相应的拦截器类 -->
  			<bean class="com.dsmp.interceptor.StuLoginInterceptor"></bean>
+ 		</mvc:interceptor>
+ 		
+ 		<!-- 学员在线报名是否登录拦截 -->
+ 		<mvc:interceptor>
+ 			<!-- 进行拦截：/**表示拦截所有controller -->
+ 			<mvc:mapping path="/student/apply.action" />
+ 			<!-- 加载相应的拦截器类 -->
+ 			<bean class="com.dsmp.interceptor.StudentApplySessionInterceptor" />
  		</mvc:interceptor>
  	</mvc:interceptors>
 </beans>

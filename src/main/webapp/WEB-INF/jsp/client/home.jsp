@@ -23,6 +23,9 @@
 	type="text/css">
 <link href=<%=path + "/css/home/green.css"%> title="" rel="stylesheet"
 	type="text/css" />
+<link href=<%=path + "/css/home/footer.css"%> title="" rel="stylesheet"
+	type="text/css" />
+	
 <script type="text/javascript"
 	src=<%=path + "/js/home/jquery1.42.min.js"%>></script>
 <script type="text/javascript"
@@ -36,6 +39,8 @@
 	src=<%=path + "/js/contactusmap.js"%>></script>
 <!-- <script type="text/javascript" -->
 <%-- 	src=<%=path + "/js/home/head.js"%>></script> --%>
+<script type="text/javascript"
+	src=<%=path + "/js/home/common_footer.js"%>></script>
 </head>
 <body>
 <input type="hidden" id="path" value=<%=path %>>
@@ -49,11 +54,11 @@
 	<div class="focusBox clear pulse animated">
 		<ul class="pic">
 			<li><a href="javascript:;" target="_blank"
-				style="background: url(<%=path + "/images/home/title1.png"%>) no-repeat center"></a></li>
+				style="background: url(<%=path + "/images/home/title3.jpg"%>) no-repeat center"></a></li>
 			<li><a href="javascript:;" target="_blank"
 				style="background: url(<%=path + "/images/home/title2.png"%>) no-repeat center"></a></li>
 			<li><a href="javascript:;" target="_blank"
-				style="background: url(<%=path + "/images/home/1-1P52Q1113R51.jpg"%>) no-repeat center"></a></li>
+				style="background: url(<%=path + "/images/home/1-1P52Q1113R51.jpg"%>) no-repeat center"></a></li>			
 		</ul>
 		<a class="prev" href="javascript:;"></a> <a class="next"
 			href="javascript:;"></a>
@@ -125,7 +130,7 @@
 				<div class="bd">
 					<ul class="noticeList">
 						<c:forEach begin="0" step="1" items="${notList}" var="notice">
-							<li><a href=<%=path%>${notice.notPath}>${notice.notTitle}</a><span><fmt:formatDate value="${notice.notTime}" pattern="YYYY-MM-dd" /></span></li>
+							<li><a href=<%=path%>${notice.notPath}${notice.notId}  target="_blank">${notice.notTitle}</a><span><fmt:formatDate value="${notice.notTime}" pattern="YYYY-MM-dd" /></span></li>
 						</c:forEach>
 					</ul>
 				</div>
@@ -140,9 +145,9 @@
 				});
 			</script>
 			<div class="search fr">
-				<form name="formsearch" method="get" action="/so.php">
+				<form name="formsearch" method="get" action=<%=path+"/school/selectSchoolByNamePage.action" %>  target="_blank">
 					<input type="hidden" name="kwtype" value="0" /> <input
-						class="search-input" id="q" name="q" ng-model="keyword"
+						class="search-input" id="q" name="q"
 						placeholder="搜索驾校" type="text" style="color: gray">
 					<button class="btn-search" type="submit"></button>
 				</form>
@@ -187,11 +192,11 @@
 			<h2>驾校推荐</h2>
 			<div class="hotshow zoomimg">
 				<ul>
-					<c:forEach begin="0" step="1" items="${advList}" var="adv">
+					<c:forEach begin="0" end="5" step="1" items="${advList}" var="adv">
 						<li>
 							<div class="pic">
 								<a href=<%=path%>${adv.advPath} target="_blank"><img
-									src=<%=path%>${adv.advImgpath} alt="${adv.tbSchool.schName}" title='${adv.advDescribe}'/></a>
+									src="${systemFilePath}${adv.advImgpath}" alt="${adv.tbSchool.schName}" title='${adv.advDescribe}'/></a>
 							</div>
 							<div class="title">
 								<a href="javascript:;" target="_blank">${adv.tbSchool.schName}</a>
@@ -214,11 +219,11 @@
 		</div>
 
 	</div>
-		<!--横幅-->
-	<div class="row">	
-	<div class="hf col-md-12" aos="flip-left">
-		<a href=<%=path+"/school/schoolEnterPage.action" %>>
-			<img src=<%=path + "/images/home/jxrz_index.png"%> alt="" srcset="">
+	<!--横幅-->
+	<div class="row" style="margin-top:50px;">
+	<div class="col-md-12" aos="flip-left" >
+		<a href=<%=path+"/school/schoolEnterPage.action" %> target="_blank">
+			<img src=<%=path + "/images/home/jxrz_index.png"%> style="width: 100%;">
 		</a>
 
 	</div>
@@ -233,22 +238,11 @@
 				<dt>
 					<img src=<%=path + "/images/home/1-1P5261G92Wb.jpg"%> alt="公司动态" />
 				</dt>
-				<dd>
-					<a href="javascript:;">王健林又悄悄卖了几家万达广场！保险、信托接…</a>
-				</dd>
-				<dd>
-					<a href="javascript:;">刮着大风的人工智能，躺着赚钱的自动驾驶</a>
-				</dd>
-				<dd>
-					<a href="javascript:;">美业信息化规模将现，门庭管店为他们提供了一…</a>
-				</dd>
-				<dd>
-					<a href="javascript:;">腾讯500万美元领投AI创企ObEN，进一步布局社交…</a>
-				</dd>
-				<dd>
-					<a href="javascript:;">无人便利店风口正当时，“便利家”获联创永宣…</a>
-				</dd>
-
+				<c:forEach begin="0" step="1" items="${dynList}" var="dynamic">
+					<dd>
+						<a href=<%=path%>${dynamic.notPath}${dynamic.notId} target="_blank">${dynamic.notTitle}</a>
+					</dd>							
+				</c:forEach>
 			</dl>
 			<dl class="m_r31">
 				<div class="wzlm">
@@ -257,22 +251,11 @@
 				<dt>
 					<img src=<%=path + "/images/home/1-1P5261GZ6458.jpg"%> alt="行业新闻" />
 				</dt>
-				<dd>
-					<a href="javascript:;">腾讯游戏营收比重连续两个季度下降，支付、云…</a>
-				</dd>
-				<dd>
-					<a href="javascript:;">获 3800 万元 A+ 轮投资，乐摇摇科技利用抓娃娃…</a>
-				</dd>
-				<dd>
-					<a href="javascript:;">借网生大势赚了两年快钱后，考拉娱乐开始切入…</a>
-				</dd>
-				<dd>
-					<a href="javascript:;">独家 | 传滴滴即将接入ofo，共享单车大战格局或…</a>
-				</dd>
-				<dd>
-					<a href="javascript:;">点击在线求助，应答的却都是机器人，这样真的…</a>
-				</dd>
-
+				<c:forEach begin="0" step="1" items="${newsList}" var="news">
+					<dd>
+						<a href=<%=path%>${news.notPath}${news.notId} target="_blank">${news.notTitle}</a>
+					</dd>							
+				</c:forEach>
 			</dl>
 			<dl class="m_r32">
 				<div class="wzlm">
@@ -281,22 +264,11 @@
 				<dt>
 					<img src=<%=path + "/images/home/1-1P5261GU1252.jpg"%> alt="常见问题" />
 				</dt>
-				<dd>
-					<a href="javascript:;">共享，正从风口到风险</a>
-				</dd>
-				<dd>
-					<a href="javascript:;">在人工智能炒热机器人时，也被人把风带进了教…</a>
-				</dd>
-				<dd>
-					<a href="javascript:;">阿里影业为未来增持淘票票，但眼下“烧钱”依…</a>
-				</dd>
-				<dd>
-					<a href="javascript:;">比特币价格回稳，但考验才刚刚开始……</a>
-				</dd>
-				<dd>
-					<a href="javascript:;">谈谈用户体验与风控的平衡性</a>
-				</dd>
-
+				<c:forEach begin="0" step="1" items="${lawsList}" var="laws">
+					<dd>
+						<a href=<%=path%>${laws.notPath}${laws.notId} target="_blank">${laws.notTitle}</a>
+					</dd>							
+				</c:forEach>
 			</dl>
 		</div>
 	</div>
@@ -306,10 +278,20 @@
 	</div>
 	<div class="productbox m_m p_t20">
 		<input type="hidden" id="cityName" value="厦门传一信息科技有限公司" />
-    <div id="container" style="width: 100%;height: 600px;"></div>
+    <div id="container" style="width: 100%;height: 615px;"></div>
       		
 	</div>
-	
+	<ul class="right-nav-common" style="display: none;">
+				
+				<li class="service">
+					<div class="service-icon"></div>
+					<div class="service-alert"><span>0592-8888888</span></div>
+				</li>
+				<li class="gotop">
+					<div class="gotop-icon"></div>
+					<div class="gotop-alert"><span>回到顶部</span></div>
+				</li>
+			</ul>
 	<jsp:include page="tail.jsp"></jsp:include>
 	<script type="text/javascript" src=<%=path + "/js/home/aos.js"%>></script>
 	<script type="text/javascript">
@@ -318,6 +300,6 @@
 			duration : 1000
 		});
 	</script>
-
+	
 </body>
 </html>

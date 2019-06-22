@@ -84,5 +84,17 @@ public interface TbStudentMapper {
 	 */
 	public int checkStudent(TbStudent student);
 	
+	/**
+	 * 	查询学生成绩
+	 * @param schId
+	 */
+	public List<TbStudent> selectStudentScore(int schId);
+	
+	/**
+	 * 	根据成绩变更学生的状态
+	 * @param student
+	 * @return
+	 */
+	public int updateStudentWithScore(TbStudent student);
 	
 }

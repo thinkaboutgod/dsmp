@@ -72,10 +72,7 @@ public class TopicController {
 					System.out.println("选项对错："+option.getOptStatus());
 					
 				}
-				
 			}
-				
-			
 
 		mav.addObject("topic", topic);
 //		session.setAttribute("topic", topic);
@@ -342,7 +339,6 @@ public class TopicController {
 		session.setAttribute("percentage", getPercentage(currTotalTimeLength,10*60*60));*/
 		mav.setViewName("client/mistakeCollectionOfSubject1");
 		return mav;
-		
 	}
 
 	/**修改状态：当科目一的当前学时大于等于科目一要求学时时，并且分数大于90，修改成"可预约"(js已经判断好了，才过来执行这边的)

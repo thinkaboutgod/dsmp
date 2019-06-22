@@ -2,8 +2,27 @@ var path = $("#path").val();
 $(function() {
 	
 	$.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
-	
-	
+	$( "#begintime,#endtime,#begintime2,#endtime2" ).datepicker({//日期输入框设置
+		dateFormat: "yy-mm-dd",
+		 changeYear: true,
+		 changeMonth: true,
+		 showButtonPanel: true,
+	      beforeShow: function( input ) {
+	        setTimeout(function() {
+	          var buttonPane = $( input )
+	            .datepicker( "widget" )
+	            .find( ".ui-datepicker-buttonpane" );
+	          
+	          $( "<button>", {
+	            text: "清空",
+	            click: function() {
+	              $.datepicker._clearDate( input );
+	            }
+	          }).appendTo( buttonPane );
+	        }, 1 );
+	      }
+		 
+		});
 	
 	datatable_otherSet = {
 			"ajax" : path+"/plateform/searchAllStudent.action",
@@ -149,8 +168,6 @@ $(function() {
 
 				);
 			},
-			
-
 		};
 	
 	var table2 = $("#studentTable2").DataTable(datatable_otherSet2);//初始化

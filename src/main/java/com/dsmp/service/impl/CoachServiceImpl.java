@@ -108,5 +108,12 @@ public class CoachServiceImpl implements CoachService {
 	}
 
 
+	@Override
+	public TbCoach selectCoachById(Integer coaId) {
+		TbCoach tbCoach = tbCoachMapper.selectCoachById(coaId);
+		return tbCoach;
+	}
+
+
 	
 }

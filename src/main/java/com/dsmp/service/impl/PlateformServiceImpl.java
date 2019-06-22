@@ -2,11 +2,8 @@ package com.dsmp.service.impl;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import javax.lang.model.type.PrimitiveType;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -19,27 +16,23 @@ import org.springframework.web.multipart.MultipartFile;
 import com.dsmp.log.MyLog;
 import com.dsmp.mapper.PlateformMapper;
 import com.dsmp.mapper.TbCapitalrecordMapper;
-import com.dsmp.mapper.TbOptionMapper;
 import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.mapper.TbStudentMapper;
 import com.dsmp.mapper.TbSubjectMapper;
-import com.dsmp.mapper.TbTopicMapper;
 import com.dsmp.mapper.TbVideoMapper;
 import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.PageResult;
 import com.dsmp.pojo.SearchBean;
+import com.dsmp.pojo.TbAppeal;
 import com.dsmp.pojo.TbCapitalrecord;
-import com.dsmp.pojo.TbOption;
 import com.dsmp.pojo.TbParameter;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbSubject;
-import com.dsmp.pojo.TbTopic;
 import com.dsmp.pojo.TbVideo;
 import com.dsmp.service.PlateformService;
-import com.dsmp.utils.GsonUtils;
 import com.dsmp.utils.PageUtil;
 
 @Service
@@ -365,11 +358,59 @@ public class PlateformServiceImpl implements PlateformService {
 		return myResult;
 	}
 
+
+	@Override
+	public List<TbAppeal> findThecomplaint(HttpServletRequest request) {
+		String account = request.getParameter("account");
+		String name = request.getParameter("name");
+		String beginTime = request.getParameter("beginTime");
+		String endTime = request.getParameter("endTime");
+		if (account.trim().equals("")) {
+			account = null;
+		}
+		if (name.trim().equals("")) {
+			name = null;
+		}
+		if (beginTime.trim().equals("")) {
+			beginTime = null;
+		}
+		if (endTime.trim().equals("")) {
+			endTime = null;
+		} else {
+			endTime = endTime + " 23:59:59";
+		}
+		SearchBean serchBean = new SearchBean();
+		serchBean.setName(name);
+		serchBean.setAccount(account);
+		serchBean.setBeginTime(beginTime);
+		serchBean.setEndTime(endTime);
+		List<TbAppeal> thecomplaintlist=plateformMapper.selectThecomplaint(serchBean);
+		return thecomplaintlist;
+	}
+
+	@Override
+	public int insertReply(HttpServletRequest request) {
+		String appId=request.getParameter("appId");
+		String appReply=request.getParameter("appReply");
+		int result=0;
+		if (appReply.trim().equals("")) {
+			appReply = null;
+		}
+		if(appReply!=null) {
+			result=plateformMapper.insertReply(appReply,appId);
+		}		
+		return result;
+	}
+
+	
+	
+	
+	
+
 	// 查询文件访问路径
 	@Override
 	public String searchFilePathParameter() {
 		// TODO Auto-generated method stub
 		return tbParameterMapper.selectParamter("系统文件访问路径");
 	}
-
 }

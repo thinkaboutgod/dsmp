@@ -214,16 +214,18 @@
 				success:function(msg){
 					var msge = JSON.parse(msg);
 					if(msge.myresult == "success"){
-						alert("注册成功!");
-						window.location.href = path+'/student/login.action';
+						layer.msg("注册成功,正在前往...");
+						setTimeout(function () {
+							window.location.href = path+'/student/login.action';
+	                    }, 2000);							
 					}else if(msge.myresult == "codeErr"){
-						alert("注册失败，验证码错误!");
+						layer.msg("注册失败，验证码错误!");
 					}else if(msge.myresult == "phoneErr"){
-						alert("注册失败，手机号码错误!");
+						layer.msg("注册失败，手机号码错误!");
 					}else if(msge.myresult == "already"){
-						alert("注册失败，该账号已经注册过了！");
+						layer.msg("注册失败，该账号已经注册过了！");
 					}else if(msge.myresult == "pastDue"){
-						alert("注册失败，验证码已经失效！");
+						layer.msg("注册失败，验证码已经失效！");
 					}
 				},
 				error:function(){

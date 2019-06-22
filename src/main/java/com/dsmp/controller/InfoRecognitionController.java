@@ -7,17 +7,14 @@ import java.util.Iterator;
 import java.util.Random;
 
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dsmp.pojo.MyResult;
 import com.dsmp.utils.AssesToken;
 import com.dsmp.utils.Base64Util;
 import com.dsmp.utils.FileUtil;
-import com.dsmp.utils.GsonUtils;
 import com.dsmp.utils.HttpUtil;
 
 @Controller
@@ -73,7 +70,7 @@ public class InfoRecognitionController {
 
 	// 将身份信息转成map集合
 	public static HashMap<String, String> getHashMapByJson(String jsonResult) {
-		HashMap map = new HashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		try {
 			JSONObject jsonObject = new JSONObject(jsonResult);
 			JSONObject words_result = jsonObject.getJSONObject("words_result");
@@ -153,7 +150,7 @@ public class InfoRecognitionController {
 
 	// 将营业执照信息转成map集合
 	public static HashMap<String, String> getBusinessHashMapByJson(String jsonResult) {
-		HashMap map = new HashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		try {
 			JSONObject jsonObject = new JSONObject(jsonResult);
 			JSONObject words_result = jsonObject.getJSONObject("words_result");

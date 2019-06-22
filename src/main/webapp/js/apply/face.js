@@ -10,7 +10,6 @@ $(function(){
 	})
 	
 	$("#photograph").click(function(){
-		alert("拍照了");
 		getFace(context);
 	})
 	

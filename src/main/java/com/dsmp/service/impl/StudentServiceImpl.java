@@ -166,7 +166,6 @@ public class StudentServiceImpl implements StudentService {
 	public MyResult coachLogin(HttpSession session, String account, String password, String role) {
 		MyResult result = new MyResult();
 		String md5Password = Md5Tools.getMd5(password);
-		System.out.println("MD5加密后的密码：" + md5Password);
 		TbCoach coach = new TbCoach();
 		coach.setCoaAccount(account);
 		TbCoach tbCoach = tbCoachMapper.getCoach(coach);
@@ -193,25 +192,27 @@ public class StudentServiceImpl implements StudentService {
 	public MyResult schoolLogin(HttpSession session, String account, String password, String role) {
 		MyResult result = new MyResult();
 		String md5Password = Md5Tools.getMd5(password);
-		System.out.println("MD5加密后的密码：" + md5Password);
 		TbSchool school = new TbSchool();
 		school.setSchAccount(account);
 		TbSchool tbSchool = tbSchoolMapper.getSchool(school);
 		if (tbSchool != null) {
-			if(tbSchool.getSchOperativestatus().equals("允许运营")) {
-				if (tbSchool.getSchPassword().equals(md5Password)) {
-					if(!tbSchool.getSchSignupstatus().equals("允许报名")) {
-						result.setStauts("stopSignUp");	
-					}
-					session.setAttribute("school", tbSchool);
-					result.setMyresult("success");					
-				} else {
-					result.setMyresult("passErr");
-				}
+			if(tbSchool.getSchAudit().equals("未审核")) {
+				result.setMyresult("unreviewed");
 			}else {
-				result.setMyresult("stopOperatives");
-			}
-			
+				if(tbSchool.getSchOperativestatus().equals("允许运营")) {
+					if (tbSchool.getSchPassword().equals(md5Password)) {
+						if(!tbSchool.getSchSignupstatus().equals("允许报名")) {
+							result.setStauts("stopSignUp");	
+						}
+						session.setAttribute("school", tbSchool);
+						result.setMyresult("success");					
+					} else {
+						result.setMyresult("passErr");
+					}
+				}else {
+					result.setMyresult("stopOperatives");
+				}
+			}			
 		} else {
 			result.setMyresult("failed");
 		}
@@ -342,7 +343,7 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 	/**
-	 * 修改学生状态
+	 *	修改学生状态
 	 */
 	public MyResult changeStudentState(HttpServletRequest request, MyResult myResult) {
 
@@ -363,6 +364,9 @@ public class StudentServiceImpl implements StudentService {
 		return myResult;
 	}
 
+	/**
+	 * 	驾校录入学生
+	 */
 	@Override
 	public MyResult addStudent(HttpServletRequest request) {
 
@@ -375,6 +379,7 @@ public class StudentServiceImpl implements StudentService {
 		if (null != existStudent) {
 			result.setMyresult("already");
 		} else {
+			//获取录入的相关的参数
 			student.setCoaId(Integer.parseInt(request.getParameter("coaId")));
 			student.setSchId(Integer.parseInt(request.getParameter("schId")));
 			student.setStuPassword(Md5Tools.getMd5("c123456"));
@@ -383,12 +388,14 @@ public class StudentServiceImpl implements StudentService {
 			student.setStuAddress(request.getParameter("address"));
 			student.setStuIdcard(request.getParameter("idCard"));
 			student.setStuImg(request.getParameter("filename"));
+			
+			//设置默认的参数
 			student.setStuErrcount(0);
 			student.setStuStatus("启用");
 			student.setStuVerifystatus("已审核");
 			student.setStuBirthday("1992-10-1");
 			student.setStuBookingstate("未预约");
-			System.out.println("用户地址：" + student.getStuAddress());
+			
 			int res = tbStudentMapper.addStudent(student);
 			if(res>0) {
 				result.setMyresult("success");
@@ -399,6 +406,9 @@ public class StudentServiceImpl implements StudentService {
 		return result;
 	}
 
+	/**
+	 *	 审核学员
+	 */
 	@Override
 	public MyResult checkStudent(HttpServletRequest request, MyResult myResult) {
 		String stuVerifystatus = request.getParameter("stuVerifystatus");
@@ -407,6 +417,7 @@ public class StudentServiceImpl implements StudentService {
 		
 		TbStudent student = new TbStudent();
 		student.setStuId(Integer.parseInt(stuId));
+		//审核时可以对教练进行调整
 		if(coaId.equals("0")) {
 			student.setCoaId(null);
 		}else {
@@ -459,6 +470,16 @@ public class StudentServiceImpl implements StudentService {
 	public TbStudent findStuDetailById(Integer stuId) {
 		
 		return tbStudentMapper.findStuDetailById(stuId);
+	}
+
+	/**
+	 * 	查询学生成绩
+	 * @param request
+	 * @return
+	 */
+	@Override
+	public List<TbStudent> selectStudentScore(HttpServletRequest request) {
+		return tbStudentMapper.selectStudentScore(Integer.parseInt(request.getParameter("schId")));
 	}
 
 }
