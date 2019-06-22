@@ -26,6 +26,7 @@ import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCoach;
+import com.dsmp.pojo.TbExamschedule;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.service.CoachService;
@@ -66,6 +67,7 @@ public class SchoolController {
 		mav.setViewName("client/allschool");
 		return mav;
 	}
+	
 	//获取驾校集合
 	@RequestMapping("/selectAllSchool")
 	public @ResponseBody List<TbSchool> getSchoolByStauts(){
@@ -129,5 +131,65 @@ public class SchoolController {
 		System.out.println("最终返回的结果："+result.getMyresult());
 		return result;
 	}
+
+	/**
+	 * 	进入考试安排界面
+	 * @param role_id
+	 * @return
+	 */
+	@RequestMapping(value = "toschool_examarrangement")
+	public String toExamArrangement() {
+		return "back/school_examarrangement";
+	}
+
+	/**
+	 * 	驾校的所有考试安排，按照时间顺序排序
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "selectExamschedule.action")
+	public @ResponseBody Map<String, List<TbExamschedule>> selectExamschedule(HttpServletRequest request) {
+		
+		Map<String, List<TbExamschedule>> examscheduleMap = new HashMap<>();
+		List<TbExamschedule> examschedule = schoolService.selectExamschedule(request);// 驾校id从session域中的教练信息中拿
+		System.out.println(examschedule);
+		examscheduleMap.put("data", examschedule);
+
+		return examscheduleMap;
+	}
+
+	/**
+	 * 	新增考试安排
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "addExamschedule")
+	public @ResponseBody MyResult addExamschedule(HttpServletRequest request) {
+		return schoolService.addExamschedule(request);
+	}
+	
+	/**
+	 * 	进入成绩管理界面
+	 * @param role_id
+	 * @return
+	 */
+	@RequestMapping(value = "toschool_studentscore")
+	public String toStudentScore() {
+		return "back/school_studentscore";
+	}
+	
+	/**
+	 * 	录入学员科目二和科目三的成绩
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="addScore")
+	public @ResponseBody MyResult addScore(HttpServletRequest request) {
+		return  schoolService.addScore(request);
+	}
+
+
+
+	
 }
 

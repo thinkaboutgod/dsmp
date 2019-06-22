@@ -21,7 +21,7 @@ import com.dsmp.pojo.TbSchool;
 import com.dsmp.service.CoachService;
 
 @Controller
-@RequestMapping("coach")
+@RequestMapping("tbcoach")
 public class CoachController {
 
 	@Autowired private CoachService coachService;
@@ -80,7 +80,6 @@ public class CoachController {
 	//获取驾校集合
 	@RequestMapping("/selectAllCoach")
 	public @ResponseBody List<TbCoach> getSchoolByStauts(){
-		System.out.println("进来找集合");
 		List<TbCoach> coaList = tbCoachMapper.selectAllCoach();
 		return coaList;
 	}	

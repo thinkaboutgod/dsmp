@@ -263,7 +263,6 @@ public class StudentController {
 		return result;
 	}
 	
-
 	//用户在线报名判断
 	@RequestMapping("/studentApply")
 	public @ResponseBody MyResult studentApply(HttpServletRequest request,HttpSession session,
@@ -328,8 +327,8 @@ public class StudentController {
 	public @ResponseBody MyResult addStudent(HttpServletRequest request,MultipartFile file) throws IllegalStateException, IOException {
 		if (!file.isEmpty()) {
 			// 上传文件路径
-			String path = request.getServletContext().getRealPath("/images/student/");
-			System.out.println(path);
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");// 获取系统文件储存路径
+			String path = filePath + "/images/student/";
 			// 上传文件名
 			String filename = request.getParameter("filename");
 			File filepath = new File(path, filename);
@@ -340,12 +339,10 @@ public class StudentController {
 			// 将上传文件保存到一个目标文件当中
 			file.transferTo(new File(path + File.separator + filename));
 			// 输出文件上传最终的路径 测试查看
-			System.out.println(path + File.separator + filename);
 			myResult = studentService.addStudent(request);
 		} else {
 			myResult.setMyresult("failed");
 		}
-		System.out.println("最终返回的结果："+myResult);
 		return myResult;
 	}
 	
@@ -359,4 +356,18 @@ public class StudentController {
 		myResult = studentService.checkStudent(request, myResult);
 		return myResult;
 	}
+
+	/**
+	 * 	查询学生成绩
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="selectStudentScore")
+	public @ResponseBody Map<String, List<TbStudent>> selectStudentScore(HttpServletRequest request) {
+		List<TbStudent> list = studentService.selectStudentScore(request);
+		Map<String, List<TbStudent>> map = new HashMap<>();
+		map.put("data", list);
+		return map;
+	}
+
 }

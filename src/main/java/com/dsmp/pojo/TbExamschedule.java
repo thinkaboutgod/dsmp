@@ -9,13 +9,13 @@ public class TbExamschedule {
 
     private Integer subId;
 
-    private Date exsTime;
+    private String exsTime;
 
     private String exsAddress;
 
     private Integer exsSignupnum;
 
-    private Date exsEndtime;
+    private String exsEndtime;
 
     private Integer exsTotalnum;
     
@@ -46,14 +46,6 @@ public class TbExamschedule {
         this.subId = subId;
     }
 
-    public Date getExsTime() {
-        return exsTime;
-    }
-
-    public void setExsTime(Date exsTime) {
-        this.exsTime = exsTime;
-    }
-
     public String getExsAddress() {
         return exsAddress;
     }
@@ -68,14 +60,6 @@ public class TbExamschedule {
 
     public void setExsSignupnum(Integer exsSignupnum) {
         this.exsSignupnum = exsSignupnum;
-    }
-
-    public Date getExsEndtime() {
-        return exsEndtime;
-    }
-
-    public void setExsEndtime(Date exsEndtime) {
-        this.exsEndtime = exsEndtime;
     }
 
     public Integer getExsTotalnum() {
@@ -93,5 +77,22 @@ public class TbExamschedule {
 	public void setTbSubject(TbSubject tbSubject) {
 		this.tbSubject = tbSubject;
 	}
+
+	public String getExsTime() {
+		return exsTime;
+	}
+
+	public void setExsTime(String exsTime) {
+		this.exsTime = exsTime;
+	}
+
+	public String getExsEndtime() {
+		return exsEndtime;
+	}
+
+	public void setExsEndtime(String exsEndtime) {
+		this.exsEndtime = exsEndtime;
+	}
     
+	
 }

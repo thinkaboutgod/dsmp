@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dsmp.mapper.TbCarMapper;
+import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.SearchBean;
 import com.dsmp.pojo.TbCar;
@@ -23,6 +24,7 @@ import com.dsmp.service.CarService;
 public class CarServiceImpl implements CarService {
 
 	@Autowired private TbCarMapper tbCarMapper;
+	@Autowired private TbParameterMapper tbParameterMapper;
 	
 	/**
 	 * 	根据条件查询驾校名下车辆
@@ -107,9 +109,11 @@ public class CarServiceImpl implements CarService {
 		if ("" == carImgNew.getOriginalFilename()) {// 没有更新图片
 			car.setCarImg(null);
 		} else {// 有更新图片
-			String fileName = System.currentTimeMillis() + "_" + carImgNew.getOriginalFilename();
+			String fileName = carImgNew.getOriginalFilename();
 			car.setCarImg(fileName);
-			String path = request.getServletContext().getRealPath("/images/car/");
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");// 获取系统文件储存路径
+			String path = filePath + "/images/car/";
+//			String path = request.getServletContext().getRealPath("/images/car/");
 			File file = new File(path);
 			if (!file.exists()) {
 				file.mkdirs();

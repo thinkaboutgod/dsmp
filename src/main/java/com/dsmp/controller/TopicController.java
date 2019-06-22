@@ -48,10 +48,7 @@ public class TopicController {
 					System.out.println("选项对错："+option.getOptStatus());
 					
 				}
-				
 			}
-				
-			
 
 		mav.addObject("topic", topic);
 //		session.setAttribute("topic", topic);
@@ -261,6 +258,6 @@ public class TopicController {
 		session.setAttribute("percentage", getPercentage(currTotalTimeLength,10*60*60));*/
 		mav.setViewName("client/mistakeCollectionOfSubject1");
 		return mav;
-		
 	}
+	
 }

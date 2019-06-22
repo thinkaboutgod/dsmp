@@ -1,6 +1,8 @@
 package com.dsmp.pojo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TbStudent {
 	
@@ -44,7 +46,6 @@ public class TbStudent {
 	
 	private String stuBookingstate;
 	
-	
 	private TbSubject tbSubject;
 
 	private TbCoach tbCoach;
@@ -54,6 +55,8 @@ public class TbStudent {
 	private TbStudyrecord tbStudyrecord;
 	
 	private TbExamscheduleandstudent tbExamscheduleandstudent;
+	
+	private List<TbSubjectscore> scoreList = new ArrayList<>();
 	
 	public TbExamscheduleandstudent getTbExamscheduleandstudent() {
 		return tbExamscheduleandstudent;
@@ -254,6 +257,14 @@ public class TbStudent {
 
 	public void setTbSchool(TbSchool tbSchool) {
 		this.tbSchool = tbSchool;
+	}
+
+	public List<TbSubjectscore> getScoreList() {
+		return scoreList;
+	}
+
+	public void setScoreList(List<TbSubjectscore> scoreList) {
+		this.scoreList = scoreList;
 	}
 
 	

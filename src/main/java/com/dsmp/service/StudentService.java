@@ -61,6 +61,13 @@ public interface StudentService {
 	 */
 	public MyResult checkStudent(HttpServletRequest request, MyResult myResult);
 	
+	/**
+	 * 	查询学生成绩
+	 * @param request
+	 * @return
+	 */
+	public List<TbStudent> selectStudentScore(HttpServletRequest request);
+	
 	
 	
 }
