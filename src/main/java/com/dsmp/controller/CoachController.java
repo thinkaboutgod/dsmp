@@ -15,17 +15,19 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dsmp.mapper.TbCoachMapper;
+import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.service.CoachService;
+import com.dsmp.service.SchoolService;
 
 @Controller
 @RequestMapping("tbcoach")
 public class CoachController {
 
 	@Autowired private CoachService coachService;
-	
+	@Autowired private TbSchoolMapper tbSchoolMapper;
 	@Autowired private MyResult myResult;
 	
 	@Autowired private TbCoachMapper tbCoachMapper;
@@ -70,14 +72,14 @@ public class CoachController {
 		return myResult;
 	}
 	
-	//主页跳转驾校入驻页面
+	//主页跳转教练页面
 	@RequestMapping("/allCoachPage")
 	public ModelAndView getAllCoachPage() {
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("client/allcoach");
 		return mav;
 	}		
-	//获取驾校集合
+	//获取教练集合
 	@RequestMapping("/selectAllCoach")
 	public @ResponseBody List<TbCoach> getSchoolByStauts(){
 		List<TbCoach> coaList = tbCoachMapper.selectAllCoach();
@@ -100,4 +102,15 @@ public class CoachController {
 //		return studentlist;
 //	}
 	
+	//驾校信息页
+		@RequestMapping("/coachInfo")
+		public ModelAndView getCoachInfoPage(Integer coaId) {
+			ModelAndView mav = new ModelAndView();			
+			TbCoach tbCoach = coachService.selectCoachById(coaId);
+			TbSchool tbSchool = tbSchoolMapper.findSchoolBySchId(tbCoach.getSchId());			
+			mav.addObject("tbCoach",tbCoach);
+			mav.addObject("tbSchool",tbSchool);
+			mav.setViewName("client/coach_info");
+			return mav;
+		}	
 }

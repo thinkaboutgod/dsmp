@@ -1,12 +1,14 @@
 package com.dsmp.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dsmp.mapper.TbStudyrecordMapper;
+import com.dsmp.pojo.TbStudyrecord;
 import com.dsmp.service.StudyRecordService;
 @Service
 public class StudyRecordServiceImpl implements StudyRecordService {
@@ -61,6 +63,16 @@ public class StudyRecordServiceImpl implements StudyRecordService {
 	@Override
 	public Integer sumTimeLength(Integer stuId, Integer subId) {
 		return tbStudyRecordMapper.sumTimeLength(stuId, subId);
+	}
+	/** 通过学员id和科目名称查询科目所有的学习记录
+	 * @param stuId 学员id
+	 * @param subName 科目名称
+	 * @return 该科目所有的学习记录
+	 */
+	@Override
+	public List<TbStudyrecord> findStudyRecord(Integer stuId, String subName) {
+		
+		return tbStudyRecordMapper.findStudyRecord(stuId, subName);
 	}
 
 }

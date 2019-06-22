@@ -22,6 +22,9 @@
     <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
     <result column="stu_signUpTime" property="stuSignuptime" jdbcType="TIMESTAMP" />
     <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
+     <result column="stu_bookingstate" property="stuBookingstate" jdbcType="VARCHAR" />
+<!--     <result column="stu_subjectStatus" property="stuSubjectstatus" jdbcType="VARCHAR" /> -->
+    <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
   </resultMap>
 
   
@@ -45,6 +48,8 @@
     <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
     <result column="stu_signUpTime" property="stuSignuptime" jdbcType="VARCHAR" />
     <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
+     <result column="stu_bookingstate" property="stuBookingstate" jdbcType="VARCHAR" />
+<!--     <result column="stu_subjectStatus" property="stuSubjectstatus" jdbcType="VARCHAR" /> -->
     <association property="tbCoach" javaType="com.dsmp.pojo.TbCoach">
 		<id column="coa_id" property="coaId" jdbcType="INTEGER" />
 	    <result column="sch_id" property="schId" jdbcType="INTEGER" />
@@ -162,11 +167,25 @@ on c.sch_id=b.sch_id
     stu_img = #{stuImg},stu_address = #{stuAddress},stu_errCount = #{stuErrcount},
     stu_signUpTime=now(),stu_verifyStatus=#{stuVerifystatus} where stu_account=#{stuAccount};
   </update>
-
+	<!-- ren start -->
 	<!-- 修改学员状态 -->
 	<update id="changeStudentState">
 		update tb_student set stu_status=#{param2} where stu_id=#{param1}
 	</update>
+	
+	<!-- 修改学员科目状态 -->
+	<update id="updateSubjectStatus" >
+		update tb_student set stu_bookingstate=#{param2} where stu_id=#{param1}
+	</update>
+	<!-- 修改学员科目状态和科目id（科一通过了） -->
+	<update id="updateSubjectStatusAndSubId" >
+		update tb_student set stu_bookingstate=#{param2},sub_id=#{param3} where stu_id=#{param1}
+	</update>
+	
+	<select id="findStuById" resultMap="BaseResultMap">
+		select * from tb_student where stu_id=#{param};
+	</select>
+	<!-- ren end -->
 	
 	<!-- 添加学员 -->
 	<insert id="addStudent" parameterType="TbStudent" >

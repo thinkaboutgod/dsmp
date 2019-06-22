@@ -1,8 +1,9 @@
+
+
 $(function(){
 	var path = $("#path").val();
 	$("#sendmsg").click(function () {
         var phone = $.trim($("#student_phone").val());
-        alert(phone);
         $.ajax({
             dataType: 'json',
             type: 'POST',

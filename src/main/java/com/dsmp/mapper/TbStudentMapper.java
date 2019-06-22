@@ -40,6 +40,23 @@ public interface TbStudentMapper {
 	 */
 	public List<TbStudent> searchAllstudent(SearchBean sBean);
 	
+	/**更改学员当前科目状态
+	 * @param stuId 学员id
+	 * @param status （学员当前科目的状态）字段要更改成的状态
+	 * @return
+	 */
+	public int updateSubjectStatus(Integer stuId, String status);
+	/**科目一正式考试通过，把学员的科目预约状态由"已预约"改成"未预约",科目1改成2
+	 * @param stuId 学员id
+	 * @param subId 科目id
+	 * @return
+	 */
+	public int updateSubjectStatusAndSubId(Integer stuId,String status,Integer subId);
+	/**根据学员id查学员
+	 * @param stuId 学员id
+	 * @return
+	 */
+	public TbStudent findStuById(Integer stuId);
 	/**
 	 * 	修改学员状态
 	 * @param stuId

@@ -7,11 +7,12 @@
  		
  	<!-- 查询所有广告信息 -->
  	<select id="getAdvertisement" resultMap="AdvResultMap">
- 		select * from tb_advertisement a,tb_school s where a.sch_id = s.sch_id;
+ 		select * from tb_advertisement a,tb_school s where a.sch_id = s.sch_id and a.adl_id=#{adlId};
  	</select>
  	
  	<resultMap type="com.dsmp.pojo.TbAdvertisement" id="AdvResultMap">
  		<id column="adv_id" jdbcType="INTEGER" property="advId"></id>
+ 		<result column="adl_id" jdbcType="INTEGER" property="adlId"></result>
  		<result column="adv_path" jdbcType="VARCHAR" property="advPath"></result>
  		<result column="adv_imgPath" jdbcType="VARCHAR" property="advImgpath"></result>
  		<result column="adv_describe" jdbcType="VARCHAR" property="advDescribe"></result>
@@ -21,19 +22,36 @@
  		</association>
  	</resultMap>
  	
- 	<!-- 查询所有广告信息 -->
+ 	<!-- 查询所有公告信息 -->
  	<select id="findNotice" resultMap="NotResultMap">
- 		select * from tb_notice;
+ 		select * from tb_notice where nty_id=#{ntyId};
  	</select>
  	
  	<resultMap type="com.dsmp.pojo.TbNotice" id="NotResultMap">
  		<id column="not_id" jdbcType="INTEGER" property="notId"></id>
+ 		<result column="nty_id" jdbcType="INTEGER" property="ntyId"></result>
  		<result column="not_title" jdbcType="VARCHAR" property="notTitle"></result>
  		<result column="not_content" jdbcType="VARCHAR" property="notContent"></result>
  		<result column="not_time" jdbcType="VARCHAR" property="notTime"></result>
  		<result column="not_path" jdbcType="VARCHAR" property="notPath"></result> 		
  	</resultMap>
  	
+ 	<!-- 根据公告ID查询公告信息 -->
+ 	<select id="findNoticeByNotId" resultMap="resultMap">
+ 		select n.*,t.nty_name from tb_notice n,tb_notice_type t where n.nty_id=t.nty_id and not_id=#{notId};
+ 	</select>
+ 	<resultMap type="com.dsmp.pojo.TbNotice" id="resultMap">
+ 		<id column="not_id" jdbcType="INTEGER" property="notId"></id>
+ 		<result column="nty_id" jdbcType="INTEGER" property="ntyId"></result>
+ 		<result column="not_title" jdbcType="VARCHAR" property="notTitle"></result>
+ 		<result column="not_content" jdbcType="VARCHAR" property="notContent"></result>
+ 		<result column="not_time" jdbcType="VARCHAR" property="notTime"></result>
+ 		<result column="not_path" jdbcType="VARCHAR" property="notPath"></result>
+ 		<association property="tbNoticeType" javaType="com.dsmp.pojo.TbNoticeType">
+		<id column="nty_id" property="ntyId" jdbcType="INTEGER" />
+	    <result column="nty_name" property="ntyName" jdbcType="VARCHAR" />	  
+		</association> 		
+ 	</resultMap>
  	<!-- 查询所友情链接信息 -->
  	<select id="findHotlink" resultMap="HolResultMap">
  		select * from tb_hotlink;

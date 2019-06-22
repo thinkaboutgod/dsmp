@@ -17,9 +17,9 @@
     <link type="text/css" href="<%=path %>/bootstrap-datatable/css/dataTables.bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/adminlte.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
-
+	<link type="text/css" href="<%=path %>/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 <input type="hidden" id="path" value=<%=path%>>
 <div class="wrapper  ">
 	<jsp:include page="header.jsp"></jsp:include>
@@ -49,24 +49,24 @@
                                        <input type = "text" class=" form-control"  id="sname" placeholder="用户姓名">
                                    </div>
                                    <div class = "input-group">
-                                       <input type = "text" class = "form-control"  placeholder="账号"  id="saccount">
+                                       <input type = "text" class = "form-control"  placeholder="账号"  id="saccount" maxlength="20">
                                    </div>
                                    <div class = "input-group">
-                                       <input type = "text" class = "form-control"  placeholder="所属驾校"  id="school">
+                                       <input type = "text" class = "form-control"  placeholder="所属驾校"  id="school" maxlength="20">
                                    </div>
                                    <div class = "input-group" >
                          <span>注册时间：</span>
                                    </div>
                                    <div class = "input-group" >
-                                       <input type = "date" class=" form-control" name="dno"
-                                        id="begintime" placeholder="起始时间">
+                                       <input type = "text" class=" form-control" name="dno"
+                                        id="begintime" placeholder="起始时间" readonly='readonly'>
                                    </div>
                                    <div class = "input-group" >
                          <span>至</span>
                                    </div>
                                    <div class = "input-group" >
-                                       <input type = "date" class=" form-control" name="dno"
-                                          id="endtime" placeholder="终止时间">
+                                       <input type = "text" class=" form-control" name="dno"
+                                          id="endtime" placeholder="终止时间" readonly='readonly'>
                                    </div>
                            <div class = "input-group">
                                         <button  class="button btn-primary btn-sm "  id="buttonsearch">搜索</button>
@@ -104,24 +104,24 @@
                     <div class="col-sm-12">
                       <div class="box-header">
                          <div class = "input-group" >
-                             <input type = "text" class=" form-control"  id="sname2" placeholder="用户姓名">
+                             <input type = "text" class=" form-control"  id="sname2" placeholder="用户姓名" maxlength="20">
                          </div>
                          <div class = "input-group">
-                             <input type = "text" class = "form-control"  placeholder="账号"  id="saccount2">
+                             <input type = "text" class = "form-control"  placeholder="账号"  id="saccount2" maxlength="20">
                          </div>
                          <div class = "input-group">
                          <span>注册时间：</span>
                          </div>
                          <div class = "input-group" >
-                             <input type = "date" class=" form-control"
-                              id="begintime2" placeholder="起始时间">
+                             <input type = "text" class=" form-control"
+                              id="begintime2" placeholder="起始时间" readonly="readonly">
                          </div>
                          <div class = "input-group" >
                         <span>至</span>
                          </div>
                          <div class = "input-group" >
-                             <input type = "date" class=" form-control"
-                                id="endtime2" placeholder="终止时间">
+                             <input type = "text" class=" form-control"
+                                id="endtime2" placeholder="终止时间" readonly="readonly">
                          </div>
                          <div class = "input-group">
                              <button  class="button btn-primary btn-sm "  id="buttonsearch2">搜索</button>
@@ -230,6 +230,8 @@
 <script type="text/javascript" src=<%=path+"/adminlte/js/menucontrol.js"%> ></script>
 <script type="text/javascript" src=<%=path+"/js/datatables_setting.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/platform_student.js" %>></script>
+<script type="text/javascript" src=<%=path+"/jquery-ui/jquery.ui.datepicker-zh-CN.js" %>></script>
+<script type="text/javascript" src=<%=path+"/jquery-ui/jquery-ui.min.js" %>></script>
 <!-- 日期格式 -->
 <script type="text/javascript" src=<%=path+"/js/Date.js" %>></script>
 </html>

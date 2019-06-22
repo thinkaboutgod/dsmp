@@ -20,9 +20,12 @@ import com.alipay.api.domain.Topic;
 import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.PageResult;
+import com.dsmp.pojo.TbAppeal;
+import com.dsmp.pojo.TbAdvertisement;
 import com.dsmp.pojo.TbCapitalrecord;
 import com.dsmp.pojo.TbHotlink;
 import com.dsmp.pojo.TbLog;
+import com.dsmp.pojo.TbNotice;
 import com.dsmp.pojo.TbOption;
 import com.dsmp.pojo.TbParameter;
 import com.dsmp.pojo.TbSchool;
@@ -30,9 +33,12 @@ import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbSubject;
 import com.dsmp.pojo.TbTopic;
 import com.dsmp.pojo.TbVideo;
+import com.dsmp.service.AdvertisementService;
 import com.dsmp.service.BlogrollService;
 import com.dsmp.service.LogService;
+import com.dsmp.service.NoticeService;
 import com.dsmp.service.PlateformService;
+import com.dsmp.service.SchoolService;
 import com.dsmp.service.TopicService;
 import com.dsmp.service.impl.LogServiceImpl;
 import com.dsmp.utils.GsonUtils;
@@ -50,9 +56,15 @@ public class PlateformController {
 	private LogService logServiceImpl;
 	@Autowired
 	private MyResult myResult;
+	@Autowired
+	private AdvertisementService advertisementService;
+	@Autowired
+	private NoticeService noticeService;
 
+	@Autowired
+	private SchoolService schoolService;
 	// 学员查看页面
-	@RequestMapping(value = "toStudentController.action")
+	@RequestMapping(value = "a.action")
 	public String toStudentController() {
 		return "back/plateform_student";
 	}
@@ -272,7 +284,118 @@ public class PlateformController {
 	public @ResponseBody MyResult addBlogroll(@RequestBody TbHotlink tbHotlink) {
 		return blogrollService.insertBlogroll(tbHotlink);
 	}
-
+	/*
+	 * 黄锟龙，后台管理驾校
+	*/
+	
+	//驾校违规处罚界面
+	@RequestMapping(value="/punishviolations.action")
+	public ModelAndView getPunishviolations() {
+		System.out.println("驾校违规处罚界面");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("back/schoolviolations");
+		return mav;		
+	}
+	//驾校违规处罚--驾校具体信息
+	@RequestMapping(value="/plateform/punishviolationsmsg.action",method=RequestMethod.POST)
+	public @ResponseBody Map<String ,List<TbSchool>> getgetPunishviolationsMsg(HttpServletRequest request){
+		System.out.println("违规处罚，驾校具体信息");
+		List<TbSchool> schoollist=schoolService.searchSchool(request);
+		Map<String ,List<TbSchool>> schoollistmap=new HashMap<>();
+		schoollistmap.put("data",schoollist);
+		return schoollistmap;	
+	}
+	//允许，禁止学员报名
+	@RequestMapping(value="/plateform/changeschSignupstatus.action",method=RequestMethod.POST)
+	public @ResponseBody String updateSignupstatus(HttpServletRequest request) {
+		schoolService.updateSignupstatus(request);
+		String result=GsonUtils.toJson("success");		
+		return result;		
+	}
+	//允许，禁止驾校运营
+	@RequestMapping(value="/plateform/changeschOperativestatus.action",method=RequestMethod.POST)
+	public @ResponseBody String updateOperativestatus(HttpServletRequest request) {
+		schoolService.updateOperativestatus(request);
+		String result=GsonUtils.toJson("success");
+		return result;	
+	}
+	//入驻审核界面
+	@RequestMapping(value="/intheaudit.action")
+	public ModelAndView gotoIntheaudit() {
+		System.out.println("进入入驻审核界面");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("back/intheaudit");
+		return mav;		
+	}
+	//入驻界面表格信息--未审核表格
+	@RequestMapping(value="/plateform/intheauditmsg.action",method=RequestMethod.POST)
+	public  @ResponseBody Map<String,List<TbSchool>> getIntheauditmsg(){
+		List<TbSchool> notauditSchool=schoolService.findNotauditSchool();
+		Map<String ,List<TbSchool>> notauditSchoolmap=new HashMap<>();
+		notauditSchoolmap.put("data",notauditSchool);
+		return notauditSchoolmap;
+	}
+	//修改审核状态
+	@RequestMapping(value="/plateform/schoolaudit.action",method=RequestMethod.POST)
+	public @ResponseBody String updateSchaudit(HttpServletRequest request) {
+		System.out.println("修改审核状态");
+		String res=schoolService.updateAudit(request);
+		String result=GsonUtils.toJson(res);
+		return result;	
+	}
+	//查看驾校界面
+	@RequestMapping(value="/lookschoolinterface.action")
+	public ModelAndView getLookschoolinterface() {
+		System.out.println("进入驾校查看界面");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("back/lookschoolmsg");
+		return mav;		
+	}
+	//查看驾校数据
+	@RequestMapping(value="/plateform/lookschoolmsg.action",method=RequestMethod.POST)
+	public @ResponseBody Map<String,List<TbSchool>> getLookschoolmsg(){
+		List<TbSchool> allschool=plateformService.searchAllSchool();
+		Map<String ,List<TbSchool>> allschoolmap=new HashMap<>();
+		allschoolmap.put("data",allschool);		
+		return allschoolmap;		
+	}
+	//查看驾校头像
+	@RequestMapping(value="/plateform/shoolHeadportrait.action",method=RequestMethod.POST)
+	public @ResponseBody String getHeadportrait(HttpServletRequest request) {		
+		String result=schoolService.selectHeadportrait(request);
+		String headportraiturl=GsonUtils.toJson(result);
+		return headportraiturl;		
+	}
+	//查看驾校申诉界面
+	@RequestMapping(value="/plateformcomplaint")
+	public ModelAndView getPlateformComplaint() {
+		System.out.println("进入申诉管理界面");
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("back/plateform_complaint");
+		return mav;		
+	}
+	//所有申诉信息
+	@RequestMapping(value="/plateform/allthecomplaint.action",method=RequestMethod.POST)
+	public @ResponseBody Map<String,List<TbAppeal>> getAllthecomplaint(HttpServletRequest request){
+		System.out.println("全部申诉信息");
+		List<TbAppeal> thecomplaintlist=plateformService.findThecomplaint(request);
+		Map<String ,List<TbAppeal>> thecomplaintmap=new HashMap<>();
+		thecomplaintmap.put("data", thecomplaintlist);
+		return thecomplaintmap;		
+	}
+	@RequestMapping(value="/plateform/respondtoacomplaint.action",method=RequestMethod.POST)
+	public @ResponseBody String getRespondtoacomplaint(HttpServletRequest request) {
+		String r=null;
+		int res=plateformService.insertReply(request);
+		if(res==1) {
+			r="success";
+		}else {
+			r="fail";
+		}
+		String result=GsonUtils.toJson(r);
+		return result;	
+	}
+	
 	// 发送日志查看界面
 	@RequestMapping(value = "searchLogController.action")
 	public String searchLogController() {
@@ -292,5 +415,70 @@ public class PlateformController {
 	@RequestMapping(value = "searchFilePath.action")
 	public @ResponseBody String searchFilePath() {
 		return plateformService.searchFilePathParameter();
+	}
+
+	// 发送广告管理界面
+	@RequestMapping(value = "advertiseController.action")
+	public ModelAndView advertiseController() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("levelList", advertisementService.searchAdvLevel());
+		mav.addObject("schoolList", schoolService.selectAllSchoolForAdvertise());// 所有允许报名和运营的驾校
+		mav.setViewName("back/plateform_advertise");
+		return mav;
+	}
+
+	// 查询广告，分页，可查所有，可根据广告等级
+	@RequestMapping(value = "searchAdvertise.action")
+	public @ResponseBody PageResult searchAdvertise(HttpServletRequest request) {
+		return advertisementService.searchAdvertise(request);
+	}
+
+	// 广告修改或者增加
+	@RequestMapping(value = "forAdvertise.action")
+	public @ResponseBody String advertiseChange_add(HttpServletRequest request, MultipartFile newImg) {
+		return advertisementService.advertiseChange_add(request, newImg);
+	}
+
+	// 广告删除
+	@RequestMapping(value = "deleteAdvertise.action")
+	public @ResponseBody MyResult deleteAdvertise(String advId) {
+		return advertisementService.deleteAdvertise(advId);
+	}
+
+	// 发送公告管理界面
+	@RequestMapping(value = "noticeController.action")
+	public ModelAndView noticeController() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("typelList", noticeService.selectAllType());
+		mav.setViewName("back/plateform_notice");
+		return mav;
+	}
+
+	// 发送所有公告
+	@RequestMapping(value = "searchAllNotice.action")
+	public @ResponseBody Map<String, List<TbNotice>> searchAllNotice() {
+		Map<String, List<TbNotice>> map = new HashMap<>();
+		map.put("data", noticeService.selectAllNotice());
+		return map;
+	}
+
+	// 新增公告动态
+	@RequestMapping(value = "addNotice.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
+	public @ResponseBody MyResult addNotice(@RequestBody TbNotice tbNotice) {
+
+		return noticeService.insertNotice(tbNotice);
+	}
+
+	// 修改公告动态
+	@RequestMapping(value = "changeNotice.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
+	public @ResponseBody MyResult changeNotice(@RequestBody TbNotice tbNotice) {
+		System.out.println(tbNotice.getNotId());
+		return noticeService.changeNotice(tbNotice);
+	}
+
+	// 删除公告动态
+	@RequestMapping(value = "deleteNotice.action")
+	public @ResponseBody MyResult deleteNotice(String notId) {
+		return noticeService.deleteNoticeById(Integer.valueOf(notId));
 	}
 }

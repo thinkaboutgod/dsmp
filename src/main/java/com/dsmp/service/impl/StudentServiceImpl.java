@@ -71,7 +71,7 @@ public class StudentServiceImpl implements StudentService {
 			}
 			if (tbStudent.getStuPassword().equals(md5Password)) {
 				if (tbStudent.getStuStatus().equals("启用")) {
-					session.setAttribute("student", tbStudent);
+					session.setAttribute("student", tbStudent);//登录成功后把student存入session，方便后面功能使用（如其id等）
 					tbStudent.setStuErrcount(0);
 					tbStudent.setStuErrtime(null);
 					tbStudent.setStuStatus("启用");
@@ -166,7 +166,6 @@ public class StudentServiceImpl implements StudentService {
 	public MyResult coachLogin(HttpSession session, String account, String password, String role) {
 		MyResult result = new MyResult();
 		String md5Password = Md5Tools.getMd5(password);
-		System.out.println("MD5加密后的密码：" + md5Password);
 		TbCoach coach = new TbCoach();
 		coach.setCoaAccount(account);
 		TbCoach tbCoach = tbCoachMapper.getCoach(coach);
@@ -193,25 +192,27 @@ public class StudentServiceImpl implements StudentService {
 	public MyResult schoolLogin(HttpSession session, String account, String password, String role) {
 		MyResult result = new MyResult();
 		String md5Password = Md5Tools.getMd5(password);
-		System.out.println("MD5加密后的密码：" + md5Password);
 		TbSchool school = new TbSchool();
 		school.setSchAccount(account);
 		TbSchool tbSchool = tbSchoolMapper.getSchool(school);
 		if (tbSchool != null) {
-			if(tbSchool.getSchOperativestatus().equals("允许运营")) {
-				if (tbSchool.getSchPassword().equals(md5Password)) {
-					if(!tbSchool.getSchSignupstatus().equals("允许报名")) {
-						result.setStauts("stopSignUp");	
-					}
-					session.setAttribute("school", tbSchool);
-					result.setMyresult("success");					
-				} else {
-					result.setMyresult("passErr");
-				}
+			if(tbSchool.getSchAudit().equals("未审核")) {
+				result.setMyresult("unreviewed");
 			}else {
-				result.setMyresult("stopOperatives");
-			}
-			
+				if(tbSchool.getSchOperativestatus().equals("允许运营")) {
+					if (tbSchool.getSchPassword().equals(md5Password)) {
+						if(!tbSchool.getSchSignupstatus().equals("允许报名")) {
+							result.setStauts("stopSignUp");	
+						}
+						session.setAttribute("school", tbSchool);
+						result.setMyresult("success");					
+					} else {
+						result.setMyresult("passErr");
+					}
+				}else {
+					result.setMyresult("stopOperatives");
+				}
+			}			
 		} else {
 			result.setMyresult("failed");
 		}
@@ -431,6 +432,34 @@ public class StudentServiceImpl implements StudentService {
 			myResult.setMyresult("failed");
 		}
 		return myResult;
+	}
+	/**更改学员当前科目状态
+	 * @param stuId 学员id
+	 * @param status stu_subjectStatus（学员当前科目的状态）字段要更改成的状态
+	 * @return
+	 */
+	@Override
+	public boolean updateSubjectStatus(Integer stuId, String status) {
+		boolean flag = false;
+		int res = tbStudentMapper.updateSubjectStatus(stuId,status);
+		if(res==1) {
+			flag = true;
+		}
+		return flag;
+	}
+	@Override
+	public boolean updateSubjectStatusAndSubId(Integer stuId, String status, Integer subId) {
+		boolean flag = false;
+		int res = tbStudentMapper.updateSubjectStatusAndSubId(stuId,status,subId);
+		if(res==1) {
+			flag = true;
+		}
+		return flag;
+	}
+	@Override
+	public TbStudent findStuById(Integer stuId) {
+		
+		return tbStudentMapper.findStuById(stuId);
 	}
 
 	/**

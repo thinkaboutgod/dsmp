@@ -67,11 +67,11 @@ public class MenuController {
 		int rol_Id = (int) session.getAttribute("rol_Id");
 		switch (rol_Id) {
 		case 1:
-			session.removeAttribute("manage");
+			session.removeAttribute("manager");
 			mav.setViewName("client/adminlogin");
 			break;
 		case 2:
-			session.removeAttribute("manage");
+			session.removeAttribute("manager");
 			mav.setViewName("client/adminlogin");
 			break;
 		case 3:

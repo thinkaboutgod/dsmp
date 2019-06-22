@@ -38,6 +38,8 @@ public interface TbCoachMapper {
 	public Integer addCoach(TbCoach coach);
 	//教练排行
 	public List<Count> getCoachRanking();
+	//教练信息
+	public TbCoach selectCoachById(Integer coaId);
 
 
 }

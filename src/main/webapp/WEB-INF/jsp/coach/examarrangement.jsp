@@ -38,25 +38,27 @@
 <style>
 
 </style>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 	<div class="wrapper">
 	<jsp:include page="/WEB-INF/jsp/back/header.jsp"></jsp:include>
 	<jsp:include page="/WEB-INF/jsp/back/sliderbar.jsp"></jsp:include>
 		<div class="content-wrapper">
 			<section class="content">
-				<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+			<div class="row"> 
+				<div class="col-sm-12">
+				<div class="layui-tab layui-tab-brief" >
  					<ul class="layui-tab-title">
 			     	<li class="layui-this"><h3>可预约场次</h3></li>
-  				 	<li class=""><h3>学员考试安排</h3></li>
-  				 	<li class=""><h3>查看已预约学员</h3></li>  				 
+  				 	<li class=""><h3>可预约学员</h3></li>
+  				 	<li class=""><h3>已预约学员</h3></li>  				 
  				 	</ul>
- 				 	<div class="layui-tab-content" style="height: 100px;">
+ 					 <div class="layui-tab-content" style="height: 100px;">
    						<div class="layui-tab-item layui-show">
 							<!-- body -->
 				  	 		<div class="box-body">
 								<div id="thetestmsg_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-									<div class="row">
-										<div class="col-sm-12">
+<!-- 									<div class="row"> -->
+<!-- 										<div class="col-sm-12"> -->
 											<table id="thetestmsg" class="table table-bordered table-hover">
 												<thead>
 													<tr role="row">
@@ -70,15 +72,15 @@
 												</thead>
 												<tbody></tbody>
 											</table>							
-										</div>
-									</div>
+<!-- 										</div> -->
+<!-- 									</div> -->
 								</div>
 							</div>
 							<!-- /body -->  						
    						</div>
     					<div class="layui-tab-item">
 							<!-- body -->
-							<div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+							<div class="layui-tab layui-tab-brief" >
  								<ul class="layui-tab-title">
   								<li class="subject layui-this">科目一学员</li>
   			 					<li class="subject">科目二学员</li>
@@ -89,8 +91,8 @@
 							</div> 
 				  	 		<div class="box-body">
 								<div id="arrangethetest_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-									<div class="row">
-										<div class="col-sm-12">
+<!-- 									<div class="row"> -->
+<!-- 										<div class="col-sm-12"> -->
 											<table id="arrangethetest" class="table table-bordered table-hover">
 												<thead>
 													<tr role="row">
@@ -103,8 +105,8 @@
 												</thead>
 												<tbody></tbody>
 											</table>							
-										</div>
-									</div>
+<!-- 										</div> -->
+<!-- 									</div> -->
 								</div>
 							</div>
 							<!-- /body -->    					   					
@@ -113,8 +115,8 @@
     						<!-- body -->
  				  	 		<div class="box-body">
 								<div id="haveappointment_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-									<div class="row">
-										<div class="col-sm-12">
+<!-- 									<div class="row"> -->
+<!-- 										<div class="col-sm-12"> -->
 									
 											<table id="haveappointment" class="table table-bordered table-hover">
 												<thead>
@@ -128,14 +130,16 @@
 												</thead>
 												<tbody></tbody>
 											</table>							
-										</div>
-									</div>
+<!-- 										</div> -->
+<!-- 									</div> -->
 								</div>
 							</div>
 							<!-- /body -->     						   					
     					</div>
  					</div>				 
-				</div>			
+				</div>
+				</div>				 
+				</div>				
 			</section>
 		</div>
     <jsp:include page="/WEB-INF/jsp/back/footer.jsp"></jsp:include>

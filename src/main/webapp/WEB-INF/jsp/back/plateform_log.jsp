@@ -17,8 +17,9 @@
     <link type="text/css" href="<%=path %>/adminlte/css/adminlte.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
 	
+	<link type="text/css" href="<%=path %>/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 <input type="hidden" id="path" value=<%=path%>>
 <div class="wrapper">
 	<jsp:include page="header.jsp"></jsp:include>
@@ -36,24 +37,24 @@
                       <div class="col-sm-12">
                           <div class="box-header">
                                    <div class = "input-group">
-                                       <input type = "text" class = "form-control"  placeholder="操作人账号"  id="logOperatoraccount">
+                                       <input type = "text" class = "form-control"  placeholder="操作人账号"  id="logOperatoraccount" maxlength="20">
                                    </div>
                                    <div class = "input-group">
-                                       <input type = "text" class = "form-control"  placeholder="角色"  id="logRole">
+                                       <input type = "text" class = "form-control"  placeholder="角色"  id="logRole"  maxlength="20">
                                    </div>
                                    <div class = "input-group" >
                          <span>记录时间：</span>
                                    </div>
                                    <div class = "input-group" >
-                                       <input type = "date" class=" form-control" name="dno"
-                                        id="beginTime" placeholder="起始时间">
+                                       <input type = "text" class=" form-control" name="dno"
+                                        id="beginTime" placeholder="起始时间" readonly="readonly">
                                    </div>
                                    <div class = "input-group" >
                          <span>至</span>
                                    </div>
                                    <div class = "input-group" >
-                                       <input type = "date" class=" form-control" name="dno"
-                                          id="endTime" placeholder="终止时间">
+                                       <input type = "text" class=" form-control" name="dno"
+                                          id="endTime" placeholder="终止时间" readonly="readonly">
                                    </div>
                            <div class = "input-group">
                                         <button  class="button btn-info btn-sm "  id="buttonsearch">搜索</button>
@@ -112,6 +113,9 @@
 <script type="text/javascript" src=<%=path+"/Buttons-1.5.6/js/buttons.flash.min.js" %>></script>
 <script type="text/javascript" src=<%=path+"/pdfmake-0.1.36/pdfmake.min.js" %>></script>
 <script type="text/javascript" src=<%=path+"/pdfmake-0.1.36/vfs_fonts.js" %>></script>
+
+<script type="text/javascript" src=<%=path+"/jquery-ui/jquery.ui.datepicker-zh-CN.js" %>></script>
+<script type="text/javascript" src=<%=path+"/jquery-ui/jquery-ui.min.js" %>></script>
 <!-- 日期格式 -->
 <script type="text/javascript" src=<%=path+"/js/Date.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/plateform_log.js"%> ></script>

@@ -18,7 +18,7 @@
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="<%=path %>/layui/css/layui.css"  media="all">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 
 
 <div class="wrapper">
@@ -32,7 +32,7 @@
 	  	 	<div class="row">
 	  	 		<div class="col-md-12">
 	  	 			 
-           		 <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+           		 <div class="layui-tab layui-tab-brief" >
  				 <ul class="layui-tab-title">
 			     <li class="subject layui-this"><h3>查看所有学员</h3></li>
   				 <li class="subject"><h3>科目一学员</h3></li>
@@ -46,11 +46,11 @@
             <div class="box-body">
 							<div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
 
-								<div class="row">
-									<div class="col-sm-12">
+<!-- 								<div class="row"> -->
+<!-- 									<div class="col-sm-12"> -->
 										<div class = "input-group" > 
 <!--                               				  <span class="input-group-addon text-center"></span> -->
-                              				  <input type = "text" class=" form-control" name="dno"
+                              			<input type = "text" class=" form-control" name="dno"
                                					 id="sname" placeholder="学员姓名">
                            				 </div>
                            				 <div class = "input-group">
@@ -72,7 +72,7 @@
                            				 </div>
 										<div class = "input-group">
                                				 
-                               				 <input type = "button"  value="搜索"
+                               				 <input type = "button"  value="搜索"  class="btn btn-primary btn-sm"
                                				 id="buttonsearch">
                            				 </div>
                            				 <br><br><br>
@@ -94,9 +94,8 @@
 										
 										</table>
 									</div>
-								</div>
-
-							</div>
+<!-- 								</div> -->
+<!-- 							</div> -->
 						</div>
             <!-- /.box-body -->
           

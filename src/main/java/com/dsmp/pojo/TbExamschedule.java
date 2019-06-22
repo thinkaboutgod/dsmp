@@ -21,6 +21,8 @@ public class TbExamschedule {
     
     private TbSubject tbSubject;
     
+    private TbSchool tbSchool;
+    
 
     public Integer getExsId() {
         return exsId;
@@ -92,6 +94,15 @@ public class TbExamschedule {
 
 	public void setExsEndtime(String exsEndtime) {
 		this.exsEndtime = exsEndtime;
+
+	}
+	
+	public TbSchool getTbSchool() {
+		return tbSchool;
+	}
+
+	public void setTbSchool(TbSchool tbSchool) {
+		this.tbSchool = tbSchool;
 	}
     
 	

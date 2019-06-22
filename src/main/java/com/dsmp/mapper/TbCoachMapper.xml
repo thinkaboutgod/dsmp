@@ -50,12 +50,15 @@
 	<select id="getCoach" resultType="com.dsmp.pojo.TbCoach" resultMap="BaseResultMap">
 		select * from tb_coach where coa_account = #{coaAccount};
 	</select>
-	
+	 <!-- 教练信息查询 -->
+	<select id="selectCoachById" resultType="com.dsmp.pojo.TbCoach" resultMap="BaseResultMap">
+		select * from tb_coach where coa_id = #{coaId};
+	</select>
 	<!-- 根据驾校查询底下所有教练 -->
  	<select id="selseCoach" parameterType="java.lang.Integer" resultMap="BaseResultMap">
  		select * from tb_coach where sch_id=#{schId}
  	</select>
-   <!-- 查询所有驾校 -->
+   <!-- 查询所有教练 -->
    <select id="selectAllCoach" resultMap="school_coach_map">
 		select c.*,s.* from tb_coach c,tb_school s where c.sch_id = s.sch_id;
    </select>
@@ -79,6 +82,7 @@
 		<id column="sch_id" property="schId" jdbcType="INTEGER" />
 		<result column="sch_name" property="schName" jdbcType="VARCHAR" />
 		<result column="sch_account" property="schAccount" jdbcType="VARCHAR" />
+		<result column="sch_charge" property="schCharge" jdbcType="DOUBLE" />
 	</association>
 	<association property="tbCar" javaType="com.dsmp.pojo.TbCar">
 		<id column="car_id" property="carId" jdbcType="INTEGER" />

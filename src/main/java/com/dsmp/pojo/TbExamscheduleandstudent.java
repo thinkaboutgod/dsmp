@@ -11,6 +11,8 @@ public class TbExamscheduleandstudent {
     
     private TbExamschedule tbExamschedule;
     
+    private TbStudent tbStudent;
+    
     public TbExamschedule getTbExamschedule() {
 		return tbExamschedule;
 	}
@@ -50,4 +52,13 @@ public class TbExamscheduleandstudent {
     public void setEasSeatnum(Integer easSeatnum) {
         this.easSeatnum = easSeatnum;
     }
+
+	public TbStudent getTbStudent() {
+		return tbStudent;
+	}
+
+	public void setTbStudent(TbStudent tbStudent) {
+		this.tbStudent = tbStudent;
+	}
+    
 }

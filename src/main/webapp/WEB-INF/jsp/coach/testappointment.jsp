@@ -31,11 +31,11 @@
 	</style>
 <body>
 	<div id="main">
-		<!-- body -->
-				  	 		<div class="box-body">
-								<div id="testappointment_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-									<div class="row">
-										<div class="col-sm-12">
+		<!-- body -->		<div class="row">
+								<div class="col-sm-12">
+				  	 				<div class="box-body">
+										<div id="testappointment_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+
 											<table id="testappointment" class="table table-bordered table-hover">
 												<thead>
 													<tr role="row">

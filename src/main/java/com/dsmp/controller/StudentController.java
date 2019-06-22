@@ -11,9 +11,6 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +31,10 @@ import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.mapper.TbStudentMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCapitalrecord;
+import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
+import com.dsmp.service.CoachService;
 import com.dsmp.service.StudentService;
 import com.dsmp.utils.GsonUtils;
 import com.zhenzi.sms.ZhenziSmsClient;
@@ -55,6 +54,7 @@ public class StudentController {
 	@Autowired
 	private TbParameterMapper tbParameterMapper;
 	@Autowired private MyResult myResult;
+	@Autowired private CoachService coachService;
 	//主页跳登录页
 	@RequestMapping("/login")
 	public ModelAndView getLoginPage() {
@@ -65,7 +65,6 @@ public class StudentController {
 	//付款页跳转付款登录页
 	@RequestMapping("/payment")
 	public ModelAndView getPaymentPage(Integer schId) {
-		System.out.println("报名的驾校ID"+schId);
 		ModelAndView mav = new ModelAndView();
 		TbSchool school = tbMapper.findSchoolBySchId(schId);
 		mav.addObject("school",school);
@@ -75,7 +74,6 @@ public class StudentController {
 	//付款页跳转付款登录页
 	@RequestMapping("/alipay")
 	public ModelAndView getPayPage() {
-		System.out.println("进来了");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("client/alipay.trade.page.pay");
 		return mav;
@@ -84,7 +82,6 @@ public class StudentController {
 	@Transactional
 	@RequestMapping("/main")
 	public ModelAndView getMainPage(HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
-		System.out.println("付款成功了");
 		ModelAndView mav = new ModelAndView();
 		
 		//获取支付宝GET过来反馈信息
@@ -116,16 +113,9 @@ public class StudentController {
 			//付款金额
 			String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
 			
-			System.out.println("订单号："+out_trade_no);
-			System.out.println("付款金额："+total_amount);
-			
 			TbStudent student = (TbStudent)request.getSession().getAttribute("students");
-			System.out.println("学员ID："+student.getStuId());
-			System.out.println("付款学员："+student.getStuName());
-			System.out.println("地址："+student.getStuAddress());
 			int res = tbStudentMapper.updateStudentInfo(student);
 			if(res==1) {
-				System.out.println("更新学员成功！");
 				TbCapitalrecord tbCapitalrecord = new TbCapitalrecord();
 				tbCapitalrecord.setSchId(student.getSchId());
 				tbCapitalrecord.setStuId(student.getStuId());
@@ -165,12 +155,18 @@ public class StudentController {
 	}
 	//主页跳到注册页
 	@RequestMapping("/apply")
-	public ModelAndView getApplyPage() {
+	public ModelAndView getApplyPage(Integer schId) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("client/apply");
+		if(schId != null) {
+			TbSchool tbSchool = tbMapper.findSchoolBySchId(schId);
+			List<TbCoach> coaList = coachService.selectCoach(schId);
+			mav.addObject("coaList",coaList);
+			mav.addObject("tbSchool",tbSchool);
+		}		
 		String signUpStatus = "允许报名";
 		List<TbSchool> schList = tbMapper.selectAllSchoolBySignUpStatus(signUpStatus);
 		mav.addObject("schList",schList);
+		mav.setViewName("client/apply");
 		return mav;
 	}
 	
@@ -204,13 +200,10 @@ public class StudentController {
 	//用户登录判断
 	@RequestMapping("/studentLogin")
 	public @ResponseBody MyResult studentLogin(HttpSession session ,String account,String password,String role) {
-		System.out.println("账号："+account);
-		System.out.println("密码："+password);
-		System.out.println("角色ID："+role);
 		MyResult result = null;
 		switch(role){
 		case "5":
-			result = studentService.studentLogin(session, account, password,role);	
+			result = studentService.studentLogin(session, account, password,role);
 			break;
 		case "4":
 			result = studentService.coachLogin(session, account, password, role);
@@ -219,7 +212,6 @@ public class StudentController {
 			result = studentService.schoolLogin(session, account, password, role);
 			break;
 		}
-		System.out.println("登录最终结果："+result.getStauts());
 		return result;
 	}
 	
@@ -228,7 +220,6 @@ public class StudentController {
 	public @ResponseBody MyResult registerCode(HttpServletRequest request,HttpServletResponse response,String mobile) {
 		MyResult myResult = new MyResult();
 		try {
-			System.out.println("验证的手机号："+mobile);
 			//生成4位验证码
 			String verifyCode = String.valueOf(new Random().nextInt(8999) + 1000);
 			//发送短信
@@ -236,10 +227,8 @@ public class StudentController {
 //					"dcff2073-d368-4c5a-9244-33ef7902dbf9");
 //			String result = client.send(mobile, "您的验证码为:" + verifyCode + "，该码有效期为5分钟，该码只能使用一次!");			
 //		    myResult = GsonUtils.fromJson(result, MyResult.class);	
-		    System.out.println("验证码："+verifyCode);
 		    verifyCode = "1234";
 			myResult.setCode(0);
-			System.out.println(myResult.getCode());
 			//将验证码存到session中,同时存入创建时间
 			Map<String, String> map = new HashMap<>();
 			map.put("mobile", mobile);
@@ -256,27 +245,21 @@ public class StudentController {
 	//用户注册判断
 	@RequestMapping("/studentRegister")
 	public @ResponseBody MyResult studentRegister(HttpServletRequest request,String phone,String pwd,String verifyCode) {
-		System.out.println("账号："+phone);
-		System.out.println("密码："+pwd);
 		MyResult result = studentService.studentRegister(request, phone, pwd, verifyCode);		
-		System.out.println(result.getMyresult());
 		return result;
 	}
 	
 	//用户在线报名判断
 	@RequestMapping("/studentApply")
 	public @ResponseBody MyResult studentApply(HttpServletRequest request,HttpSession session,
-			@RequestParam("the_file")MultipartFile file,String filename,String name,
+		   @RequestParam("the_file")MultipartFile file,String filename,String name,
 			String idCard,String address,String sex,Integer school,Integer coach,
 			String code,String phone) throws IllegalStateException, IOException {		
-		System.out.println(file.getOriginalFilename());
-		System.out.println("驾校ID"+school);
 		MyResult result = null;
 		if (!file.isEmpty()) {
 			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");//获取系统文件储存路径
 			// 上传文件路径
 			String path = filePath+"/images/student/";
-			System.out.println(path);
 			// 上传文件名
 //			String filename = file.getOriginalFilename();
 			File filepath = new File(path, filename);
@@ -287,12 +270,10 @@ public class StudentController {
 			// 将上传文件保存到一个目标文件当中
 			file.transferTo(new File(path + File.separator + filename));
 			// 输出文件上传最终的路径 测试查看
-			System.out.println(path + File.separator + filename);
 			result = studentService.studentApply(request, session, filename, name, idCard, address, sex, school, coach, code, phone);
 		} else {
 			result.setMyresult("failed");
 		}
-		System.out.println("最终返回的结果："+result);
 		return result;
 	}
 	
@@ -329,6 +310,7 @@ public class StudentController {
 			// 上传文件路径
 			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");// 获取系统文件储存路径
 			String path = filePath + "/images/student/";
+//			String path = request.getServletContext().getRealPath("/images/student/");
 			// 上传文件名
 			String filename = request.getParameter("filename");
 			File filepath = new File(path, filename);
