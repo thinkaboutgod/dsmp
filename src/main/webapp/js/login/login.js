@@ -167,6 +167,7 @@ $(document).ready(function () {
 								layer.msg("登录失败，请等待审核通过!");
 							}
 						},
+						
 						error:function(){
 							layer.msg("操作失败!");
 						}
