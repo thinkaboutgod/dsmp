@@ -29,30 +29,28 @@ public class MenuController {
 	@RequestMapping(value = "/toManageMain.action")
 	public ModelAndView toManageMain(String role_id) {
 
-		System.out.println("执行");
-
 		ModelAndView mav = new ModelAndView();
 		Map<TbMenu, List<TbMenu>> menuMap = menuService.selectMen(Integer.valueOf(role_id));
 		session.setAttribute("menuMap", menuMap);
 		switch (role_id) {
 		case "1":
 			session.setAttribute("title", "平台管理端");
-//			session.setAttribute("the_name", ((TbManager) session.getAttribute("manage")).getManName());
+			session.setAttribute("the_name", ((TbManager) session.getAttribute("manager")).getManName());
 			session.setAttribute("rol_Id", 1);
 			break;
 		case "2":
 			session.setAttribute("title", "运管门户");
-			session.setAttribute("the_name", ((TbManager) session.getAttribute("manage")).getManName());
+			session.setAttribute("the_name", ((TbManager) session.getAttribute("manager")).getManName());
 			session.setAttribute("rol_Id", 2);
 			break;
 		case "3":
 			session.setAttribute("title", "驾校管理端");
-//			session.setAttribute("the_name", ((TbSchool) session.getAttribute("school")).getSchName());
+			session.setAttribute("the_name", ((TbSchool) session.getAttribute("school")).getSchName());
 			session.setAttribute("rol_Id", 3);
 			break;
 		case "4":
 			session.setAttribute("title", "教练门户");
-//			session.setAttribute("the_name", ((TbCoach) session.getAttribute("caoch")).getCoaName());
+			session.setAttribute("the_name", ((TbCoach) session.getAttribute("coach")).getCoaName());
 			session.setAttribute("rol_Id", 4);
 			break;
 		}
@@ -67,11 +65,11 @@ public class MenuController {
 		int rol_Id = (int) session.getAttribute("rol_Id");
 		switch (rol_Id) {
 		case 1:
-			session.removeAttribute("manage");
+			session.removeAttribute("manager");
 			mav.setViewName("client/adminlogin");
 			break;
 		case 2:
-			session.removeAttribute("manage");
+			session.removeAttribute("manager");
 			mav.setViewName("client/adminlogin");
 			break;
 		case 3:

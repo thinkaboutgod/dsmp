@@ -8,9 +8,11 @@ import com.dsmp.pojo.TbNotice;
 
 public interface HomeInfoMapper {
 	//广告查询
-	public List<TbAdvertisement> getAdvertisement();
+	public List<TbAdvertisement> getAdvertisement(Integer adlId);
 	//公告查询
-	public List<TbNotice> findNotice();
+	public List<TbNotice> findNotice(Integer ntyId);
+	//查询点击公告信息
+	public TbNotice findNoticeByNotId(Integer notId);
 	//友情链接
 	public List<TbHotlink> findHotlink();
 }

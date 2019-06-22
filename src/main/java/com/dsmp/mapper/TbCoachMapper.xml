@@ -55,7 +55,10 @@
  	<select id="selseCoach" parameterType="java.lang.Integer" resultMap="BaseResultMap">
  		select * from tb_coach where sch_id=#{schId}
  	</select>
-	
+   <!-- 查询所有教练 -->
+   <select id="selectAllCoach" resultMap="school_coach_map">
+		select c.*,s.* from tb_coach c,tb_school s where c.sch_id = s.sch_id;
+   </select>
 	<!-- 查询驾校名下教练 -->
 	<resultMap id="school_coach_map" type="com.dsmp.pojo.TbCoach" >
     <id column="coa_id" property="coaId" jdbcType="INTEGER" />
@@ -76,6 +79,7 @@
 		<id column="sch_id" property="schId" jdbcType="INTEGER" />
 		<result column="sch_name" property="schName" jdbcType="VARCHAR" />
 		<result column="sch_account" property="schAccount" jdbcType="VARCHAR" />
+		<result column="sch_charge" property="schCharge" jdbcType="DOUBLE" />
 	</association>
 	<association property="tbCar" javaType="com.dsmp.pojo.TbCar">
 		<id column="car_id" property="carId" jdbcType="INTEGER" />
@@ -100,5 +104,25 @@
 	<update id="changeCoachState" >
 		update tb_coach set coa_status=#{param2} where coa_id=#{param1}
 	</update>
+	
+
+	<!-- 添加新的教练 -->
+	<insert id="addCoach" parameterType="com.dsmp.pojo.TbCoach">
+		INSERT INTO tb_coach (sch_id,coa_name,coa_account,coa_password,coa_sex,coa_birthday,coa_idcard,coa_address,coa_introduction,coa_level) VALUES
+		(#{schId},#{coaName},#{coaAccount},#{coaPassword},#{coaSex},#{coaBirthday},#{coaIdcard},#{coaAddress},#{coaIntroduction},#{coaLevel});
+	</insert>
   
+
+   <!-- 查询教练排行 -->
+  <select id="getCoachRanking" resultMap="coachRankingMap">
+  	SELECT c.coa_name,s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as starnum,AVG(r.rat_star) as staravg FROM tb_coach c,
+ tb_school s,tb_rating r where r.coa_id = c.coa_id and c.sch_id = s.sch_id GROUP BY c.coa_id ORDER BY staravg DESC;
+  </select>
+  <resultMap id="coachRankingMap" type="com.dsmp.pojo.Count" >
+  	<result column="coa_name" property="name" jdbcType="VARCHAR" />
+    <result column="commentnum" property="data" jdbcType="VARCHAR" />
+    <result column="sch_name" property="phone" jdbcType="VARCHAR" />
+    <result column="staravg" property="starAvg" jdbcType="DOUBLE" />
+  </resultMap>
+
 </mapper>

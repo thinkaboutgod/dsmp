@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.dsmp.mapper.TbNoticeMapper" >
+  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbNotice" >
+    <id column="not_id" property="notId" jdbcType="INTEGER" />
+    <result column="not_title" property="notTitle" jdbcType="VARCHAR" />
+    <result column="not_content" property="notContent" jdbcType="VARCHAR" />
+    <result column="not_time" property="notTime" jdbcType="TIMESTAMP" />
+    <result column="not_path" property="notPath" jdbcType="VARCHAR" />
+    <result column="nty_id" property="ntyId" jdbcType="VARCHAR" />
+    <association property="tbNoticeType" javaType="com.dsmp.pojo.TbNoticeType">
+		<id column="nty_id" property="ntyId" jdbcType="INTEGER" />
+	    <result column="nty_name" property="ntyName" jdbcType="VARCHAR" />
+    </association>
+  </resultMap>
+  
+  <resultMap id="noticeTypeResultMap" type="com.dsmp.pojo.TbNoticeType" >
+  	<id column="nty_id" property="ntyId" jdbcType="INTEGER" />
+	 <result column="nty_name" property="ntyName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    not_id, not_title, not_content, not_time, not_path
+  </sql>
+<!--   查询所有公告 -->
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select * from tb_notice a,tb_notice_type b where a.nty_id=b.nty_id
+  </select>
+  <!--   查询所有公告类型表 -->
+  <select id="selectAllType" resultMap="noticeTypeResultMap"  >
+    select * from tb_notice_type 
+  </select>
+<!--   删除某个 -->
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tb_notice
+    where not_id = #{notId,jdbcType=INTEGER}
+  </delete>
+  
+  <insert id="insert" parameterType="com.dsmp.pojo.TbNotice" >
+    insert into tb_notice (not_id, not_title, not_content, 
+      not_time, not_path)
+    values (#{notId,jdbcType=INTEGER}, #{notTitle,jdbcType=VARCHAR}, #{notContent,jdbcType=VARCHAR}, 
+      #{notTime,jdbcType=TIMESTAMP}, #{notPath,jdbcType=VARCHAR})
+  </insert>
+<!--   插入，新增 -->
+  <insert id="insertSelective" parameterType="com.dsmp.pojo.TbNotice" >
+    insert into tb_notice
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="notId != null" >
+        not_id,
+      </if>
+      <if test="notTitle != null" >
+        not_title,
+      </if>
+      <if test="notContent != null" >
+        not_content,
+      </if>
+      <if test="notPath != null" >
+        not_path,
+      </if>
+      <if test="ntyId != null" >
+        nty_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="notId != null" >
+        #{notId,jdbcType=INTEGER},
+      </if>
+      <if test="notTitle != null" >
+        #{notTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="notContent != null" >
+        #{notContent,jdbcType=VARCHAR},
+      </if>
+      <if test="notPath != null" >
+        #{notPath,jdbcType=VARCHAR},
+      </if>
+      <if test="ntyId != null" >
+        #{ntyId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+<!--   更新公告 -->
+  <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbNotice" >
+    update tb_notice
+    <set >
+      <if test="notTitle != null" >
+        not_title = #{notTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="notContent != null" >
+        not_content = #{notContent,jdbcType=VARCHAR},
+      </if>
+      <if test="notPath != null" >
+        not_path = #{notPath,jdbcType=VARCHAR},
+      </if>
+      <if test="ntyId != null" >
+        nty_id = #{ntyId,jdbcType=INTEGER}
+      </if>
+    </set>
+    where not_id = #{notId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dsmp.pojo.TbNotice" >
+    update tb_notice
+    set not_title = #{notTitle,jdbcType=VARCHAR},
+      not_content = #{notContent,jdbcType=VARCHAR},
+      not_path = #{notPath,jdbcType=VARCHAR}
+    where not_id = #{notId,jdbcType=INTEGER}
+  </update>
+</mapper>

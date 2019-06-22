@@ -21,6 +21,7 @@ public interface SchoolService {
 	public MyResult insertSchoolInfo(String phone,String password,String sch_creditcode,String sch_name,
 			String sch_type,String sch_address,String sch_bossname,String sch_registerCapital,
 			String sch_introduce,Double sch_charge,String fileName);
+
 	//驾校条件查找
 	public List<TbSchool> searchSchool(HttpServletRequest request);
 	//禁止、恢复学员预约 
@@ -39,4 +40,9 @@ public interface SchoolService {
 	public int  insertThecomplaintcontent(HttpServletRequest request);
 	//查找申诉内容
 	public List<TbAppeal> selectReply(HttpServletRequest request);
+
+
+	//查询允许报名和运营的所有驾校
+	public List<TbSchool> selectAllSchoolForAdvertise();
+
 }

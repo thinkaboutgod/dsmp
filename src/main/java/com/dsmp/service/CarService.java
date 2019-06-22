@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCar;
 
@@ -23,5 +25,14 @@ public interface CarService {
 	 * @return
 	 */
 	public MyResult scrapCar(HttpServletRequest request, MyResult myResult);
+
+	
+	/**
+	 * 添加车辆
+	 * @param request
+	 * @param carImgNew
+	 * @return
+	 */
+	public String addCar(HttpServletRequest request, MultipartFile carImgNew);
 
 }

@@ -1,6 +1,9 @@
 package com.dsmp.service;
 
+import java.util.List;
 import java.util.Map;
+
+import com.dsmp.pojo.TbStudyrecord;
 
 /**
  * 学习记录：插入开始学习时间点，计算学习时长等
@@ -25,4 +28,10 @@ public interface StudyRecordService {
 	 * @return
 	 */
 	public Integer sumTimeLength(Integer stuId,Integer subId);
+	/** 通过学员id和科目名称查询科目所有的学习记录
+	 * @param stuId 学员id
+	 * @param subName 科目名称
+	 * @return 该科目所有的学习记录
+	 */
+	public List<TbStudyrecord> findStudyRecord(Integer stuId,String subName);
 }

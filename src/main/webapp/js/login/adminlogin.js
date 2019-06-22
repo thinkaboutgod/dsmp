@@ -1,6 +1,14 @@
 
 
 $(function() {
+	
+    //回车登录
+    $("body").keydown(function(event) {
+		if (event.keyCode == "13") {// keyCode=13是回车键
+			$("#adminlogin").click();
+		}
+	});
+	
 	var path = $("#path").val();	
 	$("#adminlogin").click(function(){
 		var account = $("#account").val().trim();
@@ -27,9 +35,14 @@ $(function() {
 						layer.msg("登录成功!");
 						var role = msge.roleId;
 						if(role == "1"){
-							window.location.href = path+'/menu/toManageMain.action?role_id='+role;
+							setTimeout(function () {
+								window.location.href = path+'/menu/toManageMain.action?role_id='+role;
+		                    }, 2000);
+							
 						}else if( role == "2"){
-							window.location.href = path+'/menu/toManageMain.action?role_id='+role;
+							setTimeout(function () {
+								window.location.href = path+'/menu/toManageMain.action?role_id='+role;
+		                    }, 2000);							
 						}											
 					}else if(msge.myresult == "failed"){
 						layer.msg("登录失败，账号不存在!");

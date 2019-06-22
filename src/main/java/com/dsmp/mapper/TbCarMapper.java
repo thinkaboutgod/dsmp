@@ -11,5 +11,7 @@ public interface TbCarMapper {
 	String selectCurTime();
 
 	int scrapCar(Integer carId, String state);
+
+	int addCar(TbCar car);
 	
 }

@@ -15,8 +15,18 @@
     <link type="text/css" href="<%=path %>/adminlte/css/ionicons.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/adminlte.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
+<style>
+<!--
+.content{
+	padding-left: 0;
+	padding-top: 0;
+	padding-bottom: 0;
+	
+}
+-->
+</style>
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 <div class="wrapper">
 	<jsp:include page="header.jsp"></jsp:include>
 	<jsp:include page="sliderbar.jsp"></jsp:include>

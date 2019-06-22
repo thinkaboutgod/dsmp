@@ -21,8 +21,11 @@ import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.PageResult;
 import com.dsmp.pojo.TbAppeal;
+import com.dsmp.pojo.TbAdvertisement;
 import com.dsmp.pojo.TbCapitalrecord;
 import com.dsmp.pojo.TbHotlink;
+import com.dsmp.pojo.TbLog;
+import com.dsmp.pojo.TbNotice;
 import com.dsmp.pojo.TbOption;
 import com.dsmp.pojo.TbParameter;
 import com.dsmp.pojo.TbSchool;
@@ -30,10 +33,14 @@ import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbSubject;
 import com.dsmp.pojo.TbTopic;
 import com.dsmp.pojo.TbVideo;
+import com.dsmp.service.AdvertisementService;
 import com.dsmp.service.BlogrollService;
+import com.dsmp.service.LogService;
+import com.dsmp.service.NoticeService;
 import com.dsmp.service.PlateformService;
 import com.dsmp.service.SchoolService;
 import com.dsmp.service.TopicService;
+import com.dsmp.service.impl.LogServiceImpl;
 import com.dsmp.utils.GsonUtils;
 
 @Controller
@@ -46,11 +53,18 @@ public class PlateformController {
 	@Autowired
 	private BlogrollService blogrollService;
 	@Autowired
-	private MyResult myResult;	
+	private LogService logServiceImpl;
+	@Autowired
+	private MyResult myResult;
+	@Autowired
+	private AdvertisementService advertisementService;
+	@Autowired
+	private NoticeService noticeService;
+
 	@Autowired
 	private SchoolService schoolService;
 	// 学员查看页面
-	@RequestMapping(value = "toStudentController.action")
+	@RequestMapping(value = "a.action")
 	public String toStudentController() {
 		return "back/plateform_student";
 	}
@@ -115,13 +129,25 @@ public class PlateformController {
 		return cList;
 	}
 
-	// 按照驾校统计近半年报名学员人数
+	// 按照驾校查询某一个月有人报名的驾校的报名人数
 	@RequestMapping(value = "countStudentByDate.action")
 	public @ResponseBody Map<String, List<Count>> countStudentByDate(String month) {
 		List<Count> cList = plateformService.countStudentByDate(month);
 		Map<String, List<Count>> map = new HashMap<>();
 		map.put("data", cList);
 		return map;
+	}
+
+	// 按照驾校查询某一个月有人报名的驾校的报名人数
+	@RequestMapping(value = "countAllStudentByDate.action")
+	public @ResponseBody List<Count> countAllStudentByDate(String month) {
+		List<Count> cList = plateformService.countAllStudentByDate(month);
+		for (int i = 0; i < cList.size(); i++) {
+			if (cList.get(i).getData() == null) {
+				cList.get(i).setData("0");
+			}
+		}
+		return cList;
 	}
 
 	// 按科目查询学习视频
@@ -215,7 +241,7 @@ public class PlateformController {
 	@RequestMapping(value = "searchParameter.action")
 	public @ResponseBody Map<String, List<TbParameter>> searchParameter() {
 		Map<String, List<TbParameter>> map = new HashMap<>();
-		List<TbParameter> parList = plateformService.searchParameter();
+		List<TbParameter> parList = plateformService.searchAllParameter();
 		map.put("data", parList);
 		return map;
 	}
@@ -234,8 +260,8 @@ public class PlateformController {
 
 	// 查询友情链接
 	@RequestMapping(value = "searchAllBlogRoll.action")
-	public @ResponseBody Map<String,List<TbHotlink>> searchAllBlogRoll() {
-		Map<String,List<TbHotlink>> map = new HashMap<>();
+	public @ResponseBody Map<String, List<TbHotlink>> searchAllBlogRoll() {
+		Map<String, List<TbHotlink>> map = new HashMap<>();
 		List<TbHotlink> bloList = blogrollService.searchAllBlogRoll();
 		map.put("data", bloList);
 		return map;
@@ -370,4 +396,89 @@ public class PlateformController {
 		return result;	
 	}
 	
+	// 发送日志查看界面
+	@RequestMapping(value = "searchLogController.action")
+	public String searchLogController() {
+		return "back/plateform_log";
+	}
+
+	// 查询友情链接
+	@RequestMapping(value = "searchLog.action")
+	public @ResponseBody Map<String, List<TbLog>> searchLog(HttpServletRequest request) {
+		Map<String, List<TbLog>> map = new HashMap<>();
+		List<TbLog> logList = logServiceImpl.searchLog(request);
+		map.put("data", logList);
+		return map;
+	}
+
+	// 发送系统文件路径
+	@RequestMapping(value = "searchFilePath.action")
+	public @ResponseBody String searchFilePath() {
+		return plateformService.searchFilePathParameter();
+	}
+
+	// 发送广告管理界面
+	@RequestMapping(value = "advertiseController.action")
+	public ModelAndView advertiseController() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("levelList", advertisementService.searchAdvLevel());
+		mav.addObject("schoolList", schoolService.selectAllSchoolForAdvertise());// 所有允许报名和运营的驾校
+		mav.setViewName("back/plateform_advertise");
+		return mav;
+	}
+
+	// 查询广告，分页，可查所有，可根据广告等级
+	@RequestMapping(value = "searchAdvertise.action")
+	public @ResponseBody PageResult searchAdvertise(HttpServletRequest request) {
+		return advertisementService.searchAdvertise(request);
+	}
+
+	// 广告修改或者增加
+	@RequestMapping(value = "forAdvertise.action")
+	public @ResponseBody String advertiseChange_add(HttpServletRequest request, MultipartFile newImg) {
+		return advertisementService.advertiseChange_add(request, newImg);
+	}
+
+	// 广告删除
+	@RequestMapping(value = "deleteAdvertise.action")
+	public @ResponseBody MyResult deleteAdvertise(String advId) {
+		return advertisementService.deleteAdvertise(advId);
+	}
+
+	// 发送公告管理界面
+	@RequestMapping(value = "noticeController.action")
+	public ModelAndView noticeController() {
+		ModelAndView mav = new ModelAndView();
+		mav.addObject("typelList", noticeService.selectAllType());
+		mav.setViewName("back/plateform_notice");
+		return mav;
+	}
+
+	// 发送所有公告
+	@RequestMapping(value = "searchAllNotice.action")
+	public @ResponseBody Map<String, List<TbNotice>> searchAllNotice() {
+		Map<String, List<TbNotice>> map = new HashMap<>();
+		map.put("data", noticeService.selectAllNotice());
+		return map;
+	}
+
+	// 新增公告动态
+	@RequestMapping(value = "addNotice.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
+	public @ResponseBody MyResult addNotice(@RequestBody TbNotice tbNotice) {
+
+		return noticeService.insertNotice(tbNotice);
+	}
+
+	// 修改公告动态
+	@RequestMapping(value = "changeNotice.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
+	public @ResponseBody MyResult changeNotice(@RequestBody TbNotice tbNotice) {
+		System.out.println(tbNotice.getNotId());
+		return noticeService.changeNotice(tbNotice);
+	}
+
+	// 删除公告动态
+	@RequestMapping(value = "deleteNotice.action")
+	public @ResponseBody MyResult deleteNotice(String notId) {
+		return noticeService.deleteNoticeById(Integer.valueOf(notId));
+	}
 }

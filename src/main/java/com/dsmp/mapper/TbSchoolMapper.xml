@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.dsmp.mapper.TbSchoolMapper" >
+
+<mapper namespace="com.dsmp.mapper.TbSchoolMapper" >    
   <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbSchool" >
     <id column="sch_id" property="schId" jdbcType="INTEGER" />
     <result column="rol_id" property="rolId" jdbcType="INTEGER" />
@@ -19,7 +20,7 @@
     <result column="sch_charge" property="schCharge" jdbcType="DOUBLE" />
     <result column="sch_audit" property="schAudit" jdbcType="VARCHAR"/>
   </resultMap>
-    <resultMap id="theappeal" type="com.dsmp.pojo.TbAppeal" >
+   <resultMap id="theappeal" type="com.dsmp.pojo.TbAppeal" >
     <id column="app_id" property="appId" jdbcType="INTEGER" />
     <result column="app_time" property="appTime" jdbcType="TIMESTAMP" />
     <result column="app_content" property="appContent" jdbcType="VARCHAR" />
@@ -97,6 +98,31 @@
   	select * from tb_appeal where sch_id=#{param1}
   </select>
   <!-- /黄锟龙 -->
+
+  <!-- 搜索驾校 -->
+  <select id="selectSchoolByName" resultMap="BaseResultMap" >
+    select * from tb_school where sch_name like "%"#{schName}"%";
+  </select>
+
+  
+  <!-- 查询所有驾校，允许报名和运营的 -->
+  <select id="selectAllSchoolForAdvertise" resultMap="BaseResultMap" >
+    select sch_id,sch_name,sch_bossName from tb_school where sch_signUpStatus='允许报名' and sch_operativeStatus='允许运营'
+  </select>
+
+  <!-- 查询驾校排行 -->
+  <select id="getSchoolRanking" resultMap="schoolRankingMap">
+  	SELECT s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as starnum,AVG(r.rat_star) as staravg FROM 
+ tb_school s,tb_rating r where  r.sch_id = s.sch_id GROUP BY r.sch_id ORDER BY staravg DESC;
+  </select>
+  <resultMap id="schoolRankingMap" type="com.dsmp.pojo.Count" >
+  	<result column="sch_name" property="name" jdbcType="VARCHAR" />
+    <result column="commentnum" property="data" jdbcType="VARCHAR" />
+    <result column="starnum" property="phone" jdbcType="VARCHAR" />
+    <result column="staravg" property="starAvg" jdbcType="DOUBLE" />
+  </resultMap>
+  
+  
   
   <sql id="Example_Where_Clause" >
     <where >

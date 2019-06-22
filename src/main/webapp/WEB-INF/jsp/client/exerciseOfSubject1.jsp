@@ -11,7 +11,19 @@
 	String path = request.getContextPath();
 %>
 <link rel="stylesheet" type="text/css" href=<%=path+"/bootstrap-3.3.7-dist/css/bootstrap.css" %>>
+    <link href=<%=path+"/css/exam/main.css" %> rel="stylesheet" type="text/css" />
+    <link href=<%=path+"/css/exam/iconfont.css" %> rel="stylesheet" type="text/css" />
+    <link href=<%=path+"/css/exam/test.css" %> rel="stylesheet" type="text/css" />
 <style type="text/css">
+
+ 	#leftDiv{ 
+/*  		float: left;  */
+/*  		width: 70%;  */
+ /* 		height: 600px; */ 
+ 		/*box-sizing: border-box;*/ 
+/*   		background-color: #68DFFF;  */
+  		background-color: #CCFF9A; 
+ 	} 
 	img{
  			height: 100px;
  			width: 300px;
@@ -19,10 +31,41 @@
  	ol{
 		list-style:none;
 	}
-	.answerDetailId{
-		disabled:disabled;
+/* 	.answerDetailId{ */
+/* 		width:100%; */
+/* 		disabled:disabled; */
 		
+/* 	} */
+	input[type='button']{
+/* 		margin:10px 60%; */
+		width: 55px;
+ 		height: 25px;
+ 		color:white;
+		background-color: green;
 	}
+ 	#btnDiv{ 
+		width: 500px;
+		height: 50px;
+ 	} 
+	
+/* 	 #leftDiv > ol > li { */
+/* 	    width: 100%; */
+/* 	    border-bottom: 5px solid #efefef; */
+/* 	    padding-top: 10px; */
+/* 	} */
+	#topicDiv{
+		 width: 100%;
+	}
+	#conTopDiv {
+		margin-left:90px;
+	    width: 80%;
+	    border-bottom: 5px solid #efefef;
+	    padding-top: 10px;
+	}
+	#replyId{
+		margin-left:70px;
+	}
+
 </style>
 <script type="text/javascript" src=<%=path+"/js/jquery-3.3.1.js" %>></script>
 <script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.js" %>></script>
@@ -64,24 +107,44 @@
 				}
 				
 				$("#topicDiv").empty();//每次点击下一题先把之前的删除
-				$("#topicDiv").append((topicOrder+1)+'.'+allTopList[topicOrder].topTopic);
+				$("#topicDiv").append('<div id="conTopDiv" class="test_content_nr_tt"><i><span>'+(topicOrder+1)+'</span></i><font>'+allTopList[topicOrder].topTopic+'</font></div>');
+				$("#topicDiv").append('<div id="conDiv" class="test_content_nr_main"></div>');
 				if(allTopList[topicOrder].topImg!=null && ''!=allTopList[topicOrder].topImg){
-					$("#topicDiv").append('<div><img src='+path+allTopList[topicOrder].topImg+'><div>');
+					$("#conDiv").append('<img src='+path+allTopList[topicOrder].topImg+'>');//如果该题有图片，则引入
 				}
 				
-				$("#topicDiv").append('<ol id="optionId" class="optionClass"></ol>');
+				$("#conDiv").append('<ol id="optionId" class="optionClass"></ol>');
 				var optionList = allTopList[topicOrder].options;
 				for(var i=0;i<optionList.length;i++){//每题4个选项找出来
 // 					alert(optionList[i].optOption);
-					$("#optionId").append('<li><input class="radiotop" id='+optionList[i].optId+' name='+allTopList[topicOrder].topId+' type="radio" value='+optionList[i].optStatus+'>'+optionList[i].optOption+'</li>');						
+					$("#optionId").append('<li id=opt'+optionList[i].optId+' class="option"><input class="radiotop" id='+optionList[i].optId+' name='+allTopList[topicOrder].topId+' type="radio" value='+optionList[i].optStatus+'></li>');//
+					$("#opt"+optionList[i].optId).append('<label for='+optionList[i].optId+'>'+getABCD(i)+'<b class="ue" style="display: inline;">'+optionList[i].optOption+'</label>');
+
+					
 					
 				}
-				$("#optionId").append('<input class="answerDetailId" type="hidden" disabled="disabled" value="'+allTopList[topicOrder].topAnswer+'.'+allTopList[topicOrder].topAnswerDetail+'">');
+				$("#conDiv").append('<div class="answerDetailClass" style="display: none">答案：'+allTopList[topicOrder].topAnswer+'.'+allTopList[topicOrder].topAnswerDetail+'</div>');
 				
 			},
 			
 		});
-
+		function getABCD(i){//根据序号得出abcd
+			switch(i){
+			case 0:
+				return 'A.';
+				break;
+			case 1:
+				return 'B.';
+				break;
+			case 2:
+				return 'C.';
+				break;
+			case 3:
+				return 'D.';
+				break;
+			}
+			
+		}
 		$("#downBtn").on({
 			"click":function(){
 // 				alert('点击了下一题'+allTopList[topicOrder].topTopic);
@@ -94,19 +157,20 @@
 					$("#downBtn").attr("disabled","disabled");
 				}
 				$("#topicDiv").empty();//每次点击下一题先把之前的删除
-				$("#topicDiv").append((topicOrder+1)+'.'+allTopList[topicOrder].topTopic);
+				$("#topicDiv").append('<div id="conTopDiv" class="test_content_nr_tt"><i><span>'+(topicOrder+1)+'</span></i><font>'+allTopList[topicOrder].topTopic+'</font></div>');
+				$("#topicDiv").append('<div id="conDiv" class="test_content_nr_main"></div>');
 				if(allTopList[topicOrder].topImg!=null && ''!=allTopList[topicOrder].topImg){
-					$("#topicDiv").append('<div><img src='+path+allTopList[topicOrder].topImg+'><div>');
+					$("#conDiv").append('<div><img src='+path+allTopList[topicOrder].topImg+'><div>');
 				}
 				
-				$("#topicDiv").append('<ol id="optionId" class="optionClass"></ol>');
+				$("#conDiv").append('<ol id="optionId" class="optionClass"></ol>');
 				var optionList = allTopList[topicOrder].options;
 				for(var i=0;i<optionList.length;i++){//每题4个选项找出来
-// 					alert(optionList[i].optOption);
-					$("#optionId").append('<li><input class="radiotop" id='+optionList[i].optId+' name='+allTopList[topicOrder].topId+' type="radio" value='+optionList[i].optStatus+'>'+optionList[i].optOption+'</li>');						
-					
+// 					alert(optionList[i].optOption);				
+					$("#optionId").append('<li id=opt'+optionList[i].optId+' class="option"><input class="radiotop" id='+optionList[i].optId+' name='+allTopList[topicOrder].topId+' type="radio" value='+optionList[i].optStatus+'></li>');//
+					$("#opt"+optionList[i].optId).append('<label for='+optionList[i].optId+'>'+getABCD(i)+'<b class="ue" style="display: inline;">'+optionList[i].optOption+'</label>');
 				}
-				$("#optionId").append('<input class="answerDetailId" type="hidden" disabled="disabled" value="答案：'+allTopList[topicOrder].topAnswer+'.'+allTopList[topicOrder].topAnswerDetail+'">');
+				$("#conDiv").append('<div class="answerDetailClass" style="display: none">答案：'+allTopList[topicOrder].topAnswer+'.'+allTopList[topicOrder].topAnswerDetail+'</div>');
 					},
 					
 				});
@@ -159,43 +223,110 @@
 				}); */
 				
 			}
-			$(".answerDetailId").attr("type","text");
+			$(".answerDetailClass").attr("style","display:block");
+
+			
 			
 		});
 
-		
+		//按钮特效：
+		//给提交按钮添加鼠标经过变颜色的事件
+		$("input[type='button']").on({
+			"mouseover":function(){
+				$(this).css({
+					"color":"black",
+					"background-color":"#68DFFF",
+				});
+			},
+			"mouseout":function(){
+				$(this).css({
+					"color":"white",
+					"background-color":"green",
+				});
+			},
+		});
+		//图片缩放
+		$("img").on({
+			"click":function(){
+				$(this).css({
+					"height":"200px",
+					"width":"600px",
+				});
+			},
+			"mouseout":function(){
+				$(this).css({
+					"height":"100px",
+					"width":"300px",
+				});
+			}
+		});
 			});
 
 </script>
 </head>
 <body>
+			<div class="main">
+				<div class="test_main">
+					<div class="nr_left">
+						<div class="test">
 	<form action="" method="post">
 		<input id="pathId" type="hidden" name="path" value=<%=path%>/>			
 		<input id="stuId" type="hidden" name="stuId" value="${stu_id}"/>			
 		<input id="subId" type="hidden" name="subId" value="${sub_id}"/>
 		<input id="allTopicListId" type="hidden" name="allTopicList" value="${allTopicList}"/>
 		<div id="leftDiv">
-			<div id="topicDiv">
-				
-				<span>1.</span>${allTopicList[0].topTopic}
-				<div><c:if test="${allTopicList[0].topImg!=null&&''!=allTopicList[0].topImg}">
+						<div class="test_content">
+                            <div class="test_content_title">
+                                <h2>海量练习题</h2>
+                                <p>
+                                    <span>共</span><i class="content_lit">${fn:length(allTopicList)}</i><i class="content_fs">题</i>
+                                </p>
+                            </div>
+                        </div>
+			<div id="topicDiv" class="test_content_nr">
+			
+				<div id="conTopDiv" class="test_content_nr_tt">
+				<i><span>1</span></i><font>${allTopicList[0].topTopic}</font><!-- ${topicStatus.count}是为了拿到题目序号（页面显示的） -->				
+				</div>
+				<div class="test_content_nr_main">
+				<c:if test="${allTopicList[0].topImg!=null&&''!=allTopicList[0].topImg}">
 					<img alt="" src=<%=path%>${allTopicList[0].topImg}>									
 									
-				</c:if></div>
+				</c:if>
+				<img alt="" src=<%=path+"/images/hai.jpg" %>>	
 				<ol class="optionClass">
-					<c:forEach begin="0" step="1" items="${allTopicList[0].options}" var="j">
-						<li><input id="${j.optId }" class="radiotop" type="radio" name="${allTopicList[0].topId }" value="${j.optStatus }">${j.optOption }</li>
+					<c:forEach begin="0" step="1" items="${allTopicList[0].options}" var="j" varStatus="status">
+						<li class="option">
+						<input id="${j.optId }" class="radiotop" type="radio" name="${allTopicList[0].topId }" value="${j.optStatus }">
+						<label for="${j.optId }">
+						<c:if test="${status.index==0}">A.</c:if>
+						<c:if test="${status.index==1}">B.</c:if>
+						<c:if test="${status.index==2}">C.</c:if>
+						<c:if test="${status.index==3}">D.</c:if>
+	                                            
+	                    <b class="ue" style="display: inline;">${j.optOption }</b>
+	                    </label>
+						</li>
 						
 					</c:forEach>
 				</ol>
-				<input class="answerDetailId" type="hidden" disabled="disabled" value="答案：${allTopicList[0].topAnswer}.${allTopicList[0].topAnswerDetail}" />
+<!-- 				<textarea rows="" cols=""></textarea> -->
+<%-- 				<input class="answerDetailId" type="text" disabled="disabled" value="答案：${allTopicList[0].topAnswer}.${allTopicList[0].topAnswerDetail}" /> --%>
+				<div class="answerDetailClass" style="display: none">答案：${allTopicList[0].topAnswer}.${allTopicList[0].topAnswerDetail}</div>
+				</div>
 			</div>
-			<input id="upBtn" type="button" value="上一题"></input>
-			<input id="downBtn" type="button" value="下一题"></input>	
+			<div id="btnDiv">
+				<input id="upBtn" type="button" value="上一题"></input>			
+				<input id="downBtn" type="button" value="下一题"></input>	
+			</div>
+			
+			
 		</div>
-		<div id="rightDiv">
-		
-		</div>	
+
 	</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

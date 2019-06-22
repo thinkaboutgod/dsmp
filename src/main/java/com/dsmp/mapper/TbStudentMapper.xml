@@ -21,7 +21,11 @@
     <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
     <result column="stu_signUpTime" property="stuSignuptime" jdbcType="TIMESTAMP" />
     <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
-  </resultMap> 
+     <result column="stu_bookingstate" property="stuBookingstate" jdbcType="VARCHAR" />
+<!--     <result column="stu_subjectStatus" property="stuSubjectstatus" jdbcType="VARCHAR" /> -->
+    <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
+  </resultMap>
+
   
   <resultMap id="searchStudent" type="com.dsmp.pojo.TbStudent" >
     <id column="stu_id" property="stuId" jdbcType="INTEGER" />
@@ -43,6 +47,8 @@
     <result column="stu_status" property="stuStatus" jdbcType="VARCHAR" />
     <result column="stu_signUpTime" property="stuSignuptime" jdbcType="VARCHAR" />
     <result column="stu_verifyStatus" property="stuVerifystatus" jdbcType="VARCHAR" />
+     <result column="stu_bookingstate" property="stuBookingstate" jdbcType="VARCHAR" />
+<!--     <result column="stu_subjectStatus" property="stuSubjectstatus" jdbcType="VARCHAR" /> -->
     <association property="tbCoach" javaType="com.dsmp.pojo.TbCoach">
 		<id column="coa_id" property="coaId" jdbcType="INTEGER" />
 	    <result column="sch_id" property="schId" jdbcType="INTEGER" />
@@ -70,13 +76,14 @@
   </resultMap>
 
   <select id="searchAllstudent" resultMap="searchStudent">
-		select s.*,sc.*,c.*,su.* from tb_student s,tb_school sc,tb_coach c,tb_subject su
+		select s.*,sc.*,c.*,su.* from tb_student s left join tb_school sc on s.sch_id=sc.sch_id 
+		left join tb_coach c on s.coa_id= c.coa_id left join tb_subject su on s.sub_id=su.sub_id 
 		<where>
 			<if test="name!=null">stu_name like "%"#{name}"%"</if>
 			<if test="account!=null">and stu_account like "%"#{account}"%"</if>
 			<if test="beginTime!=null">and stu_signUpTime&gt;#{beginTime}</if><!-- 大于号 -->
 			<if test="endTime!=null">and stu_signUpTime&lt;#{endTime}</if><!-- 小于号 -->
-			and s.sch_id=sc.sch_id and s.coa_id= c.coa_id and s.sub_id=su.sub_id and s.sch_id=#{schId}
+			and s.sch_id=#{schId}
 		</where>
 	</select>
   
@@ -99,13 +106,22 @@
 	(SELECT @lastDay := date_add(curdate(),interval -7 month) from tb_student  limit 6) a
   </select>
   
-  <!-- 查询某一个月所有驾校报名人数 -->
+  <!-- 查询某一个月有人报名的驾校的人数 -->
   <select id="countStudentByDate" resultMap="CountStudentMap"  >
 	select a.sch_name name,a.sch_account, count(a.sch_name) as num from (
 	select sc.sch_name as sch_name,sc.sch_account as sch_account from tb_student st,tb_school sc 
 	where st.sch_id= sc.sch_id and DATE_FORMAT(st.stu_signUpTime , '%Y-%m' )=#{param1} ) a GROUP BY a.sch_name
   </select>
   
+ <!--  查询某一个月所有的驾校的报名人数，没有人的置零 -->
+ <select id="countAllStudentByDate" resultMap="CountStudentMap">
+ 	select c.sch_name name,b.num from tb_school c left join 
+(select  count(a.sch_id) as num,a.sch_id from (
+	select sc.sch_id, sc.sch_name as sch_name,sc.sch_account as sch_account from tb_student st,tb_school sc 
+	where st.sch_id= sc.sch_id and DATE_FORMAT(st.stu_signUpTime , '%Y-%m' )=#{param1}) a GROUP BY a.sch_name) b
+on c.sch_id=b.sch_id
+ </select>
+ 
   <!-- 查询某近30天某个驾校驾校报名人数 -->
   <select id="countStudentByMonth" resultMap="CountStudentMap"  >
 	select a.day as name,t.num from
@@ -150,9 +166,37 @@
     stu_img = #{stuImg},stu_address = #{stuAddress},stu_errCount = #{stuErrcount},
     stu_signUpTime=now(),stu_verifyStatus=#{stuVerifystatus} where stu_account=#{stuAccount};
   </update>
-
+	<!-- ren start -->
 	<!-- 修改学员状态 -->
-	<update id="changeStudentState" >
+	<update id="changeStudentState">
 		update tb_student set stu_status=#{param2} where stu_id=#{param1}
 	</update>
+	
+	<!-- 修改学员科目状态 -->
+	<update id="updateSubjectStatus" >
+		update tb_student set stu_bookingstate=#{param2} where stu_id=#{param1}
+	</update>
+	<!-- 修改学员科目状态和科目id（科一通过了） -->
+	<update id="updateSubjectStatusAndSubId" >
+		update tb_student set stu_bookingstate=#{param2},sub_id=#{param3} where stu_id=#{param1}
+	</update>
+	
+	<select id="findStuById" resultMap="BaseResultMap">
+		select * from tb_student where stu_id=#{param};
+	</select>
+	<!-- ren end -->
+	
+	<!-- 添加学员 -->
+	<insert id="addStudent" parameterType="TbStudent" >
+		INSERT INTO tb_student(coa_id,sch_id,sub_id,stu_name,stu_account,stu_password,stu_sex,stu_birthday,stu_idcard,stu_img,stu_address,stu_status,stu_signUpTime,stu_verifyStatus,stu_bookingstate) 
+		VALUES(#{coaId},#{schId},1,#{stuName},#{stuAccount},#{stuPassword},#{stuSex},#{stuBirthday},#{stuIdcard},#{stuImg},#{stuAddress},#{stuStatus},NOW(),#{stuVerifystatus},#{stuBookingstate});
+	</insert>
+	
+	<!-- 审核学员 -->
+	<update id="checkStudent" parameterType="TbStudent">
+		update tb_student set stu_verifyStatus=#{stuVerifystatus} 
+		<if test="coaId!=null">,coa_id = #{coaId}</if>
+		where stu_id=#{stuId}
+	</update>
+	
 </mapper>

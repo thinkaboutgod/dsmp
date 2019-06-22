@@ -114,6 +114,5 @@
   <select id="selectNewTopId" resultType="java.lang.Integer"> 
   		select max(top_id) from tb_topic 
   </select>
-  
 
 </mapper>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%--弃用 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <!DOCTYPE html>
@@ -92,15 +92,15 @@
     </div>
 
     <form action="addSchoolRating.action" method="post">
-    	<input type="hidden" name="sch_id" value="${sch_id }">
-    	<input type="hidden" name="stu_id" value="${stu_id }">
+    	<input id="sch_id" type="hidden" name="sch_id" value="${sch_id }">
+    	<input id="stu_id" type="hidden" name="stu_id" value="${stu_id }">
         <input id="input-21e" name="starNum" value="0" type="text" class="rating" data-min=0 data-max=5 data-step=1 data-size="xs"
                title="">
-        <textarea name="ratingContent" rows="" cols=""></textarea>
+        <textarea id="ratingContent" name="ratingContent" rows="" cols=""></textarea>
       
         <div class="form-group" style="margin-top:10px">
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button type="reset" class="btn btn-default">Reset</button>
+            <button id="schoolSubBtn" type="button" class="btn btn-primary">Submit</button>
+            <button id="reset" type="reset" class="btn btn-default">Reset</button>
 <!--             <button type="button" class="btn btn-danger">Destroy</button> -->
 <!--             <button type="button" class="btn btn-success">Create</button> -->
         </div>
@@ -109,4 +109,4 @@
 
 </div>
 </body>
-</html>
+</html> --%>

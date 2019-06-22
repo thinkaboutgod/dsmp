@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.dsmp.pojo.TbAppeal;
+import com.dsmp.pojo.Count;
 import com.dsmp.pojo.TbCar;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbSchool;
@@ -12,7 +13,11 @@ import com.dsmp.pojo.TbStudent;
 public interface TbSchoolMapper {
 	public List<TbSchool> selectAllSchool();
 	
+	//所有驾校页面集合
 	public List<TbSchool> selectAllSchoolBySignUpStatus(String schSignupstatus);
+	
+	//搜索驾校页面结果集合
+	public List<TbSchool> selectSchoolByName(String schName);
 	
 	public List<TbStudent> selectStus();
 	
@@ -42,4 +47,9 @@ public interface TbSchoolMapper {
 	public int insertThecomplaintcontent(String schid,String content,Date appTime);
 	//查询申诉内容
 	public List<TbAppeal> selectReply(Integer schid);
+	//驾校排行
+	public List<Count> getSchoolRanking();
+	
+	//查询允许报名和运营的所有驾校
+	public List<TbSchool> selectAllSchoolForAdvertise();
 }

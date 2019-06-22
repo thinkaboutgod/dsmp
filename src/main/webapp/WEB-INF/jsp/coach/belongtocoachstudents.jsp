@@ -18,7 +18,7 @@
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="<%=path %>/layui/css/layui.css"  media="all">
 </head>
-<body class="hold-transition skin-blue sidebar-mini">
+<body class="hold-transition skin-red sidebar-mini">
 
 
 <div class="wrapper">

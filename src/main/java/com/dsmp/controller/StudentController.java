@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,6 +29,7 @@ import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.config.AlipayConfig;
 import com.dsmp.mapper.TbCapitalrecordMapper;
+import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.mapper.TbStudentMapper;
 import com.dsmp.pojo.MyResult;
@@ -50,6 +52,8 @@ public class StudentController {
 	private TbStudentMapper tbStudentMapper;
 	@Autowired
 	private TbCapitalrecordMapper tbCapitalrecordMapper;	
+	@Autowired
+	private TbParameterMapper tbParameterMapper;
 	@Autowired private MyResult myResult;
 	//主页跳登录页
 	@RequestMapping("/login")
@@ -61,7 +65,6 @@ public class StudentController {
 	//付款页跳转付款登录页
 	@RequestMapping("/payment")
 	public ModelAndView getPaymentPage(Integer schId) {
-		System.out.println("报名的驾校ID"+schId);
 		ModelAndView mav = new ModelAndView();
 		TbSchool school = tbMapper.findSchoolBySchId(schId);
 		mav.addObject("school",school);
@@ -71,15 +74,14 @@ public class StudentController {
 	//付款页跳转付款登录页
 	@RequestMapping("/alipay")
 	public ModelAndView getPayPage() {
-		System.out.println("进来了");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("client/alipay.trade.page.pay");
 		return mav;
 	}	
 	//付款成功跳回主页
+	@Transactional
 	@RequestMapping("/main")
 	public ModelAndView getMainPage(HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
-		System.out.println("付款成功了");
 		ModelAndView mav = new ModelAndView();
 		
 		//获取支付宝GET过来反馈信息
@@ -111,16 +113,9 @@ public class StudentController {
 			//付款金额
 			String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
 			
-			System.out.println("订单号："+out_trade_no);
-			System.out.println("付款金额："+total_amount);
-			
 			TbStudent student = (TbStudent)request.getSession().getAttribute("students");
-			System.out.println("学员ID："+student.getStuId());
-			System.out.println("付款学员："+student.getStuName());
-			System.out.println("地址："+student.getStuAddress());
 			int res = tbStudentMapper.updateStudentInfo(student);
 			if(res==1) {
-				System.out.println("更新学员成功！");
 				TbCapitalrecord tbCapitalrecord = new TbCapitalrecord();
 				tbCapitalrecord.setSchId(student.getSchId());
 				tbCapitalrecord.setStuId(student.getStuId());
@@ -170,8 +165,13 @@ public class StudentController {
 	}
 	
 	
+	/**
+	 * 	跳转到驾校的学员管理页面
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="toschool_student")
-	public String toSchoolCoach(HttpSession session) {
+	public String toSchoolStudent(HttpSession session) {
 		session.setAttribute("schId", 1);
 		return "back/school_student";
 	}
@@ -194,13 +194,10 @@ public class StudentController {
 	//用户登录判断
 	@RequestMapping("/studentLogin")
 	public @ResponseBody MyResult studentLogin(HttpSession session ,String account,String password,String role) {
-		System.out.println("账号："+account);
-		System.out.println("密码："+password);
-		System.out.println("角色ID："+role);
 		MyResult result = null;
 		switch(role){
 		case "5":
-			result = studentService.studentLogin(session, account, password,role);	
+			result = studentService.studentLogin(session, account, password,role);
 			break;
 		case "4":
 			result = studentService.coachLogin(session, account, password, role);
@@ -217,7 +214,6 @@ public class StudentController {
 	public @ResponseBody MyResult registerCode(HttpServletRequest request,HttpServletResponse response,String mobile) {
 		MyResult myResult = new MyResult();
 		try {
-			System.out.println("验证的手机号："+mobile);
 			//生成4位验证码
 			String verifyCode = String.valueOf(new Random().nextInt(8999) + 1000);
 			//发送短信
@@ -225,10 +221,8 @@ public class StudentController {
 //					"dcff2073-d368-4c5a-9244-33ef7902dbf9");
 //			String result = client.send(mobile, "您的验证码为:" + verifyCode + "，该码有效期为5分钟，该码只能使用一次!");			
 //		    myResult = GsonUtils.fromJson(result, MyResult.class);	
-		    System.out.println("验证码："+verifyCode);
 		    verifyCode = "1234";
 			myResult.setCode(0);
-			System.out.println(myResult.getCode());
 			//将验证码存到session中,同时存入创建时间
 			Map<String, String> map = new HashMap<>();
 			map.put("mobile", mobile);
@@ -245,10 +239,7 @@ public class StudentController {
 	//用户注册判断
 	@RequestMapping("/studentRegister")
 	public @ResponseBody MyResult studentRegister(HttpServletRequest request,String phone,String pwd,String verifyCode) {
-		System.out.println("账号："+phone);
-		System.out.println("密码："+pwd);
 		MyResult result = studentService.studentRegister(request, phone, pwd, verifyCode);		
-		System.out.println(result.getMyresult());
 		return result;
 	}
 	
@@ -256,16 +247,14 @@ public class StudentController {
 	//用户在线报名判断
 	@RequestMapping("/studentApply")
 	public @ResponseBody MyResult studentApply(HttpServletRequest request,HttpSession session,
-			@RequestParam("the_file")MultipartFile file,String filename,String name,
+		   @RequestParam("the_file")MultipartFile file,String filename,String name,
 			String idCard,String address,String sex,Integer school,Integer coach,
 			String code,String phone) throws IllegalStateException, IOException {		
-		System.out.println(file.getOriginalFilename());
-		System.out.println("驾校ID"+school);
 		MyResult result = null;
 		if (!file.isEmpty()) {
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");//获取系统文件储存路径
 			// 上传文件路径
-			String path = request.getServletContext().getRealPath("/images/student/");
-			System.out.println(path);
+			String path = filePath+"/images/student/";
 			// 上传文件名
 //			String filename = file.getOriginalFilename();
 			File filepath = new File(path, filename);
@@ -276,12 +265,10 @@ public class StudentController {
 			// 将上传文件保存到一个目标文件当中
 			file.transferTo(new File(path + File.separator + filename));
 			// 输出文件上传最终的路径 测试查看
-			System.out.println(path + File.separator + filename);
 			result = studentService.studentApply(request, session, filename, name, idCard, address, sex, school, coach, code, phone);
 		} else {
 			result.setMyresult("failed");
 		}
-		System.out.println("最终返回的结果："+result);
 		return result;
 	}
 	
@@ -293,10 +280,55 @@ public class StudentController {
 		return result;
 	}
 	
-	@RequestMapping(value = "changeStudentState.action")
+	/**
+	 * 	修改学员状态
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "changeStudentState")
 	public @ResponseBody MyResult changeStudentState(HttpServletRequest request) {
 		myResult = studentService.changeStudentState(request, myResult);
 		return myResult;
 	}
 	
+	/**
+	 * 	驾校添加学员
+	 * @param request
+	 * @param file
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
+	@RequestMapping(value="addStudent")
+	public @ResponseBody MyResult addStudent(HttpServletRequest request,MultipartFile file) throws IllegalStateException, IOException {
+		if (!file.isEmpty()) {
+			// 上传文件路径
+			String path = request.getServletContext().getRealPath("/images/student/");
+			// 上传文件名
+			String filename = request.getParameter("filename");
+			File filepath = new File(path, filename);
+			// 判断路径是否存在，如果不存在就创建一个
+			if (!filepath.getParentFile().exists()) {
+				filepath.getParentFile().mkdirs();
+			}
+			// 将上传文件保存到一个目标文件当中
+			file.transferTo(new File(path + File.separator + filename));
+			// 输出文件上传最终的路径 测试查看
+			myResult = studentService.addStudent(request);
+		} else {
+			myResult.setMyresult("failed");
+		}
+		return myResult;
+	}
+	
+	/**
+	 *	 审核学生
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="checkStudent")
+	public @ResponseBody MyResult checkStudent(HttpServletRequest request) {
+		myResult = studentService.checkStudent(request, myResult);
+		return myResult;
+	}
 }

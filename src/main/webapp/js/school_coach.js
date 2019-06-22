@@ -43,7 +43,7 @@ $(function() {
 							} else if (state == '禁用'){
 								data = '<button id="forbit" class="btn btn-success btn-sm bt_qi" >启用</button>';
 							}
-							data = data+'<button class=" detail btn btn-success btn-sm detail">查看详情</button>'
+							data = data+'&nbsp;<button class=" detail btn btn-success btn-sm detail">查看详情</button>'
 							return data;
 						}
 					},  ],
@@ -96,7 +96,6 @@ $(function() {
 	$(document).on("click", ".bt_qi", function() { 
 		//此处拿到选择行的数据中的id 
 		var id = table.row($(this).parent().parent()).data().coaId;  
-		
 		var button = $(this);
 		var preText = button.parent().prev().text();
 		var text = $(this).text();
@@ -149,47 +148,93 @@ $(function() {
 		var da = table.row($(this).parent().parent()).data();
 		$("#accountDe").val(da.coaAccount);
 		$("#nameDe").val(da.coaName);
+		$("#sexDe").val(da.coaSex);
 		$("#addressDe").val(da.coaAddress);
 		$("#phoneDe").val(da.coaAccount);
 		$("#idCardDe").val(da.coaIdcard);
-//		$("#carDe").val(da.tbCar.car);
-//		$("#schoolNameDe").val(da.tbSchool.schName);
+		$("#levelDe").val(da.coaLevel);
+		$("#introductionDe").val(da.coaIntroduction);
+		$("#carDe").val(da.tbCar.carPlatenum);
 		$("#coachDetail").modal("show");
 	})
 	
 	
 	// 添加教练
-	$(document).on("click", "#addCoach", function() { 
+	$(document).on("click", "#btn_addCoach", function() { 
 		$("#addCoach").modal("show");
 	})
 	
 	// 添加教练
 	$(document).on("click", "#btn_add", function() { 
+		var schId = $("#schId").val();
+		var account = $.trim($("#accountNew").val());
+		var passward = $.trim($("#pwdNew").val());
+		var name = $.trim($("#nameNew").val());
+		var sex = $("input:radio:checked").val();
+		var birthday = $.trim($("#birthdayNew").val());
+		var idCard = $.trim($("#idCardNew").val());
+		var level = $("#levelNew").val();
+		var address = $.trim($("#addressNew").val());
+		var introduction = $.trim($("#introductionNew").val());
+			
+		//验证手机号
+	    if (!checkAccount()) {
+	        return false;
+	     }
+	    
+		  //验证密码
+	     if (!checkPwd()) {
+	         return false;
+	     }
+	     
+		if(name==""||name == $("#nameNew").attr("placeholder")){
+			layer.msg("请输入姓名");
+	        return false;
+		}
 		
-		//此处拿到选择行的数据中的id 
-		var id = table.row($(this).parent().parent()).data().coaId;  
+		if(sex==""||sex == $("#sexNew").attr("placeholder")){
+			layer.msg("请选择性别");
+	        return false;
+		}
 		
-		var button = $(this);
-		var preText = button.parent().prev().text();
-		var text = $(this).text();
-		var state;
+		if(birthday==""||birthday == $("#birthdayNew").attr("placeholder")){
+			layer.msg("请输入出生日期");
+	        return false;
+		}
 		
-		if ("启用" == text) {
-			state="start"
-		} else if ("禁用" == text) {
-			state="forbid"
-		};
+		if(idCard==""||idCard == $("#idCardNew").attr("placeholder")){
+			layer.msg("请输入身份证号");
+	        return false;
+		}
+		
+		if(level==0||level == $("#levelNew").attr("placeholder")){
+			layer.msg("请选择资质");
+	        return false;
+		}
+
+		if(adress==""||adress == $("#adressNew").attr("placeholder")){
+			layer.msg("请输入地址");
+	        return false;
+		}
+		
+		if(introduction==""||introduction == $("#introductionNew").attr("placeholder")){
+			layer.msg("请输入简介");
+	        return false;
+		}
+		
 		$.ajax({
 			url : "../coach/addCoach.action",
 			async : true,
 			type : "POST",
-			data :  {coaId : id,state:state,preText:preText}  ,
+			data : {schId:schId,"account":account,"passward":passward,"name":name,sex:sex,birthday:birthday,
+			"idCard":idCard,"introduction":introduction,"address":address,"level":level},
 			dataType : "text",
 			success : function(data) {
 				var result = JSON.parse(data);
 				if (result.myresult=="success") {
 					layer.msg("添加教练成功");
-					
+					$(".add").val("");
+					$("#levelNew").val("0");
 				}else if (result.myresult=="failed") {
 					layer.msg("添加教练失败");
 				}
@@ -200,5 +245,37 @@ $(function() {
 			
 		})
 	})
+
+	    function checkAccount() {
+	        var phone = $.trim($("#accountNew").val());
+	        var phoneReg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+	        if (phone == "" || phone == $("#accountNew").attr("placeholder")) {
+	       		layer.msg("请输入手机号");
+	            return false;
+	        } else if (!phoneReg.test($("#accountNew").val())) {
+	            layer.msg("请输入正确的手机号");
+	            return false;
+	        } else {
+	           return true;
+	        }
+	    }
+
+
+	    function checkPwd() {
+	        var pwd = $.trim($("#pwdNew").val());
+	        var regpwd = /^(?![\d]+$)(?![a-zA-Z]+$)(?![^\da-zA-Z]+$).{6,20}$/;
+	        if (pwd == "" || pwd == $("#pwdNew").attr("placeholder")) {
+	                layer.msg("请输入密码");
+	            return false;
+	        } else if (!regpwd.test($("#pwdNew").val())) {
+	               layer.msg("密码格式有误(字母、数字或者符号,最短6位,最长20位)");
+	            return false;
+	        } else {
+	            return true;
+	        }
+	        
+	    }
+
+	    
 	
 })

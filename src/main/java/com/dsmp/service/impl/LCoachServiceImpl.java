@@ -1,7 +1,7 @@
 package com.dsmp.service.impl;
 
 import java.util.Date;
-
+import java.io.File;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -216,11 +216,18 @@ public class LCoachServiceImpl implements LCoachService {
 	// 学员人脸识别打卡
 	@Override
 	public MyResult makeClock(HttpServletRequest request, String base, String stuId, String subId) {
+		myResult = new MyResult();
 		// 请求url
 		String url = "https://aip.baidubce.com/rest/2.0/face/v3/match";
 		try {
-			String photoPath = tbStudentMapper.findStudentImgByStuId(Integer.valueOf(stuId));//获取学员照片
-			String path = request.getServletContext().getRealPath("images/student/"+photoPath);
+			String photoPath = tbStudentMapper.findStudentImgByStuId(Integer.valueOf(stuId));//获取学员照片名称（路径）
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");//获取系统文件储存路径
+			String path = filePath+"/images/student/"+photoPath;
+			File file = new File(path);
+			if (!file.exists()) {
+				myResult.setData("noPhoto");
+				return myResult;
+			}
 			byte[] bytes1 = FileUtil.readFileByBytes(path);
 //					byte[] bytes2 = FileUtil.readFileByBytes("【本地文件2地址】");
 			String image1 = Base64Util.encode(bytes1);
@@ -255,9 +262,9 @@ public class LCoachServiceImpl implements LCoachService {
 			myResult.setMyresult(result);
 
 		} catch (Exception e) {
-			System.out.println("报错");
 			e.printStackTrace();
-			myResult.setData("failed");
+			System.out.println("这里发送错误");
+			myResult.setData("fail");
 		}
 		return myResult;
 	}

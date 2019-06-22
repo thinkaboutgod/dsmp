@@ -1,4 +1,5 @@
 var path = $("#path").val();
+var filePath;
 var type;
 var Aans;
 var Bans;
@@ -12,6 +13,7 @@ var topTopic;
 var topAnswerDetail;
 var doType;//修改还是增加
 $(function() {
+	
 	$.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 	
 	datatable_otherSet = {
@@ -57,7 +59,21 @@ $(function() {
 		};
 	
 var table = $("#topicTable").DataTable(datatable_otherSet);//初始化
-	
+//查询文件资源访问路径	
+$.ajax({
+	url : path + "/plateform/searchFilePath.action",
+	ansyc : true,
+	type : "POST",
+	data : "", 
+	dataType : "text",
+	success : function(data) {
+		filePath = data;
+	},
+	error : function() {
+		layer.msg("服务器繁忙");
+	}
+})
+
 	// 选择行
 	$('tbody').on('click', 'tr', function() {
 		if ($(this).hasClass('selected')) {
@@ -71,6 +87,33 @@ var table = $("#topicTable").DataTable(datatable_otherSet);//初始化
 	function reload() {
 		table.ajax.reload(null, false);// 刷新数据方法,false代表保持当前页
 	}
+	
+	
+	//点击爬虫获取题目
+	$("#getTopic").click(function() {
+		//loading层
+		var index = layer.load(1, {
+		  shade: [0.1,'#fff'] //0.1透明度的白色背景
+		});
+		$.ajax({
+		url : path + "/crawler/startSpider.action",
+		ansyc : true,
+		type : "POST",
+		data : "", 
+		dataType : "text",
+		success : function(data) {
+			if (data == "success") {
+				layui.close(index);
+				layer.msg("获取成功");
+				
+			}
+		},
+		error : function() {
+			layer.msg("服务器繁忙");
+		}
+	})
+	})
+	
 	//点击修改
 	$(document).on("click",".change",function(){
 		clearInput();
@@ -101,7 +144,7 @@ var table = $("#topicTable").DataTable(datatable_otherSet);//初始化
 		}
 		if(dataRow.topImg!=""){
 			$("#imgDiv").css("display","block");
-			$("img").attr("src",path+"/images/topic/"+dataRow.topImg);
+			$("img").attr("src",filePath+"/images/topic/"+dataRow.topImg);
 		};
 		if (options.length == 4 && dataRow.topImg=="") {//4个选项，没有图片
 			type = 1;
@@ -153,7 +196,7 @@ var table = $("#topicTable").DataTable(datatable_otherSet);//初始化
 					var result = JSON.parse(data);
 					if (result.myresult == "success") {
 						layer.msg("删除成功");
-						table.row('.selected').remove().draw(false);// 删除某一行数据
+						table.ajax.reload(null,false);// 重新加载
 					}else if (result.myresult == "fialed"){
 						layer.msg("删除失败");
 					}
@@ -176,7 +219,7 @@ var table = $("#topicTable").DataTable(datatable_otherSet);//初始化
 		$("#C").val("");
 		$("#D").val("");
 		$("#topAnswerDetail").val("");
-		$("#cDiv").css("display","none");
+		$("#cDiv").css("display","none");//修改
 		$("#dDiv").css("display","none");
 		$("#imgDiv").css("display","none");
 		$("#addimgDiv").css("display","none");
@@ -226,15 +269,16 @@ var table = $("#topicTable").DataTable(datatable_otherSet);//初始化
 		   var suffix=fileName.substring(suffixIndex+1).toUpperCase();  
 		   if(suffix!="BMP"&&suffix!="JPG"&&suffix!="JPEG"&&suffix!="PNG"&&suffix!="GIF"){  
 		     layer.msg( "图片格式只能为：BMP、JPG、JPEG、PNG、GIF）!");  
+		  	return;
 		   } 
 		}
 		//上传携带信息
-		var topic = {
+		var topic = {//题目
 				"topId":$("#topId").val(),
 				"topTopic" : topTopic,
 				"topAnswerDetail":topAnswerDetail,
 		}
-		var optionA = {
+		var optionA = {//选项
 				"optId": $("#aoptId").val(),
 				"optOption" : $("#A").val(),
 				"optStatus" : $("#Aans").val()
@@ -304,7 +348,6 @@ var table = $("#topicTable").DataTable(datatable_otherSet);//初始化
 						});
 						break;
 					}
-					
 					$("#forTopic").modal("hide");
 				}
 			},

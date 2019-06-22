@@ -30,13 +30,15 @@ public class RatingController {
 	}
 	
 	
-	// 对教练的评价信息
+	/**
+	 * 	查看学校评价
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/selectSchoolRating.action", method = RequestMethod.POST)
 	public @ResponseBody List<TbRating> getStudentRatingMsg(HttpServletRequest request) {
 		String choose = request.getParameter("chooserating");
-//		String schId = request.getParameter("schId");
-		System.out.println(choose);
-//		Integer.parseInt(schId)
+//		Integer schId = request.getSession().getAttribute("")
 		List<TbRating> ratinglist = ratingService.selectSchoolratingmsg(1, choose);
 		return ratinglist;
 	}
