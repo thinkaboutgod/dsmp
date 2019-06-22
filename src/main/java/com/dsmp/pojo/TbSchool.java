@@ -32,12 +32,24 @@ public class TbSchool {
     private String schHeadimg;
 
     private String schOperativestatus;
+    
+    private String schAudit;
 
     private Double schCharge;
 
     private TbRole tbRole;
     
-    public String getSchRegistercapital() {
+    private List<TbAppeal> tbAppeal;
+    
+	public List<TbAppeal> getTbAppeal() {
+		return tbAppeal;
+	}
+
+	public void setTbAppeal(List<TbAppeal> tbAppeal) {
+		this.tbAppeal = tbAppeal;
+	}
+
+	public String getSchRegistercapital() {
 		return schRegistercapital;
 	}
 
@@ -197,7 +209,13 @@ public class TbSchool {
 	public void setCarList(List<TbCar> carList) {
 		this.carList = carList;
 	}
-    
-	
-    
+
+	public String getSchAudit() {
+		return schAudit;
+	}
+
+	public void setSchAudit(String schAudit) {
+		this.schAudit = schAudit;
+	}
+
 }

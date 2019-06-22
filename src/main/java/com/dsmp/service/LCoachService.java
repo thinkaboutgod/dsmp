@@ -3,6 +3,7 @@ package com.dsmp.service;
 import java.util.List;
 
 import com.dsmp.pojo.MyResult;
+import com.dsmp.pojo.SearchBean;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +11,7 @@ import com.dsmp.pojo.BelongtoCoachStudentMsg;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbExamschedule;
 import com.dsmp.pojo.TbRating;
+import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 
 public interface LCoachService {
@@ -55,4 +57,6 @@ public interface LCoachService {
 	public TbExamschedule findBookingnumber(int exsid);//查找预约人数
 	
 	public void updateMaxBookingnum(int exsSignupnum,int exsId);//修改预约人数
+	
+	
 }

@@ -47,12 +47,12 @@ public class MenuController {
 			break;
 		case "3":
 			session.setAttribute("title", "驾校管理端");
-			session.setAttribute("the_name", ((TbSchool) session.getAttribute("school")).getSchName());
+//			session.setAttribute("the_name", ((TbSchool) session.getAttribute("school")).getSchName());
 			session.setAttribute("rol_Id", 3);
 			break;
 		case "4":
 			session.setAttribute("title", "教练门户");
-			session.setAttribute("the_name", ((TbCoach) session.getAttribute("caoch")).getCoaName());
+//			session.setAttribute("the_name", ((TbCoach) session.getAttribute("caoch")).getCoaName());
 			session.setAttribute("rol_Id", 4);
 			break;
 		}

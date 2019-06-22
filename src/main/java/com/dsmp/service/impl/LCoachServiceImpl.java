@@ -30,6 +30,7 @@ import com.dsmp.pojo.SearchBean;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbExamschedule;
 import com.dsmp.pojo.TbRating;
+import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbStudyrecord;
 import com.dsmp.service.LCoachService;
@@ -394,4 +395,5 @@ public class LCoachServiceImpl implements LCoachService {
 	public void updateMaxBookingnum(int exsSignupnum, int exsId) {		
 		lCoachMapper.updateMaxBookingnum(exsSignupnum, exsId);
 	}
+
 }

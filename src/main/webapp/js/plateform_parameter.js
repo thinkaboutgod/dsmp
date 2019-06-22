@@ -29,7 +29,7 @@ $.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 						"data" : "capId",
 						"orderable" : false, 
 						"render" : function(data, type, full, meta) {
-							return data = '<button  class="btn btn-danger btn-sm change" >修改</button>';;
+							return data = '<button  class="btn btn-danger btn-sm change" >修改</button>';
 						}
 					} 
 					],
