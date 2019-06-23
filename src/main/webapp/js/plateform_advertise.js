@@ -2,7 +2,6 @@ var path = $("#path").val();
 var imgPath = path+ "/plateform/searchAdvertise.action";
 var type;//弹窗类型，change代表修改，add代表新增
 $(function() {
-	
 	searchVideo(0,imgPath);//在video_utils工具类中，此处0代表搜索所有，因为是调用了视频的工具类，所以名字看起来不符合
 	//点击搜索
 	$("#search").click(function() {
