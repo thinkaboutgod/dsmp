@@ -118,10 +118,11 @@
 
    <!-- 查询教练排行 -->
   <select id="getCoachRanking" resultMap="coachRankingMap">
-  	SELECT c.coa_name,s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as starnum,AVG(r.rat_star) as staravg FROM tb_coach c,
+  	SELECT c.coa_id,c.coa_name,s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as starnum,AVG(r.rat_star) as staravg FROM tb_coach c,
  tb_school s,tb_rating r where r.coa_id = c.coa_id and c.sch_id = s.sch_id GROUP BY c.coa_id ORDER BY staravg DESC;
   </select>
   <resultMap id="coachRankingMap" type="com.dsmp.pojo.Count" >
+  	<result column="coa_id" property="parameterId" jdbcType="INTEGER" />
   	<result column="coa_name" property="name" jdbcType="VARCHAR" />
     <result column="commentnum" property="data" jdbcType="VARCHAR" />
     <result column="sch_name" property="phone" jdbcType="VARCHAR" />
