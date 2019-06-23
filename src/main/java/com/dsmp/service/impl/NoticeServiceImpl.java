@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dsmp.mapper.TbNoticeMapper;
 import com.dsmp.pojo.MyResult;
@@ -31,6 +32,7 @@ public class NoticeServiceImpl implements NoticeService {
 		return tbNoticeMapper.selectByPrimaryKey();
 	}
 	//删除
+	@Transactional
 	@Override
 	public MyResult deleteNoticeById(Integer notId) {
 		if (tbNoticeMapper.deleteByPrimaryKey(notId)>0) {
@@ -41,6 +43,7 @@ public class NoticeServiceImpl implements NoticeService {
 		return myResult;
 	}
 	//新增
+	@Transactional
 	@Override
 	public MyResult insertNotice(TbNotice tbNotice) {
 		if (tbNoticeMapper.insertSelective(tbNotice)>0) {
@@ -58,6 +61,7 @@ public class NoticeServiceImpl implements NoticeService {
 	
 	
 	//更新公告
+	@Transactional
 	@Override
 	public MyResult changeNotice(TbNotice tbNotice) {
 		

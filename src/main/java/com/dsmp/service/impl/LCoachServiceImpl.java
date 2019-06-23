@@ -263,7 +263,6 @@ public class LCoachServiceImpl implements LCoachService {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("这里发送错误");
 			myResult.setData("fail");
 		}
 		return myResult;

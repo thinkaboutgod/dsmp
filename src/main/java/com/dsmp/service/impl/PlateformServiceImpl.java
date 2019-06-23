@@ -233,7 +233,6 @@ public class PlateformServiceImpl implements PlateformService {
 	// 上传视频临时储存
 	@Override
 	public MyResult uploadVideo(HttpServletRequest request, String vidTitle, String subject, MultipartFile file) {
-		System.out.println("路径为"+request.getServletContext().getRealPath("/temporary_files/"));
 		String filePath = tbParameterMapper.selectParamter("系统文件存储路径");// 获取系统文件储存路径
 		String path = filePath + "/temporary_files/";
 		File newFile = new File(path);
@@ -387,7 +386,7 @@ public class PlateformServiceImpl implements PlateformService {
 		List<TbAppeal> thecomplaintlist=plateformMapper.selectThecomplaint(serchBean);
 		return thecomplaintlist;
 	}
-
+	@Transactional
 	@Override
 	public int insertReply(HttpServletRequest request) {
 		String appId=request.getParameter("appId");
