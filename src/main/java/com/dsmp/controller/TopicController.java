@@ -47,24 +47,8 @@ public class TopicController {
 	private SubjectService subjectService;
 	@Autowired
 	private PlateformService plateformService;
-	@Autowired
-	private ParameterService parameterService;
-	/**去参数表查出passScore，为科目一模拟考或正式考的通过分数，考试要大于这个分数才算通过
-	 * @return
-	 */
-	public Integer findPassScore() {
-		String passScoreStr = parameterService.searchParameterByName("passScore");
-		Integer passScore = Integer.valueOf(passScoreStr);
-		return passScore;
-	}
-	/**去参数表查出timeLengthLimit，为科目一模拟考的答题时间间隔，单位毫秒ms
-	 * @return
-	 */
-	public Long findTimeLengthLimit() {
-		String passScoreStr = parameterService.searchParameterByName("timeLengthLimit");//得到的是秒
-		Long passScore = (Long.valueOf(passScoreStr))*1000;//秒转成毫秒要*1000
-		return passScore;
-	}
+
+
 	/**查询出题库里图片存放的路径
 	 * @return 
 	 */
@@ -182,7 +166,7 @@ public class TopicController {
 		}
 		//得到题库里存放图片的文件夹的路径
 		String topicImgFilePath = findTopicImgPath();
-		//得到考试通过分数：
+/*		//得到考试通过分数：
 		Integer passScore = findPassScore();
 //		System.out.println("考试通过最低分数passScore:"+passScore);
 		//得到考试答题时间间隔限制（单位毫秒s）
@@ -190,7 +174,7 @@ public class TopicController {
 		session.setAttribute("timeLengthLimit", timeLengthLimit);//因为除了examOfSubject1用到这个答题时间间隔限制外keyi.jsp也有用到，所以存会花中
 		
 //		mav.addObject("timeLengthLimit", timeLengthLimit);
-		mav.addObject("passScore", passScore);
+		mav.addObject("passScore", passScore);*/
 		mav.addObject("topicImgFilePath", topicImgFilePath);
 		mav.addObject("stu_id", stu_id);
 		mav.addObject("sub_id", sub_id);
@@ -427,11 +411,11 @@ public class TopicController {
 			}				
 			//得到题库里存放图片的文件夹的路径
 			String topicImgFilePath = findTopicImgPath();
-			//得到考试通过分数：
+			/*//得到考试通过分数：
 			Integer passScore = findPassScore();
 //			System.out.println("考试通过最低分数passScore:"+passScore);
 			session.setAttribute("passScore", passScore);//因为除了trueExamOfSubject1用到这个通过分数外keyi.jsp也有用到，所以存会花中
-			
+*/			
 //			mav.addObject("passScore", passScore);
 			
 			mav.addObject("topicImgFilePath", topicImgFilePath);

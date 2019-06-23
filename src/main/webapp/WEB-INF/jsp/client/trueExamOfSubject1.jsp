@@ -182,7 +182,8 @@
 			//利用Ajax把examResultMap把key(题号topId)和学员此题所选答案对错结果value，还有学员id传给控制类
 			var exresMap2json=JSON.stringify(examResultMap);//map转成json字符串
 			if(subId==1){//如果session里有科目id，且是1（科目一），则允许提交：
-// 				alert(subId);
+// 				alert('passScore:'+passScore+';totalScore:'+totalScore);
+			
 				if(totalScore>=passScore){//正式过了科目一（成绩大于90分）
 					$.ajax({
 						url:"addSubject1Score.action",
@@ -206,7 +207,7 @@
 					
 				}else{
 // 					alert('暂时未过科目一！');
-					layer.msg('成绩低于【'+passScore+'】分，没过科目一！等待教练给你安排下一次考试！', {icon: 5});//【+'totalScore'+】
+					layer.msg('成绩低于【'+passScore+'】分，没过科目一！已不能再考，等待教练给你安排下一次考试！', {icon: 5});//【+'totalScore'+】
 					noPass();//要把学员的科目状态改成"未预约"，不让其继续考试，要等待教练的安排
 				}
 				
