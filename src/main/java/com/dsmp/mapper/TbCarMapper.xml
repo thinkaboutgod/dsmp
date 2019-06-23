@@ -39,11 +39,12 @@
  
  	<!-- 查询车辆 -->
  	<select id="selectCarsByCondition" resultMap="school_car_map">
- 		select ca.*,sc.*,c.* from tb_car ca,tb_school sc,tb_coach c
+ 		select ca.*,sc.*,c.* from tb_car ca left join tb_school sc on ca.sch_id=sc.sch_id 
+ 		left join tb_coach c on ca.coa_id= c.coa_id 
 		<where>
 			<if test="carPlateNum!=null">car_plateNum like "%"#{carPlateNum}"%"</if>
 			<if test="coachName!=null">and c.coa_Name like "%"#{coachName}"%"</if>
-			and ca.sch_id=sc.sch_id and ca.coa_id= c.coa_id and ca.sch_id=#{schId}
+			and ca.sch_id=#{schId}
 		</where>
 	</select>
 		
@@ -63,6 +64,10 @@
 		VALUES (#{schId},#{carPlatenum},#{carStyle},#{carImg},#{carColor});
 	</insert>
 	
+	<!-- 分配车辆 -->
+	<update id="distributeCar">
+		update tb_car set coa_id=#{param2} where car_id=#{param1}
+	</update>
 	
 	
 </mapper>

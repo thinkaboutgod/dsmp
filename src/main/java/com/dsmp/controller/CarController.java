@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -50,10 +51,10 @@ public class CarController {
 	 * @return
 	 */
 	@RequestMapping(value = "scrapCar")
+	@Transactional
 	public @ResponseBody MyResult scrapCar(HttpServletRequest request) {
 		return carService.scrapCar(request, myResult);
 	}
-	
 	
 	/**
 	 *	 新增教练车
@@ -61,7 +62,21 @@ public class CarController {
 	 * @return
 	 */
 	@RequestMapping(value = "addCar")
+	@Transactional
 	public @ResponseBody String addCar(HttpServletRequest request,MultipartFile carImgNew) {
 		return carService.addCar(request, carImgNew);
 	}
+	
+	/**
+	 *	 分配教练车
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "distributeCar")
+	@Transactional
+	public @ResponseBody MyResult distributeCar(HttpServletRequest request) {
+		return carService.distributeCar(request, myResult);
+	}
+	
+	
 }

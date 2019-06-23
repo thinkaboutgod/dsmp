@@ -72,35 +72,42 @@
 			<jsp:include page="sliderbar.jsp"></jsp:include>
 			<div class="content-wrapper">
 				<section class="content">
-					<div class="layui-tab layui-tab-brief">
-						<div class="layui-tab-content" style="height: 100px;">
-							<div class="layui-tab-item layui-show">
-								<!-- body -->
-								<div class="row">
-									<div class="col-sm-12">
-										<input type="hidden" id="schId" value="${schId}">
-										<div class="box-body">
-											<div id="thetestmsg_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-												<table id="score" class="table table-bordered table-hover">
-													<thead>
-														<tr role="row">
-															<th>姓名</th>
-															<th>教练</th>
-															<th>科目一</th>
-															<th>科目二</th>
-															<th>操作</th>
-															<th>科目三</th>
-															<th>操作</th>
-															<th>科目四</th>
-														</tr>
-													</thead>
-													<tbody></tbody>
-												</table>
+					<div class="row">
+						<div class="col-md-12">
+							<div class="box-header">
+								<h3 class="box-title"><strong>学员成绩管理</strong></h3>
+							</div>
+							<div class="layui-tab layui-tab-brief">
+								<div class="layui-tab-content" style="height: 100px;">
+									<div class="layui-tab-item layui-show">
+										<!-- body -->
+										<div class="row">
+											<div class="col-sm-12">
+												<input type="hidden" id="schId" value="${schId}">
+												<div class="box-body">
+													<div id="thetestmsg_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+														<table id="score" class="table table-bordered table-hover">
+															<thead>
+																<tr role="row">
+																	<th>姓名</th>
+																	<th>教练</th>
+																	<th>科目一</th>
+																	<th>科目二</th>
+																	<th>操作</th>
+																	<th>科目三</th>
+																	<th>操作</th>
+																	<th>科目四</th>
+																</tr>
+															</thead>
+															<tbody></tbody>
+														</table>
+													</div>
+												</div>
 											</div>
 										</div>
+										<!-- /body -->
 									</div>
 								</div>
-								<!-- /body -->
 							</div>
 						</div>
 					</div>

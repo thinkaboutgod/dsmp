@@ -154,8 +154,13 @@ $(function() {
 		$("#idCardDe").val(da.coaIdcard);
 		$("#levelDe").val(da.coaLevel);
 		$("#introductionDe").val(da.coaIntroduction);
+		if(da.tbCar!=null){
 		$("#carDe").val(da.tbCar.carPlatenum);
+		}else{
+			$("#carDe").val("未分配车辆");
+		}
 		$("#coachDetail").modal("show");
+		
 	})
 	
 	

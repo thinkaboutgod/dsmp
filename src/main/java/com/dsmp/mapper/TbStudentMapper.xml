@@ -90,13 +90,13 @@
   
   
  <!--  根据驾校查询近半年每个月报名人数 -->
-  <select id="countStudentBySchool" resultMap="CountStudentMap"  >
+  <select id="countStudentByCoach" resultMap="CountStudentMap"  >
     select c.month as name,num from
 	(SELECT 
 	date_format(@lastDay := last_day( date_add(@lastDay,interval 1 month ) ) ,'%Y-%m'  ) month
 	from 
 	(SELECT @lastDay := date_add(curdate(),interval -7 month) from tb_student  limit 6) a) c 
-	LEFT JOIN(select stu_signUpTime ,count(*) as num from tb_student where sch_id=#{param1}  GROUP BY DATE_FORMAT(stu_signUpTime , '%Y-%m' )) t ON DATE_FORMAT(t.stu_signUpTime , '%Y-%m' )= c.month order by c.month
+	LEFT JOIN(select stu_signUpTime ,count(*) as num from tb_student where coa_id=#{param1}  GROUP BY DATE_FORMAT(stu_signUpTime , '%Y-%m' )) t ON DATE_FORMAT(t.stu_signUpTime , '%Y-%m' )= c.month order by c.month
   </select>
   
   <!-- 查询前六个月日期 -->
@@ -208,6 +208,7 @@ on c.sch_id=b.sch_id
 	    <result column="sch_id" property="schId" jdbcType="INTEGER" />
 	    <result column="sub_id" property="subId" jdbcType="INTEGER" />
 	    <result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+	     <result column="stu_bookingstate" property="stuBookingstate" jdbcType="VARCHAR" />
 	    <association property="tbCoach" javaType="com.dsmp.pojo.TbCoach">
 			<id column="coa_id" property="coaId" jdbcType="INTEGER" />
 		    <result column="coa_name" property="coaName" jdbcType="VARCHAR" />
@@ -222,15 +223,23 @@ on c.sch_id=b.sch_id
  	
  	<!-- 查询学生的所有成绩 -->
 	<select id="selectStudentScore" resultMap="student_score">
-		select stu.stu_id,stu.stu_name,coa.coa_id,coa.coa_name,sus.* from tb_student stu,tb_subjectscore sus, tb_coach coa where stu.sch_id = 1 and stu.stu_id = sus.stu_id AND stu.coa_id = coa.coa_id
+		select stu.stu_id,stu.stu_name,stu_bookingstate,coa.coa_id,coa.coa_name,sus.* from tb_student stu,tb_subjectscore sus, tb_coach coa where stu.sch_id = 1 and stu.stu_id = sus.stu_id AND stu.coa_id = coa.coa_id
 	</select>
 	
 	<!-- 根据成绩变更学生的状态 -->
-	<update id="checkStudent" parameterType="TbStudent">
+	<update id="updateStudentWithScore" parameterType="TbStudent">
 		update tb_student set stu_bookingstate=#{stuBookingstate} 
 		<if test="subId!=null">,sub_id = #{subId}</if>
 		where stu_id=#{stuId}
 	</update>
+	
+	
+	
+	
+	
+
+	
+	
 	
 	
 	

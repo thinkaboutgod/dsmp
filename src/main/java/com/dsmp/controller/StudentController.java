@@ -291,6 +291,7 @@ public class StudentController {
 	 * @return
 	 */
 	@RequestMapping(value = "changeStudentState")
+	@Transactional
 	public @ResponseBody MyResult changeStudentState(HttpServletRequest request) {
 		myResult = studentService.changeStudentState(request, myResult);
 		return myResult;
@@ -305,6 +306,7 @@ public class StudentController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value="addStudent")
+	@Transactional
 	public @ResponseBody MyResult addStudent(HttpServletRequest request,MultipartFile file) throws IllegalStateException, IOException {
 		if (!file.isEmpty()) {
 			// 上传文件路径
@@ -334,6 +336,7 @@ public class StudentController {
 	 * @return
 	 */
 	@RequestMapping(value="checkStudent")
+	@Transactional
 	public @ResponseBody MyResult checkStudent(HttpServletRequest request) {
 		myResult = studentService.checkStudent(request, myResult);
 		return myResult;
