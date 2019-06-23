@@ -21,9 +21,13 @@ $(function() {
 						coaRemind('评价成功！');
 						//清空数据：
 //						$("#reset").click();
-					}else{
+					}else if(res=="sensitiveWord"){
 //						alert('评价失败！');
-						coaRemind('评价失败！');
+						coaRemind('评价失败！含敏感词汇!');
+						
+					}else if(res=='empty'){
+//						alert('评价失败！');
+						coaRemind('评价失败！内容不能为空');
 						
 					}
 					
@@ -60,9 +64,14 @@ $(function() {
 						remind('评价成功！');
 						//清空数据：
 //						$("#shcoolReset").click();
-					}else{
+					}else if(res=="sensitiveWord"){
 //						alert('评价失败！');
-						remind('评价失败！');
+						coaRemind('评价失败！含敏感词汇!');
+						
+					}else if(res=="empty"){
+//						alert('评价失败！');
+						coaRemind('评价失败！内容不能为空');
+						
 					}
 					
 					

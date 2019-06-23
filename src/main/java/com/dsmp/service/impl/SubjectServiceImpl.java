@@ -16,7 +16,7 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public Integer findNeedStudyTime(Integer subId) {
 		Integer needStyTime = subjectMapper.findNeedStudyTime(subId);
-		System.out.println("needStyTime-service:"+needStyTime);
+//		System.out.println("needStyTime-service:"+needStyTime);
 //		 int i = (needStyTime*60*60).intValue();
 //		Integer needTime = Integer.parseInt(new java.text.DecimalFormat("0").format(needStyTime*60*60));
 		needStyTime=needStyTime*60*60;

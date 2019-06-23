@@ -23,7 +23,7 @@ public class StuLoginInterceptor implements HandlerInterceptor {
 				return true;//放行
 			}else {//进入个人中心需是已报名
 				request.getRequestDispatcher("/WEB-INF/jsp/client/apply.jsp").forward(request, response);//使用转发可保持原来request作用域，一旦用重定向，以前的request中存放的变量全部失效，并进入一个新的request作用域。
-				return false;
+				return false;//不放行
 			}
 		}else {//未登录
 			

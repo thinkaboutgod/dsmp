@@ -68,7 +68,7 @@ public class TopicServiceImpl implements TopicService {
 	public List<TbTopic> randomTopic(List<TbTopic> topicList, Integer topicAmount) {
 		List<TbTopic> randomTopicList = new ArrayList<TbTopic>();
 		Random ran = new Random();
-		System.out.println("题库题目数量:" + topicList.size());
+//		System.out.println("题库题目数量:" + topicList.size());
 		if (topicList.size() >= topicAmount) {// 如果题库题目数比出题数topicAmount大（或等于），则可以出题
 			for (int i = 0; i < topicAmount; i++) {// 循环次数topicAmount，每次从题库拿到一道题放入到我的卷子中
 				int ranIndex = ran.nextInt(topicList.size());
@@ -99,7 +99,7 @@ public class TopicServiceImpl implements TopicService {
 		while (iterator.hasNext()) {
 			String topId = iterator.next();
 			String optionRes = exResultMap.get(topId);
-			System.out.println("topId:" + topId + ",optionRes:" + optionRes);
+//			System.out.println("topId:" + topId + ",optionRes:" + optionRes);
 			// 先查看一下这条记录是否已经存在：
 			TbMistakeCollection mistakeCollection = mistakeCollectionService.findMistakeTopicBySidAndTopId(studentId,
 					topId);
@@ -110,22 +110,22 @@ public class TopicServiceImpl implements TopicService {
 			if ("no".equals(optionRes)) {// 如果这一题选错的话
 				// 记录插入到错题集表里：
 				if (!topicExist) {// 错题集不存在这题
-					System.out.println("错题集不存在这题,可执行插入：");
+//					System.out.println("错题集不存在这题,可执行插入：");
 					boolean addres = mistakeCollectionService.addMistakeTopic(studentId, topId);
 					if (addres) {
-						System.out.println("插入studentId&topId：" + studentId + "," + topId + "成功！");
+//						System.out.println("插入studentId&topId：" + studentId + "," + topId + "成功！");
 					}
 				} else {
-					System.out.println("学员做错了，但错题集已经存在这题，无需插入！");
+//					System.out.println("学员做错了，但错题集已经存在这题，无需插入！");
 				}
 
 			} else if ("yes".equals(optionRes)) {// 如果这一题选对的话
 				// 从错题集中删除这条记录：
 				if (topicExist) {// 错题集存在这题
-					System.out.println("学员做对了，错题集存在这题,可执行删除：");
+//					System.out.println("学员做对了，错题集存在这题,可执行删除：");
 					boolean delres = mistakeCollectionService.delMistakeTopic(studentId, topId);
 					if (delres) {
-						System.out.println("删除studentId&topId：" + studentId + "," + topId + "成功！");
+//						System.out.println("删除studentId&topId：" + studentId + "," + topId + "成功！");
 					}
 				}
 
@@ -165,13 +165,13 @@ public class TopicServiceImpl implements TopicService {
 		}
 		//记录插入到错题集表里：
 		if(!topicExist) {//错题集不存在这题
-			System.out.println("错题集不存在这题,可执行插入：");
+//			System.out.println("错题集不存在这题,可执行插入：");
 			boolean addres = mistakeCollectionService.addMistakeTopic(studentId, topId);
 			if(addres) {
-				System.out.println("插入studentId&topId："+studentId+","+topId+"成功！");
+//				System.out.println("插入studentId&topId："+studentId+","+topId+"成功！");
 			}
 		}else {
-			System.out.println("学员做错了，但错题集已经存在这题，无需插入！");
+//			System.out.println("学员做错了，但错题集已经存在这题，无需插入！");
 		}
 		
 	}
@@ -191,10 +191,10 @@ public class TopicServiceImpl implements TopicService {
 		}
 		//从错题集中删除这条记录：
 		if(topicExist) {//错题集存在这题
-			System.out.println("学员做对了，错题集存在这题,可执行删除：");
+//			System.out.println("学员做对了，错题集存在这题,可执行删除：");
 			boolean delres = mistakeCollectionService.delMistakeTopic(studentId, topId);
 			if(delres) {
-				System.out.println("删除studentId&topId："+studentId+","+topId+"成功！");
+//				System.out.println("删除studentId&topId："+studentId+","+topId+"成功！");
 			}
 		}
 		
