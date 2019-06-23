@@ -13,6 +13,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.dsmp.mapper.TbCoachMapper;
 import com.dsmp.mapper.TbSchoolMapper;
@@ -438,6 +439,7 @@ public class StudentServiceImpl implements StudentService {
 	 * @param status stu_subjectStatus（学员当前科目的状态）字段要更改成的状态
 	 * @return
 	 */
+	@Transactional
 	@Override
 	public boolean updateSubjectStatus(Integer stuId, String status) {
 		boolean flag = false;
@@ -447,6 +449,7 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return flag;
 	}
+	@Transactional
 	@Override
 	public boolean updateSubjectStatusAndSubId(Integer stuId, String status, Integer subId) {
 		boolean flag = false;
@@ -460,6 +463,16 @@ public class StudentServiceImpl implements StudentService {
 	public TbStudent findStuById(Integer stuId) {
 		
 		return tbStudentMapper.findStuById(stuId);
+	}
+	
+	/**根据学员id查学员(包括驾校，科目，教练等详细信息)
+	 * @param stuId 学员id
+	 * @return
+	 */
+	@Override
+	public TbStudent findStuDetailById(Integer stuId) {
+		
+		return tbStudentMapper.findStuDetailById(stuId);
 	}
 
 	/**

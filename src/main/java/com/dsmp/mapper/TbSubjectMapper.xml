@@ -132,5 +132,9 @@
     from tb_subject
     
   </select>
-  
+  <!-- ren star -->
+  	<select id="findNeedStudyTime" resultType="java.lang.Integer">
+  		select sub_time from tb_subject where sub_id = #{param1}
+  	</select>
+  <!-- ren end -->
 </mapper>

@@ -19,7 +19,7 @@
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
 	<link type="text/css" href="<%=path %>/jquery-ui/jquery-ui.min.css" rel="stylesheet">
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
 <input type="hidden" id="path" value=<%=path%>>
 <div class="wrapper  ">
 	<jsp:include page="header.jsp"></jsp:include>

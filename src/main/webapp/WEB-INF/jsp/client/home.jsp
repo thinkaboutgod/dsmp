@@ -37,11 +37,18 @@
  <script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
 <script type="text/javascript"
 	src=<%=path + "/js/contactusmap.js"%>></script>
+<!-- <script type="text/javascript" -->
+<%-- 	src=<%=path + "/js/home/head.js"%>></script> --%>
 <script type="text/javascript"
 	src=<%=path + "/js/home/common_footer.js"%>></script>
 </head>
 <body>
 <input type="hidden" id="path" value=<%=path %>>
+
+<div class="hiddenDiv">
+	<input type="hidden" name="" value="">
+</div>
+
 	<jsp:include page="head.jsp"></jsp:include>
 	<!-- banner -->
 	<div class="focusBox clear pulse animated">

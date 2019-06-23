@@ -77,6 +77,7 @@
  		
 </style>
 <script type="text/javascript" src=<%=path+"/js/jquery-3.3.1.js" %>></script>
+<script type="text/javascript" src=<%=path+"/layer/layer.js" %>></script><%--引入layer+jquery就可以实现漂亮的弹框 --%>
 <script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/map.js" %>></script>
 
@@ -139,7 +140,15 @@
 			},
 		});
 		function submitClick(){
-			alert('提交试卷');			
+// 			alert('提交试卷');			
+			layer.msg('提交试卷？', {
+				  time: 0 //不自动关闭
+				  ,btn: ['确定', '取消']
+				  ,yes: function(index){
+				    layer.close(index);
+				    
+
+			
 			
 		    	var totalScore="0";
 		    	totalScore=parseInt(totalScore);//转化成数值型才能加减
@@ -182,7 +191,8 @@
 						data:{"stuId":stuId,"subId":subId,"totalScore":totalScore},
 						success:function(data){
 							if(data=='addSuccess'){//插入成绩成功！
-								alert('恭喜您！过了科目一！');
+// 								alert('恭喜您！过了科目一！');
+								layer.alert('恭喜您！过了科目一！', {icon: 6});//【+'totalScore'+】
 								pass();//要把科目一改成科目二，预约状态改成"未预约"
 								
 							}
@@ -194,11 +204,16 @@
 					});
 					
 				}else{
-					alert('暂时未过科目一！');
+// 					alert('暂时未过科目一！');
+					layer.msg('没过科目一！等待教练给你安排下一次考试！', {icon: 5});//【+'totalScore'+】
 					noPass();//要把学员的科目状态改成"未预约"，不让其继续考试，要等待教练的安排
 				}
 				
 			}
+			
+				  }
+			});
+			
 		}
 		//没通过，科目状态改成"可预约"
 		function noPass(){
@@ -211,7 +226,8 @@
 				data:{"stuId":stuId,"subId":subId},
 				success:function(data){
 					if(data=='success'){//状态由"已预约"改成"可预约",等教练再次给他预约考试
-						alert('只能等待教练再次安排考试！');
+// 						alert('只能等待教练再次安排考试！');
+						
 					}
 					
 				},
@@ -231,7 +247,7 @@
 				data:{"stuId":stuId,"subId":subId},
 				success:function(data){
 					if(data=='success'){//状态由"已预约"改成"未预约",科目id改成2
-						alert('已经通过科目一，不用再考！');
+// 						alert('已经通过科目一，不用再考！');
 					}
 					
 				},
@@ -301,7 +317,8 @@
 <!-- 										<li> -->
 	<%-- 									<img alt="" src=<%=path+"/images/hai.jpg" %>>									 --%>
 										<c:if test="${i.topImg!=null&&''!=i.topImg}">
-											<img alt="" src=<%=path%>${i.topImg}>									
+<%-- 											<img alt="" src=<%=path%>${i.topImg}>									 --%>
+											<img alt="" src=${topicImgFilePath }${i.topImg}>									
 										
 										</c:if>
 <!-- 										</li> -->

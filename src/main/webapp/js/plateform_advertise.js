@@ -19,6 +19,7 @@ $(function() {
 		$("#toPath").val($(this).prev().prev().val());
 		$("#describe").val($(this).prev().val());
 		$("#newLevel").val($(this).next().val());//优先级
+		$("#adPathDiv").css("display","block");
 		$("#forSchoolAdv").modal("show");
 		type="change";
 	})
@@ -39,6 +40,8 @@ $(function() {
 		$("#schoolId").val("0");
 		$("#newLevel").val("0");
 		$("#newImg").val("");
+		$("#toPath").val($("#adPath").val());
+		$("#adPathDiv").css("display","none");
 	}
 	//修改或者新增提交
 	$("#sub").click(function() {
@@ -168,12 +171,11 @@ $(function() {
 	
 })
 
-// 组装视频标签
+// 组装图片标签
 	function videoDiv(result) {
 		div = "";
 		var di = "";
 		var len = result.list.length
-		console.log(result);
 		for (var i = 0; i < len; i++) {
 			di = '<div class="Product">'+ 
 			'<img style="width:260px;height:160px;" src="'+result.data+result.list[i].advImgpath+'" >'+

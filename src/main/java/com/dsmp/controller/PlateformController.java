@@ -37,6 +37,7 @@ import com.dsmp.service.AdvertisementService;
 import com.dsmp.service.BlogrollService;
 import com.dsmp.service.LogService;
 import com.dsmp.service.NoticeService;
+import com.dsmp.service.ParameterService;
 import com.dsmp.service.PlateformService;
 import com.dsmp.service.SchoolService;
 import com.dsmp.service.TopicService;
@@ -63,8 +64,10 @@ public class PlateformController {
 
 	@Autowired
 	private SchoolService schoolService;
+	
+	@Autowired ParameterService parameterService;
 	// 学员查看页面
-	@RequestMapping(value = "a.action")
+	@RequestMapping(value = "toStudentController.action")
 	public String toStudentController() {
 		return "back/plateform_student";
 	}
@@ -423,6 +426,7 @@ public class PlateformController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("levelList", advertisementService.searchAdvLevel());
 		mav.addObject("schoolList", schoolService.selectAllSchoolForAdvertise());// 所有允许报名和运营的驾校
+		mav.addObject("adPath", parameterService.searchParameterByName("广告跳转路径"));
 		mav.setViewName("back/plateform_advertise");
 		return mav;
 	}
