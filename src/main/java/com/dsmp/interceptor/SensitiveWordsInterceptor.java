@@ -19,7 +19,7 @@ public class SensitiveWordsInterceptor implements HandlerInterceptor {
 //		System.out.println("你提交了评价，但是现在被拦截到拦截器来看一下是否评价中有敏感词！");
 		String ratingContent = (String) request.getParameter("ratingContent");
 //		System.out.println("ratingContent:"+ratingContent);
-		if(null==ratingContent||"".equals(ratingContent)) {
+		if(null==ratingContent||"".equals(ratingContent)) {//如果评价为空
 //			System.out.println("空评价empty");
 			response.getWriter().print("empty");
 			return false;//不放行
