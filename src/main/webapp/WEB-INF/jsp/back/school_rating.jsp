@@ -49,7 +49,7 @@
 		float:left;width:500px;padding-left:50px;
 	}
 </style>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 	<jsp:include page="header.jsp"></jsp:include>
 	<jsp:include page="sliderbar.jsp"></jsp:include>

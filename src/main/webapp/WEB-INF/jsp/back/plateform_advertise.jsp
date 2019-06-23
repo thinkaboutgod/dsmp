@@ -23,8 +23,9 @@
     <link type="text/css" href="<%=path %>/adminlte/css/adminlte.min.css" rel="stylesheet">
     <link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
   <input type="hidden" id="path" value=<%=path%>>
+   <input type="hidden" id="adPath" value="${adPath}">>
 <div class="wrapper">
 	<jsp:include page="header.jsp"></jsp:include>
 	<jsp:include page="sliderbar.jsp"></jsp:include>
@@ -98,7 +99,7 @@
 							</div>
 								
 						</div>
-						<div class="form-group">
+						<div class="form-group" id="adPathDiv">
 							<label for="toPath" class="col-sm-3 control-label">广告跳转路径：</label>
 							<div class="col-sm-9">
 								<input class="form-control" id="toPath" type="text" >

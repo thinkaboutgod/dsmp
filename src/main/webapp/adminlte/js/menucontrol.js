@@ -10,7 +10,6 @@ $(document).ready(function(){
         var index2 = url2.lastIndexOf('/');
         var page_name2 = url2.substring(index2 + 1, url2.length);
         if (page_name == page_name2) {
-        	console.log($(this).parent());
             $(this).parent().parent().addClass('menu-open');
             $(this).parent().parent().parent().addClass('active');
         }
