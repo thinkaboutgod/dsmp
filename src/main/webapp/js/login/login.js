@@ -153,6 +153,7 @@ $(document).ready(function () {
 								layer.msg("登录失败，账号不存在!");
 							}else if(msge.myresult == "codeFaild"){
 								layer.msg("登录失败，验证码错误!");
+								$("#getCode").click();
 							}else if(msge.myresult == "pwdError"){
 								layer.msg("登录失败，密码错误！(输入三次错误账号将被锁定)还剩"+msge.errCount+"次机会");
 							}else if(msge.myresult == "forbidden"){

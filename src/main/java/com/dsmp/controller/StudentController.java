@@ -218,17 +218,18 @@ public class StudentController {
 	//获取手机验证码
 	@RequestMapping(value="/verificationCode.action")
 	public @ResponseBody MyResult registerCode(HttpServletRequest request,HttpServletResponse response,String mobile) {
-		MyResult myResult = new MyResult();
+//		MyResult myResult = new MyResult();
+		MyResult myResult = null;
 		try {
 			//生成4位验证码
 			String verifyCode = String.valueOf(new Random().nextInt(8999) + 1000);
 			//发送短信
-//			ZhenziSmsClient client = new ZhenziSmsClient("https://sms_developer.zhenzikj.com", "101707",
-//					"dcff2073-d368-4c5a-9244-33ef7902dbf9");
-//			String result = client.send(mobile, "您的验证码为:" + verifyCode + "，该码有效期为5分钟，该码只能使用一次!");			
-//		    myResult = GsonUtils.fromJson(result, MyResult.class);	
-		    verifyCode = "1234";
-			myResult.setCode(0);
+			ZhenziSmsClient client = new ZhenziSmsClient("https://sms_developer.zhenzikj.com", "101707",
+					"dcff2073-d368-4c5a-9244-33ef7902dbf9");
+			String result = client.send(mobile, "您的验证码为:" + verifyCode + "，该码有效期为5分钟，该码只能使用一次!");			
+		    myResult = GsonUtils.fromJson(result, MyResult.class);	
+//		    verifyCode = "1234";
+//			myResult.setCode(0);
 			//将验证码存到session中,同时存入创建时间
 			Map<String, String> map = new HashMap<>();
 			map.put("mobile", mobile);
@@ -291,6 +292,7 @@ public class StudentController {
 	 * @return
 	 */
 	@RequestMapping(value = "changeStudentState")
+	@Transactional
 	public @ResponseBody MyResult changeStudentState(HttpServletRequest request) {
 		myResult = studentService.changeStudentState(request, myResult);
 		return myResult;
@@ -305,6 +307,7 @@ public class StudentController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value="addStudent")
+	@Transactional
 	public @ResponseBody MyResult addStudent(HttpServletRequest request,MultipartFile file) throws IllegalStateException, IOException {
 		if (!file.isEmpty()) {
 			// 上传文件路径
@@ -334,6 +337,7 @@ public class StudentController {
 	 * @return
 	 */
 	@RequestMapping(value="checkStudent")
+	@Transactional
 	public @ResponseBody MyResult checkStudent(HttpServletRequest request) {
 		myResult = studentService.checkStudent(request, myResult);
 		return myResult;

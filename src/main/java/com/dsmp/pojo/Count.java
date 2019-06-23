@@ -8,6 +8,7 @@ package com.dsmp.pojo;
  *   
  */ 
 public class Count {
+	private Integer parameterId;
 	private String name;
 	private String data;
 	private String phone;
@@ -15,6 +16,14 @@ public class Count {
 	
 	
 	
+	public Integer getParameterId() {
+		return parameterId;
+	}
+
+	public void setParameterId(Integer parameterId) {
+		this.parameterId = parameterId;
+	}
+
 	public double getStarAvg() {
 		return starAvg;
 	}

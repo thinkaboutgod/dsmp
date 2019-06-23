@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbAppeal;
 import com.dsmp.pojo.TbCoach;
@@ -30,6 +32,8 @@ import com.dsmp.service.CoachService;
 import com.dsmp.service.PlateformService;
 import com.dsmp.service.SchoolService;
 import com.dsmp.utils.GsonUtils;
+
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
 @Controller
 @RequestMapping("school")
@@ -219,7 +223,6 @@ public class SchoolController {
 		
 		Map<String, List<TbExamschedule>> examscheduleMap = new HashMap<>();
 		List<TbExamschedule> examschedule = schoolService.selectExamschedule(request);// 驾校id从session域中的教练信息中拿
-		System.out.println(examschedule);
 		examscheduleMap.put("data", examschedule);
 
 		return examscheduleMap;
@@ -254,6 +257,69 @@ public class SchoolController {
 	public @ResponseBody MyResult addScore(HttpServletRequest request) {
 		return  schoolService.addScore(request);
 	}
+	
+	/**
+	 * 	修改学员科目二和科目三的成绩
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="updateScore")
+	public @ResponseBody MyResult updateScore(HttpServletRequest request) {
+		return  schoolService.updateScore(request);
+	}
+	
+	/**
+	 * 	跳转到学员统计页面
+	 * @return
+	 */
+	@RequestMapping(value = "toschool_StudentCount.action")
+	public ModelAndView toStudentCount(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView();
+		Integer schId =  (Integer) request.getSession().getAttribute("schId");
+		List<TbCoach> listCoach = schoolService.selectCoachBySchId(schId);// 查询所有驾校
+		List<Count> dateList = schoolService.searchDate();// 查询近六个月月份
+		mav.addObject("coaList", listCoach);
+		mav.addObject("dateList", dateList);
+		mav.setViewName("back/school_studentcount");
+		return mav;
+	}
+	
+	// 按照驾校统计近半年报名学员人数
+	@RequestMapping(value = "countStudentByCoach.action")
+	public @ResponseBody List<Count> countStudentByCoach(String coaId, String dateId) {
+		
+		List<Count> cList = schoolService.countStudent(coaId, dateId);
+
+		for (int i = 0; i < cList.size(); i++) {
+			if (cList.get(i).getData() == null) {
+				cList.get(i).setData("0");
+			}
+		}
+		return cList;
+	}
+	
+	// 按照驾校查询某一个月有人报名的驾校的报名人数
+	@RequestMapping(value = "countStudentByDate.action")
+	public @ResponseBody Map<String, List<Count>> countStudentByDate(String month) {
+		List<Count> cList = schoolService.countStudentByDate(month);
+		Map<String, List<Count>> map = new HashMap<>();
+		map.put("data", cList);
+		return map;
+	}
+
+	// 
+	@RequestMapping(value = "countAllStudentByDate.action")
+	public @ResponseBody List<Count> countAllStudentByDate(String month,String schId) {
+		List<Count> cList = schoolService.countAllStudentByDate(month,schId);
+		for (int i = 0; i < cList.size(); i++) {
+			if (cList.get(i).getData() == null) {
+				cList.get(i).setData("0");
+			}
+		}
+		return cList;
+	}
+	
+	
 	
 }
 

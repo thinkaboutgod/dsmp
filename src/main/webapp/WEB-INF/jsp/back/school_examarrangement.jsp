@@ -122,7 +122,7 @@
 															<div class="layui-input-block">
 																<div class="layui-input-inline">
 																	<select name="sub_id" id="sub_id" lay-search="" lay-verify="required" lay-filter="sub_id" style="width: 200px;height: 40px;">
-																		<option>请选择考试科目</option>
+																		<option value="0">请选择考试科目</option>
 																		<option value="1">科目一</option>
 																		<option value="2">科目二</option>
 																		<option value="3">科目三</option>
@@ -140,8 +140,8 @@
 														<div class="layui-form-item ">
 															<label class="layui-form-label">人数上限</label>
 															<div class="layui-input-block">
-																<input type="number" name="totalNum" id="totalNum" lay-verify="required" placeholder="请输入人数上限" style="width: 200px;height: 40px;">
-															</div>
+																<input type="number" name="totalNum" id="totalNum" lay-verify="number|required" placeholder="请输入人数上限" style="width: 200px;height: 40px;">
+															</div>	
 														</div>
 
 														<div class="layui-form-item">
@@ -154,7 +154,7 @@
 															<label class="layui-form-label">考试时间段</label>
 															<div class="layui-input-inline">
 																<select name="exs_time" id="exs_time" lay-verify="required" lay-filter="exs_time" style="width: 200px;height: 40px;">
-																	<option>请选择时间段</option>
+																	<option value="0">请选择时间段</option>
 																	<option value="8:30~9:30">8:30~9:30 </option>
 																	<option value="9:30~10:30">9:30~10:30</option>
 																	<option value="10:30~11:30">10:30~11:30</option>

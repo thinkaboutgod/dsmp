@@ -18,6 +18,7 @@ $(function() {
 			"url": "../school/selectExamschedule.action",
 			"type": "POST"
 		},
+		"scrollY":"",
 		"columns": [{
 				"data": "exsTime",
 				"orderable": true
@@ -71,8 +72,36 @@ $(function() {
 		fd.append("exsTotalNum", exsTotalNum);
 		fd.append("exsDate", exsDate);
 		fd.append("exsTime", exsTime);
-		if(subId == "" || exsAddress == "" || exsTotalNum == "" || exsDate == "" || exsTime == "") {
-
+		if(subId == "0" || exsAddress == "" || exsTotalNum == "" || exsDate == "" || exsTime == "0") {
+			if(subId == "0"){
+				layer.msg("请选择考试科目");
+				return false;
+			}
+			
+			if(exsAddress == ""){
+				layer.msg("请输入地址");
+				return false;
+			}
+			
+			if(exsTotalNum == ""){
+				layer.msg("请输入人数上限");
+				return false;
+				if(exsTotalNum<10||exsTotalNum>40){
+					layer.msg("人数上限应在10~40之间");
+					return false;
+				}
+			}
+			
+			if(exsDate == ""){
+				layer.msg("请选择考试日期");
+				return false;
+			}
+			
+			if(exsTime == "0"){
+				layer.msg("请选择考试时间段");
+				return false;
+			}
+			
 		} else {
 			$.ajax({
 				type: "POST",
@@ -86,7 +115,13 @@ $(function() {
 				success: function(msg) {
 					if(msg.myresult == "success") {
 						layer.msg("新增考场成功");
+						$("#sub_id").val("0");
+						$("#exs_address").val("");
+						$("#totalNum").val("");
+						$("#exs_date").val("");
+					    $("#exs_time").val("0");
 						table.ajax.reload(null, false);
+						layui.form.render("select");
 					} else {
 						layer.msg("新增考场失败");
 					}

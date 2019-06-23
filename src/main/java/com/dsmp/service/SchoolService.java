@@ -5,8 +5,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbAppeal;
+import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbExamschedule;
 import com.dsmp.pojo.TbSchool;
 
@@ -70,5 +72,17 @@ public interface SchoolService {
 
 	//查询允许报名和运营的所有驾校
 	public List<TbSchool> selectAllSchoolForAdvertise();
+
+	
+
+	public List<Count> searchDate();
+
+	public List<Count> countStudentByDate(String month);
+
+	public List<Count> countStudent(String coaId, String dateId);
+
+	List<Count> countAllStudentByDate(String month, String schId);
+
+	public List<TbCoach> selectCoachBySchId(Integer schId);
 
 }

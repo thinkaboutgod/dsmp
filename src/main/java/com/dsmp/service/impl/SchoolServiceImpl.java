@@ -13,8 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.dsmp.mapper.TbCoachMapper;
 import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.mapper.TbStudentMapper;
+import com.dsmp.pojo.Count;
 import com.dsmp.pojo.MyResult;
 
 import com.dsmp.pojo.TbAppeal;
@@ -36,6 +38,7 @@ public class SchoolServiceImpl implements SchoolService {
 
 	@Autowired private TbSchoolMapper tbSchoolMapper;
 	@Autowired private TbStudentMapper tbStudentMapper;
+	@Autowired private TbCoachMapper tbCoachMapper;
 	
 	private String schName;
 	private String schAccount;
@@ -216,12 +219,14 @@ public class SchoolServiceImpl implements SchoolService {
 		TbSubjectscore tbScore = new TbSubjectscore();
 		MyResult myResult = new MyResult();	
 		Integer stuId = Integer.parseInt(request.getParameter("stuId"));
-		Integer subId =Integer.parseInt(request.getParameter("subId"));
+		Integer subId = Integer.parseInt(request.getParameter("subId"));
 		Integer score = Integer.parseInt(request.getParameter("score"));
+		Integer susId = Integer.parseInt(request.getParameter("susId"));
+		tbScore.setSusScore(score);
 		tbScore.setStuId(stuId);
 		tbScore.setSubId(subId);
-		tbScore.setSusScore(score);
-		//录入的成绩插入数据库
+		tbScore.setSusId(susId);
+		//根据修改的成绩更新数据库
 		int res = tbSchoolMapper.updateScore(tbScore);
 		if(res>0) {
 			TbStudent tbStudent = new TbStudent();
@@ -249,6 +254,55 @@ public class SchoolServiceImpl implements SchoolService {
 		return myResult;
 	}
 	
+
+	@Override
+	public List<Count> countStudent(String coaId, String dateId) {// 根据驾校统计近半年,或者近30天报名人数
+		if (dateId.equals("1")) {
+			return tbSchoolMapper.countStudentByCoach(coaId);
+		}
+		return tbSchoolMapper.countStudentByMonth(coaId);
+	}
+
+	@Override
+	public List<Count> searchDate() {// 获取近半年日期到月份
+		return tbSchoolMapper.searchDate();
+	}
+
+	@Override
+	public List<Count> countStudentByDate(String month) {// 查询某一个月有人报名的驾校的人数
+		return tbSchoolMapper.countStudentByDate(month);
+	}
+
+	@Override
+	public List<Count> countAllStudentByDate(String month,String schId) {// 查询某一个月所有驾校报名人数，没有的置零
+		return tbSchoolMapper.countAllStudentByDate(month,schId);
+	}
+	
+	/**
+	 * 	查询所有教练
+	 */
+	@Override
+	public List<TbCoach> selectCoachBySchId(Integer schId) {
+		return tbCoachMapper.selectCoachBySchId(schId);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	//禁止、恢复学员预约 
 	@Override
 	public void updateSignupstatus(HttpServletRequest request) {
@@ -263,6 +317,7 @@ public class SchoolServiceImpl implements SchoolService {
 		tbSchoolMapper.updateSignupstatus(signupstatus, schId);		
 	}
 
+	
 	//禁止恢复驾校运营
 	@Override
 	public void updateOperativestatus(HttpServletRequest request) {
@@ -277,6 +332,7 @@ public class SchoolServiceImpl implements SchoolService {
 		tbSchoolMapper.updateOperativestatus(schOperativestatus, schId);
 		
 	}
+	
 
 	//查找未审核驾校
 	@Override
@@ -284,6 +340,7 @@ public class SchoolServiceImpl implements SchoolService {
 		List<TbSchool> notauditSchool=tbSchoolMapper.selectNotauditSchool();
 		return notauditSchool;
 	}
+	
 	@Override
 	public String updateAudit(HttpServletRequest request) {
 		String schid=request.getParameter("schId");
@@ -347,8 +404,10 @@ public class SchoolServiceImpl implements SchoolService {
 //查询所有允许报名和运营的驾校
 	@Override
 	public List<TbSchool> selectAllSchoolForAdvertise() {
-		// TODO Auto-generated method stub
 		return tbSchoolMapper.selectAllSchoolForAdvertise();
 	}
+
+
+
 
 }

@@ -79,6 +79,7 @@ public class CoachController {
 		mav.setViewName("client/allcoach");
 		return mav;
 	}		
+	
 	//获取教练集合
 	@RequestMapping("/selectAllCoach")
 	public @ResponseBody List<TbCoach> getSchoolByStauts(){

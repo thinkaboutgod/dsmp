@@ -1,176 +1,277 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
-<mapper namespace="com.dsmp.mapper.TbSchoolMapper" >    
-  <resultMap id="BaseResultMap" type="com.dsmp.pojo.TbSchool" >
-    <id column="sch_id" property="schId" jdbcType="INTEGER" />
-    <result column="rol_id" property="rolId" jdbcType="INTEGER" />
-    <result column="sch_name" property="schName" jdbcType="VARCHAR" />
-    <result column="sch_account" property="schAccount" jdbcType="VARCHAR" />
-    <result column="sch_password" property="schPassword" jdbcType="VARCHAR" />
-    <result column="sch_address" property="schAddress" jdbcType="VARCHAR" />
-    <result column="sch_introduction" property="schIntroduction" jdbcType="VARCHAR" />
-    <result column="sch_bossName" property="schBossname" jdbcType="VARCHAR" />
-    <result column="sch_registerCapital" property="schRegistercapital" jdbcType="VARCHAR" />
-    <result column="sch_creditcode" property="schCreditcode" jdbcType="VARCHAR" />
-    <result column="sch_type" property="schType" jdbcType="VARCHAR" />
-    <result column="sch_signUpStatus" property="schSignupstatus" jdbcType="VARCHAR" />
-    <result column="sch_headimg" property="schHeadimg" jdbcType="VARCHAR" />
-    <result column="sch_operativeStatus" property="schOperativestatus" jdbcType="VARCHAR" />
-    <result column="sch_charge" property="schCharge" jdbcType="DOUBLE" />
-    <result column="sch_audit" property="schAudit" jdbcType="VARCHAR"/>
-  </resultMap>
-   <resultMap id="theappeal" type="com.dsmp.pojo.TbAppeal" >
-    <id column="app_id" property="appId" jdbcType="INTEGER" />
-    <result column="app_time" property="appTime" jdbcType="TIMESTAMP" />
-    <result column="app_content" property="appContent" jdbcType="VARCHAR" />
-    <result column="sch_id" property="schId" jdbcType="INTEGER" />
-    <result column="app_reply" property="appReply" jdbcType="VARCHAR" />
-  </resultMap>
-  
-  
-  <!-- 驾校登录验证 -->
-  <select id="getSchool"  resultMap="BaseResultMap">
-		select * from tb_school where sch_account = #{schAccount};
-  </select>
-  <!-- 根据驾校ID查询驾校 -->
-  <select id="findSchoolBySchId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+<mapper namespace="com.dsmp.mapper.TbSchoolMapper">
+	<resultMap id="BaseResultMap" type="com.dsmp.pojo.TbSchool">
+		<id column="sch_id" property="schId" jdbcType="INTEGER" />
+		<result column="rol_id" property="rolId" jdbcType="INTEGER" />
+		<result column="sch_name" property="schName" jdbcType="VARCHAR" />
+		<result column="sch_account" property="schAccount"
+			jdbcType="VARCHAR" />
+		<result column="sch_password" property="schPassword"
+			jdbcType="VARCHAR" />
+		<result column="sch_address" property="schAddress"
+			jdbcType="VARCHAR" />
+		<result column="sch_introduction" property="schIntroduction"
+			jdbcType="VARCHAR" />
+		<result column="sch_bossName" property="schBossname"
+			jdbcType="VARCHAR" />
+		<result column="sch_registerCapital"
+			property="schRegistercapital" jdbcType="VARCHAR" />
+		<result column="sch_creditcode" property="schCreditcode"
+			jdbcType="VARCHAR" />
+		<result column="sch_type" property="schType" jdbcType="VARCHAR" />
+		<result column="sch_signUpStatus" property="schSignupstatus"
+			jdbcType="VARCHAR" />
+		<result column="sch_headimg" property="schHeadimg"
+			jdbcType="VARCHAR" />
+		<result column="sch_operativeStatus"
+			property="schOperativestatus" jdbcType="VARCHAR" />
+		<result column="sch_charge" property="schCharge"
+			jdbcType="DOUBLE" />
+		<result column="sch_audit" property="schAudit"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	<resultMap id="theappeal" type="com.dsmp.pojo.TbAppeal">
+		<id column="app_id" property="appId" jdbcType="INTEGER" />
+		<result column="app_time" property="appTime"
+			jdbcType="TIMESTAMP" />
+		<result column="app_content" property="appContent"
+			jdbcType="VARCHAR" />
+		<result column="sch_id" property="schId" jdbcType="INTEGER" />
+		<result column="app_reply" property="appReply"
+			jdbcType="VARCHAR" />
+	</resultMap>
+
+
+	<!-- 驾校登录验证 -->
+	<select id="getSchool" resultMap="BaseResultMap">
+		select * from tb_school where
+		sch_account = #{schAccount};
+	</select>
+	<!-- 根据驾校ID查询驾校 -->
+	<select id="findSchoolBySchId" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
 		select * from tb_school where sch_id = #{schId};
-  </select>
-  <!-- 查询所有驾校 -->
-  <select id="selectAllSchool" resultMap="BaseResultMap" >
-    select * from tb_school
-  </select>
-  <!-- 驾校入驻信用代码验证 -->
-  <select id="getSchoolByCreditcode"  resultMap="BaseResultMap">
-		select * from tb_school where sch_creditcode = #{schCreditcode};
-  </select>
-  
-  <!-- 查询所有允许报名的驾校 -->
-  <select id="selectAllSchoolBySignUpStatus" resultMap="BaseResultMap" >
-    select * from tb_school where sch_signUpStatus = #{schSignupstatus};
-  </select>
+	</select>
+	<!-- 查询所有驾校 -->
+	<select id="selectAllSchool" resultMap="BaseResultMap">
+		select * from tb_school
+	</select>
+	<!-- 驾校入驻信用代码验证 -->
+	<select id="getSchoolByCreditcode" resultMap="BaseResultMap">
+		select * from
+		tb_school where sch_creditcode = #{schCreditcode};
+	</select>
 
-  <!-- 驾校入驻 -->
-  <insert id="insertSchoolInfo" parameterType="com.dsmp.pojo.TbSchool" >
-    insert into tb_school(rol_id,sch_name,sch_account,sch_password,sch_address,sch_introduction,sch_bossName,
-    sch_registerCapital,sch_creditcode,sch_type,sch_headimg,sch_charge) values(#{rolId},#{schName},
-    #{schAccount}, #{schPassword}, #{schAddress}, #{schIntroduction}, #{schBossname}, #{schRegistercapital},
-    #{schCreditcode}, #{schType}, #{schHeadimg}, #{schCharge});
-  </insert>
-  <!-- 黄锟龙 -->
-   <!-- 按条件查找驾校 -->
-  <select id="selectSchool" resultMap="BaseResultMap" >
-  	select * from tb_school 
-	<where>
-		<if test="param1!=null">
-			and sch_name like "%"#{param1}"%"
-		</if>
-		<if test="param2!=null"> 
-			and sch_account=#{param2}
-		</if>
-		<if test="param3!=null">
-			and sch_bossName like "%"#{param3}"%"
-		</if>
-		and sch_audit="已审核"		
-	</where>   
-  </select >
-  <!-- 查找未审核驾校 -->	
-  <select id="selectNotauditSchool" resultMap="BaseResultMap" >
-  		select * from tb_school where sch_audit="未审核"
-  </select>
-  <!-- 后台管理禁止、恢复学员预约 -->
-  <update id="updateSignupstatus">
-  		update tb_school set sch_signUpStatus=#{param1} where sch_id=#{param2}
-  </update>
-  <!-- 禁止，恢复运营状态 -->
-  <update id="updateOperativestatus">
-  		update tb_school set sch_operativeStatus=#{param1} where sch_id=#{param2};
-  </update>
-  <!-- 修该驾校审核状态 -->
-  <update id="updateAudit">
-  		update tb_school set sch_audit="已审核" where sch_id=#{param1}
-  </update>
-  <!-- 插入申诉内容 -->
-  <insert id="insertThecomplaintcontent">
-  	insert into tb_appeal (sch_id,app_content,app_time) values(#{param1},#{param2},#{param3}); 
-  </insert>
-  <!-- 查看申诉内容 -->
-  <select id="selectReply" resultMap="theappeal" parameterType="java.lang.Integer">
-  	select * from tb_appeal where sch_id=#{param1}
-  </select>
-  <!-- /黄锟龙 -->
+	<!-- 查询所有允许报名的驾校 -->
+	<select id="selectAllSchoolBySignUpStatus"
+		resultMap="BaseResultMap">
+		select * from tb_school where sch_signUpStatus = #{schSignupstatus};
+	</select>
 
-  <!-- 搜索驾校 -->
-  <select id="selectSchoolByName" resultMap="BaseResultMap" >
-    select * from tb_school where sch_name like "%"#{schName}"%";
-  </select>
+	<!-- 驾校入驻 -->
+	<insert id="insertSchoolInfo"
+		parameterType="com.dsmp.pojo.TbSchool">
+		insert into
+		tb_school(rol_id,sch_name,sch_account,sch_password,sch_address,sch_introduction,sch_bossName,
+		sch_registerCapital,sch_creditcode,sch_type,sch_headimg,sch_charge)
+		values(#{rolId},#{schName},
+		#{schAccount}, #{schPassword}, #{schAddress}, #{schIntroduction}, #{schBossname},
+		#{schRegistercapital},
+		#{schCreditcode}, #{schType}, #{schHeadimg}, #{schCharge});
+	</insert>
+	<!-- 黄锟龙 -->
+	<!-- 按条件查找驾校 -->
+	<select id="selectSchool" resultMap="BaseResultMap">
+		select * from tb_school
+		<where>
+			<if test="param1!=null">
+				and sch_name like "%"#{param1}"%"
+			</if>
+			<if test="param2!=null">
+				and sch_account=#{param2}
+			</if>
+			<if test="param3!=null">
+				and sch_bossName like "%"#{param3}"%"
+			</if>
+			and sch_audit="已审核"
+		</where>
+	</select>
+	<!-- 查找未审核驾校 -->
+	<select id="selectNotauditSchool" resultMap="BaseResultMap">
+		select * from tb_school where sch_audit="未审核"
+	</select>
+	<!-- 后台管理禁止、恢复学员预约 -->
+	<update id="updateSignupstatus">
+		update tb_school set sch_signUpStatus=#{param1} where sch_id=#{param2}
+	</update>
+	<!-- 禁止，恢复运营状态 -->
+	<update id="updateOperativestatus">
+		update tb_school set sch_operativeStatus=#{param1} where sch_id=#{param2};
+	</update>
+	<!-- 修该驾校审核状态 -->
+	<update id="updateAudit">
+		update tb_school set sch_audit="已审核" where sch_id=#{param1}
+	</update>
+	<!-- 插入申诉内容 -->
+	<insert id="insertThecomplaintcontent">
+		insert into tb_appeal (sch_id,app_content,app_time)
+		values(#{param1},#{param2},#{param3});
+	</insert>
+	<!-- 查看申诉内容 -->
+	<select id="selectReply" resultMap="theappeal"
+		parameterType="java.lang.Integer">
+		select * from tb_appeal where sch_id=#{param1}
+	</select>
+	<!-- /黄锟龙 -->
 
-  
-  <!-- 查询所有驾校，允许报名和运营的 -->
-  <select id="selectAllSchoolForAdvertise" resultMap="BaseResultMap" >
-    select sch_id,sch_name,sch_bossName from tb_school where sch_signUpStatus='允许报名' and sch_operativeStatus='允许运营'
-  </select>
+	<!-- 搜索驾校 -->
+	<select id="selectSchoolByName" resultMap="BaseResultMap">
+		select * from tb_school where sch_name like "%"#{schName}"%";
+	</select>
+
 
   <!-- 查询驾校排行 -->
   <select id="getSchoolRanking" resultMap="schoolRankingMap">
-  	SELECT s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as starnum,AVG(r.rat_star) as staravg FROM 
+  	SELECT s.sch_id,s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as starnum,AVG(r.rat_star) as staravg FROM 
  tb_school s,tb_rating r where  r.sch_id = s.sch_id GROUP BY r.sch_id ORDER BY staravg DESC;
   </select>
+
   <resultMap id="schoolRankingMap" type="com.dsmp.pojo.Count" >
+  	<result column="sch_id" property="parameterId" jdbcType="INTEGER" />
   	<result column="sch_name" property="name" jdbcType="VARCHAR" />
     <result column="commentnum" property="data" jdbcType="VARCHAR" />
     <result column="starnum" property="phone" jdbcType="VARCHAR" />
     <result column="staravg" property="starAvg" jdbcType="DOUBLE" />
   </resultMap>
-  
-  
-  
-  <resultMap type="com.dsmp.pojo.TbExamschedule" id="school_examSchedule">
-		<id column="exs_id" property="exsId" jdbcType="INTEGER"/>
-  		<result column="sch_id" property="schId" jdbcType="INTEGER" />
-  		<result column="sub_id" property="subId" jdbcType="INTEGER" />
-    	<result column="exs_time" property="exsTime" jdbcType="VARCHAR" />
-   		<result column="exs_address" property="exsAddress" jdbcType="VARCHAR" />
-    	<result column="exs_signUpNum" property="exsSignupnum" jdbcType="INTEGER" />
-    	<result column="exs_endTime" property="exsEndtime" jdbcType="VARCHAR" />
-    	<result column="exs_totalNum" property="exsTotalnum" jdbcType="INTEGER" />
-    	<association property="tbSubject" column="sub_id" javaType="TbSubject">
-    		<id column="sub_id" property="subId" jdbcType="INTEGER" />
-    		<result column="sub_name" property="subName" jdbcType="VARCHAR" />
-    	</association>
+	<!-- 查询所有驾校，允许报名和运营的 -->
+	<select id="selectAllSchoolForAdvertise"
+		resultMap="BaseResultMap">
+		select sch_id,sch_name,sch_bossName from tb_school where
+		sch_signUpStatus='允许报名' and sch_operativeStatus='允许运营'
+	</select>
+
+
+
+
+	<resultMap type="com.dsmp.pojo.TbExamschedule"
+		id="school_examSchedule">
+		<id column="exs_id" property="exsId" jdbcType="INTEGER" />
+		<result column="sch_id" property="schId" jdbcType="INTEGER" />
+		<result column="sub_id" property="subId" jdbcType="INTEGER" />
+		<result column="exs_time" property="exsTime" jdbcType="VARCHAR" />
+		<result column="exs_address" property="exsAddress"
+			jdbcType="VARCHAR" />
+		<result column="exs_signUpNum" property="exsSignupnum"
+			jdbcType="INTEGER" />
+		<result column="exs_endTime" property="exsEndtime"
+			jdbcType="VARCHAR" />
+		<result column="exs_totalNum" property="exsTotalnum"
+			jdbcType="INTEGER" />
+		<association property="tbSubject" column="sub_id"
+			javaType="TbSubject">
+			<id column="sub_id" property="subId" jdbcType="INTEGER" />
+			<result column="sub_name" property="subName"
+				jdbcType="VARCHAR" />
+		</association>
 	</resultMap>
-  
- 	<select id="selectExamschedule"  resultMap="school_examSchedule">
-		select a.*,b.sub_name from tb_examschedule a,tb_subject b 
+
+	<select id="selectExamschedule" resultMap="school_examSchedule">
+		select a.*,b.sub_name from tb_examschedule a,tb_subject b
 		<where>
 			<if test="param2!=null">
 				and b.sub_id=#{param2}
 			</if>
-			 and a.sch_id=#{param1} and b.sub_id = a.sub_id order by exs_time DESC;
+			and a.sch_id=#{param1} and b.sub_id = a.sub_id order by exs_time DESC;
 		</where>
 	</select>
-	
+
 	<insert id="addExamschedule" parameterType="TbExamschedule">
-		INSERT INTO tb_examschedule (sch_id, sub_id, exs_time, exs_address, exs_signUpNum,exs_endTime, exs_totalNum) 
-		VALUES (#{schId},#{subId}, #{exsTime}, #{exsAddress},0, #{exsEndtime},#{exsTotalnum});
+		INSERT INTO
+		tb_examschedule (sch_id, sub_id, exs_time, exs_address,
+		exs_signUpNum,exs_endTime, exs_totalNum)
+		VALUES (#{schId},#{subId}, #{exsTime}, #{exsAddress},0,
+		#{exsEndtime},#{exsTotalnum});
 	</insert>
+
+	<resultMap id="school_score"
+		type="com.dsmp.pojo.TbSubjectscore">
+		<id column="sus_id" property="susId" jdbcType="INTEGER" />
+		<result column="sub_id" property="subId" jdbcType="INTEGER" />
+		<result column="stu_id" property="stuId" jdbcType="INTEGER" />
+		<result column="sus_score" property="susScore"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<!-- 插入考试成绩 -->
+	<insert id="addScore" parameterType="TbSubjectscore">
+		insert into tb_subjectscore (sub_id,stu_id,sus_score)
+		values(#{subId},#{stuId},#{susScore})
+	</insert>
+
+	<!-- 更新考试成绩 -->
+	<insert id="updateScore" parameterType="TbSubjectscore">
+		update tb_subjectscore set sus_score = #{susScore} where sus_id = #{susId}
+	</insert>
+
+	<resultMap id="CountStudentMap" type="com.dsmp.pojo.Count">
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="num" property="data" jdbcType="VARCHAR" />
+		<result column="sch_account" property="phone"
+			jdbcType="VARCHAR" />
+	</resultMap>
+	
+		
+	 <!--  查询某个教练近半年每个月报名人数 -->
+  <select id="countStudentByCoach" resultMap="CountStudentMap"  >
+    select c.month as name,num from
+	(SELECT 
+	date_format(@lastDay := last_day( date_add(@lastDay,interval 1 month ) ) ,'%Y-%m'  ) month
+	from 
+	(SELECT @lastDay := date_add(curdate(),interval -7 month) from tb_student  limit 6) a) c 
+	LEFT JOIN(select stu_signUpTime ,count(*) as num from tb_student where coa_id=#{param1}  GROUP BY DATE_FORMAT(stu_signUpTime , '%Y-%m' )) t ON DATE_FORMAT(t.stu_signUpTime , '%Y-%m' )= c.month order by c.month
+  </select>
+
+
+
   
-  <resultMap id="school_score" type="com.dsmp.pojo.TbSubjectscore" >
-    <id column="sus_id" property="susId" jdbcType="INTEGER" />
-    <result column="sub_id" property="subId" jdbcType="INTEGER" />
-    <result column="stu_id" property="stuId" jdbcType="INTEGER" />
-    <result column="sus_score" property="susScore" jdbcType="INTEGER" />
-  </resultMap>
+  <!-- 查询前六个月日期 -->
+  <select id="searchDate" resultMap="CountStudentMap"  >
+	SELECT 
+	date_format(@lastDay := last_day( date_add(@lastDay,interval 1 month ) ) ,'%Y-%m'  ) name
+	from 
+	(SELECT @lastDay := date_add(curdate(),interval -7 month) from tb_student  limit 6) a
+  </select>
   
-  	<!-- 插入考试成绩 -->
-  <insert id="addScore" parameterType="TbSubjectscore">
-	 insert into tb_subjectscore (sub_id,stu_id,sus_score) values(#{subId},#{stuId},#{susScore})	  
-  </insert>
+  <!-- 查询某一个月有人报名的教练的人数 -->
+  <select id="countStudentByDate" resultMap="CountStudentMap"  >
+	select a.coa_name name,a.coa_account, count(a.coa_name) as num from (
+	select co.coa_name as coa_name,co.coa_account as coa_account from tb_student st,tb_coach co 
+	where st.coa_id= co.coa_id and DATE_FORMAT(st.stu_signUpTime , '%Y-%m' )=#{param1} ) a GROUP BY a.sch_name
+  </select>
   
-  <!-- 更新考试成绩 -->
-  <insert id="updateScore" parameterType="TbSubjectscore">
-	 update tb_subjectscore set sus_score = #{susScore} where sus_id = #{susId}	  
-  </insert>
-  
+ <!--  查询某一个月驾校所有的教练的报名人数，没有人的置零 -->
+ <select id="countAllStudentByDate" resultMap="CountStudentMap">
+ 	select c.coa_name name,b.num from tb_coach c left join 
+(select  count(a.coa_id) as num,a.coa_id from (
+	select coa.coa_id, coa.coa_name as coa_name,coa.coa_account as coa_account from tb_student st,tb_coach coa 
+	where st.coa_id= coa.coa_id and DATE_FORMAT(st.stu_signUpTime , '%Y-%m' )=#{param1}) a GROUP BY a.coa_name) b
+on c.coa_id=b.coa_id and c.sch_id = #{param2}
+ </select>
+ 
+  <!-- 查询某近30天某个驾校教练报名人数 -->
+  <select id="countStudentByMonth" resultMap="CountStudentMap"  >
+	select a.day as name,t.num from
+	(select date_add(curdate(), interval(cast(help_topic_id as signed integer) - 30) day) day
+	from mysql.help_topic
+	where help_topic_id  &lt; day(last_day(curdate()))
+	order by help_topic_id)a
+	LEFT JOIN
+	(select stu_signUpTime ,count(*) as num from tb_student where coa_id=#{param1}  GROUP BY DATE_FORMAT(stu_signUpTime , '%Y-%m-%d' )) t
+ 	ON DATE_FORMAT(t.stu_signUpTime , '%Y-%m-%d' )= a.day order by a.day
+  </select>
+	
+
+
 </mapper>
