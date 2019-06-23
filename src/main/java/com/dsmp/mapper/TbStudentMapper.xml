@@ -87,9 +87,17 @@
 			and s.sch_id=#{schId}
 		</where>
 	</select>
+   <!--  根据驾校查询近半年每个月报名人数 -->
+  <select id="countStudentBySchool" resultMap="CountStudentMap"  >
+    select c.month as name,num from
+	(SELECT 
+	date_format(@lastDay := last_day( date_add(@lastDay,interval 1 month ) ) ,'%Y-%m'  ) month
+	from 
+	(SELECT @lastDay := date_add(curdate(),interval -7 month) from tb_student  limit 6) a) c 
+	LEFT JOIN(select stu_signUpTime ,count(*) as num from tb_student where sch_id=#{param1}  GROUP BY DATE_FORMAT(stu_signUpTime , '%Y-%m' )) t ON DATE_FORMAT(t.stu_signUpTime , '%Y-%m' )= c.month order by c.month
+  </select>
   
-  
- <!--  根据驾校查询近半年每个月报名人数 -->
+ <!--  根据教练查询近半年每个月报名人数 -->
   <select id="countStudentByCoach" resultMap="CountStudentMap"  >
     select c.month as name,num from
 	(SELECT 
@@ -123,7 +131,7 @@
 on c.sch_id=b.sch_id
  </select>
  
-  <!-- 查询某近30天某个驾校驾校报名人数 -->
+  <!-- 查询某驾校近30天某个驾校报名人数 -->
   <select id="countStudentByMonth" resultMap="CountStudentMap"  >
 	select a.day as name,t.num from
 	(select date_add(curdate(), interval(cast(help_topic_id as signed integer) - 30) day) day
