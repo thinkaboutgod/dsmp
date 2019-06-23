@@ -26,7 +26,7 @@
 -->
 </style>
 </head>
-<body class="hold-transition skin-red sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 	<jsp:include page="header.jsp"></jsp:include>
 	<jsp:include page="sliderbar.jsp"></jsp:include>
@@ -34,7 +34,7 @@
 	  	<section class="content">
 	  	 	<div class="row">
 	  	 		<div class="col-md-12">
-           		<img src=<%=path+"/images/hai.jpg"%> alt="">
+           		<img src=<%=path+"/images/MainBJ.png"%> alt="">
 	  	 		</div>  <!-- /.box-body -->
 	  	 	</div>
 	  	</section>

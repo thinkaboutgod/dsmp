@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dsmp.mapper.TbCarMapper;
+import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.SearchBean;
 import com.dsmp.pojo.TbCar;
@@ -23,18 +24,21 @@ import com.dsmp.service.CarService;
 public class CarServiceImpl implements CarService {
 
 	@Autowired private TbCarMapper tbCarMapper;
+	@Autowired private TbParameterMapper tbParameterMapper;
 	
 	/**
 	 * 	根据条件查询驾校名下车辆
 	 */
 	@Override
 	public List<TbCar> selectCarsByCondition(HttpServletRequest request) {
+		
 		//获取查询条件
 		String carPlateNum = request.getParameter("carPlateNum");
 		String coachName = request.getParameter("coachName");
 		String schId = request.getParameter("schId");
 		String beginTime = request.getParameter("beginTime");
 		String endTime = request.getParameter("endTime");
+		
 		if (carPlateNum.trim().equals("")) {
 			carPlateNum = null;
 		}
@@ -64,6 +68,7 @@ public class CarServiceImpl implements CarService {
 		
 		List<TbCar> carList = tbCarMapper.selectCarsByCondition(sBean);
 		
+		String path = tbParameterMapper.selectParamter("系统文件访问路径");
 		for (TbCar tbCar : carList) {
 			//计算使用时间
 			String fromDate = tbCar.getCarStartTime().split(" ")[0];
@@ -75,6 +80,11 @@ public class CarServiceImpl implements CarService {
 	                .append(period.getDays()).append("天");
 	        tbCar.setCarStartTime(fromDate);
 			tbCar.setCarUsedTime(carUsedTime.toString());
+			
+			
+			//设置车子图片的访问路径
+			String carImg = path+"/images/car/"+tbCar.getCarImg();
+			tbCar.setCarImg(carImg);
 		}
 		return carList;
 	}
@@ -107,9 +117,12 @@ public class CarServiceImpl implements CarService {
 		if ("" == carImgNew.getOriginalFilename()) {// 没有更新图片
 			car.setCarImg(null);
 		} else {// 有更新图片
-			String fileName = System.currentTimeMillis() + "_" + carImgNew.getOriginalFilename();
+			String fileName = carImgNew.getOriginalFilename();
 			car.setCarImg(fileName);
-			String path = request.getServletContext().getRealPath("/images/car/");
+			//获取文件存储路径
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");// 获取系统文件储存路径
+			String path = filePath + "/images/car/";
+//			String path = request.getServletContext().getRealPath("/images/car/");
 			File file = new File(path);
 			if (!file.exists()) {
 				file.mkdirs();
@@ -130,9 +143,9 @@ public class CarServiceImpl implements CarService {
 		car.setCarPlatenum(request.getParameter("carPlateNum"));
 		car.setCarStyle(request.getParameter("carStyle"));
 		car.setCarColor(request.getParameter("carColor"));
-		
+		car.setCarStatus("在用");
+		car.setCarStartTime("NOW()");
 		int res = tbCarMapper.addCar(car);
-		
 		if(res>0) {
 			result="success";
 		}else {
@@ -140,6 +153,23 @@ public class CarServiceImpl implements CarService {
 		}
 		
 		return result;
+	}
+
+	
+	@Override
+	public MyResult distributeCar(HttpServletRequest request, MyResult myResult) {
+		
+		String coaId = request.getParameter("coaId");
+		String carId = request.getParameter("carId");
+		
+		int res = tbCarMapper.distributeCar(Integer.valueOf(carId), Integer.valueOf(coaId));
+
+		if (res > 0) {
+			myResult.setMyresult("success");
+		} else {
+			myResult.setMyresult("failed");
+		}
+		return myResult;
 	}
 
 	

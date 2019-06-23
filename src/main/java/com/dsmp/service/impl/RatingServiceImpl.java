@@ -40,10 +40,10 @@ public class RatingServiceImpl implements RatingService {
 		String ratType = starJudge(starNum);
 		TbRating tbRating = new TbRating(null, coa_id, null, stu_id, ratingContent, null, starNum, ratType);
 		int res = tbRatingMapper.addCoachRating(tbRating);
-		System.out.println("res:"+res);
+//		System.out.println("res:"+res);
 		if(1==res) {
 			flag = true;
-			System.out.println("插入教练评价表成功！");
+//			System.out.println("插入教练评价表成功！");
 		}
 		return flag;
 	}
@@ -74,7 +74,7 @@ public class RatingServiceImpl implements RatingService {
 		int res = tbRatingMapper.addSchoolRating(tbRating);
 		if(1==res) {
 			flag = true;
-			System.out.println("插入驾校评价表成功！");
+//			System.out.println("插入驾校评价表成功！");
 		}
 		return flag;
 

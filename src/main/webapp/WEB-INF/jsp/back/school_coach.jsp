@@ -25,7 +25,7 @@
 		<link type="text/css" href="<%=path %>/adminlte/css/morris.css" rel="stylesheet">
 	</head>
 
-	<body class="hold-transition skin-red sidebar-mini">
+	<body class="hold-transition skin-blue sidebar-mini">
 		<div class="wrapper">
 			<jsp:include page="header.jsp"></jsp:include>
 			<jsp:include page="sliderbar.jsp"></jsp:include>

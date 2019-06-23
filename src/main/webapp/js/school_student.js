@@ -81,29 +81,35 @@ $(function() {
 			},
 			{
 				"data": "stuSex",
-				"orderable": false, // 禁用排序
+				"orderable": true, // 禁用排序
 			},
 			{
 				"data": "stuSignuptime",
 				"render": function(data, type, full, meta) {
-					return data = new Date(data).format("yyyy-MM-dd hh:mm:ss");
+					return data = new Date(data).format("yyyy-MM-dd HH:mm:ss");
 				}
 			},
 			{
 				"data": "tbCoach.coaName",
-				"orderable": false, // 禁用排序
+				"render": function(data, type, row, meta) {
+					if(data == null) {
+						return data = "无";
+					}
+					return data;
+				},
+				"orderable": true, // 禁用排序
 			},
 			{
 				"data": "tbSubject.subName",
-				"orderable": false, // 禁用排序
+				"orderable": true, // 禁用排序
 			},
 			{
 				"data": "stuStatus",
-				"orderable": false, // 禁用排序
+				"orderable": true, // 禁用排序
 			},
 			{
 				"data": "stuVerifystatus",
-				"orderable": false, // 禁用排序
+				"orderable": true, // 禁用排序
 			},
 			{
 				"data": "stuId",
@@ -127,7 +133,6 @@ $(function() {
 				}
 			},
 		],
-
 		"fnServerParams": function(aoData) { // 设置参数
 			aoData._rand = Math.random();
 			aoData.push({
@@ -175,7 +180,7 @@ $(function() {
 		var button = $(this);
 		var preText = button.parent().prev().prev().text();
 		var text = $(this).text();
-		// var id = table.rows('.selected').data()[0].cuid;
+
 		var state;
 		if("启用" == text) {
 			state = "start"
@@ -224,7 +229,6 @@ $(function() {
 	$(document).on("click", ".check", function() {
 		// 此处拿到选择行的数据中的
 		var da = table.row($(this).parent().parent()).data();
-		console.log(da)
 		$("#stuId").val(da.stuId);
 		$("#nameCheck").val(da.stuName);
 		$("#phoneCheck").val(da.stuAccount);
@@ -412,8 +416,25 @@ $(function() {
 					if(msg.myresult == "success") {
 						layer.msg("添加学员成功");
 						table.ajax.reload(null, false);
+						canvas.width=canvas.height;
+						$("#real_name").val("");
+						$("#idnum").val("");
+						$("#student_address").val("");
+						$("#sex").val("");
+						$("#teachers").val("0");
+						$("#student_phone").val("");
+						layui.form.render('select');
 					} else if(msg.myresult == "already") {
 						layer.msg("添加学员失败，该账号已经报名!");
+						canvas.width=canvas.height;
+						$("#real_name").val("");
+						$("#idnum").val("");
+						$("#student_address").val("");
+						$("#sex").val("");
+						$("#teachers").val("0");
+						$("#student_phone").val("");
+						layui.form.render('select');
+
 					} else {
 						layer.msg("添加学员失败");
 					}

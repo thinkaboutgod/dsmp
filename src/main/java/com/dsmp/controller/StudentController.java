@@ -11,9 +11,6 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -253,7 +250,6 @@ public class StudentController {
 		return result;
 	}
 	
-
 	//用户在线报名判断
 	@RequestMapping("/studentApply")
 	public @ResponseBody MyResult studentApply(HttpServletRequest request,HttpSession session,
@@ -296,6 +292,7 @@ public class StudentController {
 	 * @return
 	 */
 	@RequestMapping(value = "changeStudentState")
+	@Transactional
 	public @ResponseBody MyResult changeStudentState(HttpServletRequest request) {
 		myResult = studentService.changeStudentState(request, myResult);
 		return myResult;
@@ -310,10 +307,13 @@ public class StudentController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value="addStudent")
+	@Transactional
 	public @ResponseBody MyResult addStudent(HttpServletRequest request,MultipartFile file) throws IllegalStateException, IOException {
 		if (!file.isEmpty()) {
 			// 上传文件路径
-			String path = request.getServletContext().getRealPath("/images/student/");
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");// 获取系统文件储存路径
+			String path = filePath + "/images/student/";
+//			String path = request.getServletContext().getRealPath("/images/student/");
 			// 上传文件名
 			String filename = request.getParameter("filename");
 			File filepath = new File(path, filename);
@@ -337,8 +337,23 @@ public class StudentController {
 	 * @return
 	 */
 	@RequestMapping(value="checkStudent")
+	@Transactional
 	public @ResponseBody MyResult checkStudent(HttpServletRequest request) {
 		myResult = studentService.checkStudent(request, myResult);
 		return myResult;
 	}
+
+	/**
+	 * 	查询学生成绩
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="selectStudentScore")
+	public @ResponseBody Map<String, List<TbStudent>> selectStudentScore(HttpServletRequest request) {
+		List<TbStudent> list = studentService.selectStudentScore(request);
+		Map<String, List<TbStudent>> map = new HashMap<>();
+		map.put("data", list);
+		return map;
+	}
+
 }

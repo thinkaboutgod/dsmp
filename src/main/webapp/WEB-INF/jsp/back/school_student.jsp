@@ -12,6 +12,7 @@
 	String path = request.getContextPath();
 %>
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+		
 		<link type="text/css" href="<%=path %>/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" href="<%=path %>/adminlte/css/font-awesome.min.css" rel="stylesheet">
 		<link type="text/css" href="<%=path %>/adminlte/css/ionicons.min.css" rel="stylesheet">
@@ -24,12 +25,12 @@
 		<link rel='stylesheet' href=<%=path+ "/layui/css/layui.css" %> media="all">
 	</head>
 
-	<body class="hold-transition skin-red sidebar-mini">
+	<body class="hold-transition skin-blue sidebar-mini">
 		<div class="wrapper">
 			<jsp:include page="header.jsp"></jsp:include>
 			<jsp:include page="sliderbar.jsp"></jsp:include>
 			<div class="content-wrapper">
-				<section class="content">
+				<section class="">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="box-header">
@@ -90,10 +91,9 @@
 										</div>
 									</div>
 								</div>
-
 							</div>
+							<!-- /.box-body -->
 						</div>
-						<!-- /.box-body -->
 					</div>
 				</section>
 			</div>
@@ -186,7 +186,7 @@
 									<input class="form-control" id="coachNameCheck" type="text" readonly="readonly">
 								</div>
 							</div>
-							<div class="form-group" >
+							<div class="form-group">
 								<label class="col-sm-2 control-label">选择教练</label>
 								<div class="col-sm-10">
 									<select id="coachs" class="form-control"></select>
@@ -267,7 +267,7 @@
 												<div class="layui-form-item" style="margin-top: 20px;">
 													<label class="layui-form-label">手机号码</label>
 													<div class="layui-input-block">
-														<input type="text" name="student_phone" lay-verify="phone" id="student_phone" lay-vertype="tips" autocomplete="off" placeholder="请输入手机号码" class="layui-input" >
+														<input type="text" name="student_phone" lay-verify="phone" id="student_phone" lay-vertype="tips" autocomplete="off" placeholder="请输入手机号码" class="layui-input">
 													</div>
 												</div>
 												<div class="layui-form-item">
@@ -279,9 +279,7 @@
 											</div>
 										</div>
 									</div>
-									<span class="layui-layer-setwin"><a
-						class="layui-layer-ico layui-layer-close layui-layer-close1"
-						href="javascript:;"></a></span>
+									<span class="layui-layer-setwin"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>/span>
 								</div>
 								<div class="d2">
 									<h1>拍照上传头像</h1>
