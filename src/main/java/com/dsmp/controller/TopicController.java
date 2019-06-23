@@ -422,11 +422,11 @@ public class TopicController {
 		@ResponseBody
 		public String addSubject1Score(Integer stuId,Integer subId,Integer totalScore) {
 			String result = null;
-//			System.out.println("进入addSubject1Score:stuId-"+stuId+",subId-"+subId+",totalScore-"+totalScore);
+			System.out.println("进入addSubject1Score:stuId-"+stuId+",subId-"+subId+",totalScore-"+totalScore);
 			if(null!=stuId&&null!=subId&&null!=totalScore) {//超过90分的才插入成绩
 				boolean addres = subjectScoreService.addSubject1Score(stuId,subId,totalScore);
 				if(addres) {//插入成绩成功！
-//					System.out.println("插入成绩成功！");
+					System.out.println("插入成绩成功！");
 					result = "addSuccess";
 				}
 			}

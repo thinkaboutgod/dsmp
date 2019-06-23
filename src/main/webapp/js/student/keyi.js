@@ -63,7 +63,7 @@
 									layer.msg('您学时与模拟分数已足够，请等待教练给您安排考试！', {icon: 1});
 								}else if(stuBookingstate=='已预约'){//教练已经给你安排好了考试
 									if(actionType=='mistakeTopic'||actionType=='toExam'){//如果点击了错题集或模拟考试
-										layer.msg('您学时与模拟分数已足够，请进入考试页面！', {icon: 1});
+										layer.msg('学时分数已达标，教练已经为您安排考试，请进入考试页面！', {icon: 1});
 									}else if(actionType=='toTrueExam'){//如果点击了真实考试，则进入
 //										window.location.href=path+url;//"/topic/trueFindManyTopic.action"
 										take('考试时间45分钟，90分通过，祝你好运！',url);

@@ -92,6 +92,7 @@
 		
 	$(function(){
 		//倒计时：
+		var path = $("#pathId").val();//路径
 		var leftDateLong = 45*60*1000;//考试时间设置成45min=45*60*1000
 		function countTime(){
 			if(leftDateLong>0){
@@ -310,6 +311,7 @@
 // 												alert('恭喜，学时已满,成绩【'+totalScore+'】分，获得科目一的资格，等待教练给你安排考试！');
 												layer.msg('恭喜，学时已满,成绩【'+totalScore+'】分，获得科目一的资格，等待教练给你安排考试！', function(){
 													//关闭后的操作
+													window.location.href=path+"/home/keyi.action";
 													});
 											}
 											
@@ -408,6 +410,7 @@
 				<div class="test">
 				
 		<form action="" method="post">
+			<input id="pathId" type="hidden" name="path" value=<%=path%>/>	
 <%-- 			<input id="stuId" type="hidden" name="stuId" value="${stu_id}"/>			 --%>
 			<input id="stuId" type="hidden" name="stuId" value="${student.stuId}"/>			
 <%-- 			<input id="subId" type="hidden" name="subId" value="${sub_id}"/>		 --%>

@@ -90,7 +90,7 @@
 				<h3 class="panel-title">${stuDetail.tbSubject.subName }学时进度</h3>  	
 	  	</div>  					
 	  	<div class="panel-body">  						
-	  	<button class="btn btn-primary" role="button">水井挖掘工程</button>  							
+	  	<button class="btn btn-primary" role="button">${overTimeLength}/${needStudyTime }(单位：秒)</button> 							
 	  	<div class="progress">  								
 	  	<div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow=60 aria-valuemin=0 aria-valuemax=100 style="width: ${percentage}">  								
 	  	</div>  							
