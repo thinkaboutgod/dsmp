@@ -53,6 +53,8 @@
 	</script>
 	<div class="hiddenDiv">
 		<input id="path" type="hidden" value=<%=path %>>
+		<input id="passScore" type="hidden" name="passScore" value="${passScore}"/><%-- 考试通过应达到的分数 --%>
+		<input id="timeLengthLimit" type="hidden" name="timeLengthLimit" value="${timeLengthLimit}"/><%-- 答题时间间隔限制 --%>
 		<input id="stuId" type="hidden" value="${student.stuId}">
 		<input id="subId" type="hidden" value="${student.subId}">
 		<input id="coaId" type="hidden" value="${student.coaId}">

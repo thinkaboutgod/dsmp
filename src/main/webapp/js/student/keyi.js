@@ -2,6 +2,10 @@
 
 	$(function(){
 		var path = $("#path").val();
+		var passScore = $("#passScore").val();//通过考试最低分数（90分）
+		var timeLengthLimit = $("#timeLengthLimit").val();//答题时间间隔限制（单位毫秒）
+		var timeLengthLimitOfMin = turnMsToMin(timeLengthLimit);//(单位:分钟)
+		
 		var stuId = $("#stuId").val();
 		var subId = $("#subId").val();
 		var coaId = $("#coaId").val();
@@ -49,7 +53,7 @@
 //							}else if(actionType=='toTrueExam'){//如果点击了真实考试
 								if(stuBookingstate=='未预约'){//学时与成绩尚未达到可预约要求
 									if(actionType=='toExam'){//如果点击了模拟考试，让其进入
-										myInfo("进入计学时学习模式:注意1.20分钟没做题期间的学时就不算数，并自动重新出卷。2.考试时间45分钟，时间到会自动提交。3.做错的题目会在错题集显示",url);
+										myInfo('进入计学时学习模式:注意1.答题间隔超过'+timeLengthLimitOfMin+'分钟,期间的学时就不算数，并自动重新出卷。2.考试时间45分钟，时间到会自动提交。3.做错的题目会在错题集显示',url);
 //										window.location.href=path+url;//"/topic/trueFindManyTopic.action"
 									}else if(actionType=='mistakeTopic'){//如果点击了错题集，让其进入
 										myInfo("进入计学时学习模式:注意1.模拟卷做错的题目都会在这里显示。2.进入开始计学时，提交就计算一段学时。3.做对的题目会从错题集移除",url);
@@ -66,7 +70,7 @@
 										layer.msg('学时分数已达标，教练已经为您安排考试，请进入考试页面！', {icon: 1});
 									}else if(actionType=='toTrueExam'){//如果点击了真实考试，则进入
 //										window.location.href=path+url;//"/topic/trueFindManyTopic.action"
-										take('考试时间45分钟，90分通过，祝你好运！',url);
+										take('考试时间45分钟，'+passScore+'分通过，祝你好运！',url);
 									}
 									
 								}
@@ -95,6 +99,7 @@
 				ask('未登录，去登录页面？',"/student/login.action");
 			}
 		}
+		
 		//各种情况的询问弹窗
 		function ask(info,url){
 			//询问框
@@ -131,6 +136,14 @@
 				}, function(){
 					window.location.href=path+url;
 				});
+		}
+		//把毫秒转化成分钟:
+		function turnMsToMin(msStr){
+			var ms = parseInt(msStr);
+			var minute = parseFloat(ms/1000/60);
+			minute=minute.toFixed(2);
+			return minute;
+			
 		}
 		
 
