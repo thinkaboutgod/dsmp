@@ -90,7 +90,6 @@
 										</div>
 									</div>
 								</div>
-
 							</div>
 						</div>
 						<!-- /.box-body -->
@@ -279,9 +278,7 @@
 											</div>
 										</div>
 									</div>
-									<span class="layui-layer-setwin"><a
-						class="layui-layer-ico layui-layer-close layui-layer-close1"
-						href="javascript:;"></a></span>
+									<span class="layui-layer-setwin"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>/span>
 								</div>
 								<div class="d2">
 									<h1>拍照上传头像</h1>

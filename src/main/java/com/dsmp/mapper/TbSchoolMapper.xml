@@ -45,10 +45,12 @@
   <select id="getSchoolByCreditcode"  resultMap="BaseResultMap">
 		select * from tb_school where sch_creditcode = #{schCreditcode};
   </select>
+  
   <!-- 查询所有允许报名的驾校 -->
   <select id="selectAllSchoolBySignUpStatus" resultMap="BaseResultMap" >
     select * from tb_school where sch_signUpStatus = #{schSignupstatus};
   </select>
+
   <!-- 驾校入驻 -->
   <insert id="insertSchoolInfo" parameterType="com.dsmp.pojo.TbSchool" >
     insert into tb_school(rol_id,sch_name,sch_account,sch_password,sch_address,sch_introduction,sch_bossName,
@@ -124,258 +126,51 @@
   
   
   
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    sch_id, rol_id, sch_name, sch_account, sch_password, sch_address, sch_introduction, 
-    sch_bossName, sch_registerCapital, sch_creditcode, sch_type, sch_signUpStatus, sch_headimg, 
-    sch_operativeStatus, sch_charge
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from tb_school
-    where sch_id = #{schId,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from tb_school
-    where sch_id = #{schId,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.dsmp.pojo.TbSchool" >
-    insert into tb_school (sch_id, rol_id, sch_name, 
-      sch_account, sch_password, sch_address, 
-      sch_introduction, sch_bossName, sch_registerCapital, 
-      sch_creditcode, sch_type, sch_signUpStatus, 
-      sch_headimg, sch_operativeStatus, sch_charge
-      )
-    values (#{schId,jdbcType=INTEGER}, #{rolId,jdbcType=INTEGER}, #{schName,jdbcType=VARCHAR}, 
-      #{schAccount,jdbcType=VARCHAR}, #{schPassword,jdbcType=VARCHAR}, #{schAddress,jdbcType=VARCHAR}, 
-      #{schIntroduction,jdbcType=VARCHAR}, #{schBossname,jdbcType=VARCHAR}, #{schRegistercapital,jdbcType=INTEGER}, 
-      #{schCreditcode,jdbcType=VARCHAR}, #{schType,jdbcType=VARCHAR}, #{schSignupstatus,jdbcType=VARCHAR}, 
-      #{schHeadimg,jdbcType=VARCHAR}, #{schOperativestatus,jdbcType=VARCHAR}, #{schCharge,jdbcType=DOUBLE}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.dsmp.pojo.TbSchool" >
-    insert into tb_school
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="schId != null" >
-        sch_id,
-      </if>
-      <if test="rolId != null" >
-        rol_id,
-      </if>
-      <if test="schName != null" >
-        sch_name,
-      </if>
-      <if test="schAccount != null" >
-        sch_account,
-      </if>
-      <if test="schPassword != null" >
-        sch_password,
-      </if>
-      <if test="schAddress != null" >
-        sch_address,
-      </if>
-      <if test="schIntroduction != null" >
-        sch_introduction,
-      </if>
-      <if test="schBossname != null" >
-        sch_bossName,
-      </if>
-      <if test="schRegistercapital != null" >
-        sch_registerCapital,
-      </if>
-      <if test="schCreditcode != null" >
-        sch_creditcode,
-      </if>
-      <if test="schType != null" >
-        sch_type,
-      </if>
-      <if test="schSignupstatus != null" >
-        sch_signUpStatus,
-      </if>
-      <if test="schHeadimg != null" >
-        sch_headimg,
-      </if>
-      <if test="schOperativestatus != null" >
-        sch_operativeStatus,
-      </if>
-      <if test="schCharge != null" >
-        sch_charge,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="schId != null" >
-        #{schId,jdbcType=INTEGER},
-      </if>
-      <if test="rolId != null" >
-        #{rolId,jdbcType=INTEGER},
-      </if>
-      <if test="schName != null" >
-        #{schName,jdbcType=VARCHAR},
-      </if>
-      <if test="schAccount != null" >
-        #{schAccount,jdbcType=VARCHAR},
-      </if>
-      <if test="schPassword != null" >
-        #{schPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="schAddress != null" >
-        #{schAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="schIntroduction != null" >
-        #{schIntroduction,jdbcType=VARCHAR},
-      </if>
-      <if test="schBossname != null" >
-        #{schBossname,jdbcType=VARCHAR},
-      </if>
-      <if test="schRegistercapital != null" >
-        #{schRegistercapital,jdbcType=INTEGER},
-      </if>
-      <if test="schCreditcode != null" >
-        #{schCreditcode,jdbcType=VARCHAR},
-      </if>
-      <if test="schType != null" >
-        #{schType,jdbcType=VARCHAR},
-      </if>
-      <if test="schSignupstatus != null" >
-        #{schSignupstatus,jdbcType=VARCHAR},
-      </if>
-      <if test="schHeadimg != null" >
-        #{schHeadimg,jdbcType=VARCHAR},
-      </if>
-      <if test="schOperativestatus != null" >
-        #{schOperativestatus,jdbcType=VARCHAR},
-      </if>
-      <if test="schCharge != null" >
-        #{schCharge,jdbcType=DOUBLE},
-      </if>
-    </trim>
+  <resultMap type="com.dsmp.pojo.TbExamschedule" id="school_examSchedule">
+		<id column="exs_id" property="exsId" jdbcType="INTEGER"/>
+  		<result column="sch_id" property="schId" jdbcType="INTEGER" />
+  		<result column="sub_id" property="subId" jdbcType="INTEGER" />
+    	<result column="exs_time" property="exsTime" jdbcType="VARCHAR" />
+   		<result column="exs_address" property="exsAddress" jdbcType="VARCHAR" />
+    	<result column="exs_signUpNum" property="exsSignupnum" jdbcType="INTEGER" />
+    	<result column="exs_endTime" property="exsEndtime" jdbcType="VARCHAR" />
+    	<result column="exs_totalNum" property="exsTotalnum" jdbcType="INTEGER" />
+    	<association property="tbSubject" column="sub_id" javaType="TbSubject">
+    		<id column="sub_id" property="subId" jdbcType="INTEGER" />
+    		<result column="sub_name" property="subName" jdbcType="VARCHAR" />
+    	</association>
+	</resultMap>
+  
+ 	<select id="selectExamschedule"  resultMap="school_examSchedule">
+		select a.*,b.sub_name from tb_examschedule a,tb_subject b 
+		<where>
+			<if test="param2!=null">
+				and b.sub_id=#{param2}
+			</if>
+			 and a.sch_id=#{param1} and b.sub_id = a.sub_id order by exs_time DESC;
+		</where>
+	</select>
+	
+	<insert id="addExamschedule" parameterType="TbExamschedule">
+		INSERT INTO tb_examschedule (sch_id, sub_id, exs_time, exs_address, exs_signUpNum,exs_endTime, exs_totalNum) 
+		VALUES (#{schId},#{subId}, #{exsTime}, #{exsAddress},0, #{exsEndtime},#{exsTotalnum});
+	</insert>
+  
+  <resultMap id="school_score" type="com.dsmp.pojo.TbSubjectscore" >
+    <id column="sus_id" property="susId" jdbcType="INTEGER" />
+    <result column="sub_id" property="subId" jdbcType="INTEGER" />
+    <result column="stu_id" property="stuId" jdbcType="INTEGER" />
+    <result column="sus_score" property="susScore" jdbcType="INTEGER" />
+  </resultMap>
+  
+  	<!-- 插入考试成绩 -->
+  <insert id="addScore" parameterType="TbSubjectscore">
+	 insert into tb_subjectscore (sub_id,stu_id,sus_score) values(#{subId},#{stuId},#{susScore})	  
   </insert>
   
-  
-  <update id="updateByPrimaryKeySelective" parameterType="com.dsmp.pojo.TbSchool" >
-    update tb_school
-    <set >
-      <if test="rolId != null" >
-        rol_id = #{rolId,jdbcType=INTEGER},
-      </if>
-      <if test="schName != null" >
-        sch_name = #{schName,jdbcType=VARCHAR},
-      </if>
-      <if test="schAccount != null" >
-        sch_account = #{schAccount,jdbcType=VARCHAR},
-      </if>
-      <if test="schPassword != null" >
-        sch_password = #{schPassword,jdbcType=VARCHAR},
-      </if>
-      <if test="schAddress != null" >
-        sch_address = #{schAddress,jdbcType=VARCHAR},
-      </if>
-      <if test="schIntroduction != null" >
-        sch_introduction = #{schIntroduction,jdbcType=VARCHAR},
-      </if>
-      <if test="schBossname != null" >
-        sch_bossName = #{schBossname,jdbcType=VARCHAR},
-      </if>
-      <if test="schRegistercapital != null" >
-        sch_registerCapital = #{schRegistercapital,jdbcType=INTEGER},
-      </if>
-      <if test="schCreditcode != null" >
-        sch_creditcode = #{schCreditcode,jdbcType=VARCHAR},
-      </if>
-      <if test="schType != null" >
-        sch_type = #{schType,jdbcType=VARCHAR},
-      </if>
-      <if test="schSignupstatus != null" >
-        sch_signUpStatus = #{schSignupstatus,jdbcType=VARCHAR},
-      </if>
-      <if test="schHeadimg != null" >
-        sch_headimg = #{schHeadimg,jdbcType=VARCHAR},
-      </if>
-      <if test="schOperativestatus != null" >
-        sch_operativeStatus = #{schOperativestatus,jdbcType=VARCHAR},
-      </if>
-      <if test="schCharge != null" >
-        sch_charge = #{schCharge,jdbcType=DOUBLE},
-      </if>
-    </set>
-    where sch_id = #{schId,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.dsmp.pojo.TbSchool" >
-    update tb_school
-    set rol_id = #{rolId,jdbcType=INTEGER},
-      sch_name = #{schName,jdbcType=VARCHAR},
-      sch_account = #{schAccount,jdbcType=VARCHAR},
-      sch_password = #{schPassword,jdbcType=VARCHAR},
-      sch_address = #{schAddress,jdbcType=VARCHAR},
-      sch_introduction = #{schIntroduction,jdbcType=VARCHAR},
-      sch_bossName = #{schBossname,jdbcType=VARCHAR},
-      sch_registerCapital = #{schRegistercapital,jdbcType=INTEGER},
-      sch_creditcode = #{schCreditcode,jdbcType=VARCHAR},
-      sch_type = #{schType,jdbcType=VARCHAR},
-      sch_signUpStatus = #{schSignupstatus,jdbcType=VARCHAR},
-      sch_headimg = #{schHeadimg,jdbcType=VARCHAR},
-      sch_operativeStatus = #{schOperativestatus,jdbcType=VARCHAR},
-      sch_charge = #{schCharge,jdbcType=DOUBLE}
-    where sch_id = #{schId,jdbcType=INTEGER}
-  </update>
-  
+  <!-- 更新考试成绩 -->
+  <insert id="updateScore" parameterType="TbSubjectscore">
+	 update tb_subjectscore set sus_score = #{susScore} where sus_id = #{susId}	  
+  </insert>
   
 </mapper>

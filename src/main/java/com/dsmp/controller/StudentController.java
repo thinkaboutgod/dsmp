@@ -11,9 +11,6 @@ import java.util.Random;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +31,10 @@ import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.mapper.TbStudentMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCapitalrecord;
+import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.pojo.TbStudent;
+import com.dsmp.service.CoachService;
 import com.dsmp.service.StudentService;
 import com.dsmp.utils.GsonUtils;
 import com.zhenzi.sms.ZhenziSmsClient;
@@ -55,6 +54,7 @@ public class StudentController {
 	@Autowired
 	private TbParameterMapper tbParameterMapper;
 	@Autowired private MyResult myResult;
+	@Autowired private CoachService coachService;
 	//主页跳登录页
 	@RequestMapping("/login")
 	public ModelAndView getLoginPage() {
@@ -155,12 +155,18 @@ public class StudentController {
 	}
 	//主页跳到注册页
 	@RequestMapping("/apply")
-	public ModelAndView getApplyPage() {
+	public ModelAndView getApplyPage(Integer schId) {
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("client/apply");
+		if(schId != null) {
+			TbSchool tbSchool = tbMapper.findSchoolBySchId(schId);
+			List<TbCoach> coaList = coachService.selectCoach(schId);
+			mav.addObject("coaList",coaList);
+			mav.addObject("tbSchool",tbSchool);
+		}		
 		String signUpStatus = "允许报名";
 		List<TbSchool> schList = tbMapper.selectAllSchoolBySignUpStatus(signUpStatus);
 		mav.addObject("schList",schList);
+		mav.setViewName("client/apply");
 		return mav;
 	}
 	
@@ -243,7 +249,6 @@ public class StudentController {
 		return result;
 	}
 	
-
 	//用户在线报名判断
 	@RequestMapping("/studentApply")
 	public @ResponseBody MyResult studentApply(HttpServletRequest request,HttpSession session,
@@ -303,7 +308,9 @@ public class StudentController {
 	public @ResponseBody MyResult addStudent(HttpServletRequest request,MultipartFile file) throws IllegalStateException, IOException {
 		if (!file.isEmpty()) {
 			// 上传文件路径
-			String path = request.getServletContext().getRealPath("/images/student/");
+			String filePath = tbParameterMapper.selectParamter("系统文件存储路径");// 获取系统文件储存路径
+			String path = filePath + "/images/student/";
+//			String path = request.getServletContext().getRealPath("/images/student/");
 			// 上传文件名
 			String filename = request.getParameter("filename");
 			File filepath = new File(path, filename);
@@ -331,4 +338,18 @@ public class StudentController {
 		myResult = studentService.checkStudent(request, myResult);
 		return myResult;
 	}
+
+	/**
+	 * 	查询学生成绩
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="selectStudentScore")
+	public @ResponseBody Map<String, List<TbStudent>> selectStudentScore(HttpServletRequest request) {
+		List<TbStudent> list = studentService.selectStudentScore(request);
+		Map<String, List<TbStudent>> map = new HashMap<>();
+		map.put("data", list);
+		return map;
+	}
+
 }

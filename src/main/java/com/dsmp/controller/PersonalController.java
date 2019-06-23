@@ -1,6 +1,7 @@
 package com.dsmp.controller;
 
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -17,8 +18,10 @@ import com.dsmp.pojo.TbStudyrecord;
 import com.dsmp.pojo.TbSubjectscore;
 import com.dsmp.service.ExamScheduleService;
 import com.dsmp.service.RatingService;
+import com.dsmp.service.StudentService;
 import com.dsmp.service.StudyRecordService;
 import com.dsmp.service.SubjectScoreService;
+import com.dsmp.service.SubjectService;
 
 /**
  * 学员个人中心控制层
@@ -37,6 +40,10 @@ public class PersonalController {
 	private SubjectScoreService subjectScoreService;
 	@Autowired
 	private StudyRecordService studyRecordService;
+	@Autowired
+	private StudentService studentService;
+	@Autowired
+	private SubjectService subjectService;
 	/**
 	 * 返回到学员个人中心页面：教练评价，驾校评价，考试情况，科目学时查看
 	 */
@@ -57,7 +64,7 @@ public class PersonalController {
 					List<TbExamscheduleandstudent> examscheduleandstudentList = examScheduleService.findExamScheduleByStuIdAndSubId(student.getStuId(),student.getSubId());
 					if(null!=examscheduleandstudentList&&examscheduleandstudentList.size()>0) {
 						TbExamscheduleandstudent examscheduleandstudent = examscheduleandstudentList.get(0);
-						System.out.println("考试安排表下的学员名称："+examscheduleandstudent.getTbStudent().getStuName()+",考试时间："+examscheduleandstudent.getTbExamschedule().getExsTime());
+//						System.out.println("考试安排表下的学员名称："+examscheduleandstudent.getTbStudent().getStuName()+",考试时间："+examscheduleandstudent.getTbExamschedule().getExsTime());
 						mav.addObject("examscheduleandstudent", examscheduleandstudent);
 					}
 					
@@ -79,7 +86,34 @@ public class PersonalController {
 //					System.out.println("studyRecord3List-subName:"+studyRecord3List.get(0).getTbSubject().getSubName());
 					mav.addObject("studyRecord3List", studyRecord3List);
 				}
+				//5.基本信息（包括学员所属驾校，科目，教练，完成学时/总学时，个科目成绩，当前科目状态）
+				//（1）查学员
+				TbStudent stuDetail = studentService.findStuDetailById(student.getStuId());
+				//（2）查出当前科目完成总学时
+				int overTimeLength = studyRecordService.sumTimeLength(stuDetail.getStuId(), stuDetail.getSubId());
+				//（3）查出各科成绩
+				List<TbSubjectscore> subjectScoreList = subjectScoreService.findSubjectScore(stuDetail.getStuId());
 				
+//				System.out.println("stuDetail-subName:"+stuDetail.getTbSubject().getSubName());
+//				System.out.println("stuDetail-bookingstate:"+stuDetail.getStuBookingstate());
+//				System.out.println("stuDetail-coaName:"+stuDetail.getTbCoach().getCoaName());
+				//(4)计算百分比：
+				//查询出科目需要的总学时：
+				Integer needStudyTime = subjectService.findNeedStudyTime(stuDetail.getSubId());//需要总学时
+				
+				if(null!=stuDetail) {
+					mav.addObject("stuDetail", stuDetail);
+					
+				}
+					mav.addObject("overTimeLength", overTimeLength);//完成总学时
+					mav.addObject("needStudyTime",needStudyTime );//需要总学时
+					mav.addObject("percentage", getPercentage(overTimeLength,needStudyTime));//计算进度百分比
+					
+				
+				if(null!=subjectScoreList) {
+					mav.addObject("subjectScoreList", subjectScoreList);
+					
+				}
 			}else {//进入个人中心需是已报名
 				visitRes = "needRegister";
 			}
@@ -91,6 +125,23 @@ public class PersonalController {
 		mav.addObject("visitRes", visitRes);//可否访问个人中心（看是否登录，是否注册）
 		mav.setViewName("client/stu_personal");
 		return mav;
+	}
+	/**算出百分比
+	 * @param currTotalTimeLength
+	 * @param totalTimeLength
+	 * @return
+	 */
+	public String getPercentage(Integer currTotalTimeLength,Integer totalTimeLength) {
+		 DecimalFormat df = new DecimalFormat("0.00%");
+//		 Integer currTotalTimeLength = sumTimeLength(stu_id, sub_id);
+//		 Integer totalTimeLength = 10*60*60;
+		 String percentage = null;
+		 if(null!=currTotalTimeLength && null!=totalTimeLength) {
+//			 System.out.println(df.format((double)currTotalTimeLength/totalTimeLength)); 
+			 percentage = df.format((double)currTotalTimeLength/totalTimeLength);
+			 
+		 }
+		 return percentage;
 	}
 	/**去教练评价页面
 	 * @return
@@ -119,12 +170,12 @@ public class PersonalController {
 		if(starNum==null) {
 			starNum=0;
 		}
-		System.out.println("coa_id:"+coa_id+",stu_id:"+stu_id+",starNum:"+starNum);
-		System.out.println("ratingContent:"+ratingContent);
+//		System.out.println("coa_id:"+coa_id+",stu_id:"+stu_id+",starNum:"+starNum);
+//		System.out.println("ratingContent:"+ratingContent);
 		if(null!=coa_id && null!=stu_id
 				&& null!=ratingContent && !"".equals(ratingContent)) {
 			boolean res = ratingService.addCoachRating(coa_id,stu_id,starNum,ratingContent);
-			System.out.println("res:"+res);
+//			System.out.println("res:"+res);
 			if(res) {
 				resInfo="success";
 			}
@@ -160,8 +211,8 @@ public class PersonalController {
 		if(starNum==null) {
 			starNum=0;
 		}
-		System.out.println("sch_id:"+sch_id+",stu_id:"+stu_id+",starNum:"+starNum);
-		System.out.println("ratingContent:"+ratingContent);
+//		System.out.println("sch_id:"+sch_id+",stu_id:"+stu_id+",starNum:"+starNum);
+//		System.out.println("ratingContent:"+ratingContent);
 		if(null!=sch_id && null!=stu_id && null!=starNum 
 				&& null!=ratingContent && !"".equals(ratingContent)) {
 			boolean res = ratingService.addSchoolRating(sch_id,stu_id,starNum,ratingContent);

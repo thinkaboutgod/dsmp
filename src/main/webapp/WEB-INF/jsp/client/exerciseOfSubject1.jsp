@@ -72,6 +72,7 @@
 <script type="text/javascript">
 	$(function(){
 		var path = $("#pathId").val();//路径
+		var topicImgFilePath = $("#topicImgFilePath").val();//图片路径
 		//取到学员id
 		var stuId = $("#stuId").val();
 		//取到科目号
@@ -110,7 +111,8 @@
 				$("#topicDiv").append('<div id="conTopDiv" class="test_content_nr_tt"><i><span>'+(topicOrder+1)+'</span></i><font>'+allTopList[topicOrder].topTopic+'</font></div>');
 				$("#topicDiv").append('<div id="conDiv" class="test_content_nr_main"></div>');
 				if(allTopList[topicOrder].topImg!=null && ''!=allTopList[topicOrder].topImg){
-					$("#conDiv").append('<img src='+path+allTopList[topicOrder].topImg+'>');//如果该题有图片，则引入
+// 					$("#conDiv").append('<img src='+path+allTopList[topicOrder].topImg+'>');//如果该题有图片，则引入
+					$("#conDiv").append('<img src='+topicImgFilePath+allTopList[topicOrder].topImg+'>');//如果该题有图片，则引入
 				}
 				
 				$("#conDiv").append('<ol id="optionId" class="optionClass"></ol>');
@@ -160,7 +162,8 @@
 				$("#topicDiv").append('<div id="conTopDiv" class="test_content_nr_tt"><i><span>'+(topicOrder+1)+'</span></i><font>'+allTopList[topicOrder].topTopic+'</font></div>');
 				$("#topicDiv").append('<div id="conDiv" class="test_content_nr_main"></div>');
 				if(allTopList[topicOrder].topImg!=null && ''!=allTopList[topicOrder].topImg){
-					$("#conDiv").append('<div><img src='+path+allTopList[topicOrder].topImg+'><div>');
+// 					$("#conDiv").append('<div><img src='+path+allTopList[topicOrder].topImg+'><div>');
+					$("#conDiv").append('<div><img src='+topicImgFilePath+allTopList[topicOrder].topImg+'><div>');
 				}
 				
 				$("#conDiv").append('<ol id="optionId" class="optionClass"></ol>');
@@ -245,7 +248,7 @@
 				});
 			},
 		});
-		//图片缩放
+		//图片缩放：
 		$("img").on({
 			"click":function(){
 				$(this).css({
@@ -260,6 +263,20 @@
 				});
 			}
 		});
+		//图片缩放：append的这个才奏效：
+		$(document).on("click","img",function(){
+			$(this).css({
+				"height":"200px",
+				"width":"600px",
+			});
+		});
+		$(document).on("mouseout","img",function(){
+			$(this).css({
+				"height":"100px",
+				"width":"300px",
+			});
+		});
+		
 			});
 
 </script>
@@ -270,7 +287,8 @@
 					<div class="nr_left">
 						<div class="test">
 	<form action="" method="post">
-		<input id="pathId" type="hidden" name="path" value=<%=path%>/>			
+		<input id="pathId" type="hidden" name="path" value=<%=path%>/>		
+		<input id="topicImgFilePath" type="hidden" name="topicImgFilePath" value=${topicImgFilePath}/>		
 		<input id="stuId" type="hidden" name="stuId" value="${stu_id}"/>			
 		<input id="subId" type="hidden" name="subId" value="${sub_id}"/>
 		<input id="allTopicListId" type="hidden" name="allTopicList" value="${allTopicList}"/>
@@ -290,10 +308,10 @@
 				</div>
 				<div class="test_content_nr_main">
 				<c:if test="${allTopicList[0].topImg!=null&&''!=allTopicList[0].topImg}">
-					<img alt="" src=<%=path%>${allTopicList[0].topImg}>									
+					<img alt="" src=${topicImgFilePath }${allTopicList[0].topImg}>									
 									
 				</c:if>
-				<img alt="" src=<%=path+"/images/hai.jpg" %>>	
+<%-- 				<img alt="" src=<%=path+"/images/hai.jpg" %>>	 --%>
 				<ol class="optionClass">
 					<c:forEach begin="0" step="1" items="${allTopicList[0].options}" var="j" varStatus="status">
 						<li class="option">

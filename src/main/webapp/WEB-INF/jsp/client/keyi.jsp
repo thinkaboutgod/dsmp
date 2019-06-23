@@ -16,11 +16,24 @@
 	type="text/css">
 <link href=<%=path + "/css/home/green.css"%> title="" rel="stylesheet"
 	type="text/css" />
-<script type="text/javascript"
-	src=<%=path + "/js/home/jquery1.42.min.js"%>></script>
+<style type="text/css">
+	.layer_notice {
+	    float: left;
+	    height: 75px;
+	    width: 330px;
+	    overflow: hidden;
+	    background: #5FB878;
+	    padding: 10px;
+}
+</style>
+<!-- <script type="text/javascript" -->
+<%-- 	src=<%=path + "/js/home/jquery1.42.min.js"%>></script>这原先是文志引入的jQuery，但是版本太低，导致layer弹窗不能用，故注释掉换成下面的 jquery-3.3.1.js--%>
+<script type="text/javascript" src=<%=path+"/js/jquery-3.3.1.js" %>></script>
 <script type="text/javascript"
 	src=<%=path + "/js/home/jquery.superslide.2.1.1.js"%>></script>
+	<script type="text/javascript" src=<%=path+"/layer/layer.js" %>></script><%--引入layer+jquery就可以实现漂亮的弹框 --%>
 	<script type="text/javascript" src=<%=path + "/js/home/aos.js"%>></script>
+	<script type="text/javascript" src=<%=path + "/js/student/keyi.js"%>></script>
 
 </head>
 <body>
@@ -36,7 +49,16 @@
 			returnDefault : true
 		//返回默认状态
 		});
+
 	</script>
+	<div class="hiddenDiv">
+		<input id="path" type="hidden" value=<%=path %>>
+		<input id="stuId" type="hidden" value="${student.stuId}">
+		<input id="subId" type="hidden" value="${student.subId}">
+		<input id="coaId" type="hidden" value="${student.coaId}">
+		<input id="stuBookingstate" type="hidden" value="${student.stuBookingstate}">
+	</div>
+
 	<div class="main">
 			<div class="ks-right pull-right">
 				<div class="ks-right-main">
@@ -52,7 +74,7 @@
 						<div class="ks-right-main-links clear">
 							<div class="item">
 								<div class="item-logo">
-									<a class="fill-color fill-yellow" href=<%=path+"/topic/findAllTopic.action?stu_id=2&sub_id=1"%>>
+									<a class="fill-color fill-yellow" href=<%=path+"/topic/findAllTopic.action?stu_id=2&sub_id=1"%> target="blank">
 										<div class="lg"></div>
 									</a>
 								</div>
@@ -72,7 +94,8 @@
 							</div>
 							<div class="item">
 								<div class="item-logo">
-									<a class="fill-color fill-green" href=<%=path+"/topic/findMistakeTopic.action"%>><!-- ?stu_id=2&sub_id=1 -->
+<%-- 									<a class="fill-color fill-green" href=<%=path+"/topic/findMistakeTopic.action"%> target="blank"><!-- ?stu_id=2&sub_id=1 --> --%>
+									<a class="fill-color fill-green" id="mistakeTopicId" target="blank"><!-- ?stu_id=2&sub_id=1 -->
 										<div class="lg"></div>
 									</a>
 								</div>
@@ -103,7 +126,8 @@
 							</div>
 							<div class="item">
 								<div class="item-logo">
-									<a class="fill-color fill-pink" href=<%=path+"/topic/findManyTopic.action"%>><!-- ?stu_id=2&sub_id=1 -->
+<%-- 									<a class="fill-color fill-pink" id="toExamId" href=<%=path+"/topic/findManyTopic.action"%> target="blank"><!-- ?stu_id=2&sub_id=1 --> --%>
+									<a class="fill-color fill-pink" id="toExamId" target="blank"><!-- ?stu_id=2&sub_id=1 -->
 										<div class="lg"></div>
 									</a>
 								</div>
@@ -114,7 +138,8 @@
 							
 						</div>
 						<div class="ks-right-vip-link clear">
-							<a class="ks-right-vip-btn" href=<%=path+"/topic/trueFindManyTopic.action"%> target="blank">进入模拟仿真考场</a>
+<%-- 							<a class="ks-right-vip-btn" id="toStuPersonalId" href=<%=path+"/topic/trueFindManyTopic.action"%> target="blank">进入模拟仿真考场</a> --%>
+							<a class="ks-right-vip-btn" id="toTrueExamId" target="blank">进入模拟仿真考场</a>
 						</div>
 					</div>
 					<div class="clear"></div>

@@ -14,7 +14,6 @@ layui.use(['upload','form'], function(){
 			}
 		}
 		var selectSchool = $("#schools").val();
-		alert(selectSchool);
 		$.ajax({
 			url:path+"/school/selectCoach.action?",
 			async:true,

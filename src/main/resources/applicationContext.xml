@@ -90,12 +90,12 @@
  		</mvc:interceptor>
  		
  		<!-- 获取菜单拦截 -->
- 		<mvc:interceptor>
+ 		<!-- <mvc:interceptor> -->
  			<!-- 进行拦截：/**表示拦截所有controller -->
- 			<mvc:mapping path="/menu/toManageMain.action" />
+ 			<!-- <mvc:mapping path="/menu/toManageMain.action" /> -->
  			<!-- 加载相应的拦截器类 -->
- 			<bean class="com.dsmp.interceptor.MenuInterceptor" />
- 		</mvc:interceptor>
+ 			<!-- <bean class="com.dsmp.interceptor.MenuInterceptor" /> -->
+ 		<!-- </mvc:interceptor> -->
  		
  		<!-- 教练端是否登录拦截 -->
  		<mvc:interceptor>
@@ -103,6 +103,24 @@
  			<mvc:mapping path="/coach/**" />
  			<!-- 加载相应的拦截器类 -->
  			<bean class="com.dsmp.interceptor.CoachSessionInterceptor" />
+ 		</mvc:interceptor>
+ 		<!-- ren start -->
+ 		<!-- 学员(个人中心)是否登录拦截 -->
+ 		<mvc:interceptor>
+ 			<!-- 进行拦截：/**表示拦截所有controller -->
+ 			<mvc:mapping path="/personal/toStuPersonal.action"/>
+ 			<mvc:mapping path="/topic/findMistakeTopic.action"/>
+<!--  			<mvc:mapping path="/topic/trueFindManyTopic.action"/> -->
+ 			<!-- 加载相应的拦截器类 -->
+ 			<bean class="com.dsmp.interceptor.StuLoginInterceptor"></bean>
+ 		</mvc:interceptor>
+ 		<!-- 给教练或驾校评价的时候，如果有敏感词汇就拦截掉 -->
+ 		<mvc:interceptor>
+ 			<!-- 进行拦截：/**表示拦截所有controller -->
+ 			<mvc:mapping path="/personal/addCoachRating.action"/>
+ 			<mvc:mapping path="/personal/addSchoolRating.action"/>
+ 			<!-- 加载相应的拦截器类 -->
+ 			<bean class="com.dsmp.interceptor.SensitiveWordsInterceptor"></bean>
  		</mvc:interceptor>
  		
  		<!-- 学员在线报名是否登录拦截 -->

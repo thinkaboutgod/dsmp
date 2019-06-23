@@ -57,6 +57,11 @@ public interface TbStudentMapper {
 	 * @return
 	 */
 	public TbStudent findStuById(Integer stuId);
+	/**根据学员id查学员(包括驾校，科目，教练等详细信息)
+	 * @param stuId 学员id
+	 * @return
+	 */
+	public TbStudent findStuDetailById(Integer stuId);
 	/**
 	 * 	修改学员状态
 	 * @param stuId
@@ -79,5 +84,17 @@ public interface TbStudentMapper {
 	 */
 	public int checkStudent(TbStudent student);
 	
+	/**
+	 * 	查询学生成绩
+	 * @param schId
+	 */
+	public List<TbStudent> selectStudentScore(int schId);
+	
+	/**
+	 * 	根据成绩变更学生的状态
+	 * @param student
+	 * @return
+	 */
+	public int updateStudentWithScore(TbStudent student);
 	
 }

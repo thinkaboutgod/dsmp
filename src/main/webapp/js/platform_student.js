@@ -168,8 +168,6 @@ $(function() {
 
 				);
 			},
-			
-
 		};
 	
 	var table2 = $("#studentTable2").DataTable(datatable_otherSet2);//初始化

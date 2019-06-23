@@ -17,11 +17,17 @@ $(function() {
 				success:function(res){//访问路径成功后的处理
 //					alert(res);
 					if(res=="success"){
-						alert('评价成功！');
+//						alert('评价成功！');
+						coaRemind('评价成功！');
 						//清空数据：
-						$("#reset").click();
-					}else{
-						alert('评价失败！');
+//						$("#reset").click();
+					}else if(res=="sensitiveWord"){
+//						alert('评价失败！');
+						coaRemind('评价失败！含敏感词汇!');
+						
+					}else if(res=='empty'){
+//						alert('评价失败！');
+						coaRemind('评价失败！内容不能为空');
 						
 					}
 					
@@ -54,11 +60,17 @@ $(function() {
 				success:function(res){//访问路径成功后的处理
 //					alert(res);
 					if(res=="success"){
-						alert('评价成功！');
+//						alert('评价成功！');
+						remind('评价成功！');
 						//清空数据：
-						$("#shcoolReset").click();
-					}else{
-						alert('评价失败！');
+//						$("#shcoolReset").click();
+					}else if(res=="sensitiveWord"){
+//						alert('评价失败！');
+						coaRemind('评价失败！含敏感词汇!');
+						
+					}else if(res=="empty"){
+//						alert('评价失败！');
+						coaRemind('评价失败！内容不能为空');
 						
 					}
 					
@@ -73,6 +85,23 @@ $(function() {
 			
 		},
 	});
+	//跳动弹框（教练提示）
+	function coaRemind(info){
+		//信息框-例5
+		layer.msg(info, function(){
+			//关闭后的操作
+			//清空数据：
+			$("#reset").click();
+		});
+	}
+	//跳动弹框（驾校提示）
+	function remind(info){
+		//信息框-例5
+		layer.msg(info, function(){
+		//关闭后的操作
+			$("#shcoolReset").click();
+		});
+	}
+
 	
-	
-})
+});

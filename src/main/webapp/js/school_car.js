@@ -149,7 +149,6 @@ $(function() {
 
 	// 提交添加教练车
 	$(document).on("click", "#btn_add", function() {
-		alert("点击提交")
 		var schId = $("#schId").val();
 		var carPlateNum = $.trim($("#carPlateNumNew").val());
 		var carStyle = $.trim($("#carStyleNew").val());
@@ -178,6 +177,9 @@ $(function() {
 			if(suffix != "BMP" && suffix != "JPG" && suffix != "JPEG" && suffix != "PNG" && suffix != "GIF") {    
 				layer.msg("图片格式只能为：BMP、JPG、JPEG、PNG、GIF）!");  
 			} 
+		}else{
+			layer.msg("请上传车辆照片");
+			return false;
 		}
 
 		//ajaxFileUpload上传带的参数只能为键值对字符串，不能为json对象
@@ -193,7 +195,7 @@ $(function() {
 				carStyle: carStyle,
 				carColor: carColor,
 			},
-			
+
 			success: function(data) {
 				if(data == "success") {
 					layer.msg('添加成功', {
@@ -206,14 +208,13 @@ $(function() {
 						time: 2000
 					});
 				}
-
 			},
 			error: function() {
 				layer.msg("服务器繁忙");
 			}
 		})
 	})
-	
+
 	//去除所选的图片
 	$("#deleteCarImg").click(function() {
 		$("#carImgNew").val("");

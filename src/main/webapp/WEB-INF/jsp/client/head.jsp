@@ -8,8 +8,6 @@
 			<!-- 联系 -->
 			<div class="comment-header-contact">
 				<div class="comment-header-left">
-					<!--<span class="VTargetSpan"></span>-->
-					<!--<img class="comment-header-vip-img" src="" alt="">-->
 					<span class="comment-header-phone-describe">您好，欢迎来到厦门机动车驾培公众服务平台！</span>
 				</div>
 				<div class="comment-header-right">
@@ -53,13 +51,13 @@
 				<h3>
 					<a href=" javascript:;">模拟考试</a>
 				</h3>
-				<ul class="sub">
+<!-- 				<ul class="sub"> -->
 
-					<li><a target="_blank" href=<%=path+"/topic/findManyTopic.action?stu_id=2&sub_id=1"%>>科目一模拟</a></li>
-					<li><a target="_blank" href=<%=path+"/topic/findAllTopic.action?stu_id=2&sub_id=1"%>>科目一练习</a></li>
-					<li><a target="_blank" href=<%=path+"/topic/findMistakeTopic.action?stu_id=2&sub_id=1"%>>科目一错题集</a></li>
-					<li><a href="javascript:;">科目四</a></li>
-				</ul>
+<%-- 					<li><a target="_blank" href=<%=path+"/topic/findManyTopic.action?stu_id=2&sub_id=1"%>>科目一模拟</a></li> --%>
+<%-- 					<li><a target="_blank" href=<%=path+"/topic/findAllTopic.action?stu_id=2&sub_id=1"%>>科目一练习</a></li> --%>
+<%-- 					<li><a target="_blank" href=<%=path+"/topic/findMistakeTopic.action?stu_id=2&sub_id=1"%>>科目一错题集</a></li> --%>
+<!-- 					<li><a href="javascript:;">科目四</a></li> -->
+<!-- 				</ul> -->
 			</li>
 			<li class="m ">
 				<h3>
@@ -79,7 +77,7 @@
 			</li>
 			<li class="m ">
 				<h3>
-					<a href=" javascript:;">学员在线报名</a>
+					<a href="javascript:;">学员在线报名</a>
 				</h3>
 				<ul class="sub">
 					<li><a href=<%=path+"/student/apply.action?" %>>报考驾校</a></li>					

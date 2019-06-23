@@ -3,7 +3,7 @@ $(function() {
 	$.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 	
 	datatable_otherSet = {
-			"ajax" : "../coach/selectCoasByCondition.action",
+			"ajax" : "../tbcoach/selectCoasByCondition.action",
 			"autoWidth" : false,
 			"columns" : [
 					{
@@ -107,7 +107,7 @@ $(function() {
 			state="forbid"
 		};
 		$.ajax({
-			url : "../coach/changeCoachState.action",
+			url : "../tbcoach/changeCoachState.action",
 			async : true,
 			type : "POST",
 			data :  {coaId : id,state:state,preText:preText}  ,
@@ -223,7 +223,7 @@ $(function() {
 		}
 		
 		$.ajax({
-			url : "../coach/addCoach.action",
+			url : "../tbcoach/addCoach.action",
 			async : true,
 			type : "POST",
 			data : {schId:schId,"account":account,"passward":passward,"name":name,sex:sex,birthday:birthday,

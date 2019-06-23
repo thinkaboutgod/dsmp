@@ -32,10 +32,10 @@ public class TbSchool {
     private String schHeadimg;
 
     private String schOperativestatus;
-    
-    private String schAudit;
 
     private Double schCharge;
+    
+    private String schAudit;
 
     private TbRole tbRole;
     
@@ -64,7 +64,10 @@ public class TbSchool {
     //车集合
     private List<TbCar> carList = new ArrayList<>();
     
-    public Integer getSchId() {
+    
+    
+
+	public Integer getSchId() {
         return schId;
     }
 
