@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.dsmp.pojo.TbOption;
 import com.dsmp.pojo.TbStudent;
 import com.dsmp.pojo.TbTopic;
+import com.dsmp.service.ParameterService;
 import com.dsmp.service.PlateformService;
 import com.dsmp.service.StudentService;
 import com.dsmp.service.StudyRecordService;
@@ -46,7 +47,8 @@ public class TopicController {
 	private SubjectService subjectService;
 	@Autowired
 	private PlateformService plateformService;
-	
+
+
 	/**查询出题库里图片存放的路径
 	 * @return 
 	 */
@@ -164,7 +166,15 @@ public class TopicController {
 		}
 		//得到题库里存放图片的文件夹的路径
 		String topicImgFilePath = findTopicImgPath();
+/*		//得到考试通过分数：
+		Integer passScore = findPassScore();
+//		System.out.println("考试通过最低分数passScore:"+passScore);
+		//得到考试答题时间间隔限制（单位毫秒s）
+		Long timeLengthLimit = findTimeLengthLimit();
+		session.setAttribute("timeLengthLimit", timeLengthLimit);//因为除了examOfSubject1用到这个答题时间间隔限制外keyi.jsp也有用到，所以存会花中
 		
+//		mav.addObject("timeLengthLimit", timeLengthLimit);
+		mav.addObject("passScore", passScore);*/
 		mav.addObject("topicImgFilePath", topicImgFilePath);
 		mav.addObject("stu_id", stu_id);
 		mav.addObject("sub_id", sub_id);
@@ -401,6 +411,12 @@ public class TopicController {
 			}				
 			//得到题库里存放图片的文件夹的路径
 			String topicImgFilePath = findTopicImgPath();
+			/*//得到考试通过分数：
+			Integer passScore = findPassScore();
+//			System.out.println("考试通过最低分数passScore:"+passScore);
+			session.setAttribute("passScore", passScore);//因为除了trueExamOfSubject1用到这个通过分数外keyi.jsp也有用到，所以存会花中
+*/			
+//			mav.addObject("passScore", passScore);
 			
 			mav.addObject("topicImgFilePath", topicImgFilePath);
 			mav.addObject("student", student);
@@ -422,11 +438,11 @@ public class TopicController {
 		@ResponseBody
 		public String addSubject1Score(Integer stuId,Integer subId,Integer totalScore) {
 			String result = null;
-//			System.out.println("进入addSubject1Score:stuId-"+stuId+",subId-"+subId+",totalScore-"+totalScore);
+			System.out.println("进入addSubject1Score:stuId-"+stuId+",subId-"+subId+",totalScore-"+totalScore);
 			if(null!=stuId&&null!=subId&&null!=totalScore) {//超过90分的才插入成绩
 				boolean addres = subjectScoreService.addSubject1Score(stuId,subId,totalScore);
 				if(addres) {//插入成绩成功！
-//					System.out.println("插入成绩成功！");
+					System.out.println("插入成绩成功！");
 					result = "addSuccess";
 				}
 			}

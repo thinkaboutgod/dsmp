@@ -48,6 +48,7 @@ $(function() {
 						layer.msg("登录失败，账号不存在!");
 					}else if(msge.myresult == "codeFaild"){
 						layer.msg("登录失败，验证码错误!");
+						$("#getCode").click();
 					}else if(msge.myresult == "pwdErr"){
 						layer.msg("登录失败，密码错误!");
 					}

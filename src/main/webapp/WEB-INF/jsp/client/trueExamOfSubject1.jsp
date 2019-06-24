@@ -84,6 +84,7 @@
 <script type="text/javascript">
 		
 	$(function(){
+		var passScore = $("#passScore").val();//通过考试最低分数（90分）
 		//倒计时：
 		
 		var leftDateLong = 45*60*1000;//考试时间设置成45min=45*60*1000
@@ -181,8 +182,9 @@
 			//利用Ajax把examResultMap把key(题号topId)和学员此题所选答案对错结果value，还有学员id传给控制类
 			var exresMap2json=JSON.stringify(examResultMap);//map转成json字符串
 			if(subId==1){//如果session里有科目id，且是1（科目一），则允许提交：
-// 				alert(subId);
-				if(totalScore>=2){//正式过了科目一（成绩大于90分）
+// 				alert('passScore:'+passScore+';totalScore:'+totalScore);
+			
+				if(totalScore>=passScore){//正式过了科目一（成绩大于90分）
 					$.ajax({
 						url:"addSubject1Score.action",
 						async:true,
@@ -192,7 +194,7 @@
 						success:function(data){
 							if(data=='addSuccess'){//插入成绩成功！
 // 								alert('恭喜您！过了科目一！');
-								layer.alert('恭喜您！过了科目一！', {icon: 6});//【+'totalScore'+】
+								layer.alert('恭喜您！成绩【'+totalScore+'】分，过了科目一！', {icon: 6});//【+'totalScore'+】
 								pass();//要把科目一改成科目二，预约状态改成"未预约"
 								
 							}
@@ -205,7 +207,7 @@
 					
 				}else{
 // 					alert('暂时未过科目一！');
-					layer.msg('没过科目一！等待教练给你安排下一次考试！', {icon: 5});//【+'totalScore'+】
+					layer.msg('成绩低于【'+passScore+'】分，没过科目一！已不能再考，等待教练给你安排下一次考试！', {icon: 5});//【+'totalScore'+】
 					noPass();//要把学员的科目状态改成"未预约"，不让其继续考试，要等待教练的安排
 				}
 				
@@ -291,7 +293,7 @@
 						<div class="test">
 						
 			<form action="" method="post">
-	<%-- 			<input id="stuId" type="hidden" name="stuId" value="${stu_id}"/>			 --%>
+				<input id="passScore" type="hidden" name="passScore" value="${passScore}"/><%-- 考试通过应达到的分数 --%>
 				<input id="stuId" type="hidden" name="stuId" value="${student.stuId}"/>			
 	<%-- 			<input id="subId" type="hidden" name="subId" value="${sub_id}"/>		 --%>
 				<input id="subId" type="hidden" name="subId" value="${student.subId}"/>		
@@ -301,7 +303,8 @@
                             <div class="test_content_title">
                                 <h2>科目一考试(单选题)</h2>
                                 <p>
-                                    <span>共</span><i class="content_lit">${fn:length(topicList)}</i><span>分，</span><i class="content_fs">${fn:length(topicList)*0.9}</i><span>分通过</span>
+<%--                                     <span>共</span><i class="content_lit">${fn:length(topicList)}</i><span>分，</span><i class="content_fs">${fn:length(topicList)*0.9}</i><span>分通过</span> --%>
+                                    <span>共</span><i class="content_lit">${fn:length(topicList)}</i><span>分，</span><i class="content_fs">${passScore}</i><span>分通过</span>
                                 </p>
                             </div>
                         </div>

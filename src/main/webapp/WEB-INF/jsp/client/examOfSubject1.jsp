@@ -91,6 +91,13 @@
 <script type="text/javascript">
 		
 	$(function(){
+		var path = $("#pathId").val();//路径
+		var passScore = $("#passScore").val();//通过考试最低分数（90分）
+		var timeLengthLimit = $("#timeLengthLimit").val();//答题时间间隔限制（单位毫秒）
+// 		alert('转换前');
+		//因提示要用秒，故需要转化一下时间间隔
+		var timeLengthLimitOfS = turnMsToS(timeLengthLimit);//(单位秒)
+// 		alert('转换后');
 		//倒计时：
 		var leftDateLong = 45*60*1000;//考试时间设置成45min=45*60*1000
 		function countTime(){
@@ -131,7 +138,7 @@
 		//偶数点击给arr[0]，奇数给arr[1]
 		arr[0]=new Date();//初始给一个时间
 		var clickTimes = 0;
-		var timeLengthLimit =20*60*1000;//答题时间长度限制（20min） 20*60*1000
+// 		var timeLengthLimit =20*60*1000;//答题时间长度限制（20min） 20*60*1000
 		//取到学员id
 		var stuId = $("#stuId").val();
 		//取到科目号
@@ -159,7 +166,7 @@
 // 				alert('点击时间间隔:'+timeLenth);//点击的时间间隔超过30分钟就视为挂机(单位：毫秒)
 				if(timeLenth>timeLengthLimit){//点击的时间间隔超过30分钟就视为挂机(单位：毫秒)
 // 					alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+timeLenth+'s');
-					take('答题时间间隔超20分钟，有挂机嫌疑，计时无效！重新出卷'+timeLenth+'s',"findManyTopic.action");
+					take('答题时间间隔超'+timeLengthLimitOfS+'秒，有挂机嫌疑，计时无效！重新出卷，间隔时长：'+timeLenth+'ms',"findManyTopic.action");
 // 					alert('重新出卷');
 // 					window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
 					return;
@@ -201,7 +208,7 @@
 			if(arr.length==1){//说明没有点击过选项
 				if(commitTime-arr[0]>timeLengthLimit){
 // 					alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+(commitTime-arr[0])+'ms');
-					take('答题时间间隔超20分钟，有挂机嫌疑，计时无效！重新出卷'+(commitTime-arr[0])+'s',"findManyTopic.action");
+					take('答题时间间隔超'+timeLengthLimitOfS+'秒，有挂机嫌疑，计时无效！重新出卷,间隔时长：'+(commitTime-arr[0])+'ms',"findManyTopic.action");
 // 					alert('重新出卷');
 // 					window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
 					return;
@@ -210,7 +217,7 @@
 				if(arr[1]>arr[0]){
 					if(commitTime-arr[1]>timeLengthLimit){
 // 						alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+(commitTime-arr[1])+'s');
-						take('答题时间间隔超20分钟，有挂机嫌疑，计时无效！重新出卷'+(commitTime-arr[1])+'s',"findManyTopic.action");
+						take('答题时间间隔超'+timeLengthLimitOfS+'秒，有挂机嫌疑，计时无效！重新出卷，间隔时长：'+(commitTime-arr[1])+'ms',"findManyTopic.action");
 // 						alert('重新出卷');
 // 						window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
 						return;
@@ -218,7 +225,7 @@
 				}else{
 					if(commitTime-arr[0]>timeLengthLimit){
 // 						alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+(commitTime-arr[0])+'s');
-						take('答题时间间隔超20分钟，有挂机嫌疑，计时无效！重新出卷'+(commitTime-arr[0])+'s',"findManyTopic.action");
+						take('答题时间间隔超'+timeLengthLimitOfS+'秒，有挂机嫌疑，计时无效！重新出卷，间隔时长：'+(commitTime-arr[0])+'ms',"findManyTopic.action");
 // 						alert('重新出卷');
 // 						window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
 						return;
@@ -292,7 +299,7 @@
 							//如果学时够了，则判断学员是否可以正式参加考试
 							if(currTotalTimeLength>=totalTimeLength){
 // 									alert('学员当前学时大于要求学时，如果分数大于90，则获得考试资格,当前得分：'+totalScore);
-								if(totalScore>=2){//如果分数高于90分，则有正式考科目一的资格
+								if(totalScore>=passScore){//如果分数高于90分（数据库通过参数表可以改变这个值），则有正式考科目一的资格
 									
 									//当学时大于等于要求学时时，把成绩插入到数据库中
 									$.ajax({
@@ -310,6 +317,7 @@
 // 												alert('恭喜，学时已满,成绩【'+totalScore+'】分，获得科目一的资格，等待教练给你安排考试！');
 												layer.msg('恭喜，学时已满,成绩【'+totalScore+'】分，获得科目一的资格，等待教练给你安排考试！', function(){
 													//关闭后的操作
+													window.location.href=path+"/home/keyi.action";
 													});
 											}
 											
@@ -323,7 +331,7 @@
 									});
 								}else{
 // 									alert('学时已满,但成绩【'+totalScore+'】分，低于90分，暂无被安排考试资格！');
-									layer.msg('学时已满,但成绩【'+totalScore+'】分，低于90分，暂无被安排考试资格！', function(){
+									layer.msg('学时已满,但成绩【'+totalScore+'】分，低于【'+passScore+'】分，暂无被安排考试资格！', function(){
 										//关闭后的操作
 										});
 								}
@@ -338,6 +346,12 @@
 				});
 				
 			}
+		}
+		//把毫秒转化成秒:
+		function turnMsToS(msStr){
+			var ms = parseInt(msStr);
+			return ms/1000;
+			
 		}
 		//跳动弹框
 		function take(info,url){
@@ -408,7 +422,9 @@
 				<div class="test">
 				
 		<form action="" method="post">
-<%-- 			<input id="stuId" type="hidden" name="stuId" value="${stu_id}"/>			 --%>
+			<input id="pathId" type="hidden" name="path" value=<%=path%>/>	
+			<input id="passScore" type="hidden" name="passScore" value="${passScore}"/><%-- 考试通过应达到的分数 --%>
+			<input id="timeLengthLimit" type="hidden" name="timeLengthLimit" value="${timeLengthLimit}"/><%-- 答题时间间隔限制 --%>
 			<input id="stuId" type="hidden" name="stuId" value="${student.stuId}"/>			
 <%-- 			<input id="subId" type="hidden" name="subId" value="${sub_id}"/>		 --%>
 			<input id="subId" type="hidden" name="subId" value="${student.subId}"/>		
@@ -418,7 +434,7 @@
                             <div class="test_content_title">
                                 <h2>单选题</h2>
                                 <p>
-                                    <span>共</span><i class="content_lit">100</i><span>题，</span><span>合计</span><i class="content_fs">100</i><span>分</span>
+                                    <span>共</span><i class="content_lit">100</i><span>题，</span><span>合计</span><i class="content_fs">100</i><span>分，学时足够后${passScore}分考试通过</span>
                                 </p>
                             </div>
                         </div>
