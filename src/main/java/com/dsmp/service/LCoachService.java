@@ -38,8 +38,6 @@ public interface LCoachService {
 
 	public MyResult countTimeByStuIdAndSubject(String stuId, String subId);// 查询某学员该阶段已学时长
 
-	public List<BelongtoCoachStudentMsg> selectStudentParticulars(int stuid);// 查询学生各科详情
-
 	public List<TbRating> selectStudentratingmsg(int coaid, String choose);// 查找学生评价详情
 
 	public List<TbExamschedule> selectThetestmsg(int schId);//根据驾校id查找本驾校的考试安排
@@ -58,5 +56,9 @@ public interface LCoachService {
 	
 	public void updateMaxBookingnum(int exsSignupnum,int exsId);//修改预约人数
 	
+	public Double findStudytime(int subid, int stuid);
 	
+	public List<BelongtoCoachStudentMsg> findAcademicrecord(int subid,int stuid);
+	
+	public BelongtoCoachStudentMsg findSubjectnow(int subid,int stuid);
 }

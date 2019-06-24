@@ -10,6 +10,6 @@
 	String path = request.getContextPath();
 %>
 <body>
-<a href=<%=path+"/menu/toManageMain.action?role_id=1"%>>去主页</a>
+<a href=<%=path+"/menu/toManageMain.action?role_id=4"%>>去主页</a>
 </body>
 </html>

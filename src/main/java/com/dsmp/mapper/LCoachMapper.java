@@ -17,8 +17,6 @@ public interface LCoachMapper {
 	
 	public List<TbStudent> belongtocoach(int coaid,SearchBean searchBean);
 	
-	public List<BelongtoCoachStudentMsg> selectStudentMsg(int stuid);
-	
 	public List<TbRating> selectStudentRating(int coaid,String choose);
 	
 
@@ -42,4 +40,10 @@ public interface LCoachMapper {
 	public TbExamschedule seletBookingnumber(int exsid);//查询一场考试中已预约学生的数量
 	
 	public void updateMaxBookingnum(int exsSignupnum,int exsId);//修改预约人数
+	
+	public Double selectStudytime(int subid,int stuid);//学员打卡时长
+	
+	public List<BelongtoCoachStudentMsg> selectAcademicrecord(int subid,int stuid);
+	
+	public BelongtoCoachStudentMsg  selectSubjectnow(int subid,int stuid);//查询学员当前科目
 }

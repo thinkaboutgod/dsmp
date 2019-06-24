@@ -142,12 +142,7 @@ public class LCoachServiceImpl implements LCoachService {
 		myResult.setSum(sum);
 		return myResult;
 	}
-	//教练名下的学生科目考试信息
-	@Override
-	public List<BelongtoCoachStudentMsg> selectStudentParticulars(int stuid) {
-		List<BelongtoCoachStudentMsg> studentmsg = lCoachMapper.selectStudentMsg(stuid);
-		return studentmsg;
-	}
+
 	//查找学生对教练的评价
 	@Override
 	public List<TbRating> selectStudentratingmsg(int coaId, String choose) {
@@ -340,6 +335,9 @@ public class LCoachServiceImpl implements LCoachService {
 		if(subname!=null&&subname.equals("科目四学员")) {
 			subid=4;
 		}
+		System.out.println("此时的科目是："+subid);
+		System.out.println(subname);
+		
 		List<TbStudent> studenttestappointment=lCoachMapper.selectTestappointment(subid,coaid);
 		return studenttestappointment;
 	}
@@ -398,5 +396,30 @@ public class LCoachServiceImpl implements LCoachService {
 	public void updateMaxBookingnum(int exsSignupnum, int exsId) {		
 		lCoachMapper.updateMaxBookingnum(exsSignupnum, exsId);
 	}
+	//统计学员打卡计时
+	@Override
+	public Double findStudytime(int subid, int stuid) {
+		
+		Double studytemenum=lCoachMapper.selectStudytime(subid, stuid);
+		if(subid==1) {
+			if(studytemenum==null) {
+				studytemenum=0.0;				
+			}
+			studytemenum = studytemenum/60/60;
+		}
+		return studytemenum;
+	}
+	//查找学员各科考试记录
+	@Override
+	public List<BelongtoCoachStudentMsg> findAcademicrecord(int subid, int stuid) {
+		List<BelongtoCoachStudentMsg> academicrecord=lCoachMapper.selectAcademicrecord(subid, stuid);
+		return academicrecord;
+	}
 
+	@Override
+	public BelongtoCoachStudentMsg findSubjectnow(int subid, int stuid) {
+		BelongtoCoachStudentMsg belongtoCoachStudentMsg=lCoachMapper.selectSubjectnow(subid, stuid);
+		return belongtoCoachStudentMsg;
+	}
+	
 }

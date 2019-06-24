@@ -89,14 +89,35 @@ public interface TbSchoolMapper {
 	//查询允许报名和运营的所有驾校
 	public List<TbSchool> selectAllSchoolForAdvertise();
 
-	
+	/**
+	 * 	根据教练id统计名下学员
+	 * @param coaId
+	 * @return
+	 */
 	public List<Count> countStudentByCoach(String coaId);
 
+	/**
+	 * 	根据教练id统计名下学员
+	 * @param coaId
+	 * @return
+	 */
 	public List<Count> countStudentByMonth(String coaId);
 
 	public List<Count> searchDate();
 
+	/**
+	 * 	统计驾校名下各个教练的名下学员
+	 * @param month
+	 * @param schId
+	 * @return
+	 */
 	public List<Count> countAllStudentByDate(String month,String schId);
 
+	/**
+	 * 	统计驾校名下各个教练的名下学员
+	 * @param month
+	 * @param schId
+	 * @return
+	 */
 	public List<Count> countStudentByDate(String month,String schId);
 }

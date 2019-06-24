@@ -17,11 +17,14 @@
 			and a.sub_id=b.sub_id and a.coa_id=#{param1}
 		</where>
 	</select>
-		
-	<select id="selectStudentMsg" resultType="com.dsmp.pojo.TbStudyrecord" resultMap="studentMsgMap">
-		select ss.*,c.sub_name,c.sub_time from
-		(select a.stu_id,a.sub_id,a.str_time,b.sus_score from tb_studyrecord a left join tb_subjectscore b on a.stu_id=b.stu_id and a.sub_id=b.sub_id where a.stu_id=#{param1})ss ,tb_subject c 
-		where ss.sub_id=c.sub_id
+
+	<!-- 查询学员各科打卡计时 -->
+	<select id="selectStudytime"  resultMap="studytimenum">
+		select sum(str_time) as strTimenum from tb_studyrecord where sub_id=#{param1} and stu_id=#{param2}
+	</select>
+	<!-- 查找学员当前科目 -->
+	<select id="selectSubjectnow"  resultMap="studentMsgMap">
+		select a.stu_id,a.sub_id,b.sub_name,b.sub_time from tb_student a,tb_subject b where a.sub_id=b.sub_id and a.sub_id=#{param1} and a.stu_id=#{param2}
 	</select>
 	
 	<select id="selectStudentRating" resultType="com.dsmp.pojo.TbRating" resultMap="studentRating">
@@ -46,10 +49,10 @@
 	</select>
 	<!-- 搜索可预约学员 -->
 	<select id="selectTestappointment" resultMap="testappointment1">
-		select a.stu_name,a.stu_id,b.sub_name,b.sub_time,c.str_time from tb_student a,tb_subject b,tb_studyrecord c 
+		 select a.*,b.sub_name from tb_student a,tb_subject b 
 		<where>
 			<if test="param1!=null">and a.sub_id=#{param1}</if>
-			and a.sub_id=b.sub_id and a.stu_id=c.stu_id and a.sub_id=c.sub_id and a.coa_id=#{param2} and a.stu_bookingstate ="可预约"	
+			and a.coa_id=#{param2} and a.stu_bookingstate="可预约" and a.sub_id=b.sub_id
 		</where>				
 	</select>
 	<!-- 搜索已预约学员 -->
@@ -61,8 +64,12 @@
 				and a.stu_id=#{param2}
 			</if>
 			and a.stu_id=b.stu_id and b.exs_id=c.exs_id and a.sub_id=d.sub_id and a.coa_id=#{param1} and stu_bookingstate='已预约'
-		</where>  
-				
+		</where>
+	</select>  
+	<!-- 搜索学员各科成绩记录 -->
+	<select id="selectAcademicrecord" resultMap="studentMsgMap">
+		select a.*,b.sub_name,b.sub_time from  tb_subjectscore a ,tb_subject b where
+		 a.sub_id=b.sub_id and a.sub_id=#{param1} and a.stu_id=#{param2}	
 	</select>
 	<!-- 统计教练名下各科目的人数，五个人后就不能预约 -->
 	<select id="selectNumberofsubjects" resultMap="statisticalnum">
@@ -95,6 +102,9 @@
 	<resultMap type="INTEGER" id="statisticalnum">		
 		<result property="count" column="count" jdbcType="INTEGER" />		
 	</resultMap>
+	<resultMap type="DOUBLE" id="studytimenum">
+		<result property="strTimenum" column="strTimenum" jdbcType="DOUBLE" />
+	</resultMap>
 	
 	<resultMap type="com.dsmp.pojo.TbStudent" id="testappointment2">
 		<id column="stu_id" property="stuId" jdbcType="INTEGER"/>
@@ -120,6 +130,8 @@
 		<result column="coa_id" property="coaId" jdbcType="INTEGER" />
 		<result column="sub_id" property="subId" jdbcType="INTEGER" />
 		<result column="stu_name" property="stuName" jdbcType="VARCHAR" />
+		<result column="stu_account" property="stuAccount" jdbcType="VARCHAR" />
+		<result column="stu_address" property="stuAddress" jdbcType="VARCHAR" />	
 		<association property="tbSubject" column="sub_id" javaType="TbSubject">
 			<id column="sub_id" property="subId" jdbcType="INTEGER" />
     		<result column="sub_name" property="subName" jdbcType="VARCHAR" />
@@ -161,9 +173,9 @@
   <resultMap type="com.dsmp.pojo.BelongtoCoachStudentMsg" id="studentMsgMap">
   		<id column="sub_id" property="subId" jdbcType="INTEGER"/>
   		<result column="stu_id" property="stuId" jdbcType="INTEGER" />
-  		<result column="str_time" property="strTime" jdbcType="INTEGER" />
+  		<result column="str_time" property="strTime" jdbcType="DOUBLE" />
     	<result column="sub_name" property="subName" jdbcType="VARCHAR" />
-   		<result column="sub_time" property="subTime" jdbcType="INTEGER" />
+   		<result column="sub_time" property="subTime" jdbcType="DOUBLE" />
     	<result column="sus_score" property="susScore" jdbcType="INTEGER" />  
   </resultMap>
   

@@ -45,7 +45,7 @@ $(function() {
 						"data":null,
 						"orderable" : false,
 						"render" : function(data) {
-							data = ' <button  class="yuyuecichang btn btn-primary btn-sm" >预约此场</button>';
+							data = ' <button  class="yuyuecichang btn btn-primary btn-sm" type="button">预约此场</button>';
 						return data;}	
 					}
 					],
@@ -64,50 +64,15 @@ $(function() {
 			data: "exsId="+exsid+"&subName="+subname,
 			dataType : "json",
 			success: function(result) {
-//				var obj=JSON.parse(result);
-//				alert(obj);
+
 				var index = parent.layer.getFrameIndex(window.name); 
-				alert(result);
+
 				if(result=="fail"){
-					layer.msg("每科目预约人数最多只能五个");
+
+					alert("每科目预约人数最多只能五个");
 					parent.layer.close(index); //再执行关闭
 				}else if(result=="success"){
-					layer.msg("预约成功");
-					parent.$('#haveappointment').DataTable({
-						    "ajax" : {
-							"url": "coach/haveappointment.action",
-							"type":"post"
-							},
-							"destroy": true,
-							"autoWidth" : false,
-						      "columns" : [
-							{
-								"data" : "stuName",						
-								
-							},
-							{
-								"data" : "tbSubject.subName",
-								
-							},
-
-							{
-								"data" : "tbExamscheduleandstudent.easSeatnum",
-								"orderable" : false
-							},
-							{
-								"data": "tbExamscheduleandstudent.tbExamschedule.exsAddress",
-								"orderable" : false
-							},
-							{
-								"data": "tbExamscheduleandstudent.tbExamschedule.exsTime",
-								"orderable" : false,
-								"render" : function(data, type, full, meta) {
-									return data = new Date(data).format("yyyy-MM-dd hh:mm:ss");}
-							},
-						         
-						        ]
-						   });
-
+					alert("预约成功");
 					parent.layer.close(index); //再执行关闭
 					//刷新数据					
 					window.parent.refreshtable2();

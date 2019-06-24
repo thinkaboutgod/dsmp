@@ -112,7 +112,7 @@
 	</update>
 	<!-- 修该驾校审核状态 -->
 	<update id="updateAudit">
-		update tb_school set sch_audit="已审核" where sch_id=#{param1}
+		update tb_school set sch_audit="审核通过" where sch_id=#{param1}
 	</update>
 	<!-- 插入申诉内容 -->
 	<insert id="insertThecomplaintcontent">
