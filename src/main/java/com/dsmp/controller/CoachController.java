@@ -33,7 +33,6 @@ public class CoachController {
 	@Autowired private TbCoachMapper tbCoachMapper;
 	@RequestMapping(value="toschool_coach")
 	public String toSchoolCoach(HttpSession session) {
-		session.setAttribute("schId", 1);
 		return "back/school_coach";
 	}
 	
@@ -86,22 +85,7 @@ public class CoachController {
 		List<TbCoach> coaList = tbCoachMapper.selectAllCoach();
 		return coaList;
 	}	
-	
-	
-//	@RequestMapping("/selectStusByCoaId.action")
-//	public @ResponseBody List<TbStudent> selectStusByCoaId(String coaId ,String coaPassword){
-//		
-//		System.out.println(coaId);
-//		System.out.println(coaPassword);
-//		List<TbStudent> studentlist= coachService.selectStusByCoaId(1);
-//		System.out.println(studentlist.get(1).getStuName());
-//		for(TbStudent tbStudent:studentlist) {
-//			System.out.println(tbStudent.getStuName());
-//			System.out.println(tbStudent.getStuAccount());			
-//		}	
-//		
-//		return studentlist;
-//	}
+
 	
 	//驾校信息页
 		@RequestMapping("/coachInfo")

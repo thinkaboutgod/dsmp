@@ -25,7 +25,6 @@ public class InfoRecognitionController {
 	// 学员报名身份证识别
 	@RequestMapping(value = "idCard.action")
 	public @ResponseBody HashMap<String, String> idCard(MultipartFile file) {
-		System.out.println(file.getOriginalFilename());
 		// 身份证识别url
 		String idcardIdentificate = "https://aip.baidubce.com/rest/2.0/ocr/v1/idcard";
 		// 本地图片路径
@@ -54,10 +53,8 @@ public class InfoRecognitionController {
 			String accessToken = AssesToken.getAuth();
 			;
 			String result = HttpUtil.post(idcardIdentificate, accessToken, params);
-			System.out.println(result);
 
 			map = getHashMapByJson(result);
-			System.out.println("身份证名字：" + map.get("name"));
 
 //			myResult = GsonUtils.toJson(map);
 		} catch (Exception e) {
@@ -77,7 +74,6 @@ public class InfoRecognitionController {
 			Iterator<String> it = words_result.keys();
 			while (it.hasNext()) {
 				String key = it.next();
-				System.err.println(key);
 				JSONObject result = words_result.getJSONObject(key);
 				String value = result.getString("words");
 				switch (key) {
@@ -134,9 +130,8 @@ public class InfoRecognitionController {
 			 * 线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
 			 */
 			String accessToken = AssesToken.getAuth();
-			;
+			
 			String result = HttpUtil.post(idcardIdentificate, accessToken, params);
-			System.out.println(result);
 			map = getBusinessHashMapByJson(result);
 //				myResult.setMyresult(result);
 		} catch (Exception e) {
@@ -157,7 +152,6 @@ public class InfoRecognitionController {
 			Iterator<String> it = words_result.keys();
 			while (it.hasNext()) {
 				String key = it.next();
-				System.err.println(key);
 				JSONObject result = words_result.getJSONObject(key);
 				String value = result.getString("words");
 				switch (key) {

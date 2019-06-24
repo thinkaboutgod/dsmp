@@ -102,6 +102,10 @@ $(function() {
 			aoData.push({
 				"name" : "month",
 				"value" : $("#monthSelect").val()
+			},
+			{
+				"name" : "schId",
+				"value" : $("#schId").val()
 			}
 			);
 		},
@@ -189,21 +193,6 @@ function forBar(msg,text) {
 		};
 	myChart.setOption(option);//渲染数据
 }
-////统计图表，柱状图
-//function forBar(msg) {
-//	$("#bar-chart").empty();//清空用于重绘
-//	// BAR CHART
-//	var bar = new Morris.Bar({
-//		element : 'bar-chart',
-//		resize : true,
-//		data : msg,
-//		barColors : [ '#00a65a' ],
-//		xkey : "name",
-//		ykeys : [ "data" ],
-//		labels : [ '报名人数' ],
-//		hideHover : 'auto'
-//	});
-//}
 
 function forPercent(data,text) {
 	var newData = data.replace(/data/g,"value");

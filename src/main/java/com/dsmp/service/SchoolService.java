@@ -77,7 +77,7 @@ public interface SchoolService {
 
 	public List<Count> searchDate();
 
-	public List<Count> countStudentByDate(String month);
+	public List<Count> countStudentByDate(String month, String schId);
 
 	public List<Count> countStudent(String coaId, String dateId);
 

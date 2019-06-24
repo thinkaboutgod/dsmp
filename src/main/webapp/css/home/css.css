@@ -331,9 +331,9 @@ body {
 	display: none;
 	/*默认隐藏*/
 	min-width: 133px;
-	padding: 10px 0 20px;
+	padding: 10px 0 10px;
 	position: absolute;
-	*left: 0;
+	left: 34px;
 	background: rgba(253, 252, 252, .8);
 	float: left;
 	-webkit-box-shadow: 0 1px 3px #575656;

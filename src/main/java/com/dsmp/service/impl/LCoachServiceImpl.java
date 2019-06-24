@@ -72,7 +72,6 @@ public class LCoachServiceImpl implements LCoachService {
 		beginTime = request.getParameter("beginTime");
 		endTime = request.getParameter("endTime");
 		belongSubject = request.getParameter("belongSubject");
-		System.out.println("科目是：" + belongSubject);
 		if (account.trim().equals("")) {
 			account = null;
 		}
@@ -147,7 +146,6 @@ public class LCoachServiceImpl implements LCoachService {
 	@Override
 	public List<BelongtoCoachStudentMsg> selectStudentParticulars(int stuid) {
 		List<BelongtoCoachStudentMsg> studentmsg = lCoachMapper.selectStudentMsg(stuid);
-		System.out.println("学生信息");
 		return studentmsg;
 	}
 	//查找学生对教练的评价
@@ -369,7 +367,6 @@ public class LCoachServiceImpl implements LCoachService {
 		}
 		
 		Integer countNumberofsubjects=lCoachMapper.selectNumberofsubjects(subid,coaid);
-		System.out.println("统计教练预约的各科人数："+countNumberofsubjects);
 		
 		return countNumberofsubjects;
 	}

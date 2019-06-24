@@ -52,7 +52,6 @@ public class SchoolController {
 
 	@RequestMapping("/selectCoach")
 	public @ResponseBody List<TbCoach> selectCoach(Integer selectSchool){
-		System.out.println(selectSchool);
 		List<TbCoach> coaList = coachService.selectCoach(selectSchool);
 		return coaList;
 	}
@@ -140,12 +139,11 @@ public class SchoolController {
 			// 将上传文件保存到一个目标文件当中
 			file.transferTo(new File(path + File.separator + fileName));
 			// 输出文件上传最终的路径 测试查看
-			System.out.println(path + File.separator + fileName);
 			result = schoolService.insertSchoolInfo(phone, password, sch_creditcode, sch_name, sch_type, sch_address, sch_bossname, sch_registerCapital, sch_introduce, sch_charge, fileName);
 		} else {
 			result.setMyresult("fileErr");
 		}
-		System.out.println("最终返回的结果："+result.getMyresult());
+		
 		return result;
 	}
 
@@ -284,12 +282,15 @@ public class SchoolController {
 		return mav;
 	}
 	
-	// 按照驾校统计近半年报名学员人数
+	/**
+	 * 	根据教练id和日期查询 ，某教练的学员数量
+	 * @param coaId
+	 * @param dateId
+	 * @return
+	 */
 	@RequestMapping(value = "countStudentByCoach.action")
 	public @ResponseBody List<Count> countStudentByCoach(String coaId, String dateId) {
-		
 		List<Count> cList = schoolService.countStudent(coaId, dateId);
-
 		for (int i = 0; i < cList.size(); i++) {
 			if (cList.get(i).getData() == null) {
 				cList.get(i).setData("0");
@@ -298,16 +299,26 @@ public class SchoolController {
 		return cList;
 	}
 	
-	// 按照驾校查询某一个月有人报名的驾校的报名人数
+	/**
+	 * 	根据驾校查询和月份查询名下教练的学员报名数
+	 * @param month
+	 * @param schId
+	 * @return
+	 */
 	@RequestMapping(value = "countStudentByDate.action")
-	public @ResponseBody Map<String, List<Count>> countStudentByDate(String month) {
-		List<Count> cList = schoolService.countStudentByDate(month);
+	public @ResponseBody Map<String, List<Count>> countStudentByDate(String month,String schId) {
+		List<Count> cList = schoolService.countStudentByDate(month,schId);
 		Map<String, List<Count>> map = new HashMap<>();
 		map.put("data", cList);
 		return map;
 	}
 
-	// 
+	/**
+	 * 
+	 * @param month
+	 * @param schId
+	 * @return
+	 */
 	@RequestMapping(value = "countAllStudentByDate.action")
 	public @ResponseBody List<Count> countAllStudentByDate(String month,String schId) {
 		List<Count> cList = schoolService.countAllStudentByDate(month,schId);

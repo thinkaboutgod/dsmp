@@ -244,6 +244,7 @@ $(function() {
 			dataType: "text",
 			success: function(res) {
 				var arr = JSON.parse(res);
+				$("#coachs").empty(); 
 				$("#coachs").append("<option value='0'>请选择教练</option>");
 				for(var i = 0; i < arr.length; i++) {
 					console.log(arr[i].coaName);
@@ -258,7 +259,7 @@ $(function() {
 		$("#btn_check_yes").click(function() {
 			var stuId = $("#stuId").val();
 			var coaId = $("#coachs").val();
-			if($("#coachNameCheck").val() != null) {
+			if($("#coachNameCheck").val() != "无") {
 				$.ajax({
 					url: "../student/checkStudent.action",
 					async: true,
@@ -416,7 +417,8 @@ $(function() {
 					if(msg.myresult == "success") {
 						layer.msg("添加学员成功");
 						table.ajax.reload(null, false);
-						canvas.width=canvas.height;
+						canvas.width=350;
+						canvas.height=200;
 						$("#real_name").val("");
 						$("#idnum").val("");
 						$("#student_address").val("");
@@ -426,7 +428,8 @@ $(function() {
 						layui.form.render('select');
 					} else if(msg.myresult == "already") {
 						layer.msg("添加学员失败，该账号已经报名!");
-						canvas.width=canvas.height;
+						canvas.width=350;
+						canvas.height=200;
 						$("#real_name").val("");
 						$("#idnum").val("");
 						$("#student_address").val("");
