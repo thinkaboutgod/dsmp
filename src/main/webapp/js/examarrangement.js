@@ -6,11 +6,14 @@ layui.use(['layer', 'form'], function(){
 	  ,form = layui.form;
 });
 var table2;
+var table3;
 $(function() {
 
 	$.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置	
 
 	datatable_otherSet = {
+			"autoWidth" : false,
+			"scrollY": "",
 			"ajax" : {
 						"url": "coach/selectthetestmsg.action",
 						"type":"post"
@@ -19,8 +22,6 @@ $(function() {
 			"columns" : [
 					{
 						"data" : "exsTime",
-						"render" : function(data, type, full, meta) {
-							return data = new Date(data).format("yyyy-MM-dd hh:mm:ss");},
 						"orderable" : false
 					},
 					{
@@ -57,6 +58,7 @@ $(function() {
 
 	datatable_otherSet2 = {
 			"autoWidth" : false,
+			"scrollY": "",
 			"ajax" : {
 						"url": "coach/testappointment.action",
 						"type":"post"
@@ -68,18 +70,20 @@ $(function() {
 						
 					},
 					{
+						"data" : "stuAccount",						
+						
+					},
+					{
 						"data" : "tbSubject.subName",
+						"orderable" : false
 						
 					},
 
 					{
-						"data" : "tbStudyrecord.strTime",
+						"data" : "stuAddress",
 						"orderable" : false
 					},
-					{
-						"data": "tbSubject.subTime",
-						"orderable" : false
-					},
+
 					{
 						"data": null,
 						"orderable" : false,
@@ -100,7 +104,7 @@ $(function() {
 		}; 
 	datatable_otherSet3 = {
 			"autoWidth" : false,
-			
+			"scrollY": "",
 			"ajax" : {
 						"url": "coach/haveappointment.action",
 						"type":"post"
@@ -134,7 +138,7 @@ $(function() {
 		};	
 	var table = $("#thetestmsg").DataTable(datatable_otherSet);//初始化
 	table2= $("#arrangethetest").DataTable(datatable_otherSet2);
-	var table3= $("#haveappointment").DataTable(datatable_otherSet3);
+	table3= $("#haveappointment").DataTable(datatable_otherSet3);
 
 
 
@@ -149,21 +153,19 @@ $(function() {
 		var strTime=parseInt(da.tbStudyrecord.strTime);
 		
 		var subTime=parseInt(da.tbSubject.subTime);
-		
-		if(strTime>=subTime){			
-			layer.open({
-				title: '预约',
-				type: 2,
-				area: ['700px', '500px'],
-				shadeClose: true, //点击遮罩关闭
-				content: ['coach/gotobookingbounced.action?stuId='+stuid+"&subName="+subName,'no']
-			});
-		}else{
-			layer.msg("学时未满，不能预约！");
-		}
+				
+		layer.open({
+			title: '预约',
+			type: 2,
+			area: ['700px', '500px'],
+			shadeClose: true, //点击遮罩关闭
+			content: ['coach/gotobookingbounced.action?stuId='+stuid+"&subName="+subName,'no']
+		});
 
 	});	
+	$("#subone").click();	
 })
 function refreshtable2() {
 	table2.ajax.reload(null, true);
+	table3.ajax.reload(null, true);
 }

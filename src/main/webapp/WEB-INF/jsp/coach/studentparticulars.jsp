@@ -46,7 +46,7 @@
 											<thead>
 												<tr role="row">
 													<th >科目</th>
-													<th >当前学时</th>
+													<th >已打学时</th>
 													<th >总学时</th>			
 													<th >考试得分</th><!-- 未考试的写无 -->
 												</tr>
@@ -104,7 +104,18 @@
 		    },
 		    "columns": [
 		        {"data": "subName"},
-		        {"data": "strTime","orderable" : false},
+		        {
+		        	
+		        	"data": "strTime","orderable" : false,
+		        	"render" : function(data) {
+		        		if(data==null){
+		        			data="还未打卡";
+		        		}
+		        		return data;
+		        	}
+		        	
+		        	
+		        },
 		        {"data": "subTime","orderable" : false},
 		        {
 		        	"data": "susScore",

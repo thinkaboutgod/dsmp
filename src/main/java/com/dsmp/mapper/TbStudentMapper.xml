@@ -206,8 +206,6 @@ on c.sch_id=b.sch_id
 		where stu_id=#{stuId}
 	</update>
 	
-	
-	
 	<resultMap id="student_score" type="com.dsmp.pojo.TbStudent" >
 	    <id column="stu_id" property="stuId" jdbcType="INTEGER" />
 	    <result column="coa_id" property="coaId" jdbcType="INTEGER" />

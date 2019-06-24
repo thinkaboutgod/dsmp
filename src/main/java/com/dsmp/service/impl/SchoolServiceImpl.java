@@ -254,6 +254,9 @@ public class SchoolServiceImpl implements SchoolService {
 	}
 	
 
+	/**
+	 * 根据教练id统计进半年的报名学生数量
+	 */
 	@Override
 	public List<Count> countStudent(String coaId, String dateId) {// 根据驾校统计近半年,或者近30天报名人数
 		if (dateId.equals("1")) {
