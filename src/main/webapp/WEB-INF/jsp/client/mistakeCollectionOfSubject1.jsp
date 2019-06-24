@@ -317,6 +317,7 @@
 		<%-- 		${fn:length(mistakeTopicList)} 该份试卷共有几道题 --%>
 <!-- 				剩余时间：<span id="countTime">45分00秒</span>	 -->
 <!-- 				进度条 -->
+				<h2>计学时模式</h2>
 				<p>学习时长/任务时长(单位：秒)：<span id="studyTimeSpan">${currTotalTimeLength}/${totalTimeLength}</span></p>
 				<div class="progress">
 				  <div id="percentDiv" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: ${percentage}">
@@ -353,6 +354,16 @@
 <!-- 			<input id="updateExamBtn" type="button" value="重新出题"></input> -->
 			
 			</div>
+				
+				<div id="ruleDiv" style="background-color: yellow">
+				
+					<div><p style="color: red">计学时学习模式规则:</p></div>
+					<div>1.模拟卷做错的题目都会在这里显示。</div>
+					<div>2.进入开始计学时，提交就计算一段学时。</div>
+					<div>3.做对的题目会从错题集移除</div>
+				
+				
+				</div>	
 				
 			</div>
 			</c:if>

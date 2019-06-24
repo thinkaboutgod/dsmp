@@ -526,6 +526,18 @@
 			<input id="updateExamBtn" type="button" value="重新出题"></input>
 			
 			</div>
+			<div id="ruleDiv" style="background-color: yellow">
+				
+					<div><p style="color: red">一、计学时学习模式规则:</p></div>
+					<div>1.考试时间45分钟，时间到会自动提交。</div>
+					<div>2.答题间隔超过${timeLengthLimit/1000}秒,期间的学时就不算数，并自动重新出卷。</div>
+					<div>3.做错的题目会在错题集显示</div>
+				<hr>
+					<div><p style="color: red">二、不计学时学习模式规则:</p></div>
+					<div>1.不计入学时</div>
+					<div>2.不限定是否登录是否为科一</div>
+			</div>	
+				
 				
 			</div>
 		</form>
