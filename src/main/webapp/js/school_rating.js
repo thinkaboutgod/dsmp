@@ -27,8 +27,8 @@
 						var time=val.ratTime;
 						time = new Date(time).format("yyyy-MM-dd hh:mm:ss")
 						$("#rating").append(
-								"<dt>"+val.ratType+":"+time+"</dt><dd>"+val.ratContent+"</dd>"
-							);
+								i+1+"、"+val.ratType+":"+time+"\r\n"+val.ratContent+"\r\n\r\n"  
+						);
 					});
 					
 					  var bar_data = {
@@ -37,7 +37,6 @@
 						    };
 						 $.plot("#bar-chart", [bar_data], {
 						      grid: {
-//						        borderWidth: 2,
 						        borderColor: "#f3f3f3",
 						        tickColor: "#f3f3f3"
 						      },
@@ -99,7 +98,6 @@
 	$(function() {
 		$(".chooserating").click(function() {
 			var choose=$(this).text();
-			alert(choose)
 			var schId = $("#schId").val();
 			$.ajax({
 				url:"selectSchoolRating.action",
@@ -112,10 +110,10 @@
 						$("#rating").empty();
 						$.each(date,function(i,val){
 							var time=val.ratTime;
-							time = new Date(time).format("yyyy-MM-dd hh:mm:ss")
+							time = new Date(time).format("yyyy-MM-dd HH:mm:ss")
 							$("#rating").append(
-									"<dt>"+val.ratType+":"+time+"</dt><dd>"+val.ratContent+"</dd>"
-								);
+									i+1+"、"+val.ratType+":"+time+"\r\n"+val.ratContent+"\r\n\r\n"  
+							);
 						});
 					}
 				},

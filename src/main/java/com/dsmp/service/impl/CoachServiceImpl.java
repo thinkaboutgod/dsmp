@@ -63,6 +63,7 @@ public class CoachServiceImpl implements CoachService {
 	}
 	
 	@Override
+	@Transactional
 	public MyResult changeCoachState(HttpServletRequest request, MyResult myResult) {
 		String state = request.getParameter("state");
 		String coaId = request.getParameter("coaId");

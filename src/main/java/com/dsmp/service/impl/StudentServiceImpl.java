@@ -66,7 +66,6 @@ public class StudentServiceImpl implements StudentService {
 						tbStudentMapper.updateStudent(tbStudent);
 					}
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -126,6 +125,7 @@ public class StudentServiceImpl implements StudentService {
 
 	// 学员注册（//手机验证码验证）
 	@Override
+	@Transactional
 	public MyResult studentRegister(HttpServletRequest request, String stuAccount, String stuPassword,
 			String verifyCode) {
 		System.out.println("注册手机号：" + stuAccount);
@@ -257,6 +257,7 @@ public class StudentServiceImpl implements StudentService {
 
 	// 学员在线报名实现类
 	@Override
+	@Transactional
 	public MyResult studentApply(HttpServletRequest request, HttpSession session, String filename, String name,
 			String idCard, String address, String sex, Integer school, Integer coach, String code, String phone) {
 		System.out.println("报名手机号：" + phone);
@@ -309,6 +310,7 @@ public class StudentServiceImpl implements StudentService {
 
 	// 学员忘记密码
 	@Override
+	@Transactional
 	public MyResult changePwd(HttpServletRequest request, String newPassword, String phone, String code) {
 		System.out.println("报名手机号：" + phone);
 		System.out.println("输入验证码：" + code);
@@ -346,6 +348,8 @@ public class StudentServiceImpl implements StudentService {
 	/**
 	 *	修改学生状态
 	 */
+	@Transactional
+	@Override
 	public MyResult changeStudentState(HttpServletRequest request, MyResult myResult) {
 
 		String state = request.getParameter("state");
@@ -369,6 +373,7 @@ public class StudentServiceImpl implements StudentService {
 	 * 	驾校录入学生
 	 */
 	@Override
+	@Transactional
 	public MyResult addStudent(HttpServletRequest request) {
 
 		MyResult result = new MyResult();
@@ -411,6 +416,7 @@ public class StudentServiceImpl implements StudentService {
 	 *	 审核学员
 	 */
 	@Override
+	@Transactional
 	public MyResult checkStudent(HttpServletRequest request, MyResult myResult) {
 		String stuVerifystatus = request.getParameter("stuVerifystatus");
 		String stuId = request.getParameter("stuId");
@@ -434,6 +440,7 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return myResult;
 	}
+	
 	/**更改学员当前科目状态
 	 * @param stuId 学员id
 	 * @param status stu_subjectStatus（学员当前科目的状态）字段要更改成的状态
@@ -449,6 +456,7 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return flag;
 	}
+	
 	@Transactional
 	@Override
 	public boolean updateSubjectStatusAndSubId(Integer stuId, String status, Integer subId) {
@@ -459,6 +467,7 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return flag;
 	}
+	
 	@Override
 	public TbStudent findStuById(Integer stuId) {
 		

@@ -71,15 +71,13 @@
 			<jsp:include page="header.jsp"></jsp:include>
 			<jsp:include page="sliderbar.jsp"></jsp:include>
 			<div class="content-wrapper">
-				<section class="content">
+			<section class="content">
 					<div class="layui-tab layui-tab-brief">
 						<ul class="layui-tab-title">
 							<li class="layui-this">
 								<h3>考试安排记录</h3></li>
 							<li class="">
 								<h3>新增考试</h3></li>
-							<li class="">
-								<h3>查看已预约学员</h3></li>
 						</ul>
 						<div class="layui-tab-content" style="height: 100px;">
 							<div class="layui-tab-item layui-show">
@@ -89,7 +87,6 @@
 										<input type="hidden" id="schId" value="${schId}">
 										<div class="box-body">
 											<div id="thetestmsg_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-
 												<table id="examSchedule" class="table table-bordered table-hover">
 													<thead>
 														<tr role="row">
@@ -179,34 +176,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="layui-tab-item">
-							<!-- body -->
-							<div class="row">
-								<div class="col-sm-12">
-									<div class="box-body">
-										<div id="haveappointment_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-
-											<table id="haveappointment" class="table table-bordered table-hover">
-												<thead>
-													<tr role="row">
-														<th>姓名</th>
-														<th>科目</th>
-														<th>座位号</th>
-														<th>考试地点</th>
-														<th>考试时间</th>
-													</tr>
-												</thead>
-												<tbody></tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-							<!-- /body -->
 						</div>
-					</div>
-			</div>
-			</section>
+						</section>
 		</div>
 		<jsp:include page="footer.jsp"></jsp:include>
 		</div>
