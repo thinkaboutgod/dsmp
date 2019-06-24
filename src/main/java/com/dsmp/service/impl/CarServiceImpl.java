@@ -93,6 +93,7 @@ public class CarServiceImpl implements CarService {
 	 * 报废车辆
 	 */
 	@Override
+	@Transactional
 	public MyResult scrapCar(HttpServletRequest request, MyResult myResult) {
 		String state = request.getParameter("state");
 		String carId = request.getParameter("carId");
@@ -157,6 +158,7 @@ public class CarServiceImpl implements CarService {
 
 	
 	@Override
+	@Transactional
 	public MyResult distributeCar(HttpServletRequest request, MyResult myResult) {
 		
 		String coaId = request.getParameter("coaId");

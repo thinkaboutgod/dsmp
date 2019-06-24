@@ -87,6 +87,7 @@
 			and s.sch_id=#{schId}
 		</where>
 	</select>
+
    <!--  根据驾校查询近半年每个月报名人数 -->
   <select id="countStudentBySchool" resultMap="CountStudentMap"  >
     select c.month as name,num from
@@ -96,6 +97,7 @@
 	(SELECT @lastDay := date_add(curdate(),interval -7 month) from tb_student  limit 6) a) c 
 	LEFT JOIN(select stu_signUpTime ,count(*) as num from tb_student where sch_id=#{param1}  GROUP BY DATE_FORMAT(stu_signUpTime , '%Y-%m' )) t ON DATE_FORMAT(t.stu_signUpTime , '%Y-%m' )= c.month order by c.month
   </select>
+
   
   <!-- 查询前六个月日期 -->
   <select id="searchDate" resultMap="CountStudentMap"  >

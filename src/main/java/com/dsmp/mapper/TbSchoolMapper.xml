@@ -248,7 +248,7 @@
   <select id="countStudentByDate" resultMap="CountStudentMap"  >
 	select a.coa_name name,a.coa_account, count(a.coa_name) as num from (
 	select co.coa_name as coa_name,co.coa_account as coa_account from tb_student st,tb_coach co 
-	where st.coa_id= co.coa_id and DATE_FORMAT(st.stu_signUpTime , '%Y-%m' )=#{param1} ) a GROUP BY a.sch_name
+	where st.coa_id= co.coa_id and co.sch_id = #{param2} and DATE_FORMAT(st.stu_signUpTime , '%Y-%m' )=#{param1} ) a GROUP BY a.coa_name
   </select>
   
  <!--  查询某一个月驾校所有的教练的报名人数，没有人的置零 -->
@@ -257,7 +257,7 @@
 (select  count(a.coa_id) as num,a.coa_id from (
 	select coa.coa_id, coa.coa_name as coa_name,coa.coa_account as coa_account from tb_student st,tb_coach coa 
 	where st.coa_id= coa.coa_id and DATE_FORMAT(st.stu_signUpTime , '%Y-%m' )=#{param1}) a GROUP BY a.coa_name) b
-on c.coa_id=b.coa_id and c.sch_id = #{param2}
+on c.coa_id=b.coa_id where c.sch_id = #{param2}
  </select>
  
   <!-- 查询某近30天某个驾校教练报名人数 -->

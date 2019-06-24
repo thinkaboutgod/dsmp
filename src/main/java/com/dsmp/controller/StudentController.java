@@ -1,4 +1,4 @@
-package com.dsmp.controller;
+		package com.dsmp.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -178,7 +178,6 @@ public class StudentController {
 	 */
 	@RequestMapping(value="toschool_student")
 	public String toSchoolStudent(HttpSession session) {
-		session.setAttribute("schId", 1);
 		return "back/school_student";
 	}
 	

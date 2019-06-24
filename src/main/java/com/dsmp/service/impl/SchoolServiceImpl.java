@@ -45,6 +45,7 @@ public class SchoolServiceImpl implements SchoolService {
 	private String schBossname;
 	//驾校入驻
 	@Override
+	@Transactional
 	public MyResult insertSchoolInfo(String phone,String password,String sch_creditcode,String sch_name,
 			String sch_type,String sch_address,String sch_bossname,String sch_registerCapital,
 			String sch_introduce,Double sch_charge,String fileName) {
@@ -81,9 +82,8 @@ public class SchoolServiceImpl implements SchoolService {
 		}		
 		return result;
 	}
+	
 	//驾校条件查找
-
-
 	@Override
 	public List<TbSchool> searchSchool(HttpServletRequest request) {
 		schName=request.getParameter("schName");
@@ -268,8 +268,8 @@ public class SchoolServiceImpl implements SchoolService {
 	}
 
 	@Override
-	public List<Count> countStudentByDate(String month) {// 查询某一个月有人报名的驾校的人数
-		return tbSchoolMapper.countStudentByDate(month);
+	public List<Count> countStudentByDate(String month,String schId) {// 查询某一个月有人报名的驾校的人数
+		return tbSchoolMapper.countStudentByDate(month,schId);
 	}
 
 	@Override
