@@ -87,11 +87,21 @@
 							}
 						}
 					}else{//说明没有选择教练（已报名）
-						 layer.msg('您未选择教练', {icon: 1});
+//						 layer.msg('您未选择教练', {icon: 1});
+//						 layer.msg('账号报名驾校未审核通过', {icon: 1});
+//						 ask("您已报名但驾校尚未审核通过,仅能进入不计学时模式！",url);
+						 if(actionType=='mistakeTopic'){//如果点击了错题集
+							 layer.msg('您已报名但驾校尚未审核通过，无法进入错题集！', {icon: 1});
+							}else if(actionType=='toExam'){//如果点击了模拟考试
+								ask("您已报名但驾校尚未审核通过,仅能进入不计学时模式！",url);
+							}else if(actionType=='toTrueExam'){//如果点击了正式考试
+								layer.msg('您已报名但驾校尚未审核通过，无法进入仿真考场！', {icon: 1});
+							}
+						 
 					}
 					
 				}else{//说明没报名（已登陆）
-					ask('您没报名？，去报名页面？',"/student/apply.action");
+					ask('您没报名？去报名页面？',"/student/apply.action");
 				}
 				
 			}else{//没登录
