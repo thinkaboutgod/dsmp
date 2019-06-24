@@ -103,7 +103,7 @@ $.ajax({
 		dataType : "text",
 		success : function(data) {
 			if (data == "success") {
-				layui.close(index);
+				layer.close(index);
 				layer.msg("获取成功");
 				
 			}

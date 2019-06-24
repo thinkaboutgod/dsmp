@@ -65,6 +65,10 @@ public class StudentController {
 	//付款页跳转付款登录页
 	@RequestMapping("/payment")
 	public ModelAndView getPaymentPage(Integer schId) {
+		//设置支付宝那边的路径
+		String path = tbParameterMapper.selectParamter("系统文件访问路径");
+		AlipayConfig.notify_url = path+"/alipay.trade.page.pay-JAVA-UTF-8/notify_url.jsp";
+		AlipayConfig.return_url = path+"/dsmp/student/main.action?";
 		ModelAndView mav = new ModelAndView();
 		TbSchool school = tbMapper.findSchoolBySchId(schId);
 		mav.addObject("school",school);
@@ -81,8 +85,8 @@ public class StudentController {
 	//付款成功跳回主页
 	@Transactional
 	@RequestMapping("/main")
-	public ModelAndView getMainPage(HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
-		ModelAndView mav = new ModelAndView();
+	public  String getMainPage(HttpServletRequest request) throws UnsupportedEncodingException, AlipayApiException {
+//		ModelAndView mav = new ModelAndView();
 		
 		//获取支付宝GET过来反馈信息
 		Map<String,String> params = new HashMap<String,String>();
@@ -114,6 +118,8 @@ public class StudentController {
 			String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"),"UTF-8");
 			
 			TbStudent student = (TbStudent)request.getSession().getAttribute("students");
+			request.getSession().setAttribute("student", student);//更新session里的学员信息
+			
 			int res = tbStudentMapper.updateStudentInfo(student);
 			if(res==1) {
 				TbCapitalrecord tbCapitalrecord = new TbCapitalrecord();
@@ -135,8 +141,8 @@ public class StudentController {
 			System.out.println("失败了");
 		}
 		
-		mav.setViewName("client/home");
-		return mav;
+//		mav.setViewName("client/home");
+		return "redirect:/home/main.action";
 	}		
 
 	//登录跳转忘记密码页
