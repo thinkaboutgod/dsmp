@@ -47,18 +47,18 @@
 					<a href=<%=path+"/home/main.action?"%>>首页</a>
 				</h3>
 			</li>
-			<li class="m ">
-				<h3>
-					<a href=" javascript:;">模拟考试</a>
-				</h3>
-<!-- 				<ul class="sub"> -->
+<!-- 			<li class="m "> -->
+<!-- 				<h3> -->
+<!-- 					<a href=" javascript:;">模拟考试</a> -->
+<!-- 				</h3> -->
+<!-- <!-- 				<ul class="sub"> --> -->
 
-<%-- 					<li><a target="_blank" href=<%=path+"/topic/findManyTopic.action?stu_id=2&sub_id=1"%>>科目一模拟</a></li> --%>
-<%-- 					<li><a target="_blank" href=<%=path+"/topic/findAllTopic.action?stu_id=2&sub_id=1"%>>科目一练习</a></li> --%>
-<%-- 					<li><a target="_blank" href=<%=path+"/topic/findMistakeTopic.action?stu_id=2&sub_id=1"%>>科目一错题集</a></li> --%>
-<!-- 					<li><a href="javascript:;">科目四</a></li> -->
-<!-- 				</ul> -->
-			</li>
+<%-- <%-- 					<li><a target="_blank" href=<%=path+"/topic/findManyTopic.action?stu_id=2&sub_id=1"%>>科目一模拟</a></li> --%> --%>
+<%-- <%-- 					<li><a target="_blank" href=<%=path+"/topic/findAllTopic.action?stu_id=2&sub_id=1"%>>科目一练习</a></li> --%> --%>
+<%-- <%-- 					<li><a target="_blank" href=<%=path+"/topic/findMistakeTopic.action?stu_id=2&sub_id=1"%>>科目一错题集</a></li> --%> --%>
+<!-- <!-- 					<li><a href="javascript:;">科目四</a></li> --> -->
+<!-- <!-- 				</ul> --> -->
+<!-- 			</li> -->
 			<li class="m ">
 				<h3>
 					<a href=" javascript:;">驾校</a>
