@@ -402,6 +402,9 @@ public class LCoachServiceImpl implements LCoachService {
 		
 		Double studytemenum=lCoachMapper.selectStudytime(subid, stuid);
 		if(subid==1) {
+			if(studytemenum==null) {
+				studytemenum=0.0;				
+			}
 			studytemenum = studytemenum/60/60;
 		}
 		return studytemenum;
