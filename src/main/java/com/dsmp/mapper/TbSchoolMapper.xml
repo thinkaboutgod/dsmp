@@ -132,6 +132,19 @@
 	</select>
 
 
+  <!-- 查询驾校排行 -->
+  <select id="getSchoolRanking" resultMap="schoolRankingMap">
+  	SELECT s.sch_id,s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as starnum,AVG(r.rat_star) as staravg FROM 
+ tb_school s,tb_rating r where  r.sch_id = s.sch_id GROUP BY r.sch_id ORDER BY staravg DESC;
+  </select>
+
+  <resultMap id="schoolRankingMap" type="com.dsmp.pojo.Count" >
+  	<result column="sch_id" property="parameterId" jdbcType="INTEGER" />
+  	<result column="sch_name" property="name" jdbcType="VARCHAR" />
+    <result column="commentnum" property="data" jdbcType="VARCHAR" />
+    <result column="starnum" property="phone" jdbcType="VARCHAR" />
+    <result column="staravg" property="starAvg" jdbcType="DOUBLE" />
+  </resultMap>
 	<!-- 查询所有驾校，允许报名和运营的 -->
 	<select id="selectAllSchoolForAdvertise"
 		resultMap="BaseResultMap">
@@ -139,19 +152,6 @@
 		sch_signUpStatus='允许报名' and sch_operativeStatus='允许运营'
 	</select>
 
-	<!-- 查询驾校排行 -->
-	<select id="getSchoolRanking" resultMap="schoolRankingMap">
-		SELECT s.sch_name,COUNT(r.rat_star) as commentnum,SUM(r.rat_star) as
-		starnum,AVG(r.rat_star) as staravg FROM
-		tb_school s,tb_rating r where r.sch_id = s.sch_id GROUP BY r.sch_id ORDER BY
-		staravg DESC;
-	</select>
-	<resultMap id="schoolRankingMap" type="com.dsmp.pojo.Count">
-		<result column="sch_name" property="name" jdbcType="VARCHAR" />
-		<result column="commentnum" property="data" jdbcType="VARCHAR" />
-		<result column="starnum" property="phone" jdbcType="VARCHAR" />
-		<result column="staravg" property="starAvg" jdbcType="DOUBLE" />
-	</resultMap>
 
 
 
@@ -215,7 +215,6 @@
 		update tb_subjectscore set sus_score = #{susScore} where sus_id = #{susId}
 	</insert>
 
-
 	<resultMap id="CountStudentMap" type="com.dsmp.pojo.Count">
 		<result column="name" property="name" jdbcType="VARCHAR" />
 		<result column="num" property="data" jdbcType="VARCHAR" />
@@ -233,6 +232,9 @@
 	(SELECT @lastDay := date_add(curdate(),interval -7 month) from tb_student  limit 6) a) c 
 	LEFT JOIN(select stu_signUpTime ,count(*) as num from tb_student where coa_id=#{param1}  GROUP BY DATE_FORMAT(stu_signUpTime , '%Y-%m' )) t ON DATE_FORMAT(t.stu_signUpTime , '%Y-%m' )= c.month order by c.month
   </select>
+
+
+
   
   <!-- 查询前六个月日期 -->
   <select id="searchDate" resultMap="CountStudentMap"  >

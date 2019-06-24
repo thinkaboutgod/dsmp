@@ -1,5 +1,11 @@
 
 $(document).ready(function () {
+	 //回车登录
+    $("body").keydown(function(event) {
+		if (event.keyCode == "13") {// keyCode=13是回车键
+			$("#findpass_button_2").click();
+		}
+	});
 		var path = $("#path").val();
 	
 	    $(".print_code").keyup(function () {
@@ -169,6 +175,7 @@ $(document).ready(function () {
 	            },
 	            success: function success(res) { 
 	                if (res.code == 0) {
+	                	layer.msg("短信发送成功，请注意查收!");
 	                    var n = 60;
 	                	$(".obtain_btn").attr("disabled","disabled");
 	                    $(".obtain_btn").css({

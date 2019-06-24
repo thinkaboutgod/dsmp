@@ -96,7 +96,6 @@ public interface TbStudentMapper {
 	 * @return
 	 */
 	public int updateStudentWithScore(TbStudent student);
-	
-	
+
 	
 }

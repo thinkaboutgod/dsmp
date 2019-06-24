@@ -142,7 +142,7 @@ $.ajax({
 			$("#doptId").val(options[3].optId);
 			
 		}
-		if(dataRow.topImg!=""){
+		if(dataRow.topImg != undefined){
 			$("#imgDiv").css("display","block");
 			$("img").attr("src",filePath+"/images/topic/"+dataRow.topImg);
 		};
@@ -197,7 +197,7 @@ $.ajax({
 					if (result.myresult == "success") {
 						layer.msg("删除成功");
 						table.ajax.reload(null,false);// 重新加载
-					}else if (result.myresult == "fialed"){
+					}else if (result.myresult == "failed"){
 						layer.msg("删除失败");
 					}
 				},
@@ -241,6 +241,11 @@ $.ajax({
 		B = $("#B").val();
 		C = $("#C").val();
 		D = $("#D").val();
+		var topId = $("#topId").val();
+		var aoptId = $("#aoptId").val();
+		var boptId = $("#boptId").val();
+		var coptId = $("#coptId").val();
+		var doptId = $("#doptId").val();
 		topTopic = $("#topTopic").val();
 		topAnswerDetail = $("#topAnswerDetail").val();
 		if (type==1||type==2) {//判断4个选项的
@@ -260,6 +265,11 @@ $.ajax({
 			fileId = "newImg";
 		}else if (doType == "add") {
 			url = path+"/plateform/addTopic.action";
+			topId = "0";//造个没用的数据，为了防止后端json解析的时候是空值报错
+			aoptId = "0";
+			boptId = "0";
+			coptId = "0";
+			doptId = "0";
 			fileId = "addnewImg";
 		}
 		//判断图片类型
@@ -274,27 +284,27 @@ $.ajax({
 		}
 		//上传携带信息
 		var topic = {//题目
-				"topId":$("#topId").val(),
+				"topId":topId,
 				"topTopic" : topTopic,
 				"topAnswerDetail":topAnswerDetail,
 		}
 		var optionA = {//选项
-				"optId": $("#aoptId").val(),
+				"optId": aoptId,
 				"optOption" : $("#A").val(),
 				"optStatus" : $("#Aans").val()
 		}
 		var optionB = {
-				"optId": $("#boptId").val(),
+				"optId": boptId,
 				"optOption" : $("#B").val(),
 				"optStatus" : $("#Bans").val()
 		}
 		var optionC = {
-				"optId": $("#coptId").val(),
+				"optId": coptId,
 				"optOption" : $("#C").val(),
 				"optStatus" : $("#Cans").val()
 		}
 		var optionD = {
-				"optId": $("#doptId").val(),
+				"optId": doptId,
 				"optOption" : $("#D").val(),
 				"optStatus" : $("#Dans").val()
 		}

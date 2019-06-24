@@ -94,6 +94,9 @@
  			<!-- 进行拦截：/**表示拦截所有controller -->
  			<mvc:mapping path="/menu/toManageMain.action" />
  			<!-- 加载相应的拦截器类 -->
+<!--  			进行拦截：/**表示拦截所有controller -->
+ 			<mvc:mapping path="/menu/toManageMain.action" />
+<!--  			加载相应的拦截器类 -->
  			<bean class="com.dsmp.interceptor.MenuInterceptor" />
  		</mvc:interceptor>
  		

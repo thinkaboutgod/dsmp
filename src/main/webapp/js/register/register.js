@@ -1,4 +1,10 @@
  $(function() {
+	 //回车登录
+	    $("body").keydown(function(event) {
+			if (event.keyCode == "13") {// keyCode=13是回车键
+				$("#register").click();
+			}
+		});
 	 	var path = $("#path").val();
 	 
 	    $(".register-phone").keyup(function () {
@@ -140,6 +146,7 @@
 	            },
 	            success: function success(res) { 
 	                if (res.code == 0) {
+	                	layer.msg("短信发送成功，请注意查收!");
 	                    var n = 60;
 	                	$(".register-code-btn").attr("disabled","disabled");
 	                    $(".register-code-btn").css({
