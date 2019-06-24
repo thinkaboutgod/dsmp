@@ -24,6 +24,7 @@ import com.dsmp.mapper.LCoachMapper;
 import com.dsmp.mapper.TbParameterMapper;
 import com.dsmp.mapper.TbStudentMapper;
 import com.dsmp.mapper.TbStudyrecordMapper;
+import com.dsmp.mapper.TbSubjectMapper;
 import com.dsmp.pojo.BelongtoCoachStudentMsg;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.SearchBean;
@@ -54,7 +55,8 @@ public class LCoachServiceImpl implements LCoachService {
 	private String belongSubject;
 	private Date date;
 	@Autowired private LCoachMapper lCoachMapper;
-	
+	@Autowired private TbSubjectMapper tbSubjectMapper;
+	@Autowired private TbStudentMapper TbStudentMapper;
 	//教练所属学生的普通信息
 	@Autowired
 	private TbStudentMapper tbStudentMapper;
@@ -300,17 +302,28 @@ public class LCoachServiceImpl implements LCoachService {
 			if (timeLenth+todayTime>maxTime) {
 				double allowTime = maxTime-todayTime;
 				tbStudyrecordMapper.updateNormal(recordList.get(0).getStrId(), allowTime);
+				judgeCanToExame(stuId,subId);//判断已打卡时长是否满足，满足就变成可预约考试，科目二三
 				myResult.setMyresult("timeTOLong");
 				myResult.setData(maxTime+"_"+allowTime);
 				return myResult;
 			}
 			//没有超出时长
 			tbStudyrecordMapper.updateNormal(recordList.get(0).getStrId(), timeLenth);
+			judgeCanToExame(stuId,subId);//判断已打卡时长是否满足，满足就变成可预约考试，科目二三
 			myResult.setMyresult("timeOk");
 			myResult.setData(new DecimalFormat("#.00").format(timeLenth));
 		}
 		
 		return myResult;
+	}
+	//判断已打卡时长是否满足，满足就变成可预约考试，科目二三
+	@Transactional
+	public void judgeCanToExame(String stuId, String subId) {
+		Double sum = countTimeByStuIdAndSubject(stuId, subId).getSum();//查询到已打卡时长
+		Double limit = tbSubjectMapper.findNeedStudyTime(Integer.valueOf(subId))/60/60;
+		if (sum>=limit) {
+			tbStudentMapper.updateSubjectStatus(Integer.valueOf(stuId), "可预约");//修改学员状态可预约
+		}
 	}
 	//查找考试安排信息
 	@Override

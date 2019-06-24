@@ -19,7 +19,17 @@ public class TbTopic {
     public TbTopic() {
 		
 	}
-    public Integer getTopId() {
+    
+    
+    public TbTopic(Integer topId, String topTopic, String topAnswerDetail) {
+		super();
+		this.topId = topId;
+		this.topTopic = topTopic;
+		this.topAnswerDetail = topAnswerDetail;
+	}
+
+
+	public Integer getTopId() {
         return topId;
     }
 

@@ -138,7 +138,7 @@ $(function() {
 	
 	//删除题目
 	$(document).on("click",".delete",function(){
-		var advId = $("#advId").val($(this).attr("id"));//获取当前广告的id
+		var advId = $(this).attr("id");//获取当前广告的id
 		layer.confirm('是否确认删除该数据？', {
 			btn : [ '确定', '取消' ]
 		// 按钮
