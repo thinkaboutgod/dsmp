@@ -13,7 +13,6 @@ function searchVideo(subject,videoPath) {//视频分页
 		success : function(data) {
 			$("#info").text("当前选择科目为：" + $("#subjectSelect").find("option:selected").text())
 			dt.empty();// 清空原页面视频
-			alert(data);
 			var result = JSON.parse(data);
 			var div = videoDiv(result);// 组装视频标签
 

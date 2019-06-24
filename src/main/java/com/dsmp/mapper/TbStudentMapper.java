@@ -96,12 +96,6 @@ public interface TbStudentMapper {
 	 * @return
 	 */
 	public int updateStudentWithScore(TbStudent student);
-	
-	/**
-	 *	 统计教练名下的学员数量
-	 * @param coaId
-	 * @return
-	 */
-	public List<Count> countStudentByCoach(String coaId);
+
 	
 }

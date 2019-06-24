@@ -45,6 +45,7 @@ public class SchoolServiceImpl implements SchoolService {
 	private String schBossname;
 	//驾校入驻
 	@Override
+	@Transactional
 	public MyResult insertSchoolInfo(String phone,String password,String sch_creditcode,String sch_name,
 			String sch_type,String sch_address,String sch_bossname,String sch_registerCapital,
 			String sch_introduce,Double sch_charge,String fileName) {
@@ -79,12 +80,10 @@ public class SchoolServiceImpl implements SchoolService {
 				result.setMyresult("already");
 			}
 		}		
-		System.out.println(result);
 		return result;
 	}
+	
 	//驾校条件查找
-
-
 	@Override
 	public List<TbSchool> searchSchool(HttpServletRequest request) {
 		schName=request.getParameter("schName");
@@ -269,8 +268,8 @@ public class SchoolServiceImpl implements SchoolService {
 	}
 
 	@Override
-	public List<Count> countStudentByDate(String month) {// 查询某一个月有人报名的驾校的人数
-		return tbSchoolMapper.countStudentByDate(month);
+	public List<Count> countStudentByDate(String month,String schId) {// 查询某一个月有人报名的驾校的人数
+		return tbSchoolMapper.countStudentByDate(month,schId);
 	}
 
 	@Override
@@ -306,7 +305,6 @@ public class SchoolServiceImpl implements SchoolService {
 	//禁止、恢复学员预约 
 	@Override
 	public void updateSignupstatus(HttpServletRequest request) {
-		System.out.println("存入");
 		String schId=request.getParameter("schId");
 		String signupstatus=request.getParameter("schSignupstatus");
 		if(signupstatus.equals("允许报名")) {
@@ -346,8 +344,6 @@ public class SchoolServiceImpl implements SchoolService {
 		String schid=request.getParameter("schId");
 		String auditresult=request.getParameter("auditResult");
 		String result="";
-		System.out.println(schid);
-		System.out.println(auditresult);
 		if(auditresult.equals("审核不准")) {
 			result="fail";
 		}else if(auditresult.equals("审核通过")){

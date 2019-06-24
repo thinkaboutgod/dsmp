@@ -42,8 +42,6 @@ public class StudentServiceImpl implements StudentService {
 		SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		String stuErrtime1 = sdf1.format(new java.util.Date());
 		String md5Password = Md5Tools.getMd5(password);
-		System.out.println("MD5加密后的密码：" + md5Password);
-		System.out.println("当前系统时间：" + stuErrtime1);
 		MyResult result = new MyResult();
 		TbStudent student = new TbStudent();
 		student.setStuAccount(account);
@@ -57,16 +55,13 @@ public class StudentServiceImpl implements StudentService {
 					long time1 = now.getTime();
 					long time2 = old.getTime();
 					long time3 = time1 - time2;
-					System.out.println("距离解锁还有;" + (300000 - time3));
 					if (time3 >= 300000) {
-						System.out.println("满足要求解绑");
 						tbStudent.setStuErrcount(0);
 						tbStudent.setStuErrtime(null);
 						tbStudent.setStuStatus("启用");
 						tbStudentMapper.updateStudent(tbStudent);
 					}
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -77,7 +72,6 @@ public class StudentServiceImpl implements StudentService {
 					tbStudent.setStuErrtime(null);
 					tbStudent.setStuStatus("启用");
 					tbStudentMapper.updateStudent(tbStudent);
-					System.out.println("用户名：" + student.getStuName());
 					result.setMyresult("success");
 				} else if (tbStudent.getStuStatus().equals("锁定")) {
 					result.setMyresult("lock");
@@ -89,7 +83,6 @@ public class StudentServiceImpl implements StudentService {
 					result.setMyresult("lock");
 				} else {
 					int stuErrcount = tbStudent.getStuErrcount() + 1;
-					System.out.println("错误次数：" + stuErrcount);
 					if (stuErrcount >= 3) {
 						SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 						String stuErrtime2 = sdf.format(new java.util.Date());
@@ -126,10 +119,9 @@ public class StudentServiceImpl implements StudentService {
 
 	// 学员注册（//手机验证码验证）
 	@Override
+	@Transactional
 	public MyResult studentRegister(HttpServletRequest request, String stuAccount, String stuPassword,
 			String verifyCode) {
-		System.out.println("注册手机号：" + stuAccount);
-		System.out.println("注册密码：" + stuPassword);
 		MyResult result = new MyResult();
 		Map<String, String> map = (Map<String, String>) request.getSession().getAttribute("verifyCode");
 		if (map == null) {
@@ -257,10 +249,9 @@ public class StudentServiceImpl implements StudentService {
 
 	// 学员在线报名实现类
 	@Override
+	@Transactional
 	public MyResult studentApply(HttpServletRequest request, HttpSession session, String filename, String name,
 			String idCard, String address, String sex, Integer school, Integer coach, String code, String phone) {
-		System.out.println("报名手机号：" + phone);
-		System.out.println("输入验证码：" + code);
 		MyResult result = new MyResult();
 		Map<String, String> map = (Map<String, String>) request.getSession().getAttribute("verifyCode");
 		if (map == null) {
@@ -281,12 +272,9 @@ public class StudentServiceImpl implements StudentService {
 			student.setStuAccount(phone);
 			TbStudent tbStudent = tbStudentMapper.findStudentByAccountPwd(student);
 			TbStudent tStudent = (TbStudent) request.getSession().getAttribute("student");
-			System.out.println("session学员ID：" + tStudent.getStuId());
 			if (tbStudent.getSchId() != null) {
 				result.setMyresult("already");
 			} else {
-				System.out.println("学员照片：" + filename);
-				System.out.println("地址：" + address);
 				student.setStuId(tStudent.getStuId());
 				student.setCoaId(coach);
 				student.setSchId(school);
@@ -298,7 +286,6 @@ public class StudentServiceImpl implements StudentService {
 				student.setStuErrcount(0);
 				student.setStuStatus("启用");
 				student.setStuVerifystatus("未审核");
-				System.out.println("用户地址：" + student.getStuAddress());
 				session.setAttribute("students", student);
 				result.setMyresult("success");
 			}
@@ -309,9 +296,8 @@ public class StudentServiceImpl implements StudentService {
 
 	// 学员忘记密码
 	@Override
+	@Transactional
 	public MyResult changePwd(HttpServletRequest request, String newPassword, String phone, String code) {
-		System.out.println("报名手机号：" + phone);
-		System.out.println("输入验证码：" + code);
 		MyResult result = new MyResult();
 		Map<String, String> map = (Map<String, String>) request.getSession().getAttribute("verifyCode");
 		if (map == null) {
@@ -333,7 +319,6 @@ public class StudentServiceImpl implements StudentService {
 			student.setStuAccount(phone);
 			student.setStuPassword(md5Password);
 			int res = tbStudentMapper.updateStudentPwd(student);
-			System.err.println("修改结果：" + res);
 			if (res == 1) {
 				result.setMyresult("success");
 			} else {
@@ -346,6 +331,8 @@ public class StudentServiceImpl implements StudentService {
 	/**
 	 *	修改学生状态
 	 */
+	@Transactional
+	@Override
 	public MyResult changeStudentState(HttpServletRequest request, MyResult myResult) {
 
 		String state = request.getParameter("state");
@@ -369,6 +356,7 @@ public class StudentServiceImpl implements StudentService {
 	 * 	驾校录入学生
 	 */
 	@Override
+	@Transactional
 	public MyResult addStudent(HttpServletRequest request) {
 
 		MyResult result = new MyResult();
@@ -411,6 +399,7 @@ public class StudentServiceImpl implements StudentService {
 	 *	 审核学员
 	 */
 	@Override
+	@Transactional
 	public MyResult checkStudent(HttpServletRequest request, MyResult myResult) {
 		String stuVerifystatus = request.getParameter("stuVerifystatus");
 		String stuId = request.getParameter("stuId");
@@ -434,6 +423,7 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return myResult;
 	}
+	
 	/**更改学员当前科目状态
 	 * @param stuId 学员id
 	 * @param status stu_subjectStatus（学员当前科目的状态）字段要更改成的状态
@@ -449,6 +439,7 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return flag;
 	}
+	
 	@Transactional
 	@Override
 	public boolean updateSubjectStatusAndSubId(Integer stuId, String status, Integer subId) {
@@ -459,6 +450,7 @@ public class StudentServiceImpl implements StudentService {
 		}
 		return flag;
 	}
+	
 	@Override
 	public TbStudent findStuById(Integer stuId) {
 		

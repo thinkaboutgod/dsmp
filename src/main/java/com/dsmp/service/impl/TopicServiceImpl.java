@@ -220,7 +220,7 @@ public class TopicServiceImpl implements TopicService {
 		return doTOpic(request, map, addnewImg, "add");
 	}
 
-	// 科目一题目修改和删除共用
+	// 科目一题目修改和增加共用
 	@Transactional // 事务注解，dotype为修改还是增加的类型
 	public String doTOpic(HttpServletRequest request, String map, MultipartFile img, String doType) {
 		String result = null;

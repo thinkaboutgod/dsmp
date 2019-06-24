@@ -19,8 +19,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 		MyResult result = new MyResult();
 		String myyzm = request.getParameter("yzm");
 		String code = (String)request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-		System.out.println("我输入的验证码："+myyzm);
-		System.out.println("生成的验证码："+code);
 		if(myyzm.equalsIgnoreCase(code)) {
 			return true;
 		}else {

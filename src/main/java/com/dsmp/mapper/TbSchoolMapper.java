@@ -98,5 +98,5 @@ public interface TbSchoolMapper {
 
 	public List<Count> countAllStudentByDate(String month,String schId);
 
-	public List<Count> countStudentByDate(String month);
+	public List<Count> countStudentByDate(String month,String schId);
 }
