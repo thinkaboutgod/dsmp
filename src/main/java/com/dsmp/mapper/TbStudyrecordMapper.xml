@@ -229,13 +229,13 @@
   <!-- zdcEnd -->
   
   <!-- ren start -->
- <!-- 查询科目某学员的学习时长（片段） -->
- <select id="findTimeLength" resultType="java.lang.Integer">
+ <!-- 查询科目某学员的学习时长（片段）（最新的那一条） -->
+ <select id="findTimeLength" resultType="java.lang.Double">
 <!--   TIME_TO_SEC(end_time) -TIME_TO_SEC(start_time) -->
   	SELECT (TIME_TO_SEC(str_endTime)-TIME_TO_SEC(str_beginTime)) FROM tb_studyrecord where str_beginTime=(select max(str_beginTime) as str_beginTime from tb_studyRecord where stu_id=#{stuId} and sub_id=#{subId})	
   </select>
   <!-- 查询科目某学员的当前总学习时长 -->
-  <select id="sumTimeLength" resultType="java.lang.Integer">
+  <select id="sumTimeLength" resultType="java.lang.Double">
 <!--   IFNULL( SUM(room_capacity),0) 如果查出null则为0，如果非空则正常查 -->
   		select IFNULL(sum(str_time),0) from tb_studyrecord 
   		where stu_id=#{stuId} and sub_id=#{subId}

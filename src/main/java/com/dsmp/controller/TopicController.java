@@ -94,8 +94,8 @@ public class TopicController {
 			}
 		}
 	}
-	public Integer sumTimeLength(Integer stu_id,Integer sub_id) {
-		Integer currTotalTimeLength=null;
+	public Double sumTimeLength(Integer stu_id,Integer sub_id) {
+		Double currTotalTimeLength=null;
 		if(null!=stu_id) {//如果是登录状态，则查询该学员总学时
 			currTotalTimeLength = studyRecordService.sumTimeLength(stu_id,sub_id);
 		}
@@ -106,14 +106,14 @@ public class TopicController {
 	 * @param totalTimeLength
 	 * @return
 	 */
-	public String getPercentage(Integer currTotalTimeLength,Integer totalTimeLength) {
+	public String getPercentage(Double currTotalTimeLength,Double totalTimeLength) {
 		 DecimalFormat df = new DecimalFormat("0.00%");
 //		 Integer currTotalTimeLength = sumTimeLength(stu_id, sub_id);
 //		 Integer totalTimeLength = 10*60*60;
 		 String percentage = null;
 		 if(null!=currTotalTimeLength && null!=totalTimeLength) {
 //			 System.out.println(df.format((double)currTotalTimeLength/totalTimeLength)); 
-			 percentage = df.format((double)currTotalTimeLength/totalTimeLength);
+			 percentage = df.format(currTotalTimeLength/totalTimeLength);
 			 
 		 }
 		 return percentage;
@@ -140,10 +140,10 @@ public class TopicController {
 			sub_id = student.getSubId();
 			if(null!=student.getSubId()&&student.getSubId()==1) {//只有在科目一（未登录或其他科目都不执行）时，才插入学习时间
 				addStudyBeginTime(stu_id, sub_id);//进入模拟卷就插入开始学习时间
-				Integer currTotalTimeLength = sumTimeLength(stu_id, sub_id);//计算当前总学时
+				Double currTotalTimeLength = sumTimeLength(stu_id, sub_id);//计算当前总学时
 				mav.addObject("currTotalTimeLength", currTotalTimeLength);
 				//查询出科目一需要的总学时：
-				Integer needStudyTime = subjectService.findNeedStudyTime(1);
+				Double needStudyTime = subjectService.findNeedStudyTime(1);
 //				System.out.println("needStudyTime:"+needStudyTime);
 				
 				mav.addObject("percentage", getPercentage(currTotalTimeLength,needStudyTime));//计算进度百分比
@@ -259,11 +259,11 @@ public class TopicController {
 	 */
 	@RequestMapping(value="/addOrDelMistakeCollection.action")
 	@ResponseBody
-	public Map<String,Integer> addOrDelMistakeCollection(@RequestParam Map<String,String> map,Integer studentId,Integer subId) {//点击了提交到这边来
+	public Map<String,Double> addOrDelMistakeCollection(@RequestParam Map<String,String> map,Integer studentId,Integer subId) {//点击了提交到这边来
 //		System.out.println("进入把题目增加到错题集(或做对删除记录)的方法！");
 //		System.out.println("studentId:"+map.get("studentId"));
 //		System.out.println("subId:"+map.get("subId"));
-		Map<String,Integer> studyTimeResMap = null;
+		Map<String,Double> studyTimeResMap = null;
 		if(null!=studentId) {//只有有学员id（即学员登录状态下）才能有错题集功能。（还要插入学习结束时间点到学习记录表中）
 			//处理错题集相关
 			Gson gson = new Gson();
@@ -313,7 +313,7 @@ public class TopicController {
 		stu_id = student.getStuId();
 		sub_id = student.getSubId();
 		addStudyBeginTime(stu_id, sub_id);//进入模拟卷就插入开始学习时间
-		Integer currTotalTimeLength = sumTimeLength(stu_id, sub_id);//计算总学时
+		Double currTotalTimeLength = sumTimeLength(stu_id, sub_id);//计算总学时
 		List<TbTopic> mistakeTopicList = topicService.findMistakeTopic(stu_id);//allTopicList表示查出题库里所有题目
 		/*System.out.println("查询出错题集：");
 		for (TbTopic tbTopic : mistakeTopicList) {
@@ -326,7 +326,7 @@ public class TopicController {
 			
 		}*/
 		//查询出科目一需要的总学时：
-		Integer needStudyTime = subjectService.findNeedStudyTime(1);
+		Double needStudyTime = subjectService.findNeedStudyTime(1);
 		//得到题库里存放图片的文件夹的路径
 		String topicImgFilePath = findTopicImgPath();
 		
