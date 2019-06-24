@@ -2,7 +2,6 @@ var path = $("#path").val();
 var imgPath = path+ "/plateform/searchAdvertise.action";
 var type;//弹窗类型，change代表修改，add代表新增
 $(function() {
-	
 	searchVideo(0,imgPath);//在video_utils工具类中，此处0代表搜索所有，因为是调用了视频的工具类，所以名字看起来不符合
 	//点击搜索
 	$("#search").click(function() {
@@ -19,6 +18,7 @@ $(function() {
 		$("#toPath").val($(this).prev().prev().val());
 		$("#describe").val($(this).prev().val());
 		$("#newLevel").val($(this).next().val());//优先级
+		$("#adPathDiv").css("display","block");
 		$("#forSchoolAdv").modal("show");
 		type="change";
 	})
@@ -39,6 +39,8 @@ $(function() {
 		$("#schoolId").val("0");
 		$("#newLevel").val("0");
 		$("#newImg").val("");
+		$("#toPath").val($("#adPath").val());
+		$("#adPathDiv").css("display","none");
 	}
 	//修改或者新增提交
 	$("#sub").click(function() {
@@ -168,12 +170,11 @@ $(function() {
 	
 })
 
-// 组装视频标签
+// 组装图片标签
 	function videoDiv(result) {
 		div = "";
 		var di = "";
 		var len = result.list.length
-		console.log(result);
 		for (var i = 0; i < len; i++) {
 			di = '<div class="Product">'+ 
 			'<img style="width:260px;height:160px;" src="'+result.data+result.list[i].advImgpath+'" >'+

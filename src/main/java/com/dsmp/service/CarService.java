@@ -28,11 +28,20 @@ public interface CarService {
 
 	
 	/**
-	 * 添加车辆
+	 * 	添加车辆
 	 * @param request
 	 * @param carImgNew
 	 * @return
 	 */
 	public String addCar(HttpServletRequest request, MultipartFile carImgNew);
+
+
+	/**
+	 *	 分配教练车
+	 * @param request
+	 * @param myResult
+	 * @return
+	 */
+	public MyResult distributeCar(HttpServletRequest request, MyResult myResult);
 
 }

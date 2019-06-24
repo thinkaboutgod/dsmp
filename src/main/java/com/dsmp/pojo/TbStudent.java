@@ -1,6 +1,8 @@
 package com.dsmp.pojo;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class TbStudent {
 	
@@ -44,7 +46,6 @@ public class TbStudent {
 	
 	private String stuBookingstate;//学员当前科目的状态（未预约-不能考（默认）；可预约-有了考试资格（如科一学时，分数都够）；已预约-学员可以考）
 	
-	
 	private TbSubject tbSubject;
 
 	private TbCoach tbCoach;
@@ -55,7 +56,10 @@ public class TbStudent {
 	
 	private TbExamscheduleandstudent tbExamscheduleandstudent;
 	
+	private List<TbSubjectscore> scoreList = new ArrayList<>();
+
 //	private String stuSubjectstatus;//学员当前科目的状态（lock-不能考（默认）；canApply-有了考试资格（如科一学时，分数都够）；apply-学员在申请；unlock-申请通过，学员可以考）
+
 	
 	public TbExamscheduleandstudent getTbExamscheduleandstudent() {
 		return tbExamscheduleandstudent;
@@ -256,6 +260,14 @@ public class TbStudent {
 
 	public void setTbSchool(TbSchool tbSchool) {
 		this.tbSchool = tbSchool;
+	}
+
+	public List<TbSubjectscore> getScoreList() {
+		return scoreList;
+	}
+
+	public void setScoreList(List<TbSubjectscore> scoreList) {
+		this.scoreList = scoreList;
 	}
 
 

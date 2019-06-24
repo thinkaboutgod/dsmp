@@ -19,4 +19,10 @@ public interface TbSubjectMapper {
     int updateByPrimaryKey(TbSubject record);
     
     public List<TbSubject> selectAllSubject();//查询所有科目
+    
+    /**查出该科目总需要学时
+     * @param subId 科目id
+     * @return
+     */
+    public Double findNeedStudyTime(Integer subId);
 }

@@ -28,8 +28,17 @@ public interface TbCoachMapper {
 	 * @return
 	 */
 	public Integer changeCoachState(Integer valueOf, String state);
+	
+	/**
+	 * 	根据驾校查询所有教练
+	 * @param schId
+	 * @return
+	 */
+	public List<TbCoach> selectCoachBySchId(Integer schId);
+	
 	//查询所有教练
 	public List<TbCoach> selectAllCoach();
+	
 	/**
 	 * 	添加教练
 	 * @param coach
@@ -38,6 +47,8 @@ public interface TbCoachMapper {
 	public Integer addCoach(TbCoach coach);
 	//教练排行
 	public List<Count> getCoachRanking();
+	//教练信息
+	public TbCoach selectCoachById(Integer coaId);
 
 
 }

@@ -13,6 +13,7 @@ import com.dsmp.service.ExamScheduleService;
 public class ExamScheduleServiceImpl implements ExamScheduleService {
 	@Autowired
 	private TbExamscheduleandstudentMapper examscheduleandstudentMapper;
+	
 	/**查询学员目前所处科目的安排表(最新的那个安排表)）
 	 * @param stuId 学员id
 	 * @param subId 科目id
@@ -21,9 +22,6 @@ public class ExamScheduleServiceImpl implements ExamScheduleService {
 	@Override
 	public List<TbExamscheduleandstudent> findExamScheduleByStuIdAndSubId(Integer stuId,Integer subId) {
 		List<TbExamscheduleandstudent> list = examscheduleandstudentMapper.findExamScheduleByStuIdAndSubId(stuId, subId);
-//		System.out.println("考试安排学生id:"+list.get(0).getStuId());
-//		System.out.println("考试安排内学员名："+list.get(0).getTbStudent().getStuName());
-		
 		return list;
 	}
 

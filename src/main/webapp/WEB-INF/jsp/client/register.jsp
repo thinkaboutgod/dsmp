@@ -12,6 +12,8 @@
 <link rel="stylesheet" href=<%=path+"/css/home/comm_style.css"%>>
 <link rel="stylesheet" href=<%=path+"/css/register/reset.css"%>>
 <link rel="stylesheet" href=<%=path+"/css/register/registration.css"%>>
+<script src=<%=path+"/js/jquery-3.3.1.js"%> charset="utf-8"></script>
+<script type="text/javascript" src=<%=path + "/layer/layer.js"%>></script>
 </head>
 <body>
 	<input type="hidden" id="path" value=<%=path %>>
@@ -71,7 +73,7 @@
 				            <p class="iconfont icon-jinggao"></p>
 				        </div>
 				        <div>
-				            <span class="register-submit">注册</span>
+				            <span id="register" class="register-submit">注册</span>
 				        </div>
 				        <div>
 				            <label for="register_checkbox">

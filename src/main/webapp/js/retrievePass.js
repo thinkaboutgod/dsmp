@@ -1,5 +1,11 @@
 
 $(document).ready(function () {
+	 //回车登录
+    $("body").keydown(function(event) {
+		if (event.keyCode == "13") {// keyCode=13是回车键
+			$("#findpass_button_2").click();
+		}
+	});
 		var path = $("#path").val();
 	
 	    $(".print_code").keyup(function () {
@@ -168,9 +174,8 @@ $(document).ready(function () {
 	                "mobile": phone,
 	            },
 	            success: function success(res) { 
-	            	alert(res.code); 
 	                if (res.code == 0) {
-	                	alert("发送成功了")
+	                	layer.msg("短信发送成功，请注意查收!");
 	                    var n = 60;
 	                	$(".obtain_btn").attr("disabled","disabled");
 	                    $(".obtain_btn").css({
@@ -241,13 +246,13 @@ $(document).ready(function () {
 	                        window.location.href = path+'/student/login.action';
 	                    }, 3000);
 					}else if(msge.myresult == "codeErr"){
-						alert("修改失败，验证码错误!");
+						layer.msg("修改失败，验证码错误!");
 					}else if(msge.myresult == "phoneErr"){
-						alert("修改失败，手机号码错误!");
+						layer.msg("修改失败，手机号码错误!");
 					}else if(msge.myresult == "failed"){
-						alert("修改失败，请重新提交！");
+						layer.msg("修改失败，请重新提交！");
 					}else if(msge.myresult == "pastDue"){
-						alert("修改失败，验证码已经失效！");
+						layer.msg("修改失败，验证码已经失效！");
 					}
 				},
 				error:function(){

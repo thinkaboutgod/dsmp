@@ -77,12 +77,14 @@
  		
 </style>
 <script type="text/javascript" src=<%=path+"/js/jquery-3.3.1.js" %>></script>
+<script type="text/javascript" src=<%=path+"/layer/layer.js" %>></script><%--引入layer+jquery就可以实现漂亮的弹框 --%>
 <script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/map.js" %>></script>
 
 <script type="text/javascript">
 		
 	$(function(){
+		var passScore = $("#passScore").val();//通过考试最低分数（90分）
 		//倒计时：
 		
 		var leftDateLong = 45*60*1000;//考试时间设置成45min=45*60*1000
@@ -139,7 +141,15 @@
 			},
 		});
 		function submitClick(){
-			alert('提交试卷');			
+// 			alert('提交试卷');			
+			layer.msg('提交试卷？', {
+				  time: 0 //不自动关闭
+				  ,btn: ['确定', '取消']
+				  ,yes: function(index){
+				    layer.close(index);
+				    
+
+			
 			
 		    	var totalScore="0";
 		    	totalScore=parseInt(totalScore);//转化成数值型才能加减
@@ -172,8 +182,9 @@
 			//利用Ajax把examResultMap把key(题号topId)和学员此题所选答案对错结果value，还有学员id传给控制类
 			var exresMap2json=JSON.stringify(examResultMap);//map转成json字符串
 			if(subId==1){//如果session里有科目id，且是1（科目一），则允许提交：
-// 				alert(subId);
-				if(totalScore>=2){//正式过了科目一（成绩大于90分）
+// 				alert('passScore:'+passScore+';totalScore:'+totalScore);
+			
+				if(totalScore>=passScore){//正式过了科目一（成绩大于90分）
 					$.ajax({
 						url:"addSubject1Score.action",
 						async:true,
@@ -182,7 +193,8 @@
 						data:{"stuId":stuId,"subId":subId,"totalScore":totalScore},
 						success:function(data){
 							if(data=='addSuccess'){//插入成绩成功！
-								alert('恭喜您！过了科目一！');
+// 								alert('恭喜您！过了科目一！');
+								layer.alert('恭喜您！成绩【'+totalScore+'】分，过了科目一！', {icon: 6});//【+'totalScore'+】
 								pass();//要把科目一改成科目二，预约状态改成"未预约"
 								
 							}
@@ -194,11 +206,16 @@
 					});
 					
 				}else{
-					alert('暂时未过科目一！');
+// 					alert('暂时未过科目一！');
+					layer.msg('成绩低于【'+passScore+'】分，没过科目一！已不能再考，等待教练给你安排下一次考试！', {icon: 5});//【+'totalScore'+】
 					noPass();//要把学员的科目状态改成"未预约"，不让其继续考试，要等待教练的安排
 				}
 				
 			}
+			
+				  }
+			});
+			
 		}
 		//没通过，科目状态改成"可预约"
 		function noPass(){
@@ -211,7 +228,8 @@
 				data:{"stuId":stuId,"subId":subId},
 				success:function(data){
 					if(data=='success'){//状态由"已预约"改成"可预约",等教练再次给他预约考试
-						alert('只能等待教练再次安排考试！');
+// 						alert('只能等待教练再次安排考试！');
+						
 					}
 					
 				},
@@ -231,7 +249,7 @@
 				data:{"stuId":stuId,"subId":subId},
 				success:function(data){
 					if(data=='success'){//状态由"已预约"改成"未预约",科目id改成2
-						alert('已经通过科目一，不用再考！');
+// 						alert('已经通过科目一，不用再考！');
 					}
 					
 				},
@@ -275,7 +293,7 @@
 						<div class="test">
 						
 			<form action="" method="post">
-	<%-- 			<input id="stuId" type="hidden" name="stuId" value="${stu_id}"/>			 --%>
+				<input id="passScore" type="hidden" name="passScore" value="${passScore}"/><%-- 考试通过应达到的分数 --%>
 				<input id="stuId" type="hidden" name="stuId" value="${student.stuId}"/>			
 	<%-- 			<input id="subId" type="hidden" name="subId" value="${sub_id}"/>		 --%>
 				<input id="subId" type="hidden" name="subId" value="${student.subId}"/>		
@@ -285,7 +303,8 @@
                             <div class="test_content_title">
                                 <h2>科目一考试(单选题)</h2>
                                 <p>
-                                    <span>共</span><i class="content_lit">${fn:length(topicList)}</i><span>分，</span><i class="content_fs">${fn:length(topicList)*0.9}</i><span>分通过</span>
+<%--                                     <span>共</span><i class="content_lit">${fn:length(topicList)}</i><span>分，</span><i class="content_fs">${fn:length(topicList)*0.9}</i><span>分通过</span> --%>
+                                    <span>共</span><i class="content_lit">${fn:length(topicList)}</i><span>分，</span><i class="content_fs">${passScore}</i><span>分通过</span>
                                 </p>
                             </div>
                         </div>
@@ -301,7 +320,8 @@
 <!-- 										<li> -->
 	<%-- 									<img alt="" src=<%=path+"/images/hai.jpg" %>>									 --%>
 										<c:if test="${i.topImg!=null&&''!=i.topImg}">
-											<img alt="" src=<%=path%>${i.topImg}>									
+<%-- 											<img alt="" src=<%=path%>${i.topImg}>									 --%>
+											<img alt="" src=${topicImgFilePath }${i.topImg}>									
 										
 										</c:if>
 <!-- 										</li> -->
@@ -358,6 +378,17 @@
 				<div id="resultDiv">
 				<input id="submitBtn" type="button" value="提交试卷"></input>			
 				</div>
+					
+					<div id="ruleDiv" style="background-color: yellow">
+					
+						<div><p style="color: red">考试规则:</p></div>
+						<div>1.考试时间45分钟，时间到会自动提交。</div>
+						<div>2.考试${passScore}分及以上才通过</div>
+						<div>3.考试通过则过科目一，学员科目变成科目二，科目状态变成'未预约'</div>
+						<div>4.考试没通过则科目状态变回'可预约'，需要等待教练重新安排一场考试 </div>
+					
+					
+					</div>	
 					
 				</div>
 

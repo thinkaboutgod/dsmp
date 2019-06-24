@@ -15,23 +15,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.dsmp.mapper.TbCoachMapper;
+import com.dsmp.mapper.TbSchoolMapper;
 import com.dsmp.pojo.MyResult;
 import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbSchool;
 import com.dsmp.service.CoachService;
+import com.dsmp.service.SchoolService;
 
 @Controller
 @RequestMapping("tbcoach")
 public class CoachController {
 
 	@Autowired private CoachService coachService;
-	
+	@Autowired private TbSchoolMapper tbSchoolMapper;
 	@Autowired private MyResult myResult;
 	
 	@Autowired private TbCoachMapper tbCoachMapper;
 	@RequestMapping(value="toschool_coach")
 	public String toSchoolCoach(HttpSession session) {
-		session.setAttribute("schId", 1);
 		return "back/school_coach";
 	}
 	
@@ -77,28 +78,24 @@ public class CoachController {
 		mav.setViewName("client/allcoach");
 		return mav;
 	}		
+	
 	//获取教练集合
 	@RequestMapping("/selectAllCoach")
 	public @ResponseBody List<TbCoach> getSchoolByStauts(){
-		System.out.println("进来找集合");
 		List<TbCoach> coaList = tbCoachMapper.selectAllCoach();
 		return coaList;
 	}	
+
 	
-	
-//	@RequestMapping("/selectStusByCoaId.action")
-//	public @ResponseBody List<TbStudent> selectStusByCoaId(String coaId ,String coaPassword){
-//		
-//		System.out.println(coaId);
-//		System.out.println(coaPassword);
-//		List<TbStudent> studentlist= coachService.selectStusByCoaId(1);
-//		System.out.println(studentlist.get(1).getStuName());
-//		for(TbStudent tbStudent:studentlist) {
-//			System.out.println(tbStudent.getStuName());
-//			System.out.println(tbStudent.getStuAccount());			
-//		}	
-//		
-//		return studentlist;
-//	}
-	
+	//驾校信息页
+		@RequestMapping("/coachInfo")
+		public ModelAndView getCoachInfoPage(Integer coaId) {
+			ModelAndView mav = new ModelAndView();			
+			TbCoach tbCoach = coachService.selectCoachById(coaId);
+			TbSchool tbSchool = tbSchoolMapper.findSchoolBySchId(tbCoach.getSchId());			
+			mav.addObject("tbCoach",tbCoach);
+			mav.addObject("tbSchool",tbSchool);
+			mav.setViewName("client/coach_info");
+			return mav;
+		}	
 }

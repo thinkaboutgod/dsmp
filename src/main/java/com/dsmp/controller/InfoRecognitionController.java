@@ -7,17 +7,14 @@ import java.util.Iterator;
 import java.util.Random;
 
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dsmp.pojo.MyResult;
 import com.dsmp.utils.AssesToken;
 import com.dsmp.utils.Base64Util;
 import com.dsmp.utils.FileUtil;
-import com.dsmp.utils.GsonUtils;
 import com.dsmp.utils.HttpUtil;
 
 @Controller
@@ -28,7 +25,6 @@ public class InfoRecognitionController {
 	// 学员报名身份证识别
 	@RequestMapping(value = "idCard.action")
 	public @ResponseBody HashMap<String, String> idCard(MultipartFile file) {
-		System.out.println(file.getOriginalFilename());
 		// 身份证识别url
 		String idcardIdentificate = "https://aip.baidubce.com/rest/2.0/ocr/v1/idcard";
 		// 本地图片路径
@@ -57,10 +53,8 @@ public class InfoRecognitionController {
 			String accessToken = AssesToken.getAuth();
 			;
 			String result = HttpUtil.post(idcardIdentificate, accessToken, params);
-			System.out.println(result);
 
 			map = getHashMapByJson(result);
-			System.out.println("身份证名字：" + map.get("name"));
 
 //			myResult = GsonUtils.toJson(map);
 		} catch (Exception e) {
@@ -73,14 +67,13 @@ public class InfoRecognitionController {
 
 	// 将身份信息转成map集合
 	public static HashMap<String, String> getHashMapByJson(String jsonResult) {
-		HashMap map = new HashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		try {
 			JSONObject jsonObject = new JSONObject(jsonResult);
 			JSONObject words_result = jsonObject.getJSONObject("words_result");
 			Iterator<String> it = words_result.keys();
 			while (it.hasNext()) {
 				String key = it.next();
-				System.err.println(key);
 				JSONObject result = words_result.getJSONObject(key);
 				String value = result.getString("words");
 				switch (key) {
@@ -137,9 +130,8 @@ public class InfoRecognitionController {
 			 * 线上环境access_token有过期时间， 客户端可自行缓存，过期后重新获取。
 			 */
 			String accessToken = AssesToken.getAuth();
-			;
+			
 			String result = HttpUtil.post(idcardIdentificate, accessToken, params);
-			System.out.println(result);
 			map = getBusinessHashMapByJson(result);
 //				myResult.setMyresult(result);
 		} catch (Exception e) {
@@ -153,14 +145,13 @@ public class InfoRecognitionController {
 
 	// 将营业执照信息转成map集合
 	public static HashMap<String, String> getBusinessHashMapByJson(String jsonResult) {
-		HashMap map = new HashMap<String, String>();
+		HashMap<String, String> map = new HashMap<String, String>();
 		try {
 			JSONObject jsonObject = new JSONObject(jsonResult);
 			JSONObject words_result = jsonObject.getJSONObject("words_result");
 			Iterator<String> it = words_result.keys();
 			while (it.hasNext()) {
 				String key = it.next();
-				System.err.println(key);
 				JSONObject result = words_result.getJSONObject(key);
 				String value = result.getString("words");
 				switch (key) {

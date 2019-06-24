@@ -38,7 +38,8 @@ public interface CoachService {
 	 * @return
 	 */
 	public MyResult addCoach(HttpServletRequest request, MyResult myResult);
-	
+	//教练信息
+	public TbCoach selectCoachById(Integer coaId);
 	
 	
 }

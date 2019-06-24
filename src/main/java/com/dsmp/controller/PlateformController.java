@@ -37,6 +37,7 @@ import com.dsmp.service.AdvertisementService;
 import com.dsmp.service.BlogrollService;
 import com.dsmp.service.LogService;
 import com.dsmp.service.NoticeService;
+import com.dsmp.service.ParameterService;
 import com.dsmp.service.PlateformService;
 import com.dsmp.service.SchoolService;
 import com.dsmp.service.TopicService;
@@ -63,8 +64,10 @@ public class PlateformController {
 
 	@Autowired
 	private SchoolService schoolService;
+	
+	@Autowired ParameterService parameterService;
 	// 学员查看页面
-	@RequestMapping(value = "a.action")
+	@RequestMapping(value = "toStudentController.action")
 	public String toStudentController() {
 		return "back/plateform_student";
 	}
@@ -291,7 +294,6 @@ public class PlateformController {
 	//驾校违规处罚界面
 	@RequestMapping(value="/punishviolations.action")
 	public ModelAndView getPunishviolations() {
-		System.out.println("驾校违规处罚界面");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("back/schoolviolations");
 		return mav;		
@@ -299,7 +301,6 @@ public class PlateformController {
 	//驾校违规处罚--驾校具体信息
 	@RequestMapping(value="/plateform/punishviolationsmsg.action",method=RequestMethod.POST)
 	public @ResponseBody Map<String ,List<TbSchool>> getgetPunishviolationsMsg(HttpServletRequest request){
-		System.out.println("违规处罚，驾校具体信息");
 		List<TbSchool> schoollist=schoolService.searchSchool(request);
 		Map<String ,List<TbSchool>> schoollistmap=new HashMap<>();
 		schoollistmap.put("data",schoollist);
@@ -322,7 +323,6 @@ public class PlateformController {
 	//入驻审核界面
 	@RequestMapping(value="/intheaudit.action")
 	public ModelAndView gotoIntheaudit() {
-		System.out.println("进入入驻审核界面");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("back/intheaudit");
 		return mav;		
@@ -338,7 +338,6 @@ public class PlateformController {
 	//修改审核状态
 	@RequestMapping(value="/plateform/schoolaudit.action",method=RequestMethod.POST)
 	public @ResponseBody String updateSchaudit(HttpServletRequest request) {
-		System.out.println("修改审核状态");
 		String res=schoolService.updateAudit(request);
 		String result=GsonUtils.toJson(res);
 		return result;	
@@ -346,7 +345,6 @@ public class PlateformController {
 	//查看驾校界面
 	@RequestMapping(value="/lookschoolinterface.action")
 	public ModelAndView getLookschoolinterface() {
-		System.out.println("进入驾校查看界面");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("back/lookschoolmsg");
 		return mav;		
@@ -369,7 +367,6 @@ public class PlateformController {
 	//查看驾校申诉界面
 	@RequestMapping(value="/plateformcomplaint")
 	public ModelAndView getPlateformComplaint() {
-		System.out.println("进入申诉管理界面");
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("back/plateform_complaint");
 		return mav;		
@@ -377,7 +374,6 @@ public class PlateformController {
 	//所有申诉信息
 	@RequestMapping(value="/plateform/allthecomplaint.action",method=RequestMethod.POST)
 	public @ResponseBody Map<String,List<TbAppeal>> getAllthecomplaint(HttpServletRequest request){
-		System.out.println("全部申诉信息");
 		List<TbAppeal> thecomplaintlist=plateformService.findThecomplaint(request);
 		Map<String ,List<TbAppeal>> thecomplaintmap=new HashMap<>();
 		thecomplaintmap.put("data", thecomplaintlist);
@@ -423,6 +419,7 @@ public class PlateformController {
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("levelList", advertisementService.searchAdvLevel());
 		mav.addObject("schoolList", schoolService.selectAllSchoolForAdvertise());// 所有允许报名和运营的驾校
+		mav.addObject("adPath", parameterService.searchParameterByName("广告跳转路径"));
 		mav.setViewName("back/plateform_advertise");
 		return mav;
 	}
@@ -472,7 +469,6 @@ public class PlateformController {
 	// 修改公告动态
 	@RequestMapping(value = "changeNotice.action", method = RequestMethod.POST, consumes = "application/json;charset=utf-8")
 	public @ResponseBody MyResult changeNotice(@RequestBody TbNotice tbNotice) {
-		System.out.println(tbNotice.getNotId());
 		return noticeService.changeNotice(tbNotice);
 	}
 

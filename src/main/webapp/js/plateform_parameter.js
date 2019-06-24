@@ -76,7 +76,7 @@ $(document).on("click",".change",function(){
 	if (data.parType=="时间") {
 		$("#parValue").val(data.parValue.split(":")[0]);
 	}else {
-		$("#parValue").val(data.parValues);
+		$("#parValue").val(data.parValue);
 	}
 	
 	$("#changePar").modal("show");
@@ -85,25 +85,26 @@ $(document).on("click",".change",function(){
 //确认修改
 $("#change").click(function() {
 	var parValue = $("#parValue").val();
+	var re = /^[0-9]*$/;
 	if (type=="时间") {
-		var re = /^[0-9]*$/;
-		if (!re.test(parValue)) {
-			layer.msg("请输入大于0小于24小时的正整数");
-			return;
-		}
-		if (parValue>24) {
+		if (!re.test(parValue)||parValue>24) {
 			layer.msg("请输入大于0小于24小时的正整数");
 			return;
 		}
 		parValue = parValue+":00"
 	}else if (type=="时长") {
-		var re = /^[0-9]*$/;
-		if (!re.test(parValue)) {
+		if (!re.test(parValue)||parValue>10) {
 			layer.msg("请输入大于0小于10小时的正整数");
 			return;
 		}
-		if (parValue>10) {
-			layer.msg("请输入大于0小于10小时的正整数");
+	}else if (type="score") {
+		if (!re.test(parValue)) {
+			layer.msg("请输入大于0分的正整数分数");
+			return;
+		}
+	}else if (type="time") {
+		if (!re.test(parValue)) {
+			layer.msg("请输入大于0的正整数时长单位为秒");
 			return;
 		}
 	}

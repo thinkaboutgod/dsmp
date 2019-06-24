@@ -185,11 +185,11 @@ $(function() {
 								$('.step').fadeOut(300).eq(1).fadeIn(500);
 							}, 2000);
 						} else if (msge.myresult == "codeErr") {
-							alert("手机验证码填写有误!");
+							showTips("手机验证码填写有误!");
 						} else if (msge.myresult == "phoneErr") {
-							alert("手机号码错误!");
+							showTips("手机号码错误!");
 						} else if (msge.myresult == "pastDue") {
-							alert("该验证码已经失效！");
+							showTips("该验证码已经失效！");
 						}
 					},
 					error : function() {

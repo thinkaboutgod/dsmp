@@ -1,4 +1,10 @@
  $(function() {
+	 //回车登录
+	    $("body").keydown(function(event) {
+			if (event.keyCode == "13") {// keyCode=13是回车键
+				$("#register").click();
+			}
+		});
 	 	var path = $("#path").val();
 	 
 	    $(".register-phone").keyup(function () {
@@ -140,6 +146,7 @@
 	            },
 	            success: function success(res) { 
 	                if (res.code == 0) {
+	                	layer.msg("短信发送成功，请注意查收!");
 	                    var n = 60;
 	                	$(".register-code-btn").attr("disabled","disabled");
 	                    $(".register-code-btn").css({
@@ -214,16 +221,18 @@
 				success:function(msg){
 					var msge = JSON.parse(msg);
 					if(msge.myresult == "success"){
-						alert("注册成功!");
-						window.location.href = path+'/student/login.action';
+						layer.msg("注册成功,正在前往...");
+						setTimeout(function () {
+							window.location.href = path+'/student/login.action';
+	                    }, 2000);							
 					}else if(msge.myresult == "codeErr"){
-						alert("注册失败，验证码错误!");
+						layer.msg("注册失败，验证码错误!");
 					}else if(msge.myresult == "phoneErr"){
-						alert("注册失败，手机号码错误!");
+						layer.msg("注册失败，手机号码错误!");
 					}else if(msge.myresult == "already"){
-						alert("注册失败，该账号已经注册过了！");
+						layer.msg("注册失败，该账号已经注册过了！");
 					}else if(msge.myresult == "pastDue"){
-						alert("注册失败，验证码已经失效！");
+						layer.msg("注册失败，验证码已经失效！");
 					}
 				},
 				error:function(){

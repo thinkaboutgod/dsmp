@@ -8,8 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import com.dsmp.pojo.TbStudent;
 
 import com.dsmp.pojo.MyResult;
@@ -73,10 +71,22 @@ public interface StudentService {
 	 */
 	public MyResult checkStudent(HttpServletRequest request, MyResult myResult);
 	
+	/**
+	 * 	查询学生成绩
+	 * @param request
+	 * @return
+	 */
+	public List<TbStudent> selectStudentScore(HttpServletRequest request);
 	
 	/**根据学员id查学员
 	 * @param stuId 学员id
 	 * @return
 	 */
 	public TbStudent findStuById(Integer stuId);
+	/**根据学员id查学员(包括驾校，科目，教练等详细信息)
+	 * @param stuId 学员id
+	 * @return
+	 */
+	public TbStudent findStuDetailById(Integer stuId);
+
 }

@@ -160,7 +160,9 @@ $("#studentSelect").change(function() {//监听下拉框变化
 //点击确认打卡
 $("#submit").on("click",function(){
 	var base = getFace(context);
-	var index = layer.load();
+	var index = layer.load(1, {
+		  shade: [0.1,'#fff'] //0.1透明度的白色背景
+		});
 	$.ajax({//人脸识别判断
 		type:"POST",
 		url:path+"/coach/makeClock.action",
@@ -171,8 +173,6 @@ $("#submit").on("click",function(){
 		dataType : "text",
 		success:function(data){
 			var result = JSON.parse(data);
-			alert(data);
-			console.log(data);
 			if (result.data=="fail") {
 				layer.msg("打卡失败，请检查网络连接，若网络连接无问题，请联系管理员",
 						{time: 3000, //3s后自动关闭

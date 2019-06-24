@@ -24,16 +24,16 @@ layui.use(['laypage', 'layer'], function(){
 			        layui.each(thisData, function(index, item){			        	
 			        	var str = '<div class="list-each">\n'+
 			        			  '<div class="list-img">\n'+
-			        			  '<a href=""><img src='+path+'/images/coach/coachImg.jpg alt="教练"></a>\n'+			     
+			        			  '<a href='+path+'/tbcoach/coachInfo.action?coaId='+item.coaId+' target="_blank"><img src='+path+'/images/coach/coachImg.jpg alt="教练"></a>\n'+			     
 			        			  '</div>\n'+
 			        			  '<div class="list-info">\n'+
 			        			  '<div class="info-top">\n'+
-			        			  '<div class="info-name"><a href="">'+item.coaName+'</a></div>\n'+
+			        			  '<div class="info-name"><a href='+path+'/tbcoach/coachInfo.action?coaId='+item.coaId+' target="_blank">'+item.coaName+'</a></div>\n'+
 			        			  '<div class="info-old">金牌教练</div>\n'+
 			        			  '</div>\n'+
 			        			  '<div class="info-center">\n'+
 			        			  '<span>所属驾校：</span>\n'+
-			        			  '<a href="">'+item.tbSchool.schName+'</a>\n'+
+			        			  '<a href='+path+'/school/schoolInfo.action?schId='+item.schId+' target="_blank">'+item.tbSchool.schName+'</a>\n'+
 			        			  '</div>\n'+
 			        			  '</div>\n'+
 			        			  '<div class="list-prize">\n'+

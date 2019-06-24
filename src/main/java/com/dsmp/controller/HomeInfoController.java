@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import com.dsmp.pojo.TbAdvertisement;
 import com.dsmp.pojo.TbHotlink;
 import com.dsmp.pojo.TbNotice;
 import com.dsmp.service.HomeInfoService;
+import com.dsmp.service.ParameterService;
 import com.dsmp.service.PlateformService;
 
 @Controller
@@ -28,10 +30,24 @@ public class HomeInfoController {
 	@Autowired private TbSchoolMapper tbSchoolMapper;
 	@Autowired private TbCoachMapper TbCoachMapper;
 	@Autowired private PlateformService plateformService;
+	@Autowired 
+	private HttpSession session;
+	@Autowired
+	private ParameterService parameterService;
 	//主页科目一跳转相应界面
 	@RequestMapping("/keyi")
 	public ModelAndView getKeYiPage() {
 		ModelAndView mav = new ModelAndView();
+		//先把考试通过分数和模拟考答题时间间隔限制存入session中
+		//1.得到考试通过分数：
+		Integer passScore = findPassScore();
+//		System.out.println("考试通过最低分数passScore:"+passScore);
+		//2.得到考试答题时间间隔限制（单位毫秒s）
+		Long timeLengthLimit = findTimeLengthLimit();
+		session.setAttribute("timeLengthLimit", timeLengthLimit);//因为除了examOfSubject1用到这个答题时间间隔限制外keyi.jsp也有用到，所以存会花中		
+		session.setAttribute("passScore", passScore);	
+		
+
 		mav.setViewName("client/keyi");
 		return mav;
 	}	
@@ -47,7 +63,6 @@ public class HomeInfoController {
 	//去前台主页
 	@RequestMapping("/main")
 	public ModelAndView getHomeInfo(HttpServletRequest request) {
-		System.out.println("进入方法");
 		request.getSession().setMaxInactiveInterval(120*60);
 		ModelAndView mav = new ModelAndView();
 		List<TbAdvertisement> advList = homeInfoService.getAdvertisement(1);
@@ -65,7 +80,6 @@ public class HomeInfoController {
 		mav.addObject("dynList", dynList);
 		mav.addObject("systemFilePath",systemFilePath);
 		mav.setViewName("client/home");
-		System.out.println("结束方法");
 		return mav;
 	}	
 	
@@ -112,5 +126,23 @@ public class HomeInfoController {
 		mav.addObject("notice",tbNotice);
 		mav.setViewName("client/guide");
 		return mav;
-	}		
+	}
+	/***********ren star************/
+	/**去参数表查出passScore，为科目一模拟考或正式考的通过分数，考试要大于这个分数才算通过
+	 * @return
+	 */
+	public Integer findPassScore() {
+		String passScoreStr = parameterService.searchParameterByName("passScore");
+		Integer passScore = Integer.valueOf(passScoreStr);
+		return passScore;
+	}
+	/**去参数表查出timeLengthLimit，为科目一模拟考的答题时间间隔，单位毫秒ms
+	 * @return
+	 */
+	public Long findTimeLengthLimit() {
+		String passScoreStr = parameterService.searchParameterByName("timeLengthLimit");//得到的是秒
+		Long passScore = (Long.valueOf(passScoreStr))*1000;//秒转成毫秒要*1000
+		return passScore;
+	}
+	/***********ren end************/
 }

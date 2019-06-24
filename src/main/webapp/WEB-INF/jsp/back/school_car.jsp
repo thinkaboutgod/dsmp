@@ -8,7 +8,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>驾校管理</title>
-<%
+		<%
 	String path = request.getContextPath();
 %>
 		<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -20,7 +20,7 @@
 		<link type="text/css" href="<%=path %>/adminlte/css/all-skins.min.css" rel="stylesheet">
 	</head>
 
-	<body class="hold-transition skin-red sidebar-mini">
+	<body class="hold-transition skin-blue sidebar-mini">
 		<div class="wrapper">
 			<jsp:include page="header.jsp"></jsp:include>
 			<jsp:include page="sliderbar.jsp"></jsp:include>
@@ -122,7 +122,7 @@
 									<input class="form-control add" id="carColorNew" type="text" placeholder="请输入颜色">
 								</div>
 							</div>
-							<div class="form-group" >
+							<div class="form-group">
 								<label for="carImgNew" class="col-sm-2 control-label">选择图片：</label>
 								<div class="col-sm-4">
 									<input id="carImgNew" name="carImgNew" class="button btn-sm " type="file" value="更换图片">
@@ -155,6 +155,7 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-horizontal">
+							<input type="hidden" id="carId" />
 							<div class="form-group">
 								<label for="carPlateNumDe" class="col-sm-2 control-label">车牌号：</label>
 								<div class="col-sm-10">
@@ -167,6 +168,13 @@
 									<input class="form-control" id="carStyleDe" type="text" readonly="readonly">
 								</div>
 							</div>
+								<div class="form-group">
+								<label for="carImgDe" class="col-sm-2 control-label">图片：</label>
+								<div class="col-sm-10">
+									<!-- <input class="form-control" id="carStyleDe" type="text" readonly="readonly"> -->
+									<img id="carImgDe" alt="图片丢失" src="" style="width:100%;height:20%">
+								</div>
+							</div>
 							<div class="form-group">
 								<label for="carColorDe" class="col-sm-2 control-label">颜色：</label>
 								<div class="col-sm-10">
@@ -177,6 +185,12 @@
 								<label for="coachNameDe" class="col-sm-2 control-label">所属教练：</label>
 								<div class="col-sm-10">
 									<input class="form-control" id="coachNameDe" type="text" readonly="readonly">
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-sm-2 control-label">选择教练</label>
+								<div class="col-sm-10">
+									<select id="coachs" class="form-control"></select>
 								</div>
 							</div>
 							<div class="form-group">
@@ -194,6 +208,7 @@
 						</div>
 						<div class="modal-footer">
 							<div class="center-block">
+								<button type="button" id="btn_distribute" class="btn btn-success">分配车辆</button>
 								<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
 							</div>
 						</div>

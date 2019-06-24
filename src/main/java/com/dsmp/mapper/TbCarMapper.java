@@ -13,5 +13,7 @@ public interface TbCarMapper {
 	int scrapCar(Integer carId, String state);
 
 	int addCar(TbCar car);
+
+	int distributeCar(Integer carId, Integer coaId);
 	
 }

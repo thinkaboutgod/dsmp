@@ -72,7 +72,6 @@ public class LCoachServiceImpl implements LCoachService {
 		beginTime = request.getParameter("beginTime");
 		endTime = request.getParameter("endTime");
 		belongSubject = request.getParameter("belongSubject");
-		System.out.println("科目是：" + belongSubject);
 		if (account.trim().equals("")) {
 			account = null;
 		}
@@ -257,7 +256,6 @@ public class LCoachServiceImpl implements LCoachService {
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			System.out.println("这里发送错误");
 			myResult.setData("fail");
 		}
 		return myResult;
@@ -367,7 +365,6 @@ public class LCoachServiceImpl implements LCoachService {
 		}
 		
 		Integer countNumberofsubjects=lCoachMapper.selectNumberofsubjects(subid,coaid);
-		System.out.println("统计教练预约的各科人数："+countNumberofsubjects);
 		
 		return countNumberofsubjects;
 	}

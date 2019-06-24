@@ -15,19 +15,17 @@ $(function() {
 			},
 			{
 				"data": "tbCoach.coaName",
+				"render":function(data, type, row, meta) {
+					if(data==null){
+						return data = "无";
+					}
+					return data;
+				},
 				"orderable": false, // 禁用排序
 			},
 			{
 				"data": "carUsedTime",
 			},
-			//					{
-			//						"data" : "tbCoach.coaName",
-			//						"orderable" : false, // 禁用排序
-			//					},
-			//					{
-			//						"data" : "tbSubject.subName",
-			//						"orderable" : false, // 禁用排序
-			//					},
 			{
 				"data": "carStatus",
 				"orderable": false, // 禁用排序
@@ -118,7 +116,6 @@ $(function() {
 				if(result.myresult == "success") {
 					layer.msg("修改成功");
 					button.parent().prev().text("已报废");
-
 				} else if(result.myresult == "failed") {
 					layer.msg("修改失败");
 				}
@@ -133,13 +130,64 @@ $(function() {
 	$(document).on("click", ".detail", function() {
 		//此处拿到选择行的数据中的id 
 		var da = table.row($(this).parent().parent()).data();
+		$("#carId").val(da.carId);
 		$("#carPlateNumDe").val(da.carPlatenum);
+		$("#carImgDe").attr("src",da.carImg);
 		$("#carStyleDe").val(da.carStyle);
 		$("#carColorDe").val(da.carColor);
 		$("#coachNameDe").val(da.tbCoach.coaName);
 		$("#carStartTimeDe").val(da.carStartTime);
 		$("#carUsedTimeDe").val(da.carUsedTime);
+		var schId = $("#schId").val();
+		$.ajax({
+			url: "../school/selectCoach.action?",
+			async: true,
+			data: {
+				"selectSchool": schId
+			},
+			dataType: "text",
+			success: function(res) {
+				var arr = JSON.parse(res);
+				$("#coachs").append("<option value='0'>请选择教练</option>");
+				for(var i = 0; i < arr.length; i++) {
+					console.log(arr[i].coaName);
+					$("#coachs").append("<option value=" + arr[i].coaId + ">" + arr[i].coaName + "</option>");
+				}
+			},
+			error: function() {
+				alert("操作失败！");
+			}
+		})
+		
 		$("#carDetail").modal("show");
+		
+		$("#btn_distribute").click(function() {
+			var carId = $("#carId").val();
+			var coaId = $("#coachs").val();
+			$.ajax({
+				url: "../car/distributeCar.action",
+				async: true,
+				type: "POST",
+				data: {
+					carId: carId,
+					coaId: coaId,
+				},
+				dataType: "text",
+				success: function(data) {
+					var result = JSON.parse(data);
+					if(result.myresult == "success") {
+						layer.msg("车辆分配成功");
+						$("#carDetail").modal('hide');
+						table.ajax.reload(null, false);
+					} else if(result.myresult == "failed") {
+						layer.msg("车辆分配失败");
+					}
+				},
+				error: function() {
+					layer.msg("服务器繁忙");
+				}
+			})
+		})
 	})
 
 	// 打开添加车辆模态框
@@ -149,7 +197,6 @@ $(function() {
 
 	// 提交添加教练车
 	$(document).on("click", "#btn_add", function() {
-		alert("点击提交")
 		var schId = $("#schId").val();
 		var carPlateNum = $.trim($("#carPlateNumNew").val());
 		var carStyle = $.trim($("#carStyleNew").val());
@@ -178,6 +225,9 @@ $(function() {
 			if(suffix != "BMP" && suffix != "JPG" && suffix != "JPEG" && suffix != "PNG" && suffix != "GIF") {    
 				layer.msg("图片格式只能为：BMP、JPG、JPEG、PNG、GIF）!");  
 			} 
+		}else{
+			layer.msg("请上传车辆照片");
+			return false;
 		}
 
 		//ajaxFileUpload上传带的参数只能为键值对字符串，不能为json对象
@@ -193,7 +243,7 @@ $(function() {
 				carStyle: carStyle,
 				carColor: carColor,
 			},
-			
+
 			success: function(data) {
 				if(data == "success") {
 					layer.msg('添加成功', {
@@ -201,19 +251,19 @@ $(function() {
 					});
 					$(".add").val("");
 					$("#carImgNew").val("");
+					table.ajax.reload(null, false);
 				} else {
 					layer.msg('添加失败,请重试', {
 						time: 2000
 					});
 				}
-
 			},
 			error: function() {
 				layer.msg("服务器繁忙");
 			}
 		})
 	})
-	
+
 	//去除所选的图片
 	$("#deleteCarImg").click(function() {
 		$("#carImgNew").val("");

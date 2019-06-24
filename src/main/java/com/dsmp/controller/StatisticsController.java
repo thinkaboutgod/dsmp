@@ -22,16 +22,10 @@ public class StatisticsController {
 	private HttpSession session;
 	@RequestMapping(value="/findTopic.action")
 	public ModelAndView findTopic(Integer top_id) {
-		System.out.println("top_id："+top_id);
 		ModelAndView mav = new ModelAndView();
 		TbTopic topic = topicService.findTopic(2);
-
-			System.out.println("题目："+topic.getTopTopic());
-			System.out.println("选项："+topic.getOptions().toString());
 			if(null!=topic.getOptions()) {
 				for(TbOption option:topic.getOptions()) {
-					System.out.println("选项："+option.getOptOption());
-					System.out.println("选项对错："+option.getOptStatus());
 					
 				}
 				
@@ -49,10 +43,7 @@ public class StatisticsController {
 		ModelAndView mav = new ModelAndView();
 		List<TbTopic> topicList = topicService.findManyTopic(5,sub_id);//topicList表示一张卷子题目集合；参数10表示一份卷子出10道题目
 		for (TbTopic tbTopic : topicList) {
-			System.out.println(":"+tbTopic.getTopTopic());
 			for (TbOption option : tbTopic.getOptions()) {
-				System.out.println("选项："+option.getOptOption());
-				System.out.println("选项对错："+option.getOptStatus());
 			}
 			
 			

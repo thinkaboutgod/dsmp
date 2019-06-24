@@ -46,6 +46,7 @@ public class MenuController {
 		case "3":
 			session.setAttribute("title", "驾校管理端");
 			session.setAttribute("the_name", ((TbSchool) session.getAttribute("school")).getSchName());
+			session.setAttribute("schId", ((TbSchool) session.getAttribute("school")).getSchId());
 			session.setAttribute("rol_Id", 3);
 			break;
 		case "4":

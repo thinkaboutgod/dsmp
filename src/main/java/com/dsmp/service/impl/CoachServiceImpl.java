@@ -63,6 +63,7 @@ public class CoachServiceImpl implements CoachService {
 	}
 	
 	@Override
+	@Transactional
 	public MyResult changeCoachState(HttpServletRequest request, MyResult myResult) {
 		String state = request.getParameter("state");
 		String coaId = request.getParameter("coaId");
@@ -105,6 +106,13 @@ public class CoachServiceImpl implements CoachService {
 			myResult.setMyresult("failed");
 		}
 		return myResult;
+	}
+
+
+	@Override
+	public TbCoach selectCoachById(Integer coaId) {
+		TbCoach tbCoach = tbCoachMapper.selectCoachById(coaId);
+		return tbCoach;
 	}
 
 

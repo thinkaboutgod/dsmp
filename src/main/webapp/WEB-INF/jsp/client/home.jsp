@@ -44,21 +44,30 @@
  <script src="http://api.map.baidu.com/api?v=1.4" type="text/javascript"></script>
 <script type="text/javascript"
 	src=<%=path + "/js/contactusmap.js"%>></script>
-<script type="text/javascript"
-	src=<%=path + "/js/home/common_footer.js"%>></script>
+<!-- <script type="text/javascript" -->
+<%-- 	src=<%=path + "/js/home/head.js"%>></script> --%>
+<script type="text/javascript" src=<%=path + "/js/home/common_footer.js"%>></script>
 	
 <script type="text/javascript" src=<%=path + "/js/jiqiren.js"%> ></script>
+
+
+
 </head>
 <body>
 <input type="hidden" id="path" value=<%=path %>>
+
+<div class="hiddenDiv">
+	<input type="hidden" name="" value="">
+</div>
+
 	<jsp:include page="head.jsp"></jsp:include>
 	<!-- banner -->
 	<div class="focusBox clear pulse animated">
 		<ul class="pic">
 			<li><a href="javascript:;" target="_blank"
-				style="background: url(<%=path + "/images/home/title3.jpg"%>) no-repeat center"></a></li>
+				style="background: url(<%=path + "/images/home/title1.jpg"%>) no-repeat center"></a></li>
 			<li><a href="javascript:;" target="_blank"
-				style="background: url(<%=path + "/images/home/title2.png"%>) no-repeat center"></a></li>
+				style="background: url(<%=path + "/images/home/title4.jpg"%>) no-repeat center"></a></li>
 			<li><a href="javascript:;" target="_blank"
 				style="background: url(<%=path + "/images/home/1-1P52Q1113R51.jpg"%>) no-repeat center"></a></li>			
 		</ul>
@@ -169,7 +178,7 @@
 					<div class="rank_card_jx">
 					<div class="rank_card_header">驾校排行榜</div>
  					<div class="rank_card_body" id="rank_jx">					
-
+						
  					</div>
 						<div class="rank_card_footer">
 							<a href=<%=path+"/school/allSchoolPage.action" %> target="_blank">查看更多</a>
@@ -178,10 +187,10 @@
 					<div class="rank_card_jl">
 						<div class="rank_card_header">教练排行榜</div>
 				    <div class="rank_card_body" id="rank_jl">
-		
+						
 					</div> 
 						<div class="rank_card_footer">
-							<a href=<%=path+"/coach/allCoachPage.action" %> target="_blank">查看更多</a>
+							<a href=<%=path+"/tbcoach/allCoachPage.action" %> target="_blank">查看更多</a>
 						</div>
 					</div>
 				</div>
@@ -197,11 +206,11 @@
 					<c:forEach begin="0" end="5" step="1" items="${advList}" var="adv">
 						<li>
 							<div class="pic">
-								<a href=<%=path%>${adv.advPath} target="_blank"><img
+								<a href=<%=path%>${adv.advPath}${adv.tbSchool.schId} target="_blank"><img
 									src="${systemFilePath}${adv.advImgpath}" alt="${adv.tbSchool.schName}" title='${adv.advDescribe}'/></a>
 							</div>
 							<div class="title">
-								<a href="javascript:;" target="_blank">${adv.tbSchool.schName}</a>
+								<a href=<%=path%>${adv.advPath}${adv.tbSchool.schId} target="_blank">${adv.tbSchool.schName}</a>
 							</div>
 						</li>
 					</c:forEach>

@@ -81,6 +81,7 @@
 <script type="text/javascript" src=<%=path+"/js/jquery-3.3.1.js" %>></script>
 <script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.js" %>></script>
 <script type="text/javascript" src=<%=path+"/js/map.js" %>></script>
+<script type="text/javascript" src=<%=path+"/layer/layer.js" %>></script>
 <script type="text/javascript">
 		//倒计时：
 /* 		setInterval("countTime()",1000);//1秒执行一次
@@ -147,7 +148,7 @@
 		//点击了提交试卷按钮，统计一下选对了几道题，计分
 		$("#submitBtn").on({
 			"click":function(){
-				alert('提交试卷');
+// 				alert('提交试卷');
 			    	var totalScore="0";
 			    	totalScore=parseInt(totalScore);
 			    examResultMap.each(function(key,value,index){//key表示数据库题目表的topId，value表示学员所选答案是'yes'还是'no'  
@@ -188,7 +189,10 @@
 // 							alert('您在线超24小时，有挂机嫌疑，本次学习时长不算数。');				
 						}else{
 	// 						var json2map=JSON.parse(data);
-							alert('本次学习合规，计入时长！');				
+// 							alert('本次学习合规，计入时长！');		
+							layer.msg('本次学习合规，计入时长！', function(){
+								//关闭后的操作
+								});
 // 							alert('currTotalTimeLength:'+data["currTotalTimeLength"]);//当前总时长
 // 							alert('totalTimeLength:'+data["totalTimeLength"]);//要求总时长
 							var currTotalTimeLength = data["currTotalTimeLength"];
@@ -210,12 +214,12 @@
 			}
 		});
 		//点击了重新出卷按钮，到从新出卷的控制类方法那边去
-		$("#updateExamBtn").on({
-			"click":function(){
-				alert('重新出卷');
-				window.location.href="findManyTopic.action?stu_id="+stuId;
-			}
-		});
+// 		$("#updateExamBtn").on({
+// 			"click":function(){
+// 				alert('重新出卷');
+// 				window.location.href="findManyTopic.action?stu_id="+stuId;
+// 			}
+// 		});
 		$("img").on({
 			"click":function(){
 				$(this).css({
@@ -283,7 +287,8 @@
 <!-- 									<li> -->
 <%-- 									<img alt="" src=<%=path+"/images/hai.jpg" %>> --%>
 										<c:if test="${i.topImg!=null&&''!=i.topImg}">
-											<img alt="" src=<%=path%>${i.topImg}>																		
+<%-- 											<img alt="" src=<%=path%>${i.topImg}>																		 --%>
+											<img alt="" src=${topicImgFilePath }${i.topImg}>																		
 										</c:if>								
 <!-- 									</li> -->
 								<ol class="optionClass">
@@ -312,6 +317,7 @@
 		<%-- 		${fn:length(mistakeTopicList)} 该份试卷共有几道题 --%>
 <!-- 				剩余时间：<span id="countTime">45分00秒</span>	 -->
 <!-- 				进度条 -->
+				<h2>计学时模式</h2>
 				<p>学习时长/任务时长(单位：秒)：<span id="studyTimeSpan">${currTotalTimeLength}/${totalTimeLength}</span></p>
 				<div class="progress">
 				  <div id="percentDiv" class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: ${percentage}">
@@ -348,6 +354,16 @@
 <!-- 			<input id="updateExamBtn" type="button" value="重新出题"></input> -->
 			
 			</div>
+				
+				<div id="ruleDiv" style="background-color: yellow">
+				
+					<div><p style="color: red">计学时学习模式规则:</p></div>
+					<div>1.模拟卷做错的题目都会在这里显示。</div>
+					<div>2.进入开始计学时，提交就计算一段学时。</div>
+					<div>3.做对的题目会从错题集移除</div>
+				
+				
+				</div>	
 				
 			</div>
 			</c:if>

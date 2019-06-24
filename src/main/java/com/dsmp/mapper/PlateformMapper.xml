@@ -86,7 +86,7 @@
 			<if test="fwhere!=null">and sch_name=#{fwhere}</if>
 			<if test="beginTime!=null">and stu_registertime&gt;#{beginTime}</if><!-- 大于号 -->
 			<if test="endTime!=null">and stu_registertime&lt;#{endTime}</if><!-- 小于号 -->
-			and s.sch_id=sc.sch_id and s.coa_id= c.coa_id and s.sub_id=su.sub_id
+			and s.sch_id=sc.sch_id and s.coa_id= c.coa_id and s.sub_id=su.sub_id order by s.stu_signUpTime desc
 		</where>
 	</select>
 	<select id="searchAllstudent2" resultMap="searchStudent2">

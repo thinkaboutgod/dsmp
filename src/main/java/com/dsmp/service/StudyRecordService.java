@@ -21,13 +21,13 @@ public interface StudyRecordService {
 	 * @param subId 科目id
 	 * @return true-插入成功，false-插入失败
 	 */
-	public Map<String,Integer> addStudyEndTime(Integer stuId,Integer subId);
-	/**计算当前总学时
+	public Map<String,Double> addStudyEndTime(Integer stuId,Integer subId);
+	/**计算当前总学时(某学员某科目当前完成总学时)
 	 * @param stuId
 	 * @param subId
 	 * @return
 	 */
-	public Integer sumTimeLength(Integer stuId,Integer subId);
+	public Double sumTimeLength(Integer stuId,Integer subId);
 	/** 通过学员id和科目名称查询科目所有的学习记录
 	 * @param stuId 学员id
 	 * @param subName 科目名称

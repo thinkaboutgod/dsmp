@@ -14,6 +14,7 @@
 <link rel="stylesheet" href=<%=path+"/css/resetpwd/registration.css" %>>
 <script src=<%=path+"/js/jquery-3.3.1.js"%> charset="utf-8"></script>
 <script type="text/javascript" charset="UTF-8" async="" src=<%=path+"/js/retrievePass.js" %>></script>
+<script type="text/javascript" src=<%=path + "/layer/layer.js"%>></script>
 </head>
 <body>
 <input type="hidden" id="path" value=<%=path%>>
