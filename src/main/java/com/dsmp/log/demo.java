@@ -12,7 +12,6 @@ public class demo {
         sb.append(period.getYears()).append("年")
                 .append(period.getMonths()).append("月")
                 .append(period.getDays()).append("天");
-        System.out.println(sb.toString());
 
 	}
 }

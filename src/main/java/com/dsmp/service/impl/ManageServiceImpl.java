@@ -18,10 +18,7 @@ public class ManageServiceImpl implements ManageService {
 	
 	@Override
 	public MyResult adminLogin(HttpSession session, String account, String password) {
-		System.out.println("管理员账号："+account);
-		System.out.println("管理员密码："+password);
 		String md5Password = Md5Tools.getMd5(password);
-		System.out.println("md5加密后的密码："+md5Password);
 		MyResult result = new MyResult();
 		TbManager manager = new TbManager();
 		manager.setManAccount(account);

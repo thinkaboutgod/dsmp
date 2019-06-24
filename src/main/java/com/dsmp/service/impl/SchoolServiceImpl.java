@@ -79,7 +79,6 @@ public class SchoolServiceImpl implements SchoolService {
 				result.setMyresult("already");
 			}
 		}		
-		System.out.println(result);
 		return result;
 	}
 	//驾校条件查找
@@ -306,7 +305,6 @@ public class SchoolServiceImpl implements SchoolService {
 	//禁止、恢复学员预约 
 	@Override
 	public void updateSignupstatus(HttpServletRequest request) {
-		System.out.println("存入");
 		String schId=request.getParameter("schId");
 		String signupstatus=request.getParameter("schSignupstatus");
 		if(signupstatus.equals("允许报名")) {
@@ -346,8 +344,6 @@ public class SchoolServiceImpl implements SchoolService {
 		String schid=request.getParameter("schId");
 		String auditresult=request.getParameter("auditResult");
 		String result="";
-		System.out.println(schid);
-		System.out.println(auditresult);
 		if(auditresult.equals("审核不准")) {
 			result="fail";
 		}else if(auditresult.equals("审核通过")){
