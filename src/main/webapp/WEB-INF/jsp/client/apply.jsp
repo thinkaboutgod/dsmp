@@ -93,13 +93,13 @@
 									</div>
 								</div>
 								<div class="layui-form-item" style="" id="teacher_div">
-									<label class="layui-form-label">选择教练</label>
+									<label class="layui-form-label">选择教练111</label>
 									<div class="layui-input-inline">									
 										<select name="teachers" id="teachers" lay-search=""
 											lay-filter="teachers">
 											<option></option>
-											<c:forEach begin="0" step="1" items="${coaList}" var="coach">
-												<option value="${coach.coaId }">${coach.coaName}</option>
+											<c:forEach begin="0" step="1" items="${coaList}" var="i">
+												<option value="${i.coaId}">${i.coaId}  ${i.coaName}</option>
 											</c:forEach>
 										</select>
 									</div><label id="info" style="color:red;">*教练可以后面进入驾校选择</label>

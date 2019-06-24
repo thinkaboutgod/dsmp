@@ -33,7 +33,7 @@ public class TopicProcessor implements PageProcessor {
 		//获取存储路径
 		String path = tbParameterMapper.selectParamter("系统文件存储路径");
 		path = path +"/images/topic";
-		for (int i = 1; i <= 1332; i++) {
+		for (int i = 1; i <= 500; i++) {
 			TbTopic tbTopic = new TbTopic();
 			List<TbOption> opts = new ArrayList<>();
 			//爬取题目

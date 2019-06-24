@@ -259,7 +259,7 @@ $(function() {
 		$("#btn_check_yes").click(function() {
 			var stuId = $("#stuId").val();
 			var coaId = $("#coachs").val();
-			if($("#coachNameCheck").val() != "无") {
+			if($("#coachNameCheck").val() != "") {
 				$.ajax({
 					url: "../student/checkStudent.action",
 					async: true,
@@ -267,7 +267,7 @@ $(function() {
 					data: {
 						stuId: stuId,
 						coaId: coaId,
-						stuVerifystatus: "已审核"
+						stuVerifystatus: "审核通过"
 					},
 					dataType: "text",
 					success: function(data) {
@@ -293,7 +293,7 @@ $(function() {
 						data: {
 							stuId: stuId,
 							coaId: coaId,
-							stuVerifystatus: "已审核"
+							stuVerifystatus: "审核通过"
 						},
 						dataType: "text",
 						success: function(data) {

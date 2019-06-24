@@ -276,6 +276,7 @@ public class StudentServiceImpl implements StudentService {
 				result.setMyresult("already");
 			} else {
 				student.setStuId(tStudent.getStuId());
+				student.setSubId(1);
 				student.setCoaId(coach);
 				student.setSchId(school);
 				student.setStuName(name);

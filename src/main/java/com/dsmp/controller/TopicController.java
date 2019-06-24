@@ -155,7 +155,7 @@ public class TopicController {
 			sub_id=1;
 		}
 		
-		List<TbTopic> topicList = topicService.findManyTopic(10,sub_id);//topicList表示一张卷子题目集合；参数10表示一份卷子出10道题目
+		List<TbTopic> topicList = topicService.findManyTopic(100,sub_id);//topicList表示一张卷子题目集合；参数100表示一份卷子出100道题目
 		for (TbTopic tbTopic : topicList) {
 //			System.out.println(":"+tbTopic.getTopTopic());
 			for (TbOption option : tbTopic.getOptions()) {
