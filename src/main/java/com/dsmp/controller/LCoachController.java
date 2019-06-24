@@ -1,5 +1,6 @@
 package com.dsmp.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +37,8 @@ public class LCoachController {
 	private String subName = null;
 
 	private String subname2 = null;
+	
+	private int subId;
 
 	// 学员预约的弹窗
 	@RequestMapping("/coach/gotobookingbounced.action")
@@ -55,6 +58,7 @@ public class LCoachController {
 		System.out.println("转换界面");
 		if (request.getParameter("stuId") != null) {
 			stuId = Integer.valueOf(request.getParameter("stuId"));
+			subId=Integer.valueOf(request.getParameter("subId"));
 		}
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("coach/studentparticulars");
@@ -65,9 +69,36 @@ public class LCoachController {
 	@RequestMapping("/coach/studentparticulars.action")
 	public @ResponseBody Map<String, List<BelongtoCoachStudentMsg>> getStudentParticulars() {
 		System.out.println("学生详情页");
-		List<BelongtoCoachStudentMsg> studentmsg = lCoachServiceImpl.selectStudentParticulars(stuId);
+		///////
+		List<BelongtoCoachStudentMsg> allacademicrecord=new ArrayList<BelongtoCoachStudentMsg>();
+		Double studytimenow=lCoachServiceImpl.findStudytime(subId ,stuId);
+		BelongtoCoachStudentMsg elongtoCoachStudentMsg2=lCoachServiceImpl.findSubjectnow(subId ,stuId);
+		elongtoCoachStudentMsg2.setStrTime(studytimenow);
+		allacademicrecord.add(elongtoCoachStudentMsg2);
+		
+		if(subId>1) {
+			for(int i=1;i<subId;i++) {
+				
+				Double studytime=lCoachServiceImpl.findStudytime(i ,stuId);//学生某科的打卡计时
+	
+				
+				List<BelongtoCoachStudentMsg> academicrecord=lCoachServiceImpl.findAcademicrecord(i, stuId);
+				for(int j=0;j<academicrecord.size();j++) {
+					BelongtoCoachStudentMsg belongtoCoachStudentMsg=academicrecord.get(j);
+					belongtoCoachStudentMsg.setStrTime(studytime);	
+					allacademicrecord.add(belongtoCoachStudentMsg);
+				}
+			}
+		}
+		for(BelongtoCoachStudentMsg aaa:allacademicrecord) {
+			System.out.println("科目--》"+aaa.getSubName());
+			System.out.println("学时--》"+aaa.getStrTime());
+			System.out.println("总学时--》"+aaa.getSubTime());
+			System.out.println("得分--》"+aaa.getSusScore());
+		}
+		///////////
 		Map<String, List<BelongtoCoachStudentMsg>> studentParticulars = new HashMap<>();
-		studentParticulars.put("data", studentmsg);
+		studentParticulars.put("data", allacademicrecord);
 		return studentParticulars;
 	}
 
@@ -147,6 +178,7 @@ public class LCoachController {
 	// 可预约学生
 	@RequestMapping(value = "/coach/testappointment.action", method = RequestMethod.POST)
 	public @ResponseBody Map<String, List<TbStudent>> getTestappointment(HttpServletRequest request) {
+
 		Map<String, List<TbStudent>> testappointmentmap = new HashMap<>();
 		if (request.getParameter("thesubject") != null) {
 			subname2 = request.getParameter("thesubject");

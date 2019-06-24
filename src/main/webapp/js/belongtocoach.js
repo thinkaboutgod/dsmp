@@ -127,7 +127,7 @@ $(function() {
 
 	$(document).on("click", ".detail", function() {
 		var da = table.row($(this).parent().parent()).data();
-
+		var subid=da.subId;
 		var vv=da.stuId;		
 
 		layer.open({
@@ -136,7 +136,7 @@ $(function() {
 			area: ['700px', '500px'],
 			shadeClose: true, //点击遮罩关闭
 
-			content: ['coach/tostudentparticulars.action?stuId='+vv,'no']
+			content: ['coach/tostudentparticulars.action?stuId='+vv+"&subId="+subid,'no']
 
 		});
 		//		$.ajax({

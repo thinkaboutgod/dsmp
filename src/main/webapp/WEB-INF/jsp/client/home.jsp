@@ -25,7 +25,14 @@
 	type="text/css" />
 <link href=<%=path + "/css/home/footer.css"%> title="" rel="stylesheet"
 	type="text/css" />
-	
+
+<%-- <link type="text/css" href="<%=path %>/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet">	 --%>
+
+<link type="text/css" rel="stylesheet" href=<%=path+"/adminlte/css/style.css"%> media="screen"/>
+
+
+<script type="text/javascript" src=<%=path+"/bootstrap-3.3.7-dist/js/bootstrap.min.js"%>></script>
+
 <script type="text/javascript"
 	src=<%=path + "/js/home/jquery1.42.min.js"%>></script>
 <script type="text/javascript"
@@ -39,6 +46,8 @@
 	src=<%=path + "/js/contactusmap.js"%>></script>
 <script type="text/javascript"
 	src=<%=path + "/js/home/common_footer.js"%>></script>
+	
+<script type="text/javascript" src=<%=path + "/js/jiqiren.js"%> ></script>
 </head>
 <body>
 <input type="hidden" id="path" value=<%=path %>>
@@ -263,8 +272,23 @@
 					</dd>							
 				</c:forEach>
 			</dl>
-		</div>
+		</div>		
 	</div>
+	<!-- 智能机器人在线问答 -->
+	<div class="productshow">
+		<h1>智能机器人在线问答&nbsp;/&nbsp;Intelligent chat</h1>
+	</div>
+	<div style="height:400px;" id="smartchat">
+		<div class="entry-thumbnail" id="main">               
+            <div>
+				<ul id="chat" class="chat-thread" style="width: 100%">
+					<li role="me">有什么能帮助您的?</li>											
+				</ul>										  
+            </div>
+            <input id="question" type="text" style="width:80%">
+            <input id="robot" style="width:18%;" type="button" class="btn btn-info" value="发送" >
+    	</div>
+    </div>
 	<!--产品展示-->
 	<div class="productshow">
 		<h1>联系我们&nbsp;/&nbsp;CONTACT US</h1>
@@ -278,7 +302,11 @@
 				
 				<li class="service">
 					<div class="service-icon"></div>
-					<div class="service-alert"><span>0592-8888888</span></div>
+					<div class="service-alert">
+
+					</div>	
+					
+					
 				</li>
 				<li class="gotop">
 					<div class="gotop-icon"></div>

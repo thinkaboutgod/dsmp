@@ -66,4 +66,9 @@ $(function() {
 			},
 		});			
 	});
+	var state=$("#state").text();
+	if(state=="正常运营"){
+		$("#mainConfirm").attr("disabled",'disabled');
+		$("#mainConfirm").text("无可申诉");
+	}
 })

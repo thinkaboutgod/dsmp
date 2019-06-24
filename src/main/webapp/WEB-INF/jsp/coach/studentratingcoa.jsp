@@ -69,9 +69,10 @@
 					<div  class="container" id="ratingmsg">
 						<div class="row clearfix" >
 							<div class="col-md-12 column" >
-								<dl id="rating">
+<!-- 								<dl id="rating"> -->
 
-								</dl>
+<!-- 								</dl> -->
+								<textarea rows="25" cols="45" id="rating" readonly="readonly"></textarea>							
 							</div>
 						</div>
 					</div >

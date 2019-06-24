@@ -26,10 +26,11 @@
 							chaping+=1;
 						};
 						var time=val.ratTime;
-						time = new Date(time).format("yyyy-MM-dd hh:mm:ss")
+						time = new Date(time).format("yyyy-MM-dd hh:mm:ss");
 						$("#rating").append(
-								"<dt>"+val.ratType+":"+time+"</dt><dd>"+val.ratContent+"</dd>"
+								i+1+"、"+val.ratType+":"+time+"\r\n"+val.ratContent+"\r\n\r\n"					
 							);
+//						"<dt>"+val.ratType+":"+time+"</dt><dd>"+val.ratContent+"</dd>"
 					});
 					
 					  var bar_data = {
@@ -116,7 +117,7 @@
 							var time=val.ratTime;
 							time = new Date(time).format("yyyy-MM-dd hh:mm:ss")
 							$("#rating").append(
-									"<dt>"+val.ratType+":"+time+"</dt><dd>"+val.ratContent+"</dd>"
+									i+1+"、"+val.ratType+":"+time+"\r\n"+val.ratContent+"\r\n\r\n"		
 								);
 						});
 					}

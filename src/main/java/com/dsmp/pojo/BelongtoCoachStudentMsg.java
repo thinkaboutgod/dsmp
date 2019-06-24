@@ -8,8 +8,8 @@ public class BelongtoCoachStudentMsg {
 	private Integer subId;
 	private Integer susScore;
 	private String subName;
-	private Integer subTime;
-	private Integer strTime;
+	private Double subTime;
+	private Double strTime;
 
 	public Integer getStuId() {
 		return stuId;
@@ -35,17 +35,19 @@ public class BelongtoCoachStudentMsg {
 	public void setSubName(String subName) {
 		this.subName = subName;
 	}
-	public Integer getSubTime() {
+	
+	public Double getSubTime() {
 		return subTime;
 	}
-	public void setSubTime(Integer subTime) {
+	public void setSubTime(Double subTime) {
 		this.subTime = subTime;
 	}
-	public Integer getStrTime() {
+	public Double getStrTime() {
 		return strTime;
 	}
-	public void setStrTime(Integer strTime) {
+	public void setStrTime(Double strTime) {
 		this.strTime = strTime;
 	}
+	
 	
 }
