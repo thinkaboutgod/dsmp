@@ -90,12 +90,12 @@
  		</mvc:interceptor>
  		
  		<!-- 获取菜单拦截 -->
- 		<!-- <mvc:interceptor> -->
- 			<!-- 进行拦截：/**表示拦截所有controller -->
- 			<!-- <mvc:mapping path="/menu/toManageMain.action" /> -->
- 			<!-- 加载相应的拦截器类 -->
- 			<!-- <bean class="com.dsmp.interceptor.MenuInterceptor" /> -->
- 		<!-- </mvc:interceptor> -->
+ 		<mvc:interceptor>
+<!--  			进行拦截：/**表示拦截所有controller -->
+ 			<mvc:mapping path="/menu/toManageMain.action" />
+<!--  			加载相应的拦截器类 -->
+ 			<bean class="com.dsmp.interceptor.MenuInterceptor" />
+ 		</mvc:interceptor>
  		
  		<!-- 教练端是否登录拦截 -->
  		<mvc:interceptor>
