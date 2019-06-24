@@ -81,14 +81,14 @@
 									<img alt="50x50" width="100" height="100" id="image" src=<%=path+request.getAttribute("schHeadimg")%>>
 								</div>
 								<div id="reply">
-								
+									<h3>运营状态：<span id="state"><%=request.getAttribute("schSignupstatus")%></span></h3><br>
 									
 								</div>
 								<div id="schoolmsg"><br>
 									会员账号：<span><%=request.getAttribute("schAccount")%></span><br>
 									驾校名称：<span><%=request.getAttribute("schName")%></span><br>
 									法人代表：<span><%=request.getAttribute("schBossname")%></span><br>
-									运营状态：<span><%=request.getAttribute("schSignupstatus")%></span><br>
+									
 								</div>
 				
 							</div><hr>				
@@ -106,7 +106,7 @@
 										    <div class="form-group">
 										        <label class="col-md-3 control-label">申诉内容</label>
 										        <div class="col-md-6">
-										            <textarea class="form-control" name="content" onkeyup="textAreaChange(this)" onkeydown="textAreaChange(this)" rows="5" style="resize: none;"></textarea>
+										            <textarea class="form-control" style="resize: none" name="content" onkeyup="textAreaChange(this)" onkeydown="textAreaChange(this)" rows="5"></textarea>
 										            <div class="text-right">
 										                <em style="color:red">200</em>/<span>200</span>
 										            </div>

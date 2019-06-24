@@ -82,7 +82,7 @@
 							<!-- body -->
 							<div class="layui-tab layui-tab-brief" >
  								<ul class="layui-tab-title">
-  								<li class="subject layui-this">科目一学员</li>
+  								<li class="subject layui-this" id="subone">科目一学员</li>
   			 					<li class="subject">科目二学员</li>
    								<li class="subject">科目三学员</li>
    				 				<li class="subject">科目四学员</li>   				 
@@ -96,10 +96,10 @@
 											<table id="arrangethetest" class="table table-bordered table-hover">
 												<thead>
 													<tr role="row">
-														<th >姓名</th>
-														<th >科目</th>
-														<th >当前学时</th>
-														<th >总学时</th>
+														<th >学员姓名</th>
+														<th >学员账号</th>
+														<th >当前科目</th>
+														<th >住址</th>
 														<th>预约</th>		
 													</tr>
 												</thead>

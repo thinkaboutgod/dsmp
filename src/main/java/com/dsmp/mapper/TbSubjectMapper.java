@@ -24,5 +24,5 @@ public interface TbSubjectMapper {
      * @param subId 科目id
      * @return
      */
-    public Integer findNeedStudyTime(Integer subId);
+    public Double findNeedStudyTime(Integer subId);
 }

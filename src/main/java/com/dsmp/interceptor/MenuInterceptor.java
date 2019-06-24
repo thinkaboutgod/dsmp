@@ -41,7 +41,6 @@ public class MenuInterceptor implements HandlerInterceptor{
 			}
 		}else if (rolId.equals("4")) {
 			TbCoach tbCoach  = (TbCoach) request.getSession().getAttribute("coach");
-			System.out.println("教练端菜单拦截器");
 			if (null!=tbCoach) {
 				return true;
 			}else {

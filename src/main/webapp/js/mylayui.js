@@ -23,7 +23,7 @@ layui.use(['upload','form'], function(){
 				var arr = JSON.parse(res);
 				for (var i = 0; i < arr.length; i++) {
 					console.log(arr[i].coaName);
-					$("#teachers").append("<option>"+arr[i].coaName+"</option>");
+					$("#teachers").append("<option value="+arr[i].coaId+">"+arr[i].coaName+"</option>");
 				}	
 				form.render('select');//刷新select选择框渲染
 			},

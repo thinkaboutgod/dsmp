@@ -90,7 +90,7 @@ public class PersonalController {
 				//（1）查学员
 				TbStudent stuDetail = studentService.findStuDetailById(student.getStuId());
 				//（2）查出当前科目完成总学时
-				int overTimeLength = studyRecordService.sumTimeLength(stuDetail.getStuId(), stuDetail.getSubId());
+				Double overTimeLength = studyRecordService.sumTimeLength(stuDetail.getStuId(), stuDetail.getSubId());
 				//（3）查出各科成绩
 				List<TbSubjectscore> subjectScoreList = subjectScoreService.findSubjectScore(stuDetail.getStuId());
 				
@@ -99,7 +99,7 @@ public class PersonalController {
 //				System.out.println("stuDetail-coaName:"+stuDetail.getTbCoach().getCoaName());
 				//(4)计算百分比：
 				//查询出科目需要的总学时：
-				Integer needStudyTime = subjectService.findNeedStudyTime(stuDetail.getSubId());//需要总学时
+				Double needStudyTime = subjectService.findNeedStudyTime(stuDetail.getSubId());//需要总学时
 				
 				if(null!=stuDetail) {
 					mav.addObject("stuDetail", stuDetail);
@@ -131,7 +131,7 @@ public class PersonalController {
 	 * @param totalTimeLength
 	 * @return
 	 */
-	public String getPercentage(Integer currTotalTimeLength,Integer totalTimeLength) {
+	public String getPercentage(Double currTotalTimeLength,Double totalTimeLength) {
 		 DecimalFormat df = new DecimalFormat("0.00%");
 //		 Integer currTotalTimeLength = sumTimeLength(stu_id, sub_id);
 //		 Integer totalTimeLength = 10*60*60;

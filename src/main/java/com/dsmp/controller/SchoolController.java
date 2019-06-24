@@ -139,12 +139,11 @@ public class SchoolController {
 			// 将上传文件保存到一个目标文件当中
 			file.transferTo(new File(path + File.separator + fileName));
 			// 输出文件上传最终的路径 测试查看
-			System.out.println(path + File.separator + fileName);
 			result = schoolService.insertSchoolInfo(phone, password, sch_creditcode, sch_name, sch_type, sch_address, sch_bossname, sch_registerCapital, sch_introduce, sch_charge, fileName);
 		} else {
 			result.setMyresult("fileErr");
 		}
-		System.out.println("最终返回的结果："+result.getMyresult());
+		
 		return result;
 	}
 
