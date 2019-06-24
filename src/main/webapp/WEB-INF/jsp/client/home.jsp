@@ -54,9 +54,9 @@
 	<div class="focusBox clear pulse animated">
 		<ul class="pic">
 			<li><a href="javascript:;" target="_blank"
-				style="background: url(<%=path + "/images/home/title3.jpg"%>) no-repeat center"></a></li>
+				style="background: url(<%=path + "/images/home/title1.jpg"%>) no-repeat center"></a></li>
 			<li><a href="javascript:;" target="_blank"
-				style="background: url(<%=path + "/images/home/title2.png"%>) no-repeat center"></a></li>
+				style="background: url(<%=path + "/images/home/title4.jpg"%>) no-repeat center"></a></li>
 			<li><a href="javascript:;" target="_blank"
 				style="background: url(<%=path + "/images/home/1-1P52Q1113R51.jpg"%>) no-repeat center"></a></li>			
 		</ul>
