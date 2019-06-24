@@ -16,7 +16,6 @@ $(function() {
 			success: function(res) {
 				var arr = JSON.parse(res);
 				for(var i = 0; i < arr.length; i++) {
-					console.log(arr[i].coaName);
 					$("#teachers").append("<option value=" + arr[i].coaId + ">" + arr[i].coaName + "</option>");
 				}
 				form.render('select'); // 刷新select选择框渲染
@@ -34,7 +33,6 @@ $(function() {
 			choose: function(obj) { // 上传前选择回调方法
 				var flag = true;
 				obj.preview(function(index, file, result) {
-					console.log(file); // file表示文件信息，result表示文件src地址
 					var img = new Image();
 					img.src = result;
 					img.onload = function() { // 初始化夹在完成后获取上传图片宽高，判断限制上传图片的大小。
@@ -259,7 +257,7 @@ $(function() {
 		$("#btn_check_yes").click(function() {
 			var stuId = $("#stuId").val();
 			var coaId = $("#coachs").val();
-			if($("#coachNameCheck").val() != "无") {
+			if($("#coachNameCheck").val() != ""){
 				$.ajax({
 					url: "../student/checkStudent.action",
 					async: true,
@@ -285,7 +283,7 @@ $(function() {
 					}
 				})
 			} else {
-				if(coaId != 0) {
+				if(coaId > 0) {
 					$.ajax({
 						url: "../student/checkStudent.action",
 						async: true,
@@ -293,17 +291,17 @@ $(function() {
 						data: {
 							stuId: stuId,
 							coaId: coaId,
-							stuVerifystatus: "已审核"
+							stuVerifystatus: "审核通过"
 						},
 						dataType: "text",
 						success: function(data) {
 							var result = JSON.parse(data);
 							if(result.myresult == "success") {
-								layer.msg("审核成功");
+								layer.msg("修改成功");
 								$("#studentCheck").modal('hide');
 								table.ajax.reload(null, false);
 							} else if(result.myresult == "failed") {
-								layer.msg("审核失败");
+								layer.msg("修改失败");
 							}
 						},
 						error: function() {
@@ -327,17 +325,17 @@ $(function() {
 				data: {
 					stuId: stuId,
 					coaId: coaId,
-					stuVerifystatus: "审核不通过"
+					stuVerifystatus: "审核失败"
 				},
 				dataType: "text",
 				success: function(data) {
 					var result = JSON.parse(data);
 					if(result.myresult == "success") {
-						layer.msg("审核成功");
+						layer.msg("修改成功");
 						$("#studentCheck").modal('hide');
 						table.ajax.reload(null, false);
 					} else if(result.myresult == "failed") {
-						layer.msg("审核失败");
+						layer.msg("修改失败");
 					}
 				},
 				error: function() {
@@ -417,7 +415,7 @@ $(function() {
 					if(msg.myresult == "success") {
 						layer.msg("添加学员成功");
 						table.ajax.reload(null, false);
-						canvas.width=350;
+						canvas.width=300;
 						canvas.height=200;
 						$("#real_name").val("");
 						$("#idnum").val("");
@@ -428,7 +426,7 @@ $(function() {
 						layui.form.render('select');
 					} else if(msg.myresult == "already") {
 						layer.msg("添加学员失败，该账号已经报名!");
-						canvas.width=350;
+						canvas.width=300;
 						canvas.height=200;
 						$("#real_name").val("");
 						$("#idnum").val("");
@@ -520,7 +518,7 @@ $(function() {
 	}
 	// 获取图片
 	function getFace(context) {
-		context.drawImage(video, 0, 0, 350, 220);
+		context.drawImage(video, 0, 0, 300, 200);
 	}
 	// 打开摄像头
 	function openUserMedia() {

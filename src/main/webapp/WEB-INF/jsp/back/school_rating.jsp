@@ -69,13 +69,13 @@
 					</div> 
 					<!-- /标题 -->
 					<div  class="container" id="ratingmsg">
-<!-- 					<div class="box"> -->
+					<div class="box">
 						<div class="row clearfix" >
 							<div class="col-md-12 column" >
-							<textarea rows="25" cols="45" id="rating"></textarea> 
+							<textarea rows="25" cols="45" id="rating" readonly="readonly"></textarea> 
 							</div>
 						</div>
-<!-- 					</div> -->
+					</div>
 					</div >
 					<div id="tu">
 					<!-- 圈图 -->

@@ -106,7 +106,7 @@
 										    <div class="form-group">
 										        <label class="col-md-3 control-label">申诉内容</label>
 										        <div class="col-md-6">
-										            <textarea class="form-control" name="content" onkeyup="textAreaChange(this)" onkeydown="textAreaChange(this)" rows="5"></textarea>
+										            <textarea class="form-control" name="content" onkeyup="textAreaChange(this)" onkeydown="textAreaChange(this)" rows="5" style="resize: none;"></textarea>
 										            <div class="text-right">
 										                <em style="color:red">200</em>/<span>200</span>
 										            </div>
