@@ -8,7 +8,7 @@
 			<!-- 联系 -->
 			<div class="comment-header-contact">
 				<div class="comment-header-left">
-					<span class="comment-header-phone-describe">您好，欢迎来到厦门机动车驾培公众服务平台！</span>
+					<span class="comment-header-phone-describe">您好，欢迎来到机动车驾驶培训公众服务平台！</span>
 				</div>
 				<div class="comment-header-right">
 				<c:choose>
@@ -83,14 +83,7 @@
 					<li><a href=<%=path+"/student/apply.action?" %>>报考驾校</a></li>					
 				</ul>
 			</li>
-			<li class="m ">
-				<h3>
-					<a href=" javascript:;">人才招聘</a>
-				</h3>
-				<ul>
-
-				</ul>
-			</li>
+			
 			<li class="m ">
 				<h3>
 					<a href=" javascript:;">个人中心</a>
@@ -106,7 +99,7 @@
 
 				</ul>
 			</li>
-			<li class="m ">
+			<li class="m">
 				<h3>
 					<a href=" javascript:;">联系我们</a>
 				</h3>
