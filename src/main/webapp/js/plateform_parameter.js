@@ -98,13 +98,13 @@ $("#change").click(function() {
 			return;
 		}
 	}else if (type="score") {
-		if (!re.test(parValue)) {
-			layer.msg("请输入大于0分的正整数分数");
+		if (!re.test(parValue)||parValue>100) {
+			layer.msg("请输入大于0，小于100分的正整数分数");
 			return;
 		}
 	}else if (type="time") {
 		if (!re.test(parValue)) {
-			layer.msg("请输入大于0的正整数时长单位为秒");
+			layer.msg("请输入大于0的正整数，单位为秒");
 			return;
 		}
 	}
