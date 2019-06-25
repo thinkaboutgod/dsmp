@@ -8,10 +8,10 @@ layui.use(['layer', 'form'], function() {
 });
 
 $(function() {
-	
+
 	$.extend($.fn.dataTable.defaults, dataTableSeetings); // 公共初始化设置
-	$.fn.dataTable.ext.errMode = 'none'; 
-	
+	$.fn.dataTable.ext.errMode = 'none';
+
 	var table
 
 	datatable_otherSet = {
@@ -51,18 +51,23 @@ $(function() {
 				"sWidth": "",
 				"orderable": false, // 禁用排序
 				"render": function(data, type, row, meta) {
-					data = "";
+
 					console.log(row.scoreList[1])
 					console.log(row.stuBookingstate)
-					
-					if(row.scoreList[0]!=undefined&&row.scoreList[0].susScore >= 90 &&
-						row.scoreList[1] == undefined&&row.stuBookingstate=="已预约") {
-						data = '<button class="btn btn-default btn-sm add2">录入</button>';
+					console.log(data)
+					if(data == 2) {
+						if(row.scoreList[0] != undefined && row.scoreList[0].susScore >= 90 &&
+							row.scoreList[1] == undefined && row.stuBookingstate == "已预约") {
+							data = '<button class="btn btn-default btn-sm add2">录入</button>';
+						}
+						if(row.scoreList[1] != undefined &&
+							row.scoreList[1].susScore >= 0 && row.stuBookingstate == "已预约") {
+							data = '<button class="btn btn-default btn-sm update2">修改</button>';
+						}
+					} else {
+						data = "";
 					}
-					if(row.scoreList[1] != undefined &&
-						row.scoreList[1].susScore >= 0&&row.stuBookingstate=="已预约") {
-						data = '<button class="btn btn-default btn-sm update2">修改</button>';
-					}
+
 					return data;
 				}
 			},
@@ -81,15 +86,19 @@ $(function() {
 				"sWidth": "",
 				"orderable": false, // 禁用排序
 				"render": function(data, type, row, meta) {
-					data = "";
-					if(row.scoreList[1]!=undefined&&row.scoreList[1].susScore >= 80 &&
-						row.scoreList[2] == undefined&&row.stuBookingstate=="已预约") {
-						data = '<button  class="btn btn-default btn-sm add3">录入</button>';
 
-					}
-					if(row.scoreList[2] != undefined &&
-						row.scoreList[2].susScore >= 0&&row.stuBookingstate=="已预约") {
-						data = '<button  class="btn btn-default btn-sm update3" >修改</button>';
+					if(data == 3) {
+						if(row.scoreList[1] != undefined && row.scoreList[1].susScore >= 80 &&
+							row.scoreList[2] == undefined && row.stuBookingstate == "已预约") {
+							data = '<button  class="btn btn-default btn-sm add3">录入</button>';
+
+						}
+						if(row.scoreList[2] != undefined &&
+							row.scoreList[2].susScore >= 0 && row.stuBookingstate == "已预约") {
+							data = '<button  class="btn btn-default btn-sm update3" >修改</button>';
+						}
+					} else {
+						data = "";
 					}
 					return data;
 				}
@@ -132,47 +141,52 @@ $(function() {
 		},
 	}
 
-	
 	table = $("#score").DataTable(datatable_otherSet); // 初始化
-
 
 	$(document).on("click", ".add2", function() {
 		var stuId = table.row($(this).parent().parent()).data().stuId;
 		alert(stuId)
 		var subId = "2";
 		var score = $(this).parent().prev().text();
-		if(score < 0 || score > 100) {
-			layer.msg("请输入有效成绩");
-		} else {
-			$.ajax({
-				type: "POST",
-				async: true,
-				url: "../school/addScore.action",
-				data: {
-					stuId: stuId,
-					subId: subId,
-					score: score
-				},
-				dataType: "text",
-				success: function(data) {
-					var msg = JSON.parse(data);
-					if(msg.myresult == "success") {
-						layer.msg("添加科目二成绩成功，成绩不合格，需重新预约考试");
-					} else if(msg.myresult == "next") {
-						layer.msg("添加科目二成绩成功，成绩合格，进入下一阶段");
-					} else {
-						layer.msg("添加科目二成绩失败");
+		layer.confirm('您确定要添加该成绩？', {
+			btn: ['确定', '取消'] //按钮
+		}, function() {
+			if(score < 0 || score > 100) {
+				layer.msg("请输入有效成绩");
+			} else {
+				$.ajax({
+					type: "POST",
+					async: true,
+					url: "../school/addScore.action",
+					data: {
+						stuId: stuId,
+						subId: subId,
+						score: score
+					},
+					dataType: "text",
+					success: function(data) {
+						var msg = JSON.parse(data);
+						if(msg.myresult == "success") {
+							layer.msg("添加科目二成绩成功，成绩不合格，需重新预约考试");
+						} else if(msg.myresult == "next") {
+							layer.msg("添加科目二成绩成功，成绩合格，进入下一阶段");
+						} else {
+							layer.msg("添加科目二成绩失败");
 
+						}
+						table.ajax.reload(null, false);
+					},
+					error: function() {
+						// 请求出错处理
+						layer.msg("操作失败！");
+						table.ajax.reload(null, false);
 					}
-					table.ajax.reload(null, false);
-				},
-				error: function() {
-					// 请求出错处理
-					layer.msg("操作失败！");
-					table.ajax.reload(null, false);
-				}
-			});
-		}
+				});
+			}
+		}, function() {
+			layer.msg('操作已取消');
+		});
+
 	})
 
 	$(document).on("click", ".update2", function() {
@@ -183,39 +197,45 @@ $(function() {
 		alert(susId)
 		var subId = "2";
 		var score = $(this).parent().prev().text();
-		if(score < 0 || score > 100) {
-			layer.msg("请输入有效成绩");
-		} else {
-			$.ajax({
-				type: "POST",
-				async: true,
-				url: "../school/updateScore.action",
-				data: {
-					stuId: stuId,
-					subId: subId,
-					score: score,
-					susId: susId
-				},
-				dataType: "text",
-				success: function(data) {
-					var msg = JSON.parse(data);
-					if(msg.myresult == "success") {
-						layer.msg("修改科目二成绩成功，成绩不合格，需重新预约考试");
-					} else if(msg.myresult == "next") {
-						layer.msg("修改科目二成绩成功，成绩合格，进入下一阶段");
-					} else {
-						layer.msg("修改科目二成绩失败");
+		layer.confirm('您确定要修改该成绩？', {
+			btn: ['确定', '取消'] //按钮
+		}, function() {
+			if(score < 0 || score > 100) {
+				layer.msg("请输入有效成绩");
+			} else {
+				$.ajax({
+					type: "POST",
+					async: true,
+					url: "../school/updateScore.action",
+					data: {
+						stuId: stuId,
+						subId: subId,
+						score: score,
+						susId: susId
+					},
+					dataType: "text",
+					success: function(data) {
+						var msg = JSON.parse(data);
+						if(msg.myresult == "success") {
+							layer.msg("修改科目二成绩成功，成绩不合格，需重新预约考试");
+						} else if(msg.myresult == "next") {
+							layer.msg("修改科目二成绩成功，成绩合格，进入下一阶段");
+						} else {
+							layer.msg("修改科目二成绩失败");
 
+						}
+						table.ajax.reload(null, false);
+					},
+					error: function() {
+						// 请求出错处理
+						layer.msg("操作失败！");
+						table.ajax.reload(null, false);
 					}
-					table.ajax.reload(null, false);
-				},
-				error: function() {
-					// 请求出错处理
-					layer.msg("操作失败！");
-					table.ajax.reload(null, false);
-				}
-			});
-		}
+				});
+			}
+		}, function() {
+			layer.msg('操作已取消');
+		});
 	})
 
 	$(document).on("click", ".add3", function() {
@@ -223,38 +243,44 @@ $(function() {
 		alert(stuId)
 		var subId = "3";
 		var score = $(this).parent().prev().text();
-		if(score < 0 || score > 100) {
-			layer.msg("请输入有效成绩");
-		} else {
-			$.ajax({
-				type: "POST",
-				async: true,
-				url: "../school/addScore.action",
-				data: {
-					stuId: stuId,
-					subId: subId,
-					score: score
-				},
-				dataType: "text",
-				success: function(data) {
-					var msg = JSON.parse(data);
-					if(msg.myresult == "success") {
-						layer.msg("添加科目三成绩成功，成绩不合格，需重新预约考试");
-					} else if(msg.myresult == "next") {
-						layer.msg("添加科目三成绩成功，成绩合格，进入下一阶段");
-					} else {
-						layer.msg("添加科目三成绩失败");
+		layer.confirm('您确定要添加该成绩？', {
+			btn: ['确定', '取消'] //按钮
+		}, function() {
+			if(score < 0 || score > 100) {
+				layer.msg("请输入有效成绩");
+			} else {
+				$.ajax({
+					type: "POST",
+					async: true,
+					url: "../school/addScore.action",
+					data: {
+						stuId: stuId,
+						subId: subId,
+						score: score
+					},
+					dataType: "text",
+					success: function(data) {
+						var msg = JSON.parse(data);
+						if(msg.myresult == "success") {
+							layer.msg("添加科目三成绩成功，成绩不合格，需重新预约考试");
+						} else if(msg.myresult == "next") {
+							layer.msg("添加科目三成绩成功，成绩合格，进入下一阶段");
+						} else {
+							layer.msg("添加科目三成绩失败");
 
+						}
+						table.ajax.reload(null, false);
+					},
+					error: function() {
+						// 请求出错处理
+						layer.msg("操作失败！");
+						table.ajax.reload(null, false);
 					}
-					table.ajax.reload(null, false);
-				},
-				error: function() {
-					// 请求出错处理
-					layer.msg("操作失败！");
-					table.ajax.reload(null, false);
-				}
-			});
-		}
+				});
+			}
+		}, function() {
+			layer.msg('操作已取消');
+		});
 	})
 
 	$(document).on("click", ".update3", function() {
@@ -264,38 +290,44 @@ $(function() {
 		alert(susId)
 		var subId = "3";
 		var score = $(this).parent().prev().text();
-		if(score < 0 || score > 100) {
-			layer.msg("请输入有效成绩");
-		} else {
-			$.ajax({
-				type: "POST",
-				async: true,
-				url: "../school/updateScore.action",
-				data: {
-					stuId: stuId,
-					subId: subId,
-					score: score,
-					susId: susId
-				},
-				dataType: "text",
-				success: function(data) {
-					var msg = JSON.parse(data);
-					if(msg.myresult == "success") {
-						layer.msg("修改科目三成绩成功，成绩不合格，需重新预约考试");
-					} else if(msg.myresult == "next") {
-						layer.msg("修改科目三成绩成功，成绩合格，进入下一阶段");
-					} else {
-						layer.msg("修改科目三成绩失败");
+		layer.confirm('您确定要添加该成绩？', {
+			btn: ['确定', '取消'] //按钮
+		}, function() {
+			if(score < 0 || score > 100) {
+				layer.msg("请输入有效成绩");
+			} else {
+				$.ajax({
+					type: "POST",
+					async: true,
+					url: "../school/updateScore.action",
+					data: {
+						stuId: stuId,
+						subId: subId,
+						score: score,
+						susId: susId
+					},
+					dataType: "text",
+					success: function(data) {
+						var msg = JSON.parse(data);
+						if(msg.myresult == "success") {
+							layer.msg("修改科目三成绩成功，成绩不合格，需重新预约考试");
+						} else if(msg.myresult == "next") {
+							layer.msg("修改科目三成绩成功，成绩合格，进入下一阶段");
+						} else {
+							layer.msg("修改科目三成绩失败");
 
+						}
+						table.ajax.reload(null, false);
+					},
+					error: function() {
+						// 请求出错处理
+						layer.msg("操作失败！");
+						table.ajax.reload(null, false);
 					}
-					table.ajax.reload(null, false);
-				},
-				error: function() {
-					// 请求出错处理
-					layer.msg("操作失败！");
-					table.ajax.reload(null, false);
-				}
-			});
-		}
+				});
+			}
+		}, function() {
+			layer.msg('操作已取消');
+		});
 	})
 })
