@@ -38,7 +38,7 @@ public class TopicProcessor implements PageProcessor {
 			List<TbOption> opts = new ArrayList<>();
 			//爬取题目
 			String topic = page.getHtml().xpath("//*[@id=\"q_" + i + "\"]/p/text()").get();
-			int index = topic.lastIndexOf(".");
+			int index = topic.indexOf(".");
 			topic = topic.substring(index + 2);
 
 			page.putField("topic", topic);

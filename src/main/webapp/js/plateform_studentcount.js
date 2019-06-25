@@ -73,15 +73,21 @@ $(function() {
 		"scrollY": "",
 //		"dom": '<"top"l>rt<"bottom"ip><"clear">',
 		"columns" : [ 
+			
 			{
-	            sTitle: '序号',
-	            data: null,
-	            className: 'text-center whiteSpace',
-	            render:function(data,type,row,meta) {
-	                return meta.row + 1 +
-	                meta.settings._iDisplayStart;
-	            }
-	        },
+				"data" : null,
+				"orderable" : false,
+					
+			},
+//			{
+//	            sTitle: '序号',
+//	            data: null,
+//	            className: 'text-center whiteSpace',
+//	            render:function(data,type,row,meta) {
+//	                return meta.row + 1 +
+//	                meta.settings._iDisplayStart;
+//	            }
+//	        },
 		{
 			"data" : "name"
 		}, {
@@ -107,6 +113,16 @@ $(function() {
 	};
 	
 	var table = $("#countTable").DataTable(datatable_otherSet);//初始化datatable
+	
+	table.on('order.dt search.dt',function() {
+		table.column(0, {
+	        search: 'applied',
+	        order: 'applied'
+	    }).nodes().each(function(cell, i) {
+	        cell.innerHTML = i + 1;
+	    });
+	}).draw();
+	
 	//表格按月份搜索
 	$("#searchByDate").on("click", function() {
 		if ($("#monthSelect").val()=="0") {

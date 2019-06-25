@@ -8,16 +8,23 @@ $(document).ready(function() {
 	datatable_otherSet = {
 			"ajax" : path+"/plateform/searchAllNotice.action",
 			"searching":true,
+			"order": [[1, 'asc']],
 			"columns" : [
-					{
-			            sTitle: '序号',
-			            data: null,
-			            className: 'text-center whiteSpace',
-			            render:function(data,type,row,meta) {
-			                return meta.row + 1 +
-			                meta.settings._iDisplayStart;
-			            }
-			        },{
+				{
+					"data" : null,
+					"orderable" : false,
+						
+				},
+//					{
+//			            sTitle: '序号',
+//			            data: null,
+//			            className: 'text-center whiteSpace',
+//			            render:function(data,type,row,meta) {
+//			                return meta.row + 1 +
+//			                meta.settings._iDisplayStart;
+//			            }
+//			        },
+			        {
 						"data" : "notTitle",
 						"orderable" : false,
 							
@@ -54,6 +61,17 @@ $(document).ready(function() {
 		};
 	
 var table = $("#notTable").DataTable(datatable_otherSet);//初始化
+table.on('order.dt search.dt',function() {
+	table.column(0, {
+        search: 'applied',
+        order: 'applied'
+    }).nodes().each(function(cell, i) {
+        cell.innerHTML = i + 1;
+    });
+}).draw();
+
+
+
 //编辑器初始化
 var ue = UE.getEditor( 'editor',{
     autoHeightEnabled: true,
