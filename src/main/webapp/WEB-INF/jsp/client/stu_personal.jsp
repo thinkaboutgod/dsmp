@@ -73,9 +73,9 @@
 												        <textarea id="ratingContent" name="ratingContent" rows="" cols=""></textarea>
 												      
 												        <div class="form-group" style="margin-top:10px">
-												            <button id="coachSubBtn" type="button" class="btn btn-primary">Submit</button>
+												            <button id="coachSubBtn" type="button" class="btn btn-primary">提交</button>
 	<!-- 											            <button type="submit" class="btn btn-primary">Submit</button> -->
-												            <button id="reset" type="reset" class="btn btn-default">Reset</button>
+												            <button id="reset" type="reset" class="btn btn-default">重置</button>
 												<!--             <button type="button" class="btn btn-danger">Destroy</button> -->
 												<!--             <button type="button" class="btn btn-success">Create</button> -->
 												        </div>
@@ -102,8 +102,8 @@
 										        <textarea id="shcoolRatingContent" name="ratingContent" rows="" cols=""></textarea>
 										      
 										        <div class="form-group" style="margin-top:10px">
-										            <button id="schoolSubBtn" type="button" class="btn btn-primary">Submit</button>
-										            <button id="shcoolReset" type="reset" class="btn btn-default">Reset</button>
+										            <button id="schoolSubBtn" type="button" class="btn btn-primary">提交</button>
+										            <button id="shcoolReset" type="reset" class="btn btn-default">重置</button>
 										<!--             <button type="button" class="btn btn-danger">Destroy</button> -->
 										<!--             <button type="button" class="btn btn-success">Create</button> -->
 										        </div>

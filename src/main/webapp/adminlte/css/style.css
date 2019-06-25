@@ -16,7 +16,7 @@
   height:100%;
   border:1px solid gray;
 /*   margin-top:20px; */
-  background-color:white;
+  background: rgba(255, 255, 255, 0.3);
   position:relative;z-index:999;
   float: right;
 }
@@ -50,8 +50,9 @@
   margin: 0 0 20px 0;
   font: 16px/20px 'Noto Sans', sans-serif;
   border-radius: 10px;
-  background-color: rgba(25, 147, 147, 0.2);
+  background-color: rgba(255, 255, 255, 0.4);
 }
+
 
 /* Chat - Avatar */
 .chat-thread li:before {
@@ -79,7 +80,7 @@
   -webkit-animation: show-chat-odd 0.15s 1 ease-in;
   float: right;
   margin-right: 80px;
-  color: #0AD5C1;
+  color: #FFFFFF;
 }
 
 .chat-thread li:nth-child(odd):before {
@@ -98,7 +99,7 @@
   -webkit-animation: show-chat-even 0.15s 1 ease-in;
   float: left;
   margin-left: 80px;
-  color: #0EC879;
+  color: #FFFFFF;
 }
 
 .chat-thread li:nth-child(even):before {
@@ -121,7 +122,7 @@
   height: 48px;
   font: 32px/48px 'Noto Sans', sans-serif;
   background: none;
-  color: #0AD5C1;
+  color: #FFFFFF;
   border: 0;
   border-bottom: 1px solid rgba(25, 147, 147, 0.2);
   outline: none;
