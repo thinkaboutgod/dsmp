@@ -461,10 +461,10 @@
 												<li class="option">
 													<input id="${j.optId }" class="${topicStatus.count}" type="radio" name="${i.topId }" value="${j.optStatus }">
 													<label for="${j.optId }">
-													<c:if test="${status.index==0}">A.</c:if>
-													<c:if test="${status.index==1}">B.</c:if>
-													<c:if test="${status.index==2}">C.</c:if>
-													<c:if test="${status.index==3}">D.</c:if>
+<%-- 													<c:if test="${status.index==0}">A.</c:if> --%>
+<%-- 													<c:if test="${status.index==1}">B.</c:if> --%>
+<%-- 													<c:if test="${status.index==2}">C.</c:if> --%>
+<%-- 													<c:if test="${status.index==3}">D.</c:if> --%>
                                                     
                                                     <b class="ue" style="display: inline;">${j.optOption }</b>
                                                 </label>
@@ -481,10 +481,10 @@
 			</div>
 			<div id="rightDiv">
 		<%-- 		${fn:length(topicList)} 该份试卷共有几道题 --%>
-		<c:if test="${student.subId!=1 }">
+		<c:if test="${student.subId!=1||(student.subId==1&&(student.coaId==null||''==student.coaId)) }"><!-- 不是科目一或是科目一但是没教练情况下进入不计时模式 -->
 					<h3>不计学时模式</h3>
 				</c:if>
-				<c:if test="${student.subId==1 }"><!-- 只有在科目一的时候才显示进度条 -->
+				<c:if test="${student.subId==1&&(student.coaId!=null) }"><!-- 只有在科目一且有教练的时候才显示进度条 -->
 					<h2>计学时模式</h2>
 					<p>学习时长/任务时长(单位：秒)：<span id="studyTimeSpan">${currTotalTimeLength}/${totalTimeLength}</span></p>
 					<div class="progress">

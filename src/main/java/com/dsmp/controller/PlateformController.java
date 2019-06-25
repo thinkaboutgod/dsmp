@@ -203,14 +203,14 @@ public class PlateformController {
 
 	// 科目一题库修改
 	@RequestMapping(value = "changeTopic.action")
-	public @ResponseBody String changeTopic(HttpServletRequest request, String map, MultipartFile newImg) {
-		return topicService.changeTopic(request, map, newImg);
+	public @ResponseBody String changeTopic(HttpServletRequest request, MultipartFile newImg) {
+		return topicService.changeTopic(request,newImg);
 	}
 
 	// 科目一题库增加
 	@RequestMapping(value = "addTopic.action")
-	public @ResponseBody String addTopic(HttpServletRequest request, String map, MultipartFile addnewImg) {
-		return topicService.addTopic(request, map, addnewImg);
+	public @ResponseBody String addTopic(HttpServletRequest request, MultipartFile addnewImg) {
+		return topicService.addTopic(request, addnewImg);
 	}
 
 	// 科目一题目删除

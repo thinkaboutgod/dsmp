@@ -57,12 +57,11 @@
                           <table id="topicTable" class="table table-bordered table-hover">
 		                      <thead>
 		                        <tr role="row">
-		                        <th >序号</th>
-		                        <th >题目</th>
-		                        <th >操作</th>
+		                        <th style="text-align: center;">题目</th>
+		                        <th style="text-align: center;">操作</th>
 		                        </tr>
 		                      </thead>
-		                      <tbody></tbody>
+		                      <tbody ></tbody>
                         </table>
                       </div>
                       </div>

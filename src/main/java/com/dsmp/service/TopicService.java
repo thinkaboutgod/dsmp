@@ -44,9 +44,9 @@ public interface TopicService {
 	
 	public List<TbTopic> searchAllTopic(String subId);//查询题库；
 	
-	public String changeTopic(HttpServletRequest request,String map,MultipartFile newImg);//修改科目一题目
+	public String changeTopic(HttpServletRequest request,MultipartFile newImg);//修改科目一题目
 
-	public String addTopic(HttpServletRequest request,String map,MultipartFile addnewImg);//增加科目一题目
+	public String addTopic(HttpServletRequest request,MultipartFile addnewImg);//增加科目一题目
 	
 	public MyResult deleteTopic(HttpServletRequest request,String topId);//删除题目
 }

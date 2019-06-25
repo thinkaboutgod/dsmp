@@ -83,7 +83,6 @@
 																</tr>
 															</thead>
 															<tbody></tbody>
-
 														</table>
 													</div>
 												</div>
@@ -286,7 +285,7 @@
 									<button type="button" class="layui-btn layui-btn-warm" id="open">开启摄像头</button>
 									<button type="button" class="layui-btn layui-btn-warm" id="photograph">点击拍照</button>
 									<video id="video" style="width:370px;height: 220px;"></video>
-									<canvas id="canvas" width="350" height="200"></canvas>
+									<canvas id="canvas" width="300" height="200"></canvas>
 								</div>
 							</div>
 						</article>

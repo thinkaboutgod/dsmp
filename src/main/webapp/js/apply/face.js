@@ -148,7 +148,7 @@ $(function(){
 	}
 	//获取图片
 	function getFace(context) {
-	        context.drawImage(video,0,0,350,220);
+	        context.drawImage(video,0,0,300,200);
 //	        this.img=canvas.toDataURL('image/jpg')
 //	       // 获取完整的base64编码
 //	        this.img=img.split(',')[1];

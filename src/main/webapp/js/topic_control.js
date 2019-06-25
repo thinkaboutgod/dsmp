@@ -20,15 +20,16 @@ $(function() {
 			"ajax" : path+"/plateform/searchAllTopic.action",
 			"searching" : true,
 			"columns" : [
-					{
-			            sTitle: '序号',
-			            data: null,
-			            className: 'text-center whiteSpace',
-			            render:function(data,type,row,meta) {
-			                return meta.row + 1 +
-			                meta.settings._iDisplayStart;
-			            }
-			        },{
+//					{
+//			            sTitle: '序号',
+//			            data: null,
+//			            className: 'text-center whiteSpace',
+//			            render:function(data,type,row,meta) {
+//			                return meta.row + 1 +
+//			                meta.settings._iDisplayStart;
+//			            }
+//			        },
+			        {
 						"data" : "topTopic",
 							
 					},
@@ -37,7 +38,8 @@ $(function() {
 						"data" : "topId",
 						"orderable" : false, // 禁用排序
 						"sDefaultContent" : '',
-						"sWidth" : "",
+						"sWidth" : "18%",
+						"text-align": 'center',
 						"render" : function(data, type, full, meta) {
 							
 							data = ' <button  class="change btn btn-primary btn-sm " >修改</button>'
@@ -85,7 +87,7 @@ $.ajax({
 	});
 	//重新加载表格
 	function reload() {
-		table.ajax.reload(null, false);// 刷新数据方法,false代表保持当前页
+		table.ajax.reload(null);// 刷新数据方法,false代表保持当前页
 	}
 	
 	
@@ -282,40 +284,40 @@ $.ajax({
 		  	return;
 		   } 
 		}
-		//上传携带信息
-		var topic = {//题目
-				"topId":topId,
-				"topTopic" : topTopic,
-				"topAnswerDetail":topAnswerDetail,
-		}
-		var optionA = {//选项
-				"optId": aoptId,
-				"optOption" : $("#A").val(),
-				"optStatus" : $("#Aans").val()
-		}
-		var optionB = {
-				"optId": boptId,
-				"optOption" : $("#B").val(),
-				"optStatus" : $("#Bans").val()
-		}
-		var optionC = {
-				"optId": coptId,
-				"optOption" : $("#C").val(),
-				"optStatus" : $("#Cans").val()
-		}
-		var optionD = {
-				"optId": doptId,
-				"optOption" : $("#D").val(),
-				"optStatus" : $("#Dans").val()
-		}
-		//添加进map
-		var map = {};
-		map.topic = topic;
-		map.optionA = optionA;
-		map.optionB = optionB;
-		map.optionC = optionC;
-		map.optionD = optionD;
-		map.type = type;
+//		//上传携带信息
+//		var topic = {//题目
+//				"topId":topId,
+//				"topTopic" : topTopic,
+//				"topAnswerDetail":topAnswerDetail,
+//		}
+//		var optionA = {//选项
+//				"optId": aoptId,
+//				"optOption" : $("#A").val(),
+//				"optStatus" : $("#Aans").val()
+//		}
+//		var optionB = {
+//				"optId": boptId,
+//				"optOption" : $("#B").val(),
+//				"optStatus" : $("#Bans").val()
+//		}
+//		var optionC = {
+//				"optId": coptId,
+//				"optOption" : $("#C").val(),
+//				"optStatus" : $("#Cans").val()
+//		}
+//		var optionD = {
+//				"optId": doptId,
+//				"optOption" : $("#D").val(),
+//				"optStatus" : $("#Dans").val()
+//		}
+//		//添加进map
+//		var map = {};
+//		map.topic = topic;
+//		map.optionA = optionA;
+//		map.optionB = optionB;
+//		map.optionC = optionC;
+//		map.optionD = optionD;
+//		map.type = type;
 		//ajaxFileUpload上传带的参数只能为键值对字符串，不能为json对象
 		$.ajaxFileUpload({
 			url : url,
@@ -324,7 +326,29 @@ $.ajax({
 			fileElementId : fileId,// 上传文件的id、name属性名
 			dataType : "text",
 			data :{
-				map:JSON.stringify(map)
+//				map:JSON.stringify(map),
+				topId : topId,
+				topTopic : topTopic,
+				topAnswerDetail : topAnswerDetail,
+				
+				aoptId : aoptId,
+				aoptOption : $("#A").val(),
+				aoptStatus : $("#Aans").val(),
+				
+				boptId : boptId,
+				boptOption : $("#B").val(),
+				boptStatus : $("#Bans").val(),
+				
+				coptId : coptId,
+				coptOption : $("#C").val(),
+				coptStatus : $("#Cans").val(),
+				
+				doptId : doptId,
+				doptOption : $("#D").val(),
+				doptStatus : $("#Dans").val(),
+				
+				type : type
+				
 		},
 			success : function(data) {
 				if (data == "success") {
