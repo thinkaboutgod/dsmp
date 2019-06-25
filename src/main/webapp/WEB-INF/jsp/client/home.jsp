@@ -286,7 +286,7 @@
 	</div>
 	<!-- 智能机器人在线问答 -->
 	<div class="productshow">
-		<h1>智能机器人在线问答&nbsp;/&nbsp;Intelligent chat</h1>
+		<h1>智能客服在线问答&nbsp;/&nbsp;Intelligent chat</h1>
 	</div>
 	<div style="height:400px;" id="smartchat">
 		<div class="entry-thumbnail" id="main">               
@@ -308,15 +308,12 @@
     <div id="container" style="width: 100%;height: 615px;"></div>
       		
 	</div>
-	<ul class="right-nav-common" style="display: none;">
-				
+	<ul class="right-nav-common" style="display: none;">				
 				<li class="service">
 					<div class="service-icon"></div>
 					<div class="service-alert">
-
-					</div>	
-					
-					
+						<span>0592-8888888</span>
+					</div>										
 				</li>
 				<li class="gotop">
 					<div class="gotop-icon"></div>

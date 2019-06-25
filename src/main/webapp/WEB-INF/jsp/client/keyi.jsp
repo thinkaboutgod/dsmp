@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>科目一刷题</title>
+<title>习题练习</title>
 <link href=<%=path+"/css/keyi/main.css" %> rel="stylesheet">
 <link rel="stylesheet" href=<%=path + "/css/home/comm_style.css"%>>
 <link href=<%=path + "/css/home/css.css"%> rel="stylesheet"

@@ -2,6 +2,7 @@ package com.dsmp.service.impl;
 
 import java.util.Date;
 import java.io.File;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -317,7 +318,6 @@ public class LCoachServiceImpl implements LCoachService {
 		return myResult;
 	}
 	//判断已打卡时长是否满足，满足就变成可预约考试，科目二三
-	@Transactional
 	public void judgeCanToExame(String stuId, String subId) {
 		Double sum = countTimeByStuIdAndSubject(stuId, subId).getSum();//查询到已打卡时长
 		Double limit = tbSubjectMapper.findNeedStudyTime(Integer.valueOf(subId))/60/60;
@@ -420,7 +420,10 @@ public class LCoachServiceImpl implements LCoachService {
 			}
 			studytemenum = studytemenum/60/60;
 		}
-		return studytemenum;
+		//四舍五入
+		BigDecimal   b   =   new   BigDecimal(studytemenum);  
+		Double   f1   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();  
+		return f1;
 	}
 	//查找学员各科考试记录
 	@Override
