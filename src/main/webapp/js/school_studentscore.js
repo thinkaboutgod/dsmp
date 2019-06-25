@@ -46,28 +46,27 @@ $(function() {
 				}
 			},
 			{
-				"data": "scoreList.1.subId",
+				"data": "subId",
 				"sDefaultContent": '',
 				"sWidth": "",
 				"orderable": false, // 禁用排序
 				"render": function(data, type, row, meta) {
-
-					console.log(row.scoreList[1])
-					console.log(row.stuBookingstate)
-					console.log(data)
-					if(data == 2) {
+					if(data == 1) {
 						if(row.scoreList[0] != undefined && row.scoreList[0].susScore >= 90 &&
 							row.scoreList[1] == undefined && row.stuBookingstate == "已预约") {
 							data = '<button class="btn btn-default btn-sm add2">录入</button>';
 						}
+						
 						if(row.scoreList[1] != undefined &&
 							row.scoreList[1].susScore >= 0 && row.stuBookingstate == "已预约") {
 							data = '<button class="btn btn-default btn-sm update2">修改</button>';
 						}
-					} else {
+						if(data==1){
+							data ="";
+						}
+					}else {
 						data = "";
 					}
-
 					return data;
 				}
 			},
@@ -81,13 +80,13 @@ $(function() {
 				}
 			},
 			{
-				"data": "scoreList.2.subId",
+				"data": "subId",
 				"sDefaultContent": '',
 				"sWidth": "",
 				"orderable": false, // 禁用排序
 				"render": function(data, type, row, meta) {
-
-					if(data == 3) {
+					console.log(data)
+					if(data == 2) {
 						if(row.scoreList[1] != undefined && row.scoreList[1].susScore >= 80 &&
 							row.scoreList[2] == undefined && row.stuBookingstate == "已预约") {
 							data = '<button  class="btn btn-default btn-sm add3">录入</button>';
@@ -97,7 +96,10 @@ $(function() {
 							row.scoreList[2].susScore >= 0 && row.stuBookingstate == "已预约") {
 							data = '<button  class="btn btn-default btn-sm update3" >修改</button>';
 						}
-					} else {
+						if(data==2){
+							data ="";
+						}
+					}else {
 						data = "";
 					}
 					return data;
@@ -145,7 +147,6 @@ $(function() {
 
 	$(document).on("click", ".add2", function() {
 		var stuId = table.row($(this).parent().parent()).data().stuId;
-		alert(stuId)
 		var subId = "2";
 		var score = $(this).parent().prev().text();
 		layer.confirm('您确定要添加该成绩？', {
@@ -190,11 +191,8 @@ $(function() {
 	})
 
 	$(document).on("click", ".update2", function() {
-		alert("luru")
 		var stuId = table.row($(this).parent().parent()).data().stuId;
-		alert(stuId)
 		var susId = table.row($(this).parent().parent()).data().scoreList[1].susId;
-		alert(susId)
 		var subId = "2";
 		var score = $(this).parent().prev().text();
 		layer.confirm('您确定要修改该成绩？', {
@@ -240,7 +238,6 @@ $(function() {
 
 	$(document).on("click", ".add3", function() {
 		var stuId = table.row($(this).parent().parent()).data().stuId;
-		alert(stuId)
 		var subId = "3";
 		var score = $(this).parent().prev().text();
 		layer.confirm('您确定要添加该成绩？', {
@@ -285,9 +282,7 @@ $(function() {
 
 	$(document).on("click", ".update3", function() {
 		var stuId = table.row($(this).parent().parent()).data().stuId;
-		alert(stuId)
 		var susId = table.row($(this).parent().parent()).data().scoreList[2].susId;
-		alert(susId)
 		var subId = "3";
 		var score = $(this).parent().prev().text();
 		layer.confirm('您确定要添加该成绩？', {
