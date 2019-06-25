@@ -71,7 +71,7 @@
 			<jsp:include page="header.jsp"></jsp:include>
 			<jsp:include page="sliderbar.jsp"></jsp:include>
 			<div class="content-wrapper">
-				<section class="content">
+				<section class="">
 					<div class="row">
 						<div class="col-md-12">
 							<div class="box-header">
@@ -81,11 +81,12 @@
 								<div class="layui-tab-content" style="height: 100px;">
 									<div class="layui-tab-item layui-show">
 										<!-- body -->
-										<div class="row">
-											<div class="col-sm-12">
+									
 												<input type="hidden" id="schId" value="${schId}">
 												<div class="box-body">
 													<div id="thetestmsg_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+															<div class="row">
+											<div class="col-sm-12">
 														<table id="score" class="table table-bordered table-hover">
 															<thead>
 																<tr role="row">

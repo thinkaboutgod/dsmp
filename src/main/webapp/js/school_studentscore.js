@@ -8,9 +8,10 @@ layui.use(['layer', 'form'], function() {
 });
 
 $(function() {
-
+	
 	$.extend($.fn.dataTable.defaults, dataTableSeetings); // 公共初始化设置
-
+	$.fn.dataTable.ext.errMode = 'none'; 
+	
 	var table
 
 	datatable_otherSet = {
@@ -18,6 +19,7 @@ $(function() {
 			"url": "../student/selectStudentScore.action",
 			"type": "POST"
 		},
+		"scrollY": "",
 		"columns": [{
 				"data": "stuName",
 				"orderable": true
@@ -27,7 +29,6 @@ $(function() {
 			},
 			{
 				"data": "scoreList.0.susScore",
-
 				"render": function(data, type, full, meta) {
 					if(data == null) {
 						data = "无"
@@ -51,7 +52,7 @@ $(function() {
 				"orderable": false, // 禁用排序
 				"render": function(data, type, row, meta) {
 					data = "";
-					if(row.scoreList[0].susScore >= 90 &&
+					if(row.scoreList[0]!=null&&row.scoreList[0].susScore >= 90 &&
 						row.scoreList[1] == null&&row.stuBookingstate=="已预约") {
 						data = '<button class="btn btn-default btn-sm add2">录入</button>';
 					}
@@ -78,7 +79,7 @@ $(function() {
 				"orderable": false, // 禁用排序
 				"render": function(data, type, row, meta) {
 					data = "";
-					if(row.scoreList[1].susScore >= 80 &&
+					if(row.scoreList[1]!=null&&row.scoreList[1].susScore >= 80 &&
 						row.scoreList[2] == null&&row.stuBookingstate=="已预约") {
 						data = '<button  class="btn btn-default btn-sm add3">录入</button>';
 
@@ -128,6 +129,8 @@ $(function() {
 		},
 	}
 
+	
+	
 	table = $("#score").DataTable(datatable_otherSet); // 初始化
 
 	$(document).on("click", ".add2", function() {
