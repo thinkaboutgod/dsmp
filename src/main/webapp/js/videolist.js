@@ -5,6 +5,12 @@ $(function() {
 	$(".subject").click(function() {
 		var subject = $(this).attr("title");
 		if(subject == 2){
+			$("#1").css({
+	             "color": "#666",
+	         });
+			$("#4").css({
+	             "color": "#666",
+	         });
 			$("#2").css({
 	             "color": "#00C356",
 	         });
@@ -12,11 +18,43 @@ $(function() {
 	             "color": "#666",
 	         });
 		}else if(subject == 3){
+			$("#1").css({
+	             "color": "#666",
+	         });
+			$("#4").css({
+	             "color": "#666",
+	         });
 			$("#2").css({
 	             "color": "#666",
 	         });
 			$("#3").css({
 	             "color": "#00C356",
+	         });
+		}else if(subject == 4){
+			$("#1").css({
+	             "color": "#666",
+	         });
+			$("#4").css({
+	             "color": "#00C356",
+	         });
+			$("#2").css({
+	             "color": "#666",
+	         });
+			$("#3").css({
+	             "color": "#666",
+	         });
+		}else if(subject == 1){
+			$("#1").css({
+	             "color": "#00C356",
+	         });
+			$("#4").css({
+	             "color": "#666",
+	         });
+			$("#2").css({
+	             "color": "#666",
+	         });
+			$("#3").css({
+	             "color": "#666",
 	         });
 		}
 		searchVideo(subject,videoPath);//从video_util.js中的方法
