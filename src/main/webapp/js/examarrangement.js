@@ -130,9 +130,7 @@ $(function() {
 					},
 					{
 						"data": "tbExamscheduleandstudent.tbExamschedule.exsTime",
-						"orderable" : false,
-						"render" : function(data, type, full, meta) {
-							return data = new Date(data).format("yyyy-MM-dd hh:mm:ss");}
+						"orderable" : false
 					},			
 					],
 		};	

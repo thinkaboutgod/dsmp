@@ -95,7 +95,7 @@
 			<if test="param3!=null">
 				and sch_bossName like "%"#{param3}"%"
 			</if>
-			and sch_audit="已审核"
+			and sch_audit="审核通过"
 		</where>
 	</select>
 	<!-- 查找未审核驾校 -->
