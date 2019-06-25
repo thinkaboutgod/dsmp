@@ -564,9 +564,10 @@
 			<div id="ruleDiv" style="background-color: yellow">
 				
 					<div><p style="color: red">一、计学时学习模式规则:</p></div>
-					<div>1.考试时间45分钟，时间到会自动提交。</div>
-					<div>2.答题间隔超过${timeLengthLimit/1000}秒,期间的学时就不算数，并自动重新出卷。</div>
-					<div>3.做错的题目会在错题集显示</div>
+					<div>1.学习时长足够并且之后的考试成绩达标的才可以被教练安排仿真模拟考</div>
+					<div>2.考试时间45分钟，时间到会自动提交。</div>
+					<div>3.答题间隔超过${timeLengthLimit/1000}秒,期间的学时就不算数，并自动重新出卷。</div>
+					<div>4.做错的题目会在错题集显示</div>
 				<hr>
 					<div><p style="color: red">二、不计学时学习模式规则:</p></div>
 					<div>1.不计入学时</div>
