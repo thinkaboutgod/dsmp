@@ -285,7 +285,7 @@ $(function() {
 		var susId = table.row($(this).parent().parent()).data().scoreList[2].susId;
 		var subId = "3";
 		var score = $(this).parent().prev().text();
-		layer.confirm('您确定要添加该成绩？', {
+		layer.confirm('您确定要修改该成绩？', {
 			btn: ['确定', '取消'] //按钮
 		}, function() {
 			if(score < 0 || score > 100) {
