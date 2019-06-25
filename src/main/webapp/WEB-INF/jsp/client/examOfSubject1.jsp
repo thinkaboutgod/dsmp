@@ -91,7 +91,7 @@
 <script type="text/javascript">
 		
 	$(function(){
-		var path = $("#pathId").val();//路径
+		var path = $("#pathId").val();//路径(项目的)
 		var passScore = $("#passScore").val();//通过考试最低分数（90分）
 		var timeLengthLimit = $("#timeLengthLimit").val();//答题时间间隔限制（单位毫秒）
 // 		alert('转换前');
