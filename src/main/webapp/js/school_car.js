@@ -101,29 +101,34 @@ $(function() {
 		if("报废" == text) {
 			state = "已报废";
 		};
-		$.ajax({
-			url: "../car/scrapCar.action",
-			async: true,
-			type: "POST",
-			data: {
-				carId: id,
-				state: state,
-				preText: preText
-			},
-			dataType: "text",
-			success: function(data) {
-				var result = JSON.parse(data);
-				if(result.myresult == "success") {
-					layer.msg("修改成功");
-					button.parent().prev().text("已报废");
-				} else if(result.myresult == "failed") {
-					layer.msg("修改失败");
+		if(preText=="已报废"){
+			layer.msg("已申请报废，无需再点");
+		}else{
+			$.ajax({
+				url: "../car/scrapCar.action",
+				async: true,
+				type: "POST",
+				data: {
+					carId: id,
+					state: state,
+					preText: preText
+				},
+				dataType: "text",
+				success: function(data) {
+					var result = JSON.parse(data);
+					if(result.myresult == "success") {
+						layer.msg("修改成功");
+						button.parent().prev().text("已报废");
+					} else if(result.myresult == "failed") {
+						layer.msg("修改失败");
+					}
+				},
+				error: function() {
+					layer.msg("服务器繁忙");
 				}
-			},
-			error: function() {
-				layer.msg("服务器繁忙");
-			}
-		})
+			})
+		}
+		
 	})
 
 	// 查看详细信息
@@ -164,29 +169,34 @@ $(function() {
 		$("#btn_distribute").click(function() {
 			var carId = $("#carId").val();
 			var coaId = $("#coachs").val();
-			$.ajax({
-				url: "../car/distributeCar.action",
-				async: true,
-				type: "POST",
-				data: {
-					carId: carId,
-					coaId: coaId,
-				},
-				dataType: "text",
-				success: function(data) {
-					var result = JSON.parse(data);
-					if(result.myresult == "success") {
-						layer.msg("车辆分配成功");
-						$("#carDetail").modal('hide');
-						table.ajax.reload(null, false);
-					} else if(result.myresult == "failed") {
-						layer.msg("车辆分配失败");
+			if(coaId>0){
+				$.ajax({
+					url: "../car/distributeCar.action",
+					async: true,
+					type: "POST",
+					data: {
+						carId: carId,
+						coaId: coaId,
+					},
+					dataType: "text",
+					success: function(data) {
+						var result = JSON.parse(data);
+						if(result.myresult == "success") {
+							layer.msg("车辆分配成功");
+							$("#carDetail").modal('hide');
+							table.ajax.reload(null, false);
+						} else if(result.myresult == "failed") {
+							layer.msg("车辆分配失败");
+						}
+					},
+					error: function() {
+						layer.msg("服务器繁忙");
 					}
-				},
-				error: function() {
-					layer.msg("服务器繁忙");
-				}
-			})
+				})
+			}else{
+				layer.msg("分配前，请选择车辆");
+			}
+			
 		})
 	})
 
@@ -224,6 +234,7 @@ $(function() {
 			var suffix = fileName.substring(suffixIndex + 1).toUpperCase();  
 			if(suffix != "BMP" && suffix != "JPG" && suffix != "JPEG" && suffix != "PNG" && suffix != "GIF") {    
 				layer.msg("图片格式只能为：BMP、JPG、JPEG、PNG、GIF）!");  
+				return false;
 			} 
 		}else{
 			layer.msg("请上传车辆照片");
