@@ -223,6 +223,7 @@ on c.sch_id=b.sch_id
 		    <result column="stu_id" property="stuId" jdbcType="INTEGER" />
 		    <result column="sus_score" property="susScore" jdbcType="INTEGER" />
 		</collection>
+		
  	</resultMap>
  	
  	<!-- 查询学生的所有成绩 -->

@@ -138,7 +138,7 @@ public class TopicController {
 			session.setAttribute("student", student);//覆盖掉原先的，现在是数据库中最新的数据
 			stu_id = student.getStuId();
 			sub_id = student.getSubId();
-			if(null!=student.getSubId()&&student.getSubId()==1) {//只有在科目一（未登录或其他科目都不执行）时，才插入学习时间
+			if(null!=student.getSubId()&&student.getSubId()==1&&student.getCoaId()!=null) {//只有在科目一（未登录或其他科目都不执行）时，才插入学习时间
 				addStudyBeginTime(stu_id, sub_id);//进入模拟卷就插入开始学习时间
 				Double currTotalTimeLength = sumTimeLength(stu_id, sub_id);//计算当前总学时
 				mav.addObject("currTotalTimeLength", currTotalTimeLength);
@@ -397,7 +397,7 @@ public class TopicController {
 				sub_id = student.getSubId();
 				//只有在科目状态为申请通过("已预约")，才允许考试
 				if(null!=student.getSubId()&&null!=student.getStuBookingstate()&&"已预约".equals(student.getStuBookingstate())) {
-					topicList = topicService.findManyTopic(10,sub_id);//topicList表示一张卷子题目集合；参数10表示一份卷子出10道题目
+					topicList = topicService.findManyTopic(100,sub_id);//topicList表示一张卷子题目集合；参数10表示一份卷子出10道题目
 //					for (TbTopic tbTopic : topicList) {
 //						System.out.println(":"+tbTopic.getTopTopic());
 //						for (TbOption option : tbTopic.getOptions()) {

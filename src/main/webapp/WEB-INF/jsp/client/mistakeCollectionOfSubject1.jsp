@@ -296,10 +296,10 @@
 										<li class="option">
 											<input id="${j.optId }" class="${topicStatus.count}" type="radio" name="${i.topId }" value="${j.optStatus }">
 											<label for="${j.optId }">
-													<c:if test="${status.index==0}">A.</c:if>
-													<c:if test="${status.index==1}">B.</c:if>
-													<c:if test="${status.index==2}">C.</c:if>
-													<c:if test="${status.index==3}">D.</c:if>
+<%-- 													<c:if test="${status.index==0}">A.</c:if> --%>
+<%-- 													<c:if test="${status.index==1}">B.</c:if> --%>
+<%-- 													<c:if test="${status.index==2}">C.</c:if> --%>
+<%-- 													<c:if test="${status.index==3}">D.</c:if> --%>
                                                     
                                                     <b class="ue" style="display: inline;">${j.optOption }</b>
                                              </label>

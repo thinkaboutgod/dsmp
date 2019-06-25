@@ -120,7 +120,8 @@
 				for(var i=0;i<optionList.length;i++){//每题4个选项找出来
 // 					alert(optionList[i].optOption);
 					$("#optionId").append('<li id=opt'+optionList[i].optId+' class="option"><input class="radiotop" id='+optionList[i].optId+' name='+allTopList[topicOrder].topId+' type="radio" value='+optionList[i].optStatus+'></li>');//
-					$("#opt"+optionList[i].optId).append('<label for='+optionList[i].optId+'>'+getABCD(i)+'<b class="ue" style="display: inline;">'+optionList[i].optOption+'</label>');
+// 					$("#opt"+optionList[i].optId).append('<label for='+optionList[i].optId+'>'+getABCD(i)+'<b class="ue" style="display: inline;">'+optionList[i].optOption+'</label>');
+					$("#opt"+optionList[i].optId).append('<label for='+optionList[i].optId+'><b class="ue" style="display: inline;">'+optionList[i].optOption+'</label>');
 
 					
 					
@@ -171,7 +172,8 @@
 				for(var i=0;i<optionList.length;i++){//每题4个选项找出来
 // 					alert(optionList[i].optOption);				
 					$("#optionId").append('<li id=opt'+optionList[i].optId+' class="option"><input class="radiotop" id='+optionList[i].optId+' name='+allTopList[topicOrder].topId+' type="radio" value='+optionList[i].optStatus+'></li>');//
-					$("#opt"+optionList[i].optId).append('<label for='+optionList[i].optId+'>'+getABCD(i)+'<b class="ue" style="display: inline;">'+optionList[i].optOption+'</label>');
+// 					$("#opt"+optionList[i].optId).append('<label for='+optionList[i].optId+'>'+getABCD(i)+'<b class="ue" style="display: inline;">'+optionList[i].optOption+'</label>');
+					$("#opt"+optionList[i].optId).append('<label for='+optionList[i].optId+'><b class="ue" style="display: inline;">'+optionList[i].optOption+'</label>');
 				}
 				$("#conDiv").append('<div class="answerDetailClass" style="display: none">答案：'+allTopList[topicOrder].topAnswer+'.'+allTopList[topicOrder].topAnswerDetail+'</div>');
 					},
@@ -317,10 +319,10 @@
 						<li class="option">
 						<input id="${j.optId }" class="radiotop" type="radio" name="${allTopicList[0].topId }" value="${j.optStatus }">
 						<label for="${j.optId }">
-						<c:if test="${status.index==0}">A.</c:if>
-						<c:if test="${status.index==1}">B.</c:if>
-						<c:if test="${status.index==2}">C.</c:if>
-						<c:if test="${status.index==3}">D.</c:if>
+<%-- 						<c:if test="${status.index==0}">A.</c:if> --%>
+<%-- 						<c:if test="${status.index==1}">B.</c:if> --%>
+<%-- 						<c:if test="${status.index==2}">C.</c:if> --%>
+<%-- 						<c:if test="${status.index==3}">D.</c:if> --%>
 	                                            
 	                    <b class="ue" style="display: inline;">${j.optOption }</b>
 	                    </label>

@@ -8,7 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.dsmp.pojo.TbStudent;
 
 /**
- * 学员点击个人中心前进入这个过滤器
+ * 学员点击个人中心或者科目一的错题练习、模拟考、仿真考前进入这个过滤器
  *
  */
 public class StuLoginInterceptor implements HandlerInterceptor {
@@ -17,8 +17,8 @@ public class StuLoginInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		TbStudent student =  (TbStudent) request.getSession().getAttribute("student");//取到session里面存的登录后的session
-		if(null!=student) {
-			if(student.getStuId()!=null&&student.getCoaId()!=null&&student.getSchId()!=null&&student.getSubId()!=null) {
+		if(null!=student) {//已登录
+			if(student.getStuId()!=null&&/*student.getCoaId()!=null&&*/student.getSchId()!=null&&student.getSubId()!=null) {//已报名
 				
 				return true;//放行
 			}else {//进入个人中心需是已报名

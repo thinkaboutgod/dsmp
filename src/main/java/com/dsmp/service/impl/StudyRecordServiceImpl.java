@@ -63,7 +63,16 @@ public class StudyRecordServiceImpl implements StudyRecordService {
 
 	@Override
 	public Double sumTimeLength(Integer stuId, Integer subId) {
-		return tbStudyRecordMapper.sumTimeLength(stuId, subId);
+		Double totleTimeLength = tbStudyRecordMapper.sumTimeLength(stuId, subId);
+		if(totleTimeLength==null) {//避免空指针
+			totleTimeLength=0.0;
+		}
+		if(subId==1) {//科目一数据库中是按照秒来存的（我做的），这里直接返回
+			return totleTimeLength;
+		}else {//其他科目dc那边都是用小时为单位存入，所以这边要*60*60才是我要的			
+			return totleTimeLength*60*60;
+		}
+		
 	}
 	/** 通过学员id和科目名称查询科目所有的学习记录
 	 * @param stuId 学员id

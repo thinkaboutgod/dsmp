@@ -208,31 +208,50 @@ public class TopicServiceImpl implements TopicService {
 
 	// 修改科目一题目方法
 	@Override
-	public String changeTopic(HttpServletRequest request, String map, MultipartFile newImg) {
+	public String changeTopic(HttpServletRequest request,MultipartFile newImg) {
 
-		return doTOpic(request, map, newImg, "change");
+		return doTOpic(request,newImg, "change");
 	}
 
 	// 增加科目一题目方法
 	@Override
-	public String addTopic(HttpServletRequest request, String map, MultipartFile addnewImg) {
+	public String addTopic(HttpServletRequest request, MultipartFile addnewImg) {
 
-		return doTOpic(request, map, addnewImg, "add");
+		return doTOpic(request, addnewImg, "add");
 	}
 
 	// 科目一题目修改和增加共用
 	@Transactional // 事务注解，dotype为修改还是增加的类型
-	public String doTOpic(HttpServletRequest request, String map, MultipartFile img, String doType) {
+	public String doTOpic(HttpServletRequest request, MultipartFile img, String doType) {
 		String result = null;
-		Map<String, Object> map2 = GsonUtils.fromJson(map, HashMap.class);
-		TbTopic tbTopic = GsonUtils.fromJson(map2.get("topic").toString(), TbTopic.class);
-		TbOption optionA = GsonUtils.fromJson(map2.get("optionA").toString(), TbOption.class);
-		TbOption optionB = GsonUtils.fromJson(map2.get("optionB").toString(), TbOption.class);
-		String type = String.valueOf(map2.get("type"));
+//		Map<String, Object> map2 = GsonUtils.fromJson(map, HashMap.class);
+//		TbTopic tbTopic = GsonUtils.fromJson(map2.get("topic").toString(), TbTopic.class);
+//		TbOption optionA = GsonUtils.fromJson(map2.get("optionA").toString(), TbOption.class);
+//		TbOption optionB = GsonUtils.fromJson(map2.get("optionB").toString(), TbOption.class);
+		
+		TbTopic tbTopic = new TbTopic(Integer.valueOf(request.getParameter("topId")), 
+				request.getParameter("topTopic"), 
+				request.getParameter("topAnswerDetail"));
+		TbOption optionA = new TbOption(Integer.valueOf(request.getParameter("aoptId")),
+				request.getParameter("aoptOption"), 
+				request.getParameter("aoptStatus"));
+		TbOption optionB = new TbOption(Integer.valueOf(request.getParameter("boptId")),
+				request.getParameter("boptOption"), 
+				request.getParameter("boptStatus"));
+		String type =request.getParameter("type");
+//		String type =String.valueOf(map2.get("type"));
 		changeTopicImage(request, tbTopic, img, doType);// 是否更新图片方法
 		if (type.equals("1.0") || type.equals("2.0")) {// 4个选项类型
-			TbOption optionC = GsonUtils.fromJson(map2.get("optionC").toString(), TbOption.class);
-			TbOption optionD = GsonUtils.fromJson(map2.get("optionD").toString(), TbOption.class);
+//			TbOption optionC = GsonUtils.fromJson(map2.get("optionC").toString(), TbOption.class);
+//			TbOption optionD = GsonUtils.fromJson(map2.get("optionD").toString(), TbOption.class);
+			
+			TbOption optionC = new TbOption(Integer.valueOf(request.getParameter("coptId")),
+					request.getParameter("coptOption"), 
+					request.getParameter("coptStatus"));
+			TbOption optionD = new TbOption(Integer.valueOf(request.getParameter("doptId")),
+					request.getParameter("doptOption"), 
+					request.getParameter("doptStatus"));
+			
 			if (optionA.getOptStatus().equals("yes")) {// 得到正确选项是哪个
 				tbTopic.setTopAnswer("A");
 			} else if (optionB.getOptStatus().equals("yes")) {

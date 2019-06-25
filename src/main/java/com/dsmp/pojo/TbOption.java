@@ -14,7 +14,15 @@ public class TbOption {
     public TbOption() {
 		
 	}
-    public Integer getOptId() {
+    
+    public TbOption(Integer optId, String optOption, String optStatus) {
+		super();
+		this.optId = optId;
+		this.optOption = optOption;
+		this.optStatus = optStatus;
+	}
+
+	public Integer getOptId() {
         return optId;
     }
 
