@@ -228,7 +228,7 @@ on c.sch_id=b.sch_id
  	
  	<!-- 查询学生的所有成绩 -->
 	<select id="selectStudentScore" resultMap="student_score">
-		select stu.stu_id,stu.stu_name,stu_bookingstate,coa.coa_id,coa.coa_name,sus.* from tb_student stu,tb_subjectscore sus, tb_coach coa where stu.sch_id = #{schId} and stu.stu_id = sus.stu_id AND stu.coa_id = coa.coa_id
+		select stu.stu_id,stu.stu_name,stu.sub_id,stu_bookingstate,coa.coa_id,coa.coa_name,sus.* from tb_student stu,tb_subjectscore sus, tb_coach coa where stu.sch_id = #{schId} and stu.stu_id = sus.stu_id AND stu.coa_id = coa.coa_id
 	</select>
 	
 	<!-- 根据成绩变更学生的状态 -->

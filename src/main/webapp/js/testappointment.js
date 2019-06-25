@@ -13,7 +13,9 @@ $(function() {
 			"columns" : [
 					{
 						"data" : "exsTime",
+
 						"orderable" : false						
+
 					},
 					{
 						"data" : "exsAddress"

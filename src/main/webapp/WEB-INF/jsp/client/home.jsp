@@ -112,6 +112,7 @@
 							</div>
 					</a></li>
 				</ul>
+				
 			</div>
 		</div>
 	</div>
@@ -249,11 +250,11 @@
 				<dt>
 					<img src=<%=path + "/images/home/1-1P5261G92Wb.jpg"%> alt="公司动态" />
 				</dt>
-				<c:forEach begin="0" step="1" items="${dynList}" var="dynamic">
+					<c:forEach begin="0" step="1" end="4" items="${dynList}" var="dynamic">
 					<dd>
 						<a href=<%=path%>${dynamic.notPath}${dynamic.notId} target="_blank">${dynamic.notTitle}</a>
 					</dd>							
-				</c:forEach>
+					</c:forEach>			
 			</dl>
 			<dl class="m_r31">
 				<div class="wzlm">
@@ -262,7 +263,7 @@
 				<dt>
 					<img src=<%=path + "/images/home/1-1P5261GZ6458.jpg"%> alt="行业新闻" />
 				</dt>
-				<c:forEach begin="0" step="1" items="${newsList}" var="news">
+				<c:forEach begin="0" step="1"  end="4" items="${newsList}" var="news">
 					<dd>
 						<a href=<%=path%>${news.notPath}${news.notId} target="_blank">${news.notTitle}</a>
 					</dd>							
@@ -275,7 +276,7 @@
 				<dt>
 					<img src=<%=path + "/images/home/1-1P5261GU1252.jpg"%> alt="常见问题" />
 				</dt>
-				<c:forEach begin="0" step="1" items="${lawsList}" var="laws">
+				<c:forEach begin="0" step="1"  end="4" items="${lawsList}" var="laws">
 					<dd>
 						<a href=<%=path%>${laws.notPath}${laws.notId} target="_blank">${laws.notTitle}</a>
 					</dd>							
@@ -285,7 +286,7 @@
 	</div>
 	<!-- 智能机器人在线问答 -->
 	<div class="productshow">
-		<h1>智能机器人在线问答&nbsp;/&nbsp;Intelligent chat</h1>
+		<h1>智能客服在线问答&nbsp;/&nbsp;Intelligent chat</h1>
 	</div>
 	<div style="height:400px;" id="smartchat">
 		<div class="entry-thumbnail" id="main">               

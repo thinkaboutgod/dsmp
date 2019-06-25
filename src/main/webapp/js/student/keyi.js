@@ -53,10 +53,10 @@
 //							}else if(actionType=='toTrueExam'){//如果点击了真实考试
 								if(stuBookingstate=='未预约'){//学时与成绩尚未达到可预约要求
 									if(actionType=='toExam'){//如果点击了模拟考试，让其进入
-										myInfo('进入计学时学习模式:注意1.答题间隔超过'+timeLengthLimitOfMin+'分钟,期间的学时就不算数，并自动重新出卷。2.考试时间45分钟，时间到会自动提交。3.做错的题目会在错题集显示',url);
+										myInfo('进入计学时学习模式:1.学习时长足够并且之后的考试成绩达标的才可以被教练安排仿真模拟考2.答题间隔超过'+timeLengthLimitOfMin+'分钟,期间的学时就不算数，并自动重新出卷。3.考试时间45分钟，时间到会自动提交。4.做错的题目会在错题集显示',url);
 //										window.location.href=path+url;//"/topic/trueFindManyTopic.action"
 									}else if(actionType=='mistakeTopic'){//如果点击了错题集，让其进入
-										myInfo("进入计学时学习模式:注意1.模拟卷做错的题目都会在这里显示。2.进入开始计学时，提交就计算一段学时。3.做对的题目会从错题集移除",url);
+										myInfo("进入计学时学习模式:1.模拟卷做错的题目都会在这里显示。2.进入开始计学时，提交就计算一段学时。3.做对的题目会从错题集移除",url);
 										
 										
 									}else if(actionType=='toTrueExam'){//如果点击了真实考试

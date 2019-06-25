@@ -60,8 +60,8 @@
 	
 	<!-- 增加车辆 -->
 	<insert id="addCar" parameterType="TbCar">
-		INSERT INTO tb_car (sch_id,car_plateNum,car_style,car_img,car_color) 
-		VALUES (#{schId},#{carPlatenum},#{carStyle},#{carImg},#{carColor});
+		INSERT INTO tb_car (sch_id,car_plateNum,car_style,car_img,car_color,car_status) 
+		VALUES (#{schId},#{carPlatenum},#{carStyle},#{carImg},#{carColor},#{carStatus});
 	</insert>
 	
 	<!-- 分配车辆 -->

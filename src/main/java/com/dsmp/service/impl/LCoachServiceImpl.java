@@ -318,7 +318,6 @@ public class LCoachServiceImpl implements LCoachService {
 		return myResult;
 	}
 	//判断已打卡时长是否满足，满足就变成可预约考试，科目二三
-	@Transactional
 	public void judgeCanToExame(String stuId, String subId) {
 		Double sum = countTimeByStuIdAndSubject(stuId, subId).getSum();//查询到已打卡时长
 		Double limit = tbSubjectMapper.findNeedStudyTime(Integer.valueOf(subId))/60/60;
@@ -421,10 +420,13 @@ public class LCoachServiceImpl implements LCoachService {
 			}
 			studytemenum = studytemenum/60/60;
 		}
+		
 		if(studytemenum==null) {
-			studytemenum=0.0;	
+			studytemenum=0.0;				
+
 		}
 		//四舍五入
+		
 		BigDecimal   b   =   new   BigDecimal(studytemenum);  
 		
 		Double   f1   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();  

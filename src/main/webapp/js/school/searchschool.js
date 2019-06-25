@@ -25,12 +25,12 @@ layui.use(['laypage', 'layer'], function(){
 			        layui.each(thisData, function(index, item){			        	
 			        	var str = '<div class="row jx-list-detail-page">\n'+
 			        			  '<div class="col-md-2">\n'+
-			        			  '<a href="" ><img src='+path+'/images/school/jx_school.jpg alt="广粤驾校">\n'+
+			        			  '<a href='+path+'/school/schoolInfo.action?schId='+item.schId+' target="_blank" ><img src='+path+'/images/school/jx_school.jpg alt="广粤驾校">\n'+
 			        			  '</a>\n'+
 			        			  '</div>\n'+
 			        			  '<div class="col-md-6 col-md-offset-1 jx-info">\n'+
 			        			  '<p class="jx-list-info" style="margin-top:10px;">\n'+
-			        			  '<span><a href="" style="font-size: 18px;">'+item.schName+'</a></span>\n'+
+			        			  '<span><a href='+path+'/school/schoolInfo.action?schId='+item.schId+' target="_blank" style="font-size: 18px;">'+item.schName+'</a></span>\n'+
 			        			  '</p>\n'+
 			        			  '<p class="jx-list-address" style="margin-top:10px;"><span>驾校地址：</span><span>'+item.schAddress+'</span></p>\n'+
 			        			  '<p class="jx-list-address" style="margin-top:10px;"><span>车型：</span><span>C1/C2</span></p>\n'+
