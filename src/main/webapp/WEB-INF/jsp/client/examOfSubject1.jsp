@@ -138,40 +138,23 @@
 		//偶数点击给arr[0]，奇数给arr[1]
 		arr[0]=new Date();//初始给一个时间
 		var clickTimes = 0;
+		var stop = false;//一旦提交时间超时，则stop变成true,然后return
 // 		var timeLengthLimit =20*60*1000;//答题时间长度限制（20min） 20*60*1000
 		//取到学员id
 		var stuId = $("#stuId").val();
 		//取到科目号
 		var subId = $("#subId").val();
+		//取到教练id
+		var coaId = $("#coaId").val();
 		//答题相关：
 		var examResultMap = new Map();     
 		//选中了题目，则获取当前页面题目序号，方格子区域变成蓝色表示改题已经选择
 		$("input[type='radio']").on({
 			"click":function(){
-				//根据点击的次数是偶数还是奇数，决定当前时间放arr[0]还是arr[1]
-				clickTimes++;
-// 				alert("clickTimes:"+clickTimes);
-				if(clickTimes%2==0){//偶数
-					arr[0] = new Date();
-// 					alert('偶数：'+arr[1]);
-				}else{//奇数
-					arr[1] = new Date();	
-// 					alert('奇数：'+arr[0]);
+				if(subId==1&&coaId!=null){//如果处于科目一且教练不为空，才加时间限制
+					timeLimit();//时间间隔限制
+					
 				}
-				if(arr[1]>arr[0]){
-					var timeLenth = arr[1]-arr[0];
-				}else{
-					var timeLenth = arr[0]-arr[1];
-				}
-// 				alert('点击时间间隔:'+timeLenth);//点击的时间间隔超过30分钟就视为挂机(单位：毫秒)
-				if(timeLenth>timeLengthLimit){//点击的时间间隔超过30分钟就视为挂机(单位：毫秒)
-// 					alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+timeLenth+'s');
-					take('答题时间间隔超'+timeLengthLimitOfS+'秒，有挂机嫌疑，计时无效！重新出卷，间隔时长：'+timeLenth+'ms',"findManyTopic.action");
-// 					alert('重新出卷');
-// 					window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
-					return;
-				}
-				
 				
 				var topicOrder = $(this).attr("class");//获取当前页面题目序号
 // 				alert('选题'+topicOrder);
@@ -196,12 +179,41 @@
 				
 			},
 		});
-		function submitClick(){
-// 			alert('提交试卷');
-			layer.msg('提交试卷', function(){
-			//关闭后的操作
-
-			});
+		//时间间隔限制：
+		function timeLimit(){
+			
+			//根据点击的次数是偶数还是奇数，决定当前时间放arr[0]还是arr[1]
+			clickTimes++;
+//				alert("clickTimes:"+clickTimes);
+			if(clickTimes%2==0){//偶数
+				arr[0] = new Date();
+//					alert('偶数：'+arr[1]);
+			}else{//奇数
+				arr[1] = new Date();	
+//					alert('奇数：'+arr[0]);
+			}
+			if(arr[1]>arr[0]){
+				var timeLenth = arr[1]-arr[0];
+			}else{
+				var timeLenth = arr[0]-arr[1];
+			}
+//				alert('点击时间间隔:'+timeLenth);//点击的时间间隔超过30分钟就视为挂机(单位：毫秒)
+			if(timeLenth>timeLengthLimit){//点击的时间间隔超过30分钟就视为挂机(单位：毫秒)
+//					alert('答题时间间隔超20分钟，有挂机嫌疑，计时无效！'+timeLenth+'s');
+				take('答题时间间隔超'+timeLengthLimitOfS+'秒，有挂机嫌疑，计时无效！重新出卷，间隔时长：'+timeLenth+'ms',"findManyTopic.action");
+//					alert('重新出卷');
+//					window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
+				return;
+			}
+			
+			
+			
+			
+			
+		}
+		//提交时间间隔限制：
+		function comitTimeLimit(){
+			
 			//提交试卷的时候跟上一次选择的时候是否间隔过久(挂机嫌疑)？
 			var commitTime = new Date();
 //				alert(arr.length);
@@ -211,6 +223,7 @@
 					take('答题时间间隔超'+timeLengthLimitOfS+'秒，有挂机嫌疑，计时无效！重新出卷,间隔时长：'+(commitTime-arr[0])+'ms',"findManyTopic.action");
 // 					alert('重新出卷');
 // 					window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
+					stop = true;
 					return;
 				}
 			}else if(arr.length==2){
@@ -220,6 +233,7 @@
 						take('答题时间间隔超'+timeLengthLimitOfS+'秒，有挂机嫌疑，计时无效！重新出卷，间隔时长：'+(commitTime-arr[1])+'ms',"findManyTopic.action");
 // 						alert('重新出卷');
 // 						window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
+						stop = true;
 						return;
 					}
 				}else{
@@ -228,9 +242,29 @@
 						take('答题时间间隔超'+timeLengthLimitOfS+'秒，有挂机嫌疑，计时无效！重新出卷，间隔时长：'+(commitTime-arr[0])+'ms',"findManyTopic.action");
 // 						alert('重新出卷');
 // 						window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
+						stop = true;
 						return;
 					}
 				}
+			}
+			
+			
+		}
+		function submitClick(){
+// 			alert('提交试卷');
+// 			layer.msg('提交试卷', function(){
+			layer.msg('正在计算分数中..', function(){
+			//关闭后的操作
+				
+			});
+			
+			if(subId==1&&coaId!=null){//如果处于科目一且教练不为空，才加时间限制
+				comitTimeLimit();//提交时间间隔限制
+				if(stop){//触犯时间限制就停止一下的操做
+					stop = false;
+					return;
+				}
+				
 			}
 			
 		    	var totalScore="0";
@@ -372,7 +406,7 @@
 		$("#updateExamBtn").on({
 			"click":function(){
 // 				alert('重新出卷');
-				layer.msg('重新出卷', function(){
+				layer.msg('正在重新出卷...', function(){
 					//关闭后的操作
 					window.location.href="findManyTopic.action";//?stu_id="+stuId+"&sub_id="+subId
 						
@@ -428,6 +462,7 @@
 			<input id="stuId" type="hidden" name="stuId" value="${student.stuId}"/>			
 <%-- 			<input id="subId" type="hidden" name="subId" value="${sub_id}"/>		 --%>
 			<input id="subId" type="hidden" name="subId" value="${student.subId}"/>		
+			<input id="coaId" type="hidden" name="coaId" value="${student.coaId}"/>		
 			<div id="leftDiv" class="test_content_nr">
 			
 				        <div class="test_content">
