@@ -494,7 +494,6 @@ $(function() {
 	}
 	// 错误回调函数
 	function error(error) {
-		buttonHide();
 		layer.msg("您刚刚选择了禁止浏览器启动摄像头，请刷新网页并允许浏览器调用摄像头，来完成验证", {
 			time: 20000, // 20s后自动关闭
 			btn: ['知道了']

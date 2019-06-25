@@ -66,11 +66,11 @@ $(function() {
 //						$("#shcoolReset").click();
 					}else if(res=="sensitiveWord"){
 //						alert('评价失败！');
-						coaRemind('评价失败！含敏感词汇!');
+						remind('评价失败！含敏感词汇!');
 						
 					}else if(res=="empty"){
 //						alert('评价失败！');
-						coaRemind('评价失败！内容不能为空');
+						remind('评价失败！内容不能为空');
 						
 					}
 					

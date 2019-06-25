@@ -7,15 +7,21 @@ $.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 			"ajax" : path+"/plateform/searchParameter.action",
 			"searching":true,
 			"columns" : [
-					{
-			            sTitle: '序号',
-			            data: null,
-			            className: 'text-center whiteSpace',
-			            render:function(data,type,row,meta) {
-			                return meta.row + 1 +
-			                meta.settings._iDisplayStart;
-			            }
-			        },{
+				{
+					"data" : null,
+					"orderable" : false,
+						
+				},
+//					{
+//			            sTitle: '序号',
+//			            data: null,
+//			            className: 'text-center whiteSpace',
+//			            render:function(data,type,row,meta) {
+//			                return meta.row + 1 +
+//			                meta.settings._iDisplayStart;
+//			            }
+//			        },
+			        {
 						"data" : "parName",
 						"orderable" : false,
 							
@@ -49,7 +55,14 @@ $.extend($.fn.dataTable.defaults, dataTableSeetings);// 公共初始化设置
 		};
 	
 var table = $("#parTable").DataTable(datatable_otherSet);//初始化
-
+table.on('order.dt search.dt',function() {
+	table.column(0, {
+        search: 'applied',
+        order: 'applied'
+    }).nodes().each(function(cell, i) {
+        cell.innerHTML = i + 1;
+    });
+}).draw();
 //$("#buttonsearch").click(function() {
 //	table.ajax.reload(null,false);
 //})
@@ -97,14 +110,14 @@ $("#change").click(function() {
 			layer.msg("请输入大于0小于10小时的正整数");
 			return;
 		}
-	}else if (type="score") {
-		if (!re.test(parValue)) {
-			layer.msg("请输入大于0分的正整数分数");
+	}else if (type=="分数") {
+		if (!re.test(parValue)||parValue>100) {
+			layer.msg("请输入大于0，小于100分的正整数分数");
 			return;
 		}
-	}else if (type="time") {
+	}else if (type=="time") {
 		if (!re.test(parValue)) {
-			layer.msg("请输入大于0的正整数时长单位为秒");
+			layer.msg("请输入大于0的正整数，单位为秒");
 			return;
 		}
 	}

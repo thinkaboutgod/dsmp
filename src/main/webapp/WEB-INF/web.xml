@@ -50,5 +50,4 @@
   		<error-code>500</error-code>
   		<location>/wjsp/errorpage.jsp</location>
     </error-page> 
-	
 </web-app>

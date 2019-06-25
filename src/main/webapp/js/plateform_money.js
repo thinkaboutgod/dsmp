@@ -25,15 +25,12 @@ $( "#begintime,#endtime" ).datepicker({
 	datatable_otherSet = {
 			"ajax" : path+"/plateform/searchMoneyRecord.action",
 			"columns" : [
-					{
-			            sTitle: '序号',
-			            data: null,
-			            className: 'text-center whiteSpace',
-			            render:function(data,type,row,meta) {
-			                return meta.row + 1 +
-			                meta.settings._iDisplayStart;
-			            }
-			        },{
+				{
+					"data" : null,
+					"orderable" : false,
+						
+				},
+			        {
 						"data" : "capOrderNumber",
 							
 					},{
@@ -81,6 +78,15 @@ $( "#begintime,#endtime" ).datepicker({
 		};
 	
 var table = $("#moneyTable").DataTable(datatable_otherSet);//初始化
+
+table.on('order.dt search.dt',function() {
+	table.column(0, {
+        search: 'applied',
+        order: 'applied'
+    }).nodes().each(function(cell, i) {
+        cell.innerHTML = i + 1;
+    });
+}).draw();
 
 $("#buttonsearch").click(function() {
 	table.ajax.reload(null,false);

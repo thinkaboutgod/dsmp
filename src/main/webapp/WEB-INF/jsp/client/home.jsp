@@ -112,6 +112,7 @@
 							</div>
 					</a></li>
 				</ul>
+				
 			</div>
 		</div>
 	</div>
@@ -285,7 +286,7 @@
 	</div>
 	<!-- 智能机器人在线问答 -->
 	<div class="productshow">
-		<h1>智能机器人在线问答&nbsp;/&nbsp;Intelligent chat</h1>
+		<h1>智能客服在线问答&nbsp;/&nbsp;Intelligent chat</h1>
 	</div>
 	<div style="height:400px;" id="smartchat">
 		<div class="entry-thumbnail" id="main">               
