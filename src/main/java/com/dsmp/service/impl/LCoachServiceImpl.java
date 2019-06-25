@@ -2,6 +2,7 @@ package com.dsmp.service.impl;
 
 import java.util.Date;
 import java.io.File;
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -407,7 +408,10 @@ public class LCoachServiceImpl implements LCoachService {
 			}
 			studytemenum = studytemenum/60/60;
 		}
-		return studytemenum;
+		//四舍五入
+		BigDecimal   b   =   new   BigDecimal(studytemenum);  
+		Double   f1   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();  
+		return f1;
 	}
 	//查找学员各科考试记录
 	@Override
