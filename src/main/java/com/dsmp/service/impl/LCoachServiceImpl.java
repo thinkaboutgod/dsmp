@@ -423,10 +423,12 @@ public class LCoachServiceImpl implements LCoachService {
 		
 		if(studytemenum==null) {
 			studytemenum=0.0;				
+
 		}
 		//四舍五入
 		
 		BigDecimal   b   =   new   BigDecimal(studytemenum);  
+		
 		Double   f1   =   b.setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();  
 		return f1;
 	}

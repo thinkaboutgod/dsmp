@@ -73,14 +73,10 @@ public class LCoachController {
 		Double studytimenow=lCoachServiceImpl.findStudytime(subId ,stuId);
 		BelongtoCoachStudentMsg elongtoCoachStudentMsg2=lCoachServiceImpl.findSubjectnow(subId ,stuId);
 		elongtoCoachStudentMsg2.setStrTime(studytimenow);
-		allacademicrecord.add(elongtoCoachStudentMsg2);
-		
+		allacademicrecord.add(elongtoCoachStudentMsg2);	
 		if(subId>1) {
-			for(int i=1;i<subId;i++) {
-				
+			for(int i=1;i<subId;i++) {			
 				Double studytime=lCoachServiceImpl.findStudytime(i ,stuId);//学生某科的打卡计时
-	
-				
 				List<BelongtoCoachStudentMsg> academicrecord=lCoachServiceImpl.findAcademicrecord(i, stuId);
 				for(int j=0;j<academicrecord.size();j++) {
 					BelongtoCoachStudentMsg belongtoCoachStudentMsg=academicrecord.get(j);

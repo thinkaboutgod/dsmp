@@ -45,7 +45,7 @@
 														<th >报名截止时间</th>
 														<th >已报名人数</th>
 														<th >总人数</th>
-														<td>预约</td>			
+														<th>预约</th>			
 													</tr>
 												</thead>
 												<tbody></tbody>
