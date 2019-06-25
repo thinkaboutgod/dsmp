@@ -165,10 +165,13 @@ button, input {
 .right-nav-common .service .service-alert {
 	position: absolute;
 	display: none;
-	width: 800px;
-	top: 0px;
+	width: 165px;
+	top: 6px;
 	right: 45px;
-	height: 800px;
+	height: 52px;
+	background:
+		url(../../images/home/dialogbox.png);
+	background-size: 100%
 }
 
 .right-nav-common .service .service-alert span {
@@ -204,7 +207,7 @@ button, input {
 	right: 45px;
 	height: 52px;
 	background:
-		url(http://img.58cdn.com.cn/dist/jxedt/pc/products/jxregister/images/dialogbox.png);
+		url(../../images/home/dialogbox.png);
 	background-size: 100%
 }
 

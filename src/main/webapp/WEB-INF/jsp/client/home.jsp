@@ -307,15 +307,12 @@
     <div id="container" style="width: 100%;height: 615px;"></div>
       		
 	</div>
-	<ul class="right-nav-common" style="display: none;">
-				
+	<ul class="right-nav-common" style="display: none;">				
 				<li class="service">
 					<div class="service-icon"></div>
 					<div class="service-alert">
-
-					</div>	
-					
-					
+						<span>0592-8888888</span>
+					</div>										
 				</li>
 				<li class="gotop">
 					<div class="gotop-icon"></div>
