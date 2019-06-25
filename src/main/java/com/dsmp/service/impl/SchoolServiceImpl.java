@@ -197,7 +197,11 @@ public class SchoolServiceImpl implements SchoolService {
 			}
 			int res2 = tbStudentMapper.updateStudentWithScore(tbStudent);
 			if(res2>0) {
-				myResult.setMyresult("next");
+				if(score>=80){
+					myResult.setMyresult("next");
+				}else {
+					myResult.setMyresult("success");
+				}
 			}else {
 				myResult.setMyresult("failed");
 			}
@@ -243,7 +247,11 @@ public class SchoolServiceImpl implements SchoolService {
 			int res2 = tbStudentMapper.updateStudentWithScore(tbStudent);
 			
 			if(res2>0) {
-				myResult.setMyresult("next");
+				if(score>=80){
+					myResult.setMyresult("next");
+				}else {
+					myResult.setMyresult("success");
+				}
 			}else {
 				myResult.setMyresult("failed");
 			}

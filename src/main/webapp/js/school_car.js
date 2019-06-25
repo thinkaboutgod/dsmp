@@ -148,9 +148,9 @@ $(function() {
 			dataType: "text",
 			success: function(res) {
 				var arr = JSON.parse(res);
+				$("#coachs").empty(); 
 				$("#coachs").append("<option value='0'>请选择教练</option>");
 				for(var i = 0; i < arr.length; i++) {
-					console.log(arr[i].coaName);
 					$("#coachs").append("<option value=" + arr[i].coaId + ">" + arr[i].coaName + "</option>");
 				}
 			},

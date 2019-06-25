@@ -52,11 +52,14 @@ $(function() {
 				"orderable": false, // 禁用排序
 				"render": function(data, type, row, meta) {
 					data = "";
-					if(row.scoreList[0]!=null&&row.scoreList[0].susScore >= 90 &&
-						row.scoreList[1] == null&&row.stuBookingstate=="已预约") {
+					console.log(row.scoreList[1])
+					console.log(row.stuBookingstate)
+					
+					if(row.scoreList[0]!=undefined&&row.scoreList[0].susScore >= 90 &&
+						row.scoreList[1] == undefined&&row.stuBookingstate=="已预约") {
 						data = '<button class="btn btn-default btn-sm add2">录入</button>';
 					}
-					if(row.scoreList[1] != null &&
+					if(row.scoreList[1] != undefined &&
 						row.scoreList[1].susScore >= 0&&row.stuBookingstate=="已预约") {
 						data = '<button class="btn btn-default btn-sm update2">修改</button>';
 					}
@@ -79,12 +82,12 @@ $(function() {
 				"orderable": false, // 禁用排序
 				"render": function(data, type, row, meta) {
 					data = "";
-					if(row.scoreList[1]!=null&&row.scoreList[1].susScore >= 80 &&
-						row.scoreList[2] == null&&row.stuBookingstate=="已预约") {
+					if(row.scoreList[1]!=undefined&&row.scoreList[1].susScore >= 80 &&
+						row.scoreList[2] == undefined&&row.stuBookingstate=="已预约") {
 						data = '<button  class="btn btn-default btn-sm add3">录入</button>';
 
 					}
-					if(row.scoreList[2] != null &&
+					if(row.scoreList[2] != undefined &&
 						row.scoreList[2].susScore >= 0&&row.stuBookingstate=="已预约") {
 						data = '<button  class="btn btn-default btn-sm update3" >修改</button>';
 					}
@@ -130,8 +133,8 @@ $(function() {
 	}
 
 	
-	
 	table = $("#score").DataTable(datatable_otherSet); // 初始化
+
 
 	$(document).on("click", ".add2", function() {
 		var stuId = table.row($(this).parent().parent()).data().stuId;
@@ -175,7 +178,9 @@ $(function() {
 	$(document).on("click", ".update2", function() {
 		alert("luru")
 		var stuId = table.row($(this).parent().parent()).data().stuId;
-		var susId = table.row($(this).parent().parent()).data()[1].susId;
+		alert(stuId)
+		var susId = table.row($(this).parent().parent()).data().scoreList[1].susId;
+		alert(susId)
 		var subId = "2";
 		var score = $(this).parent().prev().text();
 		if(score < 0 || score > 100) {
@@ -184,7 +189,7 @@ $(function() {
 			$.ajax({
 				type: "POST",
 				async: true,
-				url: "../school/addScore.action",
+				url: "../school/updateScore.action",
 				data: {
 					stuId: stuId,
 					subId: subId,
@@ -254,7 +259,9 @@ $(function() {
 
 	$(document).on("click", ".update3", function() {
 		var stuId = table.row($(this).parent().parent()).data().stuId;
-		var susId = table.row($(this).parent().parent()).data()[2].susId;
+		alert(stuId)
+		var susId = table.row($(this).parent().parent()).data().scoreList[2].susId;
+		alert(susId)
 		var subId = "3";
 		var score = $(this).parent().prev().text();
 		if(score < 0 || score > 100) {
@@ -291,5 +298,4 @@ $(function() {
 			});
 		}
 	})
-
 })
