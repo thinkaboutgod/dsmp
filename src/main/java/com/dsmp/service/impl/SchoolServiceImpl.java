@@ -385,6 +385,8 @@ public class SchoolServiceImpl implements SchoolService {
 	public int insertThecomplaintcontent(HttpServletRequest request) {
 		Date appTime=new Date();
 //		String schid=(String) request.getSession().getAttribute("schId");
+		TbSchool tbSchool=(TbSchool) request.getSession().getAttribute("school");
+		String schid=tbSchool.getSchId().toString();
 		String content=request.getParameter("content");
 		String name=request.getParameter("sname");
 		int insertresult=0;
@@ -395,7 +397,7 @@ public class SchoolServiceImpl implements SchoolService {
 			name = null;
 		}
 		if(content!=null&&name!=null) {
-			insertresult=tbSchoolMapper.insertThecomplaintcontent("1", content, appTime);
+			insertresult=tbSchoolMapper.insertThecomplaintcontent(schid, content, appTime);
 		}		
 		return insertresult;
 	}
@@ -403,7 +405,9 @@ public class SchoolServiceImpl implements SchoolService {
 	@Override
 	public List<TbAppeal> selectReply(HttpServletRequest request) {
 //		String schid=(String) request.getSession().getAttribute("schId");
-		List<TbAppeal> appeallist=tbSchoolMapper.selectReply(1);
+		TbSchool tbSchool=(TbSchool) request.getSession().getAttribute("school");
+		int schid=tbSchool.getSchId();
+		List<TbAppeal> appeallist=tbSchoolMapper.selectReply(schid);
 		return appeallist;
 	}	
 
