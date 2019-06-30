@@ -46,10 +46,16 @@
 								<a class="" href="javascript:void(0);" >精选推荐</a>
 							</li>
 							<li>
+								<a class="subject" id="1" href="javascript:void(0);" title="1">科目一</a>
+							</li>	
+							<li>
 								<a class="subject" id="2" href="javascript:void(0);" title="2">科目二</a>
 							</li>
 							<li>
 								<a class="subject" id="3" href="javascript:void(0);" title="3">科目三</a>
+							</li>
+							<li>
+								<a class="subject" id="4" href="javascript:void(0);" title="4">科目四</a>
 							</li>							
 						</ul>
 						 <div id="videoDiv" style="width: 1000px;float: left;">

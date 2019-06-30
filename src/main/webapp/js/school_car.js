@@ -200,7 +200,7 @@ $(function() {
 					}
 				})
 			} else {
-				layer.msg("分配前，请选择车辆");
+				layer.msg("分配前，请选择教练");
 			}
 
 		})
