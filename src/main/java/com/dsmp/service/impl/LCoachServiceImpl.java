@@ -164,7 +164,7 @@ public class LCoachServiceImpl implements LCoachService {
 		int nowTime = Integer.valueOf(df.format(new Date()));// 获取当前时间点
 		int beginTime =Integer.valueOf(tbParameterMapper.selectParamter("科目二三每天起始打卡时间").split(":")[0]) ;
 		int endTime = Integer.valueOf(tbParameterMapper.selectParamter("科目二三每天结束打卡时间").split(":")[0]) ;
-		if (nowTime < beginTime || nowTime > endTime) {// 不在打卡时间内
+		if (nowTime < beginTime || nowTime >= endTime) {// 不在打卡时间内
 			myResult.setMyresult("outOfTime");
 			myResult.setData(beginTime + "_" + endTime);
 			return myResult;

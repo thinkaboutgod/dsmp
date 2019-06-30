@@ -4,6 +4,6 @@
     <div class="pull-right hidden-xs">
       <b>版本</b> 1.0
     </div>
-    <strong>机动车驾驶员计时培训系统 _____ 联系邮箱：1432355632@qq.com</strong> 
+    <strong>机动车驾驶培训公共服务平台 ———联系邮箱：1432355632@qq.com</strong> 
  
  </footer>
