@@ -69,7 +69,7 @@ public class LCoachServiceImpl implements LCoachService {
 	private TbParameterMapper tbParameterMapper;
 	
 	@Override
-	public List<TbStudent> belongtococh(int stuid, HttpServletRequest request) {
+	public List<TbStudent> belongtococh(int coaid, HttpServletRequest request) {
 		account = request.getParameter("account");
 		name = request.getParameter("name");
 		beginTime = request.getParameter("beginTime");
@@ -110,7 +110,7 @@ public class LCoachServiceImpl implements LCoachService {
 		serchBean.setBeginTime(beginTime);
 		serchBean.setEndTime(endTime);
 		serchBean.setBelongSubject(belongSubject);
-		List<TbStudent> stuentlist = lCoachMapper.belongtocoach(stuid, serchBean);
+		List<TbStudent> stuentlist = lCoachMapper.belongtocoach(coaid, serchBean);
 		return stuentlist;
 	}
 
@@ -130,8 +130,8 @@ public class LCoachServiceImpl implements LCoachService {
 	// 查询教练底下科目二三学员
 	@Override
 	public List<TbStudent> searchSubjectStudent() {
-//		String caoId = ((TbCoach)session.getAttribute("coach")).getCoaId().toString();
-		return tbStudentMapper.selectStudentByCoachIdAndSubject("1");
+		String caoId = ((TbCoach)session.getAttribute("coach")).getCoaId().toString();
+		return tbStudentMapper.selectStudentByCoachIdAndSubject(caoId);
 	}
 
 	// 查询该教练底下学员已学学时

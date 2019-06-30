@@ -164,7 +164,9 @@ public class SchoolController {
 	@RequestMapping("/schoolThecomplaint.action")
 	public ModelAndView getThecomplaintinterface(HttpServletRequest request) {
 //		String schId=(String) request.getSession().getAttribute("schId");
-		TbSchool schoolmsg=schoolService.selectSchoolByid(1);
+		TbSchool tbSchool=(TbSchool) request.getSession().getAttribute("school");
+		int schid=tbSchool.getSchId();
+		TbSchool schoolmsg=schoolService.selectSchoolByid(schid);
 		String schSignupstatus=schoolmsg.getSchSignupstatus();
 		if(schSignupstatus.equals("允许报名")) {
 			schSignupstatus="正常运营";

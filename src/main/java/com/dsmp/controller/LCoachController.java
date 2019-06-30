@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.dsmp.pojo.BelongtoCoachStudentMsg;
 import com.dsmp.pojo.MyResult;
+import com.dsmp.pojo.TbCoach;
 import com.dsmp.pojo.TbExamschedule;
 import com.dsmp.pojo.TbRating;
 import com.dsmp.pojo.TbStudent;
@@ -100,7 +101,10 @@ public class LCoachController {
 	// 查找所属教练的学生信息
 	@RequestMapping(value = "/coach/belongtocoach.action", method = RequestMethod.POST)
 	public @ResponseBody Map<String, List<TbStudent>> getStudent(HttpServletRequest request) {
-		List<TbStudent> studentlist = lCoachServiceImpl.belongtococh(1, request);
+		TbCoach tbCoach=(TbCoach) request.getSession().getAttribute("coach");
+		int coaid=tbCoach.getCoaId();
+	
+		List<TbStudent> studentlist = lCoachServiceImpl.belongtococh(coaid, request);
 		Map<String, List<TbStudent>> studentlistmap = new HashMap<>();
 		studentlistmap.put("data", studentlist);
 		return studentlistmap;
@@ -126,7 +130,9 @@ public class LCoachController {
 	@RequestMapping(value = "/coach/studentratingmsg.action", method = RequestMethod.POST)
 	public @ResponseBody List<TbRating> getStudentRatingMsg(HttpServletRequest request) {
 		String choose = request.getParameter("chooserating");
-		List<TbRating> ratinglist = lCoachServiceImpl.selectStudentratingmsg(1, choose);
+		TbCoach tbCoach=(TbCoach) request.getSession().getAttribute("coach");
+		int coaid=tbCoach.getCoaId();
+		List<TbRating> ratinglist = lCoachServiceImpl.selectStudentratingmsg(coaid, choose);
 		return ratinglist;
 	}
 
@@ -140,10 +146,11 @@ public class LCoachController {
 
 	// 全部可预约场次
 	@RequestMapping(value = "/coach/selectthetestmsg.action", method = RequestMethod.POST)
-	public @ResponseBody Map<String, List<TbExamschedule>> getThetestmsg() {
+	public @ResponseBody Map<String, List<TbExamschedule>> getThetestmsg(HttpServletRequest request) {
 		Map<String, List<TbExamschedule>> thetestmsgmap = new HashMap<>();
-
-		List<TbExamschedule> thetestmsg = lCoachServiceImpl.selectThetestmsg(1, null);// 驾校id从session域中的教练信息中拿
+		TbCoach tbCoach=(TbCoach) request.getSession().getAttribute("coach");
+		int schid=tbCoach.getSchId();
+		List<TbExamschedule> thetestmsg = lCoachServiceImpl.selectThetestmsg(schid, null);// 驾校id从session域中的教练信息中拿
 
 		thetestmsgmap.put("data", thetestmsg);
 
@@ -152,10 +159,11 @@ public class LCoachController {
 
 	// 单一个学生可预约场次
 	@RequestMapping(value = "/coach/selectthestudenttestmsg.action", method = RequestMethod.POST)
-	public @ResponseBody Map<String, List<TbExamschedule>> getStudentThetestmsg() {
+	public @ResponseBody Map<String, List<TbExamschedule>> getStudentThetestmsg(HttpServletRequest request) {
 		Map<String, List<TbExamschedule>> thetestmsgmap = new HashMap<>();
-
-		List<TbExamschedule> thetestmsg = lCoachServiceImpl.selectThetestmsg(1, subName);// 驾校id从session域中的教练信息中拿
+		TbCoach tbCoach=(TbCoach) request.getSession().getAttribute("coach");
+		int schid=tbCoach.getSchId();
+		List<TbExamschedule> thetestmsg = lCoachServiceImpl.selectThetestmsg(schid, subName);// 驾校id从session域中的教练信息中拿
 
 		thetestmsgmap.put("data", thetestmsg);
 
@@ -165,21 +173,24 @@ public class LCoachController {
 	// 可预约学生
 	@RequestMapping(value = "/coach/testappointment.action", method = RequestMethod.POST)
 	public @ResponseBody Map<String, List<TbStudent>> getTestappointment(HttpServletRequest request) {
-
+		TbCoach tbCoach=(TbCoach) request.getSession().getAttribute("coach");
+		int coaid=tbCoach.getCoaId();
 		Map<String, List<TbStudent>> testappointmentmap = new HashMap<>();
 		if (request.getParameter("thesubject") != null) {
 			subname2 = request.getParameter("thesubject");
 		}
-		List<TbStudent> testappointment = lCoachServiceImpl.findTestappointment(subname2, 1);
+		List<TbStudent> testappointment = lCoachServiceImpl.findTestappointment(subname2, coaid);
 		testappointmentmap.put("data", testappointment);
 		return testappointmentmap;
 	}
 
 	// 已预约学生
 	@RequestMapping(value = "/coach/haveappointment.action", method = RequestMethod.POST)
-	public @ResponseBody Map<String, List<TbStudent>> getHaveappointmentstudent() {
+	public @ResponseBody Map<String, List<TbStudent>> getHaveappointmentstudent(HttpServletRequest request) {
 		Map<String, List<TbStudent>> testappointmentmap = new HashMap<>();
-		List<TbStudent> haveappointmentstudent = lCoachServiceImpl.findHaveappointment(1, null);
+		TbCoach tbCoach=(TbCoach) request.getSession().getAttribute("coach");
+		int coaid=tbCoach.getCoaId();
+		List<TbStudent> haveappointmentstudent = lCoachServiceImpl.findHaveappointment(coaid, null);
 		testappointmentmap.put("data", haveappointmentstudent);
 		return testappointmentmap;
 	}
@@ -190,9 +201,11 @@ public class LCoachController {
 		int exsId = Integer.valueOf(request.getParameter("exsId"));
 		String subName = request.getParameter("subName");
 		String result = null;
+		TbCoach tbCoach=(TbCoach) request.getSession().getAttribute("coach");
+		int coaid=tbCoach.getCoaId();
 
 		// 查找教练各科下的报名人数
-		int count = lCoachServiceImpl.findNumberofsubjects(subName, 1);
+		int count = lCoachServiceImpl.findNumberofsubjects(subName, coaid);
 		// 查找每场考试已报名学员数量
 		TbExamschedule tbExamschedule = lCoachServiceImpl.findBookingnumber(exsId);
 
